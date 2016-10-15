@@ -75,13 +75,13 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 
 /** CREACION DE TABLAS **/
 
-CREATE TABLE [Funcionalidades] (
+CREATE TABLE [BETTER_CALL_JUAN].[Funcionalidades] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [descripcion] VARCHAR(255),
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Usuarios] (
+CREATE TABLE [BETTER_CALL_JUAN].[Usuarios] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [username] VARCHAR(255),
   [password] VARCHAR(255),
@@ -89,14 +89,14 @@ CREATE TABLE [Usuarios] (
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Roles] (
+CREATE TABLE [BETTER_CALL_JUAN].[Roles] (
   [id] SMALLINT IDENTITY(1,1),
   [nombre] VARCHAR(255),
   [habilitado] BIT,
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Operaciones_Compra] (
+CREATE TABLE [BETTER_CALL_JUAN].[Operaciones_Compra] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [cant_bonos] NUMERIC(4,0),
   [monto_total] NUMERIC(18,0),
@@ -104,7 +104,7 @@ CREATE TABLE [Operaciones_Compra] (
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Turnos] (
+CREATE TABLE [BETTER_CALL_JUAN].[Turnos] (
   [numero] NUMERIC(18,0) IDENTITY(1,1),
   [fecha_hora] DATETIME,
   [paciente_id] NUMERIC(18,0),
@@ -113,40 +113,40 @@ CREATE TABLE [Turnos] (
   PRIMARY KEY ([numero])
 );
 
-CREATE TABLE [Medicos_Especialidades] (
+CREATE TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [medico_id] NUMERIC(18,0),
   [especialidad_cod] NUMERIC(18,0),
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Cancelaciones] (
+CREATE TABLE [BETTER_CALL_JUAN].[Cancelaciones] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [tipo_cancelacion_id] NUMERIC(18,0),
   [motivo] VARCHAR(255),
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Roles_Usuarios] (
+CREATE TABLE [BETTER_CALL_JUAN].[Roles_Usuarios] (
   [user_id] NUMERIC(18,0),
   [rol_id] SMALLINT,
   PRIMARY KEY ([user_id], [rol_id])
 );
 
-CREATE TABLE [Especialidades] (
+CREATE TABLE [BETTER_CALL_JUAN].[Especialidades] (
   [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
   [tipo_especialidad_cod] NUMERIC(18,0),
   PRIMARY KEY ([codigo])
 );
 
-CREATE TABLE [Tipos_Cancelaciones] (
+CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Cancelaciones] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [nombre] VARCHAR(255),
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Consultas] (
+CREATE TABLE [BETTER_CALL_JUAN].[Consultas] (
   [id] INT IDENTITY(1,1),
   [sintomas] VARCHAR(255),
   [enfermedades] VARCHAR(255),
@@ -157,26 +157,26 @@ CREATE TABLE [Consultas] (
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Bajas_Pacientes] (
+CREATE TABLE [BETTER_CALL_JUAN].[Bajas_Pacientes] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [paciente_id] NUMERIC(18,0),
   [fecha_baja] DATETIME,
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Tipos_Especialidades] (
+CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Especialidades] (
   [cod_especialidad] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
   PRIMARY KEY ([cod_especialidad])
 );
 
-CREATE TABLE [Roles_Funcionalidades] (
+CREATE TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] (
   [rol_id] SMALLINT,
   [funcionalidad_id] NUMERIC(18,0),
   PRIMARY KEY ([rol_id],[funcionalidad_id])
 );
 
-CREATE TABLE [Bonos_Consulta] (
+CREATE TABLE [BETTER_CALL_JUAN].[Bonos_Consulta] (
   [id] INT IDENTITY(1,1),
   [fecha_compra] DATETIME,
   [fecha_impresion] DATETIME,
@@ -187,7 +187,7 @@ CREATE TABLE [Bonos_Consulta] (
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Planes_Medicos] (
+CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
   [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
   [precio_bono_consulta] NUMERIC(18,0),
@@ -195,7 +195,7 @@ CREATE TABLE [Planes_Medicos] (
   PRIMARY KEY ([codigo])
 );
 
-CREATE TABLE [Medicos] (
+CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
   [id] NUMERIC(18,0),
   [nombre] VARCHAR(255),
   [apellido] VARCHAR(255),
@@ -212,7 +212,7 @@ CREATE TABLE [Medicos] (
   UNIQUE([tipo_doc], [nro_doc])
 );
 
-CREATE TABLE [Pacientes] (
+CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
   [id] NUMERIC(18,0),
   [nro_raiz] NUMERIC(18,0),
   [nro_personal] NUMERIC(2,0),
@@ -236,7 +236,7 @@ CREATE TABLE [Pacientes] (
   UNIQUE([nro_raiz], [nro_personal])
 );
 
-CREATE TABLE [Cambios_De_Plan] (
+CREATE TABLE [BETTER_CALL_JUAN].[Cambios_De_Plan] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [paciente_id] NUMERIC(18,0),
   [fecha_cambio] DATETIME,
@@ -246,7 +246,7 @@ CREATE TABLE [Cambios_De_Plan] (
   PRIMARY KEY ([id])
 );
 
-CREATE TABLE [Rangos_Atencion] (
+CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [dia_semana] NUMERIC(1,0),
   [hora_desde] TIME,
