@@ -75,4 +75,184 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 
 /** CREACION DE TABLAS **/
 
+CREATE TABLE [Funcionalidades] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [descripcion] VARCHAR(255),
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Usuarios] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [username] VARCHAR(255),
+  [password] VARCHAR(255),
+  [intentos_fallidos] SMALLINT,
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Roles] (
+  [id] SMALLINT IDENTITY(1,1),
+  [nombre] VARCHAR(255),
+  [habilitado] BIT,
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Operaciones_Compra] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [cant_bonos] NUMERIC(4,0),
+  [monto_total] NUMERIC(18,0),
+  [paciente_id] NUMERIC(18,0),
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Turnos] (
+  [numero] NUMERIC(18,0) IDENTITY(1,1),
+  [fecha_hora] DATETIME,
+  [paciente_id] NUMERIC(18,0),
+  [medico_especialidad_id] NUMERIC(18,0),
+  [cancelacion_id] NUMERIC(18,0),
+  PRIMARY KEY ([numero])
+);
+
+CREATE TABLE [Medicos_Especialidades] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [medico_id] NUMERIC(18,0),
+  [especialidad_cod] NUMERIC(18,0),
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Cancelaciones] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [tipo_cancelacion_id] NUMERIC(18,0),
+  [motivo] VARCHAR(255),
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Roles_Usuarios] (
+  [user_id] NUMERIC(18,0),
+  [rol_id] SMALLINT,
+  PRIMARY KEY ([user_id], [rol_id])
+);
+
+CREATE TABLE [Especialidades] (
+  [codigo] NUMERIC(18,0),
+  [descripcion] VARCHAR(255),
+  [tipo_especialidad_cod] NUMERIC(18,0),
+  PRIMARY KEY ([codigo])
+);
+
+CREATE TABLE [Tipos_Cancelaciones] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [nombre] VARCHAR(255),
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Consultas] (
+  [id] INT IDENTITY(1,1),
+  [sintomas] VARCHAR(255),
+  [enfermedades] VARCHAR(255),
+  [turno_numero] NUMERIC(18,0),
+  [fecha_hora_llegada] DATETIME,
+  [fecha_hora_atencion] DATETIME,
+  [bono_consulta_id] NUMERIC(18,0),
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Bajas_Pacientes] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [paciente_id] NUMERIC(18,0),
+  [fecha_baja] DATETIME,
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Tipos_Especialidades] (
+  [cod_especialidad] NUMERIC(18,0),
+  [descripcion] VARCHAR(255),
+  PRIMARY KEY ([cod_especialidad])
+);
+
+CREATE TABLE [Roles_Funcionalidades] (
+  [rol_id] SMALLINT,
+  [funcionalidad_id] NUMERIC(18,0),
+  PRIMARY KEY ([rol_id],[funcionalidad_id])
+);
+
+CREATE TABLE [Bonos_Consulta] (
+  [id] INT IDENTITY(1,1),
+  [fecha_compra] DATETIME,
+  [fecha_impresion] DATETIME,
+  [numero_consulta_paciente] NUMERIC(18,0),
+  [paciente_compra_id] NUMERIC(18,0),
+  [paciente_usa_id] NUMERIC(18,0),
+  [plan_id] NUMERIC(18,0),
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Planes_Medicos] (
+  [codigo] NUMERIC(18,0),
+  [descripcion] VARCHAR(255),
+  [precio_bono_consulta] NUMERIC(18,0),
+  [precio_bono_farmacia] NUMERIC(18,0),
+  PRIMARY KEY ([codigo])
+);
+
+CREATE TABLE [Medicos] (
+  [id] NUMERIC(18,0),
+  [nombre] VARCHAR(255),
+  [apellido] VARCHAR(255),
+  [tipo_doc] VARCHAR(100),
+  [nro_doc] NUMERIC(18,0),
+  [direccion] VARCHAR(255),
+  [telefono] NUMERIC(18,0),
+  [mail] VARCHAR(255),
+  [fecha_nac] DATETIME,
+  [sexo] CHAR(1),
+  [matricula] NUMERIC(18,0),
+  [usuario_id] NUMERIC(18,0),
+  PRIMARY KEY ([id]),
+  UNIQUE([tipo_doc], [nro_doc])
+);
+
+CREATE TABLE [Pacientes] (
+  [id] NUMERIC(18,0),
+  [nro_raiz] NUMERIC(18,0),
+  [nro_personal] NUMERIC(2,0),
+  [nombre] VARCHAR(255),
+  [apellido] VARCHAR(255),
+  [tipo_doc] VARCHAR(100),
+  [nro_doc] NUMERIC(18,0),
+  [direccion] VARCHAR(255),
+  [telefono] NUMERIC(18,0),
+  [mail] VARCHAR(255),
+  [fecha_nac] DATETIME,
+  [sexo] CHAR,
+  [estado_civil] VARCHAR(100),
+  [cantidad_familiares] INT,
+  [plan_medico_cod] NUMERIC(18,0),
+  [habilitado] BIT,
+  [nro_ultima_consulta] NUMERIC(18,0),
+  [usuario_id] NUMERIC(18,0),
+  PRIMARY KEY ([id]),
+  UNIQUE([tipo_doc], [nro_doc]),
+  UNIQUE([nro_raiz], [nro_personal])
+);
+
+CREATE TABLE [Cambios_De_Plan] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [paciente_id] NUMERIC(18,0),
+  [fecha_cambio] DATETIME,
+  [motivo_cambio] VARCHAR(500),
+  [plan_anterior_id] NUMERIC(18,0),
+  [plan_nuevo_id] NUMERIC(18,0),
+  PRIMARY KEY ([id])
+);
+
+CREATE TABLE [Rangos_Atencion] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [dia_semana] NUMERIC(1,0),
+  [hora_desde] TIME,
+  [hora_hasta] TIME,
+  [medico_especialidad_id] NUMERIC(18,0),
+  PRIMARY KEY ([id])
+);
+
 /** FIN CREACION DE TABLAS **/
