@@ -1,0 +1,21 @@
+C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
+C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe
+C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.pdb
+C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
+C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
+C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
+C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
+C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\Julian\Desktop\Aplicacion Desktop\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
+C:\Users\Julian\Desktop\Aplicacion Desktop\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
+C:\Users\Julian\Desktop\Aplicacion Desktop\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.exe
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\bin\Debug\ClinicaFrba.exe
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\bin\Debug\ClinicaFrba.pdb
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.AbmRol.Roles.resources
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.LoginForm.resources
