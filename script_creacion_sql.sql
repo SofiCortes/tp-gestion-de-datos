@@ -134,7 +134,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Roles_Usuarios] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Especialidades] (
-  [codigo] NUMERIC(18,0),
+  [codigo] NUMERIC(18,0) IDENTITY(1,1),
   [descripcion] VARCHAR(255),
   [tipo_especialidad_cod] NUMERIC(18,0),
   PRIMARY KEY ([codigo])
@@ -165,7 +165,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Bajas_Pacientes] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Especialidades] (
-  [cod_especialidad] NUMERIC(18,0),
+  [cod_especialidad] NUMERIC(18,0) IDENTITY(1,1),
   [descripcion] VARCHAR(255),
   PRIMARY KEY ([cod_especialidad])
 );
@@ -188,7 +188,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Bonos_Consulta] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
-  [codigo] NUMERIC(18,0),
+  [codigo] NUMERIC(18,0) IDENTITY(1,1),
   [descripcion] VARCHAR(255),
   [precio_bono_consulta] NUMERIC(18,0),
   [precio_bono_farmacia] NUMERIC(18,0),
@@ -196,7 +196,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
-  [id] NUMERIC(18,0),
+  [id] NUMERIC(18,0) IDENTITY(1,1),
   [nombre] VARCHAR(255),
   [apellido] VARCHAR(255),
   [tipo_doc] VARCHAR(100),
@@ -213,7 +213,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
-  [id] NUMERIC(18,0),
+  [id] NUMERIC(18,0) IDENTITY(1,1),
   [nro_raiz] NUMERIC(18,0),
   [nro_personal] NUMERIC(2,0),
   [nombre] VARCHAR(255),
