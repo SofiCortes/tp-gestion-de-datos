@@ -22,15 +22,15 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles_Usuarios'))
     DROP TABLE BETTER_CALL_JUAN.Roles_Usuarios
-	
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Usuarios'))
     DROP TABLE BETTER_CALL_JUAN.Usuarios
 	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Medicos'))
     DROP TABLE BETTER_CALL_JUAN.Medicos
 	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Tipo_Especialidades'))
-    DROP TABLE BETTER_CALL_JUAN.Tipo_Especialidades
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Tipos_Especialidades'))
+    DROP TABLE BETTER_CALL_JUAN.Tipos_Especialidades
 	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Especialidades'))
     DROP TABLE BETTER_CALL_JUAN.Especialidades
@@ -177,7 +177,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Bonos_Consulta] (
-  [id] INT IDENTITY(1,1),
+  [id] NUMERIC(18,0) IDENTITY(1,1),
   [fecha_compra] DATETIME,
   [fecha_impresion] DATETIME,
   [numero_consulta_paciente] NUMERIC(18,0),
