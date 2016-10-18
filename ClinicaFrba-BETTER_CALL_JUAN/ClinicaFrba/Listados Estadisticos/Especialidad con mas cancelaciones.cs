@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Abm_Especialidades_Medicas
+namespace ClinicaFrba.Listados_Estadisticos
 {
-    public partial class Form1 : Form
+    public partial class EspecialidadConMasCancelaciones : Form
     {
-        public Form1()
+        public EspecialidadConMasCancelaciones()
         {
             InitializeComponent();
         }

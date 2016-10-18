@@ -2,6 +2,10 @@
 {
     partial class Roles
     {
+        public static string ACTION_CODE_FOR_LIST_MODIFY_ROL = "ACTION_CODE_FOR_LIST_MODIFY_ROL";
+        public static string ACTION_CODE_FOR_LIST_DELETE_ROL = "ACTION_CODE_FOR_LIST_DELETE_ROL";
+        public static string ACTION_CODE_FOR_LIST_LIST_ROL = "ACTION_CODE_FOR_LIST_LIST_ROL";
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -140,5 +144,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nombreColumnGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn habilitadoColumnGrid;
 
+        public string actionCode { get; set; }
     }
 }

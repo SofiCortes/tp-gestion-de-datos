@@ -1,7 +1,11 @@
 ﻿namespace ClinicaFrba.Abm_Afiliado
 {
-    partial class Form1
+    partial class ListadoAfiliados
     {
+        public static string ACTION_CODE_FOR_LIST_MODIFY_AFILIADO = "ACTION_CODE_FOR_LIST_MODIFY_AFILIADO";
+        public static string ACTION_CODE_FOR_LIST_DELETE_AFILIADO = "ACTION_CODE_FOR_LIST_DELETE_AFILIADO";
+        public static string ACTION_CODE_FOR_LIST_LIST_AFILIADO = "ACTION_CODE_FOR_LIST_LIST_AFILIADO";
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -34,5 +38,8 @@
         }
 
         #endregion
+
+        public string actionCode { get; set; }
+
     }
 }

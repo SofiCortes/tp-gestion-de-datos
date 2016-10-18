@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Listados_Estadisticos
 {
-    partial class Listado_estadistico_2
+    partial class ProfesionalesMasConsultados
     {
         /// <summary>
         /// Required designer variable.

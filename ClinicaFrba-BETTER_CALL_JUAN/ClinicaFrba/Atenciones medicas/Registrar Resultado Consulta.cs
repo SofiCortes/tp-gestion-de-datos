@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Cancelar_Atencion
+namespace ClinicaFrba.Atenciones_medicas
 {
-    public partial class Listado_Atenciones : Form
+    public partial class Registrar_Resultado_Consulta : Form
     {
-        public Listado_Atenciones()
+        public Registrar_Resultado_Consulta()
         {
             InitializeComponent();
         }

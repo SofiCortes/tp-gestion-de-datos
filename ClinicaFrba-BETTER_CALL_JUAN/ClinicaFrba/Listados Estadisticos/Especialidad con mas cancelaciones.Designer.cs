@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Registro_Llegada
+﻿namespace ClinicaFrba.Listados_Estadisticos
 {
-    partial class Form1
+    partial class EspecialidadConMasCancelaciones
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.Text = "Especialidad_con_mas_cancelaciones";
         }
 
         #endregion

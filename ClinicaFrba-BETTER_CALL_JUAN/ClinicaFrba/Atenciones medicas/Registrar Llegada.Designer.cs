@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Listados
+﻿namespace ClinicaFrba.Atenciones_medicas
 {
-    partial class Form1
+    partial class Registrar_Llegada
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.Text = "Registrar_Llegada";
         }
 
         #endregion

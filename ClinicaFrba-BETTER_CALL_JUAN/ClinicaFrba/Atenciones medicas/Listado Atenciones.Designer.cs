@@ -1,7 +1,11 @@
-﻿namespace ClinicaFrba.Cancelar_Atencion
+﻿namespace ClinicaFrba.Atenciones_medicas
 {
-    partial class Form1
+    partial class Listado_Atenciones
     {
+        public static string ACTION_CODE_FOR_LIST_CANCELAR_ATENCION = "ACTION_CODE_FOR_LIST_CANCELAR_ATENCION";
+        public static string ACTION_CODE_FOR_LIST_REGISTRAR_LLEGADA_ATENCION = "ACTION_CODE_FOR_LIST_REGISTRAR_LLEGADA_ATENCION";
+        public static string ACTION_CODE_FOR_LIST_REGISTRAR_RESULTADO_CONSULTA = "ACTION_CODE_FOR_LIST_REGISTRAR_RESULTADO_CONSULTA";
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -30,9 +34,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.Text = "Listado_Atenciones";
         }
 
         #endregion
+
+        public string actionCode { get; set; }
     }
 }

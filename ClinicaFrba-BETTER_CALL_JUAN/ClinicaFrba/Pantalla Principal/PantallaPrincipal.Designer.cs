@@ -47,7 +47,7 @@
             this.buttonEspecialidadesMedicas = new System.Windows.Forms.Button();
             this.buttonListadoProfesionales = new System.Windows.Forms.Button();
             this.groupBoxPlanes = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonListadoPlanes = new System.Windows.Forms.Button();
             this.groupBoxTurnos = new System.Windows.Forms.GroupBox();
             this.buttonPedidoTurno = new System.Windows.Forms.Button();
             this.groupBoxBonos = new System.Windows.Forms.GroupBox();
@@ -60,7 +60,7 @@
             this.buttonEspecialidadesBonos = new System.Windows.Forms.Button();
             this.buttonAfiliadosBonos = new System.Windows.Forms.Button();
             this.buttonProfesionalesMenosHoras = new System.Windows.Forms.Button();
-            this.buttonProfesionalesPorPlan = new System.Windows.Forms.Button();
+            this.buttonProfesionalesMasConsultados = new System.Windows.Forms.Button();
             this.buttonEspecialidadesCancelaciones = new System.Windows.Forms.Button();
             this.buttonCrearRol = new System.Windows.Forms.Button();
             this.buttonListadoRoles = new System.Windows.Forms.Button();
@@ -185,6 +185,7 @@
             this.buttonAgendaProfesionales.TabIndex = 3;
             this.buttonAgendaProfesionales.Text = "Agenda de Profesionales";
             this.buttonAgendaProfesionales.UseVisualStyleBackColor = true;
+            this.buttonAgendaProfesionales.Click += new System.EventHandler(this.buttonAgendaProfesionales_Click);
             // 
             // groupBoxAfiliados
             // 
@@ -209,6 +210,7 @@
             this.buttonEliminarAfiliado.TabIndex = 5;
             this.buttonEliminarAfiliado.Text = "Eliminar afiliado";
             this.buttonEliminarAfiliado.UseVisualStyleBackColor = true;
+            this.buttonEliminarAfiliado.Click += new System.EventHandler(this.buttonEliminarAfiliado_Click);
             // 
             // buttonModificarAfiliado
             // 
@@ -218,6 +220,7 @@
             this.buttonModificarAfiliado.TabIndex = 5;
             this.buttonModificarAfiliado.Text = "Modificar afiliado";
             this.buttonModificarAfiliado.UseVisualStyleBackColor = true;
+            this.buttonModificarAfiliado.Click += new System.EventHandler(this.buttonModificarAfiliado_Click);
             // 
             // buttonListadoAfiliados
             // 
@@ -227,6 +230,7 @@
             this.buttonListadoAfiliados.TabIndex = 2;
             this.buttonListadoAfiliados.Text = "Listado de Afiliados";
             this.buttonListadoAfiliados.UseVisualStyleBackColor = true;
+            this.buttonListadoAfiliados.Click += new System.EventHandler(this.buttonListadoAfiliados_Click);
             // 
             // buttonCrearAfiliado
             // 
@@ -236,6 +240,7 @@
             this.buttonCrearAfiliado.TabIndex = 0;
             this.buttonCrearAfiliado.Text = "Crear afiliado";
             this.buttonCrearAfiliado.UseVisualStyleBackColor = true;
+            this.buttonCrearAfiliado.Click += new System.EventHandler(this.buttonCrearAfiliado_Click);
             // 
             // groupBoxProfesionales
             // 
@@ -259,6 +264,7 @@
             this.buttonEspecialidadesMedicas.TabIndex = 3;
             this.buttonEspecialidadesMedicas.Text = "Especialidades Medicas";
             this.buttonEspecialidadesMedicas.UseVisualStyleBackColor = true;
+            this.buttonEspecialidadesMedicas.Click += new System.EventHandler(this.buttonEspecialidadesMedicas_Click);
             // 
             // buttonListadoProfesionales
             // 
@@ -268,10 +274,11 @@
             this.buttonListadoProfesionales.TabIndex = 2;
             this.buttonListadoProfesionales.Text = "Listado de Profesionales";
             this.buttonListadoProfesionales.UseVisualStyleBackColor = true;
+            this.buttonListadoProfesionales.Click += new System.EventHandler(this.buttonListadoProfesionales_Click);
             // 
             // groupBoxPlanes
             // 
-            this.groupBoxPlanes.Controls.Add(this.button3);
+            this.groupBoxPlanes.Controls.Add(this.buttonListadoPlanes);
             this.groupBoxPlanes.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxPlanes.Location = new System.Drawing.Point(223, 13);
             this.groupBoxPlanes.Name = "groupBoxPlanes";
@@ -281,14 +288,15 @@
             this.groupBoxPlanes.Text = "Planes";
             this.groupBoxPlanes.Visible = false;
             // 
-            // button3
+            // buttonListadoPlanes
             // 
-            this.button3.Location = new System.Drawing.Point(6, 27);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(187, 35);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Listado de Planes";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonListadoPlanes.Location = new System.Drawing.Point(6, 27);
+            this.buttonListadoPlanes.Name = "buttonListadoPlanes";
+            this.buttonListadoPlanes.Size = new System.Drawing.Size(187, 35);
+            this.buttonListadoPlanes.TabIndex = 2;
+            this.buttonListadoPlanes.Text = "Listado de Planes";
+            this.buttonListadoPlanes.UseVisualStyleBackColor = true;
+            this.buttonListadoPlanes.Click += new System.EventHandler(this.button3_Click);
             // 
             // groupBoxTurnos
             // 
@@ -310,6 +318,7 @@
             this.buttonPedidoTurno.TabIndex = 2;
             this.buttonPedidoTurno.Text = "Pedido de Turno";
             this.buttonPedidoTurno.UseVisualStyleBackColor = true;
+            this.buttonPedidoTurno.Click += new System.EventHandler(this.buttonPedidoTurno_Click);
             // 
             // groupBoxBonos
             // 
@@ -331,6 +340,7 @@
             this.buttonCompraBonos.TabIndex = 2;
             this.buttonCompraBonos.Text = "Compra de Bonos";
             this.buttonCompraBonos.UseVisualStyleBackColor = true;
+            this.buttonCompraBonos.Click += new System.EventHandler(this.buttonCompraBonos_Click);
             // 
             // groupBoxAtencionMedica
             // 
@@ -354,6 +364,7 @@
             this.buttonCancelarAtencion.TabIndex = 4;
             this.buttonCancelarAtencion.Text = "Cancelar atencion medica";
             this.buttonCancelarAtencion.UseVisualStyleBackColor = true;
+            this.buttonCancelarAtencion.Click += new System.EventHandler(this.buttonCancelarAtencion_Click);
             // 
             // buttonRegistroResultado
             // 
@@ -363,6 +374,7 @@
             this.buttonRegistroResultado.TabIndex = 3;
             this.buttonRegistroResultado.Text = "Registro de resultado";
             this.buttonRegistroResultado.UseVisualStyleBackColor = true;
+            this.buttonRegistroResultado.Click += new System.EventHandler(this.buttonRegistroResultado_Click);
             // 
             // buttonRegistroLlegada
             // 
@@ -372,13 +384,14 @@
             this.buttonRegistroLlegada.TabIndex = 2;
             this.buttonRegistroLlegada.Text = "Registro de llegada";
             this.buttonRegistroLlegada.UseVisualStyleBackColor = true;
+            this.buttonRegistroLlegada.Click += new System.EventHandler(this.buttonRegistroLlegada_Click);
             // 
             // groupBoxListadoEstadistico
             // 
             this.groupBoxListadoEstadistico.Controls.Add(this.buttonEspecialidadesBonos);
             this.groupBoxListadoEstadistico.Controls.Add(this.buttonAfiliadosBonos);
             this.groupBoxListadoEstadistico.Controls.Add(this.buttonProfesionalesMenosHoras);
-            this.groupBoxListadoEstadistico.Controls.Add(this.buttonProfesionalesPorPlan);
+            this.groupBoxListadoEstadistico.Controls.Add(this.buttonProfesionalesMasConsultados);
             this.groupBoxListadoEstadistico.Controls.Add(this.buttonEspecialidadesCancelaciones);
             this.groupBoxListadoEstadistico.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxListadoEstadistico.Location = new System.Drawing.Point(223, 13);
@@ -391,39 +404,43 @@
             // 
             // buttonEspecialidadesBonos
             // 
-            this.buttonEspecialidadesBonos.Location = new System.Drawing.Point(6, 287);
+            this.buttonEspecialidadesBonos.Location = new System.Drawing.Point(6, 291);
             this.buttonEspecialidadesBonos.Name = "buttonEspecialidadesBonos";
             this.buttonEspecialidadesBonos.Size = new System.Drawing.Size(187, 55);
             this.buttonEspecialidadesBonos.TabIndex = 6;
             this.buttonEspecialidadesBonos.Text = "Especialidades con mas bonos de consulta utilizados";
             this.buttonEspecialidadesBonos.UseVisualStyleBackColor = true;
+            this.buttonEspecialidadesBonos.Click += new System.EventHandler(this.buttonEspecialidadesBonos_Click);
             // 
             // buttonAfiliadosBonos
             // 
-            this.buttonAfiliadosBonos.Location = new System.Drawing.Point(6, 222);
+            this.buttonAfiliadosBonos.Location = new System.Drawing.Point(6, 226);
             this.buttonAfiliadosBonos.Name = "buttonAfiliadosBonos";
             this.buttonAfiliadosBonos.Size = new System.Drawing.Size(187, 55);
             this.buttonAfiliadosBonos.TabIndex = 5;
             this.buttonAfiliadosBonos.Text = "Afiliados con mas bonos comprados";
             this.buttonAfiliadosBonos.UseVisualStyleBackColor = true;
+            this.buttonAfiliadosBonos.Click += new System.EventHandler(this.buttonAfiliadosBonos_Click);
             // 
             // buttonProfesionalesMenosHoras
             // 
             this.buttonProfesionalesMenosHoras.Location = new System.Drawing.Point(6, 157);
             this.buttonProfesionalesMenosHoras.Name = "buttonProfesionalesMenosHoras";
-            this.buttonProfesionalesMenosHoras.Size = new System.Drawing.Size(187, 55);
+            this.buttonProfesionalesMenosHoras.Size = new System.Drawing.Size(187, 59);
             this.buttonProfesionalesMenosHoras.TabIndex = 4;
             this.buttonProfesionalesMenosHoras.Text = "Profesionales con menos horas trabajadas por Plan y Especialidad";
             this.buttonProfesionalesMenosHoras.UseVisualStyleBackColor = true;
+            this.buttonProfesionalesMenosHoras.Click += new System.EventHandler(this.buttonProfesionalesMenosHoras_Click);
             // 
-            // buttonProfesionalesPorPlan
+            // buttonProfesionalesMasConsultados
             // 
-            this.buttonProfesionalesPorPlan.Location = new System.Drawing.Point(6, 92);
-            this.buttonProfesionalesPorPlan.Name = "buttonProfesionalesPorPlan";
-            this.buttonProfesionalesPorPlan.Size = new System.Drawing.Size(187, 55);
-            this.buttonProfesionalesPorPlan.TabIndex = 3;
-            this.buttonProfesionalesPorPlan.Text = "Profesionales mas consultados por Plan";
-            this.buttonProfesionalesPorPlan.UseVisualStyleBackColor = true;
+            this.buttonProfesionalesMasConsultados.Location = new System.Drawing.Point(6, 92);
+            this.buttonProfesionalesMasConsultados.Name = "buttonProfesionalesMasConsultados";
+            this.buttonProfesionalesMasConsultados.Size = new System.Drawing.Size(187, 55);
+            this.buttonProfesionalesMasConsultados.TabIndex = 3;
+            this.buttonProfesionalesMasConsultados.Text = "Profesionales mas consultados por Plan";
+            this.buttonProfesionalesMasConsultados.UseVisualStyleBackColor = true;
+            this.buttonProfesionalesMasConsultados.Click += new System.EventHandler(this.buttonProfesionalesPorPlan_Click);
             // 
             // buttonEspecialidadesCancelaciones
             // 
@@ -433,6 +450,7 @@
             this.buttonEspecialidadesCancelaciones.TabIndex = 2;
             this.buttonEspecialidadesCancelaciones.Text = "Especialides con mas cancelaciones";
             this.buttonEspecialidadesCancelaciones.UseVisualStyleBackColor = true;
+            this.buttonEspecialidadesCancelaciones.Click += new System.EventHandler(this.buttonEspecialidadesCancelaciones_Click);
             // 
             // buttonCrearRol
             // 
@@ -442,6 +460,7 @@
             this.buttonCrearRol.TabIndex = 0;
             this.buttonCrearRol.Text = "Crear rol";
             this.buttonCrearRol.UseVisualStyleBackColor = true;
+            this.buttonCrearRol.Click += new System.EventHandler(this.buttonCrearRol_Click);
             // 
             // buttonListadoRoles
             // 
@@ -451,6 +470,7 @@
             this.buttonListadoRoles.TabIndex = 2;
             this.buttonListadoRoles.Text = "Listado de Roles";
             this.buttonListadoRoles.UseVisualStyleBackColor = true;
+            this.buttonListadoRoles.Click += new System.EventHandler(this.buttonListadoRoles_Click);
             // 
             // buttonModificarRol
             // 
@@ -460,6 +480,7 @@
             this.buttonModificarRol.TabIndex = 3;
             this.buttonModificarRol.Text = "Modificar rol";
             this.buttonModificarRol.UseVisualStyleBackColor = true;
+            this.buttonModificarRol.Click += new System.EventHandler(this.buttonModificarRol_Click);
             // 
             // buttonEliminarRol
             // 
@@ -469,6 +490,7 @@
             this.buttonEliminarRol.TabIndex = 4;
             this.buttonEliminarRol.Text = "Eliminar rol";
             this.buttonEliminarRol.UseVisualStyleBackColor = true;
+            this.buttonEliminarRol.Click += new System.EventHandler(this.buttonEliminarRol_Click);
             // 
             // groupBoxRoles
             // 
@@ -490,15 +512,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(438, 422);
-            this.Controls.Add(this.groupBoxRoles);
-            this.Controls.Add(this.groupBoxListadoEstadistico);
+            this.Controls.Add(this.groupBoxAcciones);
             this.Controls.Add(this.groupBoxAtencionMedica);
             this.Controls.Add(this.groupBoxBonos);
             this.Controls.Add(this.groupBoxTurnos);
             this.Controls.Add(this.groupBoxPlanes);
             this.Controls.Add(this.groupBoxProfesionales);
             this.Controls.Add(this.groupBoxAfiliados);
-            this.Controls.Add(this.groupBoxAcciones);
+            this.Controls.Add(this.groupBoxRoles);
+            this.Controls.Add(this.groupBoxListadoEstadistico);
             this.Name = "Pantalla_Principal";
             this.Text = "Pantalla_Principal";
             this.groupBoxAcciones.ResumeLayout(false);
@@ -536,7 +558,7 @@
         private System.Windows.Forms.Button buttonEspecialidadesMedicas;
         private System.Windows.Forms.Button buttonListadoProfesionales;
         private System.Windows.Forms.GroupBox groupBoxPlanes;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonListadoPlanes;
         private System.Windows.Forms.GroupBox groupBoxBonos;
         private System.Windows.Forms.Button buttonCompraBonos;
         private System.Windows.Forms.GroupBox groupBoxTurnos;
@@ -545,7 +567,7 @@
         private System.Windows.Forms.Button buttonEspecialidadesBonos;
         private System.Windows.Forms.Button buttonAfiliadosBonos;
         private System.Windows.Forms.Button buttonProfesionalesMenosHoras;
-        private System.Windows.Forms.Button buttonProfesionalesPorPlan;
+        private System.Windows.Forms.Button buttonProfesionalesMasConsultados;
         private System.Windows.Forms.Button buttonEspecialidadesCancelaciones;
         private System.Windows.Forms.Button buttonCancelarAtencion;
         private System.Windows.Forms.Button buttonRegistroResultado;

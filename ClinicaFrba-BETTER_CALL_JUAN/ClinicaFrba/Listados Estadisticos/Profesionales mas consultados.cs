@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Listados_Estadisticos
 {
-    public partial class Listado_estadistico_2 : Form
+    public partial class ProfesionalesMasConsultados : Form
     {
-        public Listado_estadistico_2()
+        public ProfesionalesMasConsultados()
         {
             InitializeComponent();
         }

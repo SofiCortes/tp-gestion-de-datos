@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Cancelar_Atencion
+namespace ClinicaFrba.Abm_Profesional
 {
-    public partial class Form1 : Form
+    public partial class Listado_Especialidades_Medicas : Form
     {
-        public Form1()
+        public Listado_Especialidades_Medicas()
         {
             InitializeComponent();
         }

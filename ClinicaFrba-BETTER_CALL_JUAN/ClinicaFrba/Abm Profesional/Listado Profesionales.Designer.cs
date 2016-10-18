@@ -1,7 +1,10 @@
 ﻿namespace ClinicaFrba.Abm_Profesional
 {
-    partial class Form1
+    partial class ListadoProfesionales
     {
+        public static string ACTION_CODE_FOR_LIST_VIEW_AGENDA = "ACTION_CODE_FOR_LIST_VIEW_AGENDA";
+        public static string ACTION_CODE_FOR_LIST_LIST = "ACTION_CODE_FOR_LIST_LIST";
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -34,5 +37,7 @@
         }
 
         #endregion
+
+        public string actionCode { get; set; }
     }
 }

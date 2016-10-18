@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Registro_Resultado
+﻿namespace ClinicaFrba.Abm_Profesional
 {
-    partial class Form1
+    partial class Listado_Especialidades_Medicas
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.Text = "Listado_Especialidades_Medicas";
         }
 
         #endregion
