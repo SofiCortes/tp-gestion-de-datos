@@ -34,7 +34,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Listado_Atenciones";
+            this.Text = "Listado de atenciones medicas";
         }
 
         #endregion

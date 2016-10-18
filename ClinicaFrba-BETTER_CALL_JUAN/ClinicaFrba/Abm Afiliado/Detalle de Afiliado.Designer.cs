@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Abm_Planes
+﻿namespace ClinicaFrba.Abm_Afiliado
 {
-    partial class Form1
+    partial class Detalle_de_Afiliado
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Listado de planes";
+            this.Text = "Detalles de Afiliado";
         }
 
         #endregion

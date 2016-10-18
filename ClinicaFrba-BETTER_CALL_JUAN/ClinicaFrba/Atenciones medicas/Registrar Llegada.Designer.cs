@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Registrar_Llegada";
+            this.Text = "Registrar llegada";
         }
 
         #endregion

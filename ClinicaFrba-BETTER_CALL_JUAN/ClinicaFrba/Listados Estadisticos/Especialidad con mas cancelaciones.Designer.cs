@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Especialidad_con_mas_cancelaciones";
+            this.Text = "Especialidades con mas cancelaciones";
         }
 
         #endregion

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Alta_Afiliado";
+            this.Text = "Agregar afiliado";
         }
 
         #endregion

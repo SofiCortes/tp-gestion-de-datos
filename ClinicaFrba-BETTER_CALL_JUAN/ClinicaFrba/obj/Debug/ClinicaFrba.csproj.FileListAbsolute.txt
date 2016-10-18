@@ -20,3 +20,4 @@ C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrb
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.AbmRol.Roles.resources
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.LoginForm.resources
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.Pantalla_Principal.Pantalla_Principal.resources
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.Abm_Afiliado.ListadoAfiliados.resources

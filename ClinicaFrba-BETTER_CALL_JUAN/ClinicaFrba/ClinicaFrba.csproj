@@ -50,6 +50,12 @@
     <Compile Include="Abm Afiliado\Alta Afiliado.Designer.cs">
       <DependentUpon>Alta Afiliado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Afiliado\Detalle de Afiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\Detalle de Afiliado.Designer.cs">
+      <DependentUpon>Detalle de Afiliado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Afiliado\Listado Afiliados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Abm Afiliado\Listado Afiliados.resx">
+      <DependentUpon>Listado Afiliados.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\Listado Roles.resx">
       <DependentUpon>Listado Roles.cs</DependentUpon>
     </EmbeddedResource>

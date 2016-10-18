@@ -124,8 +124,8 @@
             this.Controls.Add(this.resultadosRolesGrid);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Roles";
-            this.Text = "Roles";
+            this.Name = "Listado de Roles";
+            this.Text = "Listado de Roles";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultadosRolesGrid)).EndInit();

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Modificar_Rol";
+            this.Text = "Modificar un rol";
         }
 
         #endregion

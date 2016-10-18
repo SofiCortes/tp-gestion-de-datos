@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Listado_estadistico_5";
+            this.Text = "Especialidades con mas bonos";
         }
 
         #endregion
