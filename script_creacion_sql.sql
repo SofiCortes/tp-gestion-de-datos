@@ -197,7 +197,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
-  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [matricula] NUMERIC(18,0) IDENTITY(1,1),
   [nombre] VARCHAR(255),
   [apellido] VARCHAR(255),
   [tipo_doc] VARCHAR(100),
@@ -207,9 +207,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
   [mail] VARCHAR(255),
   [fecha_nac] DATETIME,
   [sexo] CHAR(1),
-  [matricula] NUMERIC(18,0),
   [usuario_id] NUMERIC(18,0),
-  PRIMARY KEY ([id]),
+  PRIMARY KEY ([matricula]),
   UNIQUE([tipo_doc], [nro_doc])
 );
 
@@ -293,8 +292,15 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Usuarios] ADD CONSTRAINT rol_id_roles_usua
 ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT rol_id_roles_funcionalidades FOREIGN KEY (rol_id) REFERENCES [BETTER_CALL_JUAN].[Roles](id)
 ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionalidad_id_roles_funcionalidades FOREIGN KEY (funcionalidad_id) REFERENCES [BETTER_CALL_JUAN].[Funcionalidades](id)
 
-ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](id)
+ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
 
 
 /** FIN CREACION DE TABLAS **/
+
+
+/** Tabla Medicos **/
+INSERT INTO BETTER_CALL_JUAN.Medicos(nombre, apellido, tipo_doc, nro_doc, direccion, telefono, mail, fecha_nac)
+SELECT DISTINCT Medico_Nombre, Medico_Apellido, 'DNI', Medico_Dni, Medico_Direccion, Medico_Telefono, Medico_Mail, Medico_Fecha_Nac
+FROM gd_esquema.Maestra
+WHERE Medico_Dni IS NOT NULL
