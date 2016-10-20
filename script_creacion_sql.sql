@@ -318,6 +318,12 @@ SELECT DISTINCT Tipo_Especialidad_Codigo, Tipo_Especialidad_Descripcion
 FROM gd_esquema.Maestra
 WHERE Tipo_Especialidad_Codigo IS NOT NULL
 
+/* Tabla Turnos */
+--Voy a necesitar medico_especialidad_id
+
+/* Tabla Bonos Consulta */
+-- Quizas necesitemos un cursor para poder asignar numero_consulta_paciente en Bonos_Consulta adecuadamente
+
 /** FIN MIGRACION **/
 
 /*FOREIGN KEYS*/
@@ -360,3 +366,13 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionali
 
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
+
+/*
+--No hay cambios de planes en Maestra
+--Ya que en este select no hay nadie con mas de 1 en cantPlanes
+
+SELECT Paciente_Dni, COUNT(DISTINCT Plan_Med_Codigo) cantPlanes
+FROM gd_esquema.Maestra
+GROUP BY Paciente_Dni
+ORDER BY 2 DESC
+*/
