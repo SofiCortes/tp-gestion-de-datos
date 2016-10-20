@@ -135,7 +135,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Roles_Usuarios] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Especialidades] (
-  [codigo] NUMERIC(18,0) IDENTITY(1,1),
+  [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
   [tipo_especialidad_cod] NUMERIC(18,0),
   PRIMARY KEY ([codigo])
@@ -166,7 +166,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Bajas_Pacientes] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Especialidades] (
-  [cod_especialidad] NUMERIC(18,0) IDENTITY(1,1),
+  [cod_especialidad] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
   PRIMARY KEY ([cod_especialidad])
 );
@@ -299,10 +299,17 @@ SELECT DISTINCT Medico_Nombre, Medico_Apellido, 'DNI', Medico_Dni, Medico_Direcc
 FROM gd_esquema.Maestra
 WHERE Medico_Dni IS NOT NULL
 
-/* Planes Medicos */
+/* Tabla Planes Medicos */
 INSERT INTO BETTER_CALL_JUAN.Planes_Medicos(codigo, descripcion, precio_bono_consulta, precio_bono_farmacia)
 SELECT DISTINCT Plan_Med_Codigo, Plan_Med_Descripcion, Plan_Med_Precio_Bono_Consulta, Plan_Med_Precio_Bono_Farmacia
 FROM gd_esquema.Maestra
+
+/* Tabla Especialidades */
+
+INSERT INTO BETTER_CALL_JUAN.Especialidades (codigo,descripcion,tipo_especialidad_cod)
+SELECT DISTINCT Especialidad_Codigo, Especialidad_Descripcion, Tipo_Especialidad_Codigo
+FROM gd_esquema.Maestra
+WHERE Especialidad_Codigo IS NOT NULL
 
 /** FIN MIGRACION **/
 
@@ -334,7 +341,7 @@ ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT tipo_cancelacion_i
 
 ALTER TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] ADD CONSTRAINT medico_especialidad_id_rango_atencion FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
 
-ALTER TABLE [BETTER_CALL_JUAN].[Especialidades] ADD CONSTRAINT tipo_especialidad_cod_especialidades FOREIGN KEY (tipo_especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Tipos_Especialidades](cod_especialidad)
+--ALTER TABLE [BETTER_CALL_JUAN].[Especialidades] ADD CONSTRAINT tipo_especialidad_cod_especialidades FOREIGN KEY (tipo_especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Tipos_Especialidades](cod_especialidad)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos] ADD CONSTRAINT usuario_id_medicos FOREIGN KEY (usuario_id) REFERENCES [BETTER_CALL_JUAN].[Usuarios](id)
 
