@@ -189,7 +189,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Bonos_Consulta] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
-  [codigo] NUMERIC(18,0) IDENTITY(1,1),
+  [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
   [precio_bono_consulta] NUMERIC(18,0),
   [precio_bono_farmacia] NUMERIC(18,0),
@@ -304,3 +304,10 @@ INSERT INTO BETTER_CALL_JUAN.Medicos(nombre, apellido, tipo_doc, nro_doc, direcc
 SELECT DISTINCT Medico_Nombre, Medico_Apellido, 'DNI', Medico_Dni, Medico_Direccion, Medico_Telefono, Medico_Mail, Medico_Fecha_Nac
 FROM gd_esquema.Maestra
 WHERE Medico_Dni IS NOT NULL
+/** Tabla Medicos **/
+
+/** Planes Medicos **/
+INSERT INTO BETTER_CALL_JUAN.Planes_Medicos(codigo, descripcion, precio_bono_consulta, precio_bono_farmacia)
+SELECT DISTINCT Plan_Med_Codigo, Plan_Med_Descripcion, Plan_Med_Precio_Bono_Consulta, Plan_Med_Precio_Bono_Farmacia
+FROM gd_esquema.Maestra
+/** Planes Medicos **/
