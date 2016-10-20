@@ -305,18 +305,22 @@ SELECT DISTINCT Plan_Med_Codigo, Plan_Med_Descripcion, Plan_Med_Precio_Bono_Cons
 FROM gd_esquema.Maestra
 
 /* Tabla Especialidades */
-
 INSERT INTO BETTER_CALL_JUAN.Especialidades (codigo,descripcion,tipo_especialidad_cod)
 SELECT DISTINCT Especialidad_Codigo, Especialidad_Descripcion, Tipo_Especialidad_Codigo
 FROM gd_esquema.Maestra
 WHERE Especialidad_Codigo IS NOT NULL
 
 /* Tabla Tipos Especialidades */
-
 INSERT INTO BETTER_CALL_JUAN.Tipos_Especialidades (codigo,descripcion)
 SELECT DISTINCT Tipo_Especialidad_Codigo, Tipo_Especialidad_Descripcion
 FROM gd_esquema.Maestra
 WHERE Tipo_Especialidad_Codigo IS NOT NULL
+
+/* Tabla Medicos Especialidades */
+INSERT INTO BETTER_CALL_JUAN.Medicos_Especialidades(medico_id, especialidad_cod)
+SELECT matricula, codigo
+FROM BETTER_CALL_JUAN.Medicos, BETTER_CALL_JUAN.Especialidades
+ORDER BY matricula, codigo
 
 /* Tabla Turnos */
 --Voy a necesitar medico_especialidad_id
