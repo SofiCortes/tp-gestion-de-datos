@@ -11,65 +11,66 @@ GO
 /** FIN CREACION DE SCHEMA**/
 
 /** VALIDACION DE TABLAS **/
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles'))
-    DROP TABLE BETTER_CALL_JUAN.Roles
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles_Funcionalidades'))
-    DROP TABLE BETTER_CALL_JUAN.Roles_Funcionalidades
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Funcionalidades'))
-    DROP TABLE BETTER_CALL_JUAN.Funcionalidades
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles_Usuarios'))
-    DROP TABLE BETTER_CALL_JUAN.Roles_Usuarios
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Usuarios'))
-    DROP TABLE BETTER_CALL_JUAN.Usuarios
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Medicos'))
-    DROP TABLE BETTER_CALL_JUAN.Medicos
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Tipos_Especialidades'))
-    DROP TABLE BETTER_CALL_JUAN.Tipos_Especialidades
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Especialidades'))
-    DROP TABLE BETTER_CALL_JUAN.Especialidades
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Medicos_Especialidades'))
-    DROP TABLE BETTER_CALL_JUAN.Medicos_Especialidades
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Rangos_Atencion'))
-    DROP TABLE BETTER_CALL_JUAN.Rangos_Atencion
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Turnos'))
-    DROP TABLE BETTER_CALL_JUAN.Turnos
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Tipos_Cancelaciones'))
-    DROP TABLE BETTER_CALL_JUAN.Tipos_Cancelaciones
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelaciones'))
-    DROP TABLE BETTER_CALL_JUAN.Cancelaciones
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Consultas'))
-    DROP TABLE BETTER_CALL_JUAN.Consultas
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Operaciones_Compra'))
-    DROP TABLE BETTER_CALL_JUAN.Operaciones_Compra
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Bonos_Consulta'))
-    DROP TABLE BETTER_CALL_JUAN.Bonos_Consulta
-	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Pacientes'))
-    DROP TABLE BETTER_CALL_JUAN.Pacientes
-	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Bajas_Pacientes'))
     DROP TABLE BETTER_CALL_JUAN.Bajas_Pacientes
 	
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Planes_Medicos'))
-    DROP TABLE BETTER_CALL_JUAN.Planes_Medicos
-	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cambios_De_Plan'))
     DROP TABLE BETTER_CALL_JUAN.Cambios_De_Plan
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Consultas'))
+    DROP TABLE BETTER_CALL_JUAN.Consultas
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Operaciones_Compra'))
+    DROP TABLE BETTER_CALL_JUAN.Operaciones_Compra
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Rangos_Atencion'))
+    DROP TABLE BETTER_CALL_JUAN.Rangos_Atencion
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles_Funcionalidades'))
+    DROP TABLE BETTER_CALL_JUAN.Roles_Funcionalidades
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles_Usuarios'))
+    DROP TABLE BETTER_CALL_JUAN.Roles_Usuarios
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Turnos'))
+    DROP TABLE BETTER_CALL_JUAN.Turnos
+	
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Bonos_Consulta'))
+    DROP TABLE BETTER_CALL_JUAN.Bonos_Consulta
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelaciones'))
+    DROP TABLE BETTER_CALL_JUAN.Cancelaciones
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Funcionalidades'))
+    DROP TABLE BETTER_CALL_JUAN.Funcionalidades
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Medicos_Especialidades'))
+    DROP TABLE BETTER_CALL_JUAN.Medicos_Especialidades
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Pacientes'))
+    DROP TABLE BETTER_CALL_JUAN.Pacientes
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Planes_Medicos'))
+    DROP TABLE BETTER_CALL_JUAN.Planes_Medicos
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles'))
+    DROP TABLE BETTER_CALL_JUAN.Roles
+	
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Tipos_Cancelaciones'))
+    DROP TABLE BETTER_CALL_JUAN.Tipos_Cancelaciones
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Medicos'))
+    DROP TABLE BETTER_CALL_JUAN.Medicos
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Especialidades'))
+    DROP TABLE BETTER_CALL_JUAN.Especialidades
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Tipos_Especialidades'))
+    DROP TABLE BETTER_CALL_JUAN.Tipos_Especialidades
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Usuarios'))
+    DROP TABLE BETTER_CALL_JUAN.Usuarios
 
 /** FIN VALIDACION DE TABLAS **/
 
@@ -134,7 +135,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Roles_Usuarios] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Especialidades] (
-  [codigo] NUMERIC(18,0) IDENTITY(1,1),
+  [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
   [tipo_especialidad_cod] NUMERIC(18,0),
   PRIMARY KEY ([codigo])
@@ -165,9 +166,9 @@ CREATE TABLE [BETTER_CALL_JUAN].[Bajas_Pacientes] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Especialidades] (
-  [cod_especialidad] NUMERIC(18,0) IDENTITY(1,1),
+  [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
-  PRIMARY KEY ([cod_especialidad])
+  PRIMARY KEY ([codigo])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] (
@@ -188,7 +189,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Bonos_Consulta] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
-  [codigo] NUMERIC(18,0) IDENTITY(1,1),
+  [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
   [precio_bono_consulta] NUMERIC(18,0),
   [precio_bono_farmacia] NUMERIC(18,0),
@@ -196,7 +197,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
-  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [matricula] NUMERIC(18,0) IDENTITY(1,1),
   [nombre] VARCHAR(255),
   [apellido] VARCHAR(255),
   [tipo_doc] VARCHAR(100),
@@ -206,9 +207,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
   [mail] VARCHAR(255),
   [fecha_nac] DATETIME,
   [sexo] CHAR(1),
-  [matricula] NUMERIC(18,0),
   [usuario_id] NUMERIC(18,0),
-  PRIMARY KEY ([id]),
+  PRIMARY KEY ([matricula]),
   UNIQUE([tipo_doc], [nro_doc])
 );
 
@@ -233,7 +233,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
   [usuario_id] NUMERIC(18,0),
   PRIMARY KEY ([id]),
   UNIQUE([tipo_doc], [nro_doc]),
-  UNIQUE([nro_raiz], [nro_personal])
+  --UNIQUE([nro_raiz], [nro_personal])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Cambios_De_Plan] (
@@ -255,6 +255,72 @@ CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
   PRIMARY KEY ([id])
 );
 
+/** FIN CREACION DE TABLAS **/
+
+/** MIGRACION **/
+
+/* Tabla Pacientes */
+
+--Nros Ultimas Consultas
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.nrosUltimasConsultasPacientes'))
+    DROP TABLE BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
+	
+
+CREATE TABLE [BETTER_CALL_JUAN].[nrosUltimasConsultasPacientes] (
+	[Paciente_Dni] NUMERIC(18,0),
+	[nroUltimaConsulta] NUMERIC(18,0)
+);
+
+INSERT INTO BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
+SELECT Paciente_Dni,COUNT(DISTINCT Bono_Consulta_Numero) nroUltimaConsulta
+FROM gd_esquema.Maestra
+WHERE Paciente_Nombre IS NOT NULL AND Paciente_Apellido IS NOT NULL AND Paciente_Dni IS NOT NULL AND Paciente_Direccion IS NOT NULL 
+AND Paciente_Telefono IS NOT NULL AND Paciente_Mail IS NOT NULL AND Paciente_Fecha_Nac IS NOT NULL AND Plan_Med_Codigo IS NOT NULL 
+AND Plan_Med_Descripcion IS NOT NULL AND Plan_Med_Precio_Bono_Consulta IS NOT NULL AND Plan_Med_Precio_Bono_Farmacia IS NOT NULL 
+AND Turno_Numero IS NOT NULL AND Turno_Fecha IS NOT NULL AND Consulta_Sintomas IS NOT NULL AND Consulta_Enfermedades IS NOT NULL 
+AND Medico_Nombre IS NOT NULL AND Medico_Apellido IS NOT NULL AND Medico_Dni IS NOT NULL AND Medico_Direccion IS NOT NULL 
+AND Medico_Telefono IS NOT NULL AND Medico_Mail IS NOT NULL AND Medico_Fecha_Nac IS NOT NULL AND Especialidad_Codigo IS NOT NULL 
+AND Especialidad_Descripcion IS NOT NULL AND Tipo_Especialidad_Codigo IS NOT NULL AND Tipo_Especialidad_Descripcion IS NOT NULL 
+AND Compra_Bono_Fecha IS NULL AND Bono_Consulta_Fecha_Impresion IS NOT NULL AND Bono_Consulta_Numero IS NOT NULL
+GROUP BY Paciente_Dni
+
+--INSERT PACIENTES
+INSERT INTO BETTER_CALL_JUAN.Pacientes (nombre, apellido, tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,plan_medico_cod,habilitado,nro_ultima_consulta)
+SELECT DISTINCT Paciente_Nombre, Paciente_Apellido, 'DNI', Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, 
+Plan_Med_Codigo, 1, (SELECT nroUltimaConsulta FROM BETTER_CALL_JUAN.nrosUltimasConsultasPacientes n WHERE n.Paciente_Dni = m.Paciente_Dni)
+FROM gd_esquema.Maestra m
+GROUP BY Paciente_Nombre, Paciente_Apellido,Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, Plan_Med_Codigo
+
+DROP TABLE BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
+
+/* Tabla Medicos */
+INSERT INTO BETTER_CALL_JUAN.Medicos(nombre, apellido, tipo_doc, nro_doc, direccion, telefono, mail, fecha_nac)
+SELECT DISTINCT Medico_Nombre, Medico_Apellido, 'DNI', Medico_Dni, Medico_Direccion, Medico_Telefono, Medico_Mail, Medico_Fecha_Nac
+FROM gd_esquema.Maestra
+WHERE Medico_Dni IS NOT NULL
+
+/* Tabla Planes Medicos */
+INSERT INTO BETTER_CALL_JUAN.Planes_Medicos(codigo, descripcion, precio_bono_consulta, precio_bono_farmacia)
+SELECT DISTINCT Plan_Med_Codigo, Plan_Med_Descripcion, Plan_Med_Precio_Bono_Consulta, Plan_Med_Precio_Bono_Farmacia
+FROM gd_esquema.Maestra
+
+/* Tabla Especialidades */
+
+INSERT INTO BETTER_CALL_JUAN.Especialidades (codigo,descripcion,tipo_especialidad_cod)
+SELECT DISTINCT Especialidad_Codigo, Especialidad_Descripcion, Tipo_Especialidad_Codigo
+FROM gd_esquema.Maestra
+WHERE Especialidad_Codigo IS NOT NULL
+
+/* Tabla Tipos Especialidades */
+
+INSERT INTO BETTER_CALL_JUAN.Tipos_Especialidades (codigo,descripcion)
+SELECT DISTINCT Tipo_Especialidad_Codigo, Tipo_Especialidad_Descripcion
+FROM gd_esquema.Maestra
+WHERE Tipo_Especialidad_Codigo IS NOT NULL
+
+/** FIN MIGRACION **/
+
+/*FOREIGN KEYS*/
 
 ALTER TABLE [BETTER_CALL_JUAN].[Pacientes] ADD CONSTRAINT plan_medico_cod_pacientes FOREIGN KEY (plan_medico_cod) REFERENCES [BETTER_CALL_JUAN].[Planes_Medicos](codigo)
 ALTER TABLE [BETTER_CALL_JUAN].[Pacientes] ADD CONSTRAINT usuario_id_pacientes FOREIGN KEY (usuario_id) REFERENCES [BETTER_CALL_JUAN].[Usuarios](id)
@@ -282,7 +348,7 @@ ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT tipo_cancelacion_i
 
 ALTER TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] ADD CONSTRAINT medico_especialidad_id_rango_atencion FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
 
-ALTER TABLE [BETTER_CALL_JUAN].[Especialidades] ADD CONSTRAINT tipo_especialidad_cod_especialidades FOREIGN KEY (tipo_especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Tipos_Especialidades](cod_especialidad)
+ALTER TABLE [BETTER_CALL_JUAN].[Especialidades] ADD CONSTRAINT tipo_especialidad_cod_especialidades FOREIGN KEY (tipo_especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Tipos_Especialidades](codigo)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos] ADD CONSTRAINT usuario_id_medicos FOREIGN KEY (usuario_id) REFERENCES [BETTER_CALL_JUAN].[Usuarios](id)
 
@@ -292,8 +358,5 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Usuarios] ADD CONSTRAINT rol_id_roles_usua
 ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT rol_id_roles_funcionalidades FOREIGN KEY (rol_id) REFERENCES [BETTER_CALL_JUAN].[Roles](id)
 ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionalidad_id_roles_funcionalidades FOREIGN KEY (funcionalidad_id) REFERENCES [BETTER_CALL_JUAN].[Funcionalidades](id)
 
-ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](id)
+ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
-
-
-/** FIN CREACION DE TABLAS **/
