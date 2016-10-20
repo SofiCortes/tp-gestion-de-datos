@@ -325,6 +325,10 @@ ORDER BY matricula, codigo
 /* Tabla Turnos */
 --Voy a necesitar medico_especialidad_id
 
+/* Tabla Roles */
+INSERT INTO BETTER_CALL_JUAN.Roles(nombre,habilitado)
+VALUES('Afiliado',1),('Administrativo',1),('Profesional',1)
+
 /* Tabla Bonos Consulta */
 -- Quizas necesitemos un cursor para poder asignar numero_consulta_paciente en Bonos_Consulta adecuadamente
 
