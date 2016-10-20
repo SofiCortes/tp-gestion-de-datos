@@ -189,7 +189,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Bonos_Consulta] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
-  [codigo] NUMERIC(18,0) IDENTITY(1,1),
+  [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
   [precio_bono_consulta] NUMERIC(18,0),
   [precio_bono_farmacia] NUMERIC(18,0),
@@ -299,10 +299,15 @@ SELECT DISTINCT Medico_Nombre, Medico_Apellido, 'DNI', Medico_Dni, Medico_Direcc
 FROM gd_esquema.Maestra
 WHERE Medico_Dni IS NOT NULL
 
+/* Planes Medicos */
+INSERT INTO BETTER_CALL_JUAN.Planes_Medicos(codigo, descripcion, precio_bono_consulta, precio_bono_farmacia)
+SELECT DISTINCT Plan_Med_Codigo, Plan_Med_Descripcion, Plan_Med_Precio_Bono_Consulta, Plan_Med_Precio_Bono_Farmacia
+FROM gd_esquema.Maestra
 
 /** FIN MIGRACION **/
 
 /*FOREIGN KEYS*/
+
 --ALTER TABLE [BETTER_CALL_JUAN].[Pacientes] ADD CONSTRAINT plan_medico_cod_pacientes FOREIGN KEY (plan_medico_cod) REFERENCES [BETTER_CALL_JUAN].[Planes_Medicos](codigo)
 ALTER TABLE [BETTER_CALL_JUAN].[Pacientes] ADD CONSTRAINT usuario_id_pacientes FOREIGN KEY (usuario_id) REFERENCES [BETTER_CALL_JUAN].[Usuarios](id)
 
@@ -341,11 +346,3 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionali
 
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
-
-
-
-
-
-
-
-
