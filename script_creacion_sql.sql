@@ -233,7 +233,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
   [usuario_id] NUMERIC(18,0),
   PRIMARY KEY ([id]),
   UNIQUE([tipo_doc], [nro_doc]),
-  UNIQUE([nro_raiz], [nro_personal])
+  --UNIQUE([nro_raiz], [nro_personal])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Cambios_De_Plan] (
@@ -256,3 +256,45 @@ CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
 );
 
 /** FIN CREACION DE TABLAS **/
+
+/** MIGRACION **/
+
+--Nros Ultimas Consultas
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.nrosUltimasConsultasPacientes'))
+    DROP TABLE BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
+	
+
+CREATE TABLE [BETTER_CALL_JUAN].[nrosUltimasConsultasPacientes] (
+	[Paciente_Dni] NUMERIC(18,0),
+	[nroUltimaConsulta] NUMERIC(18,0)
+);
+
+INSERT INTO BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
+SELECT Paciente_Dni,COUNT(DISTINCT Bono_Consulta_Numero) nroUltimaConsulta
+FROM gd_esquema.Maestra
+WHERE Paciente_Nombre IS NOT NULL AND Paciente_Apellido IS NOT NULL AND Paciente_Dni IS NOT NULL AND Paciente_Direccion IS NOT NULL 
+AND Paciente_Telefono IS NOT NULL AND Paciente_Mail IS NOT NULL AND Paciente_Fecha_Nac IS NOT NULL AND Plan_Med_Codigo IS NOT NULL 
+AND Plan_Med_Descripcion IS NOT NULL AND Plan_Med_Precio_Bono_Consulta IS NOT NULL AND Plan_Med_Precio_Bono_Farmacia IS NOT NULL 
+AND Turno_Numero IS NOT NULL AND Turno_Fecha IS NOT NULL AND Consulta_Sintomas IS NOT NULL AND Consulta_Enfermedades IS NOT NULL 
+AND Medico_Nombre IS NOT NULL AND Medico_Apellido IS NOT NULL AND Medico_Dni IS NOT NULL AND Medico_Direccion IS NOT NULL 
+AND Medico_Telefono IS NOT NULL AND Medico_Mail IS NOT NULL AND Medico_Fecha_Nac IS NOT NULL AND Especialidad_Codigo IS NOT NULL 
+AND Especialidad_Descripcion IS NOT NULL AND Tipo_Especialidad_Codigo IS NOT NULL AND Tipo_Especialidad_Descripcion IS NOT NULL 
+AND Compra_Bono_Fecha IS NULL AND Bono_Consulta_Fecha_Impresion IS NOT NULL AND Bono_Consulta_Numero IS NOT NULL
+GROUP BY Paciente_Dni
+
+--INSERT PACIENTES
+INSERT INTO BETTER_CALL_JUAN.Pacientes (nombre, apellido, tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,plan_medico_cod,habilitado,nro_ultima_consulta)
+SELECT DISTINCT Paciente_Nombre, Paciente_Apellido, 'DNI', Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, 
+Plan_Med_Codigo, 1, (SELECT nroUltimaConsulta FROM BETTER_CALL_JUAN.nrosUltimasConsultasPacientes n WHERE n.Paciente_Dni = m.Paciente_Dni)
+FROM gd_esquema.Maestra m
+GROUP BY Paciente_Nombre, Paciente_Apellido,Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, Plan_Med_Codigo
+
+DROP TABLE BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
+
+/** FIN MIGRACION **/
+
+
+
+
+
+
