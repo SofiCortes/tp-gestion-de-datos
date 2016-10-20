@@ -166,9 +166,9 @@ CREATE TABLE [BETTER_CALL_JUAN].[Bajas_Pacientes] (
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Especialidades] (
-  [cod_especialidad] NUMERIC(18,0),
+  [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255),
-  PRIMARY KEY ([cod_especialidad])
+  PRIMARY KEY ([codigo])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] (
@@ -311,6 +311,13 @@ SELECT DISTINCT Especialidad_Codigo, Especialidad_Descripcion, Tipo_Especialidad
 FROM gd_esquema.Maestra
 WHERE Especialidad_Codigo IS NOT NULL
 
+/* Tabla Tipos Especialidades */
+
+INSERT INTO BETTER_CALL_JUAN.Tipos_Especialidades (codigo,descripcion)
+SELECT DISTINCT Tipo_Especialidad_Codigo, Tipo_Especialidad_Descripcion
+FROM gd_esquema.Maestra
+WHERE Tipo_Especialidad_Codigo IS NOT NULL
+
 /** FIN MIGRACION **/
 
 /*FOREIGN KEYS*/
@@ -341,7 +348,7 @@ ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT tipo_cancelacion_i
 
 ALTER TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] ADD CONSTRAINT medico_especialidad_id_rango_atencion FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
 
---ALTER TABLE [BETTER_CALL_JUAN].[Especialidades] ADD CONSTRAINT tipo_especialidad_cod_especialidades FOREIGN KEY (tipo_especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Tipos_Especialidades](cod_especialidad)
+--ALTER TABLE [BETTER_CALL_JUAN].[Especialidades] ADD CONSTRAINT tipo_especialidad_cod_especialidades FOREIGN KEY (tipo_especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Tipos_Especialidades](codigo)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos] ADD CONSTRAINT usuario_id_medicos FOREIGN KEY (usuario_id) REFERENCES [BETTER_CALL_JUAN].[Usuarios](id)
 
