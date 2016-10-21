@@ -324,7 +324,13 @@ FROM gd_esquema.Maestra maestra JOIN BETTER_CALL_JUAN.Medicos med ON (maestra.Me
 ORDER BY med.matricula, Especialidad_Codigo
 
 /* Tabla Turnos */
---Voy a necesitar medico_especialidad_id
+
+INSERT INTO BETTER_CALL_JUAN.Turnos (fecha_hora,paciente_id,medico_especialidad_id)
+SELECT DISTINCT Turno_Fecha, p.id AS paciente_id, 
+(SELECT id FROM BETTER_CALL_JUAN.Medicos_Especialidades WHERE medico_id=med.matricula AND especialidad_cod=maestra.Especialidad_Codigo) AS medico_especialidad_id
+FROM gd_esquema.Maestra maestra JOIN BETTER_CALL_JUAN.Pacientes p ON (maestra.Paciente_Dni  =  p.nro_doc) JOIN BETTER_CALL_JUAN.Medicos med ON (maestra.Medico_Dni = med.nro_doc)
+WHERE Turno_Numero IS NOT NULL AND Turno_Fecha IS NOT NULL
+ORDER BY 1 ASC
 
 /* Tabla Roles */
 INSERT INTO BETTER_CALL_JUAN.Roles(nombre,habilitado)
