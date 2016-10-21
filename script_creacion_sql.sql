@@ -317,10 +317,11 @@ FROM gd_esquema.Maestra
 WHERE Tipo_Especialidad_Codigo IS NOT NULL
 
 /* Tabla Medicos Especialidades */
+
 INSERT INTO BETTER_CALL_JUAN.Medicos_Especialidades(medico_id, especialidad_cod)
-SELECT matricula, codigo
-FROM BETTER_CALL_JUAN.Medicos, BETTER_CALL_JUAN.Especialidades
-ORDER BY matricula, codigo
+SELECT DISTINCT med.matricula, Especialidad_Codigo 
+FROM gd_esquema.Maestra maestra JOIN BETTER_CALL_JUAN.Medicos med ON (maestra.Medico_Dni=med.nro_doc)
+ORDER BY med.matricula, Especialidad_Codigo
 
 /* Tabla Turnos */
 --Voy a necesitar medico_especialidad_id
