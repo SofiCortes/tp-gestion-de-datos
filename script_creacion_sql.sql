@@ -350,6 +350,23 @@ Se me ocurren dos opciones para asignar correctamente el numero_consulta_pacient
 	la insercion de los bonos, este atributo queda correcto para cada paciente.
 */
 
+/* Tabla Rangos Horarios */
+--Chequear si no conviene no usar la funcion, ya que quizas conviene joinear una sola vez en la query general, como hicimos en turnos.
+--Probe utilizar esta funcion en la migracion de los turnos y lo hacia 4 veces mas lento. 12 segundos contra 3.
+
+CREATE FUNCTION get_medico_especialidad_id(@medico_dni NUMERIC(18,0), @especialidad_id NUMERIC(18,0)) RETURNS NUMERIC(18,0)
+BEGIN
+DECLARE @medico_especialidad_id NUMERIC(18,0)
+SET @medico_especialidad_id = 
+(
+SELECT me.id 
+FROM BETTER_CALL_JUAN.Medicos_Especialidades me JOIN BETTER_CALL_JUAN.Medicos m ON (me.medico_id = m.matricula)
+WHERE m.nro_doc=@medico_dni AND me.especialidad_cod=@especialidad_id
+)
+RETURN @medico_especialidad_id
+END
+GO
+
 /** FIN MIGRACION **/
 
 /*FOREIGN KEYS*/
