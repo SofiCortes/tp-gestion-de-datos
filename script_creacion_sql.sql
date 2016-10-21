@@ -285,6 +285,7 @@ AND Compra_Bono_Fecha IS NULL AND Bono_Consulta_Fecha_Impresion IS NOT NULL AND 
 ORDER BY 1 ASC
 
 --INSERT PACIENTES
+
 INSERT INTO BETTER_CALL_JUAN.Pacientes (nombre, apellido, tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,plan_medico_cod,habilitado,nro_ultima_consulta)
 SELECT DISTINCT Paciente_Nombre, Paciente_Apellido, 'DNI', Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, 
 Plan_Med_Codigo, 1, (SELECT COUNT(DISTINCT cp.Bono_Consulta_Numero) FROM BETTER_CALL_JUAN.ConsultasPacientes cp WHERE cp.Paciente_Dni = m.Paciente_Dni GROUP BY cp.Paciente_Dni) AS nroUltimaConsulta
@@ -354,6 +355,20 @@ Se me ocurren dos opciones para asignar correctamente el numero_consulta_pacient
 --Chequear si no conviene no usar la funcion, ya que quizas conviene joinear una sola vez en la query general, como hicimos en turnos.
 --Probe utilizar esta funcion en la migracion de los turnos y lo hacia 4 veces mas lento. 12 segundos contra 3.
 
+CREATE TABLE #MedicosEspecialidadesTemp (
+medico_dni numeric(18,0),
+esp_codigo numeric(18,0),
+med_esp_id numeric(18,0),
+)
+
+INSERT INTO #MedicosEspecialidadesTemp
+SELECT med.nro_doc, esp.codigo, med_esp.id
+FROM BETTER_CALL_JUAN.Medicos med JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med.matricula = med_esp.medico_id)
+JOIN BETTER_CALL_JUAN.Especialidades esp ON (esp.codigo = med_esp.especialidad_cod)
+
+DROP TABLE #MedicosEspecialidadesTemp
+
+
 CREATE FUNCTION get_medico_especialidad_id(@medico_dni NUMERIC(18,0), @especialidad_id NUMERIC(18,0)) RETURNS NUMERIC(18,0)
 BEGIN
 DECLARE @medico_especialidad_id NUMERIC(18,0)
@@ -366,7 +381,7 @@ WHERE m.nro_doc=@medico_dni AND me.especialidad_cod=@especialidad_id
 RETURN @medico_especialidad_id
 END
 GO
-
+*/
 /** FIN MIGRACION **/
 
 /*FOREIGN KEYS*/
