@@ -352,6 +352,15 @@ VALUES(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12)
 ,(1,15),(1,16),(1,17),(1,18),(1,19),(2,17),(2,18),(3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14)
 ,(3,15),(3,16),(4,15),(4,19)
 
+/* Tabla Consultas */
+INSERT INTO BETTER_CALL_JUAN.Consultas (sintomas, enfermedades, turno_numero, fecha_hora_llegada, fecha_hora_atencion)
+select DISTINCT M.Consulta_Sintomas, M.Consulta_Enfermedades, T.numero turnoId, M.Turno_Fecha, M.Turno_Fecha
+from gd_esquema.Maestra M
+JOIN BETTER_CALL_JUAN.Pacientes P ON P.nro_doc = M.Paciente_Dni
+JOIN BETTER_CALL_JUAN.Turnos T ON T.fecha_hora = M.Turno_Fecha and T.paciente_id = P.id
+JOIN BETTER_CALL_JUAN.Especialidades E ON E.descripcion = M.Especialidad_Descripcion
+where M.Consulta_Enfermedades IS NOT NULL and M.Consulta_Sintomas IS NOT NULL
+
 /* Tabla Bonos Consulta */
 /*
 Se me ocurren dos opciones para asignar correctamente el numero_consulta_paciente a cada bono:
