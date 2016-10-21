@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modelo\BD\Manager\AbstractManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\LoginManager.cs" />
+    <Compile Include="Modelo\BD\Utiles\ParametroParaSP.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Alta Afiliado.cs">
       <SubType>Form</SubType>
     </Compile>

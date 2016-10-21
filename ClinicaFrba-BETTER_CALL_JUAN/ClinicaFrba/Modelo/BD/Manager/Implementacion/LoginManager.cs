@@ -23,9 +23,9 @@ namespace ClinicaFrba
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);
 
-                SqlCommand procedure = this.createCallableProcedure("Procedure_Login", parametros);
-
                 this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("Procedure_Login", parametros);
                 procedure.ExecuteNonQuery();
             }
             catch (Exception e)

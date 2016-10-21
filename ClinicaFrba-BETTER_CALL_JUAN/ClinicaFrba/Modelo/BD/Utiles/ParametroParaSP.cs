@@ -10,10 +10,6 @@ namespace ClinicaFrba
 {
     class ParametroParaSP
     {
-        private string p;
-        private SqlDbType sqlDbType;
-        private string password;
-
         public String parametroEnSP {get;set;}
         public SqlDbType type { get; set; }
         public Object value { get; set; }
