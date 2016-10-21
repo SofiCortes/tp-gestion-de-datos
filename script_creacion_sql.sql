@@ -266,13 +266,13 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
     DROP TABLE BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
 	
 
-CREATE TABLE [BETTER_CALL_JUAN].[nrosUltimasConsultasPacientes] (
+CREATE TABLE [BETTER_CALL_JUAN].[ConsultasPacientes] (
 	[Paciente_Dni] NUMERIC(18,0),
-	[nroUltimaConsulta] NUMERIC(18,0)
+	[Bono_Consulta_Numero] NUMERIC(18,0)
 );
 
-INSERT INTO BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
-SELECT Paciente_Dni,COUNT(DISTINCT Bono_Consulta_Numero) nroUltimaConsulta
+INSERT INTO BETTER_CALL_JUAN.ConsultasPacientes
+SELECT Paciente_Dni, Bono_Consulta_Numero
 FROM gd_esquema.Maestra
 WHERE Paciente_Nombre IS NOT NULL AND Paciente_Apellido IS NOT NULL AND Paciente_Dni IS NOT NULL AND Paciente_Direccion IS NOT NULL 
 AND Paciente_Telefono IS NOT NULL AND Paciente_Mail IS NOT NULL AND Paciente_Fecha_Nac IS NOT NULL AND Plan_Med_Codigo IS NOT NULL 
@@ -282,16 +282,16 @@ AND Medico_Nombre IS NOT NULL AND Medico_Apellido IS NOT NULL AND Medico_Dni IS 
 AND Medico_Telefono IS NOT NULL AND Medico_Mail IS NOT NULL AND Medico_Fecha_Nac IS NOT NULL AND Especialidad_Codigo IS NOT NULL 
 AND Especialidad_Descripcion IS NOT NULL AND Tipo_Especialidad_Codigo IS NOT NULL AND Tipo_Especialidad_Descripcion IS NOT NULL 
 AND Compra_Bono_Fecha IS NULL AND Bono_Consulta_Fecha_Impresion IS NOT NULL AND Bono_Consulta_Numero IS NOT NULL
-GROUP BY Paciente_Dni
+ORDER BY 1 ASC
 
 --INSERT PACIENTES
 INSERT INTO BETTER_CALL_JUAN.Pacientes (nombre, apellido, tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,plan_medico_cod,habilitado,nro_ultima_consulta)
 SELECT DISTINCT Paciente_Nombre, Paciente_Apellido, 'DNI', Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, 
-Plan_Med_Codigo, 1, (SELECT nroUltimaConsulta FROM BETTER_CALL_JUAN.nrosUltimasConsultasPacientes n WHERE n.Paciente_Dni = m.Paciente_Dni)
+Plan_Med_Codigo, 1, (SELECT COUNT(DISTINCT cp.Bono_Consulta_Numero) FROM BETTER_CALL_JUAN.ConsultasPacientes cp WHERE cp.Paciente_Dni = m.Paciente_Dni GROUP BY cp.Paciente_Dni) AS nroUltimaConsulta
 FROM gd_esquema.Maestra m
 GROUP BY Paciente_Nombre, Paciente_Apellido,Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, Plan_Med_Codigo
 
-DROP TABLE BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
+DROP TABLE BETTER_CALL_JUAN.ConsultasPacientes
 
 /* Tabla Medicos */
 INSERT INTO BETTER_CALL_JUAN.Medicos(nombre, apellido, tipo_doc, nro_doc, direccion, telefono, mail, fecha_nac)
@@ -337,7 +337,18 @@ INSERT INTO BETTER_CALL_JUAN.Roles(nombre,habilitado)
 VALUES('Afiliado',1),('Administrativo',1),('Profesional',1)
 
 /* Tabla Bonos Consulta */
--- Quizas necesitemos un cursor para poder asignar numero_consulta_paciente en Bonos_Consulta adecuadamente
+/*
+Se me ocurren dos opciones para asignar correctamente el numero_consulta_paciente a cada bono:
+1) Dos cursores, uno adentro del otro. Uno que por afuera recorra por paciente, y el de adentro que recorra por bono
+	y asigne a cada bono el numero_consulta_paciente basado en un acumulador que se inicia luego de fetchear el paciente.
+
+2) Otra opcion muy mala: Quitar el insert masivo de los nroUltimaConsulta en la tabla Pacientes y poner todos en 0. 
+	Usar este atributo como si fuera el acumulador por paciente mencionado anteriormente. Entonces seria un cursor solo por bono
+	que vaya consultando el atributo del paciente y lo vaya incrementando (me parece peor porque esta haciendo constantemente 
+	select y update a la base por un atributo acumulador que seria mejor q este en memoria(opcion 1).
+	La ventaja de esta opcion es que no hace falta hacer el insert masivo de los nroUltimaConsulta en Pacientes, ya que al finalizar
+	la insercion de los bonos, este atributo queda correcto para cada paciente.
+*/
 
 /** FIN MIGRACION **/
 
