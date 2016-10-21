@@ -12,14 +12,22 @@ namespace ClinicaFrba
 {
     public partial class LoginForm : Form
     {
+        private LoginController loginController;
+
         public LoginForm()
         {
             InitializeComponent();
+
+            loginController = new LoginController(this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonLogin_Click(object sender, EventArgs e)
         {
+            string username = this.textBoxUsername.Text;
+            string password = this.textBoxPassword.Text;
 
+            loginController.loginUser(username, password);
         }
+
     }
 }
