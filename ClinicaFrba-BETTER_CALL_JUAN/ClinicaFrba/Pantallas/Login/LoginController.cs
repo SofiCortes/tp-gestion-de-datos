@@ -18,8 +18,8 @@ namespace ClinicaFrba
 
         internal void loginUser(string username, string password)
         {
-            ConexionBD conexion = new ConexionBD();
-            conexion.openDB();
+            LoginManager loginManager = new LoginManager();
+            loginManager.loginUser(username, password);
         }
     }
 }
