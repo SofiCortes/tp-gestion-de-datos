@@ -120,144 +120,144 @@ namespace ClinicaFrba.Pantalla_Principal
 
         private void buttonCrearRol_Click(object sender, EventArgs e)
         {
-            AbmRol.Alta_Rol form = new AbmRol.Alta_Rol();
+            AltaRol form = new AltaRol();
             form.Show();
         }
 
         private void buttonModificarRol_Click(object sender, EventArgs e)
         {
-            AbmRol.Roles form = new AbmRol.Roles();
-            form.actionCode = AbmRol.Roles.ACTION_CODE_FOR_LIST_MODIFY_ROL;
+            ListadoRoles form = new ListadoRoles();
+            form.actionCode = ListadoRoles.ACTION_CODE_FOR_LIST_MODIFY_ROL;
             form.Show();
         }
 
         private void buttonEliminarRol_Click(object sender, EventArgs e)
         {
-            AbmRol.Roles form = new AbmRol.Roles();
-            form.actionCode = AbmRol.Roles.ACTION_CODE_FOR_LIST_DELETE_ROL;
+            ListadoRoles form = new ListadoRoles();
+            form.actionCode = ListadoRoles.ACTION_CODE_FOR_LIST_DELETE_ROL;
             form.Show();
         }
 
         private void buttonListadoRoles_Click(object sender, EventArgs e)
         {
-            AbmRol.Roles form = new AbmRol.Roles();
-            form.actionCode = AbmRol.Roles.ACTION_CODE_FOR_LIST_LIST_ROL;
+            ListadoRoles form = new ListadoRoles();
+            form.actionCode = ListadoRoles.ACTION_CODE_FOR_LIST_LIST_ROL;
             form.Show();
         }
 
         private void buttonCrearAfiliado_Click(object sender, EventArgs e)
         {
-            Abm_Afiliado.Alta_Afiliado form = new Abm_Afiliado.Alta_Afiliado();
+            AltaAfiliado form = new AltaAfiliado();
             form.Show();
         }
 
         private void buttonModificarAfiliado_Click(object sender, EventArgs e)
         {
-            Abm_Afiliado.ListadoAfiliados form = new Abm_Afiliado.ListadoAfiliados();
-            form.actionCode = Abm_Afiliado.ListadoAfiliados.ACTION_CODE_FOR_LIST_MODIFY_AFILIADO;
+            ListadoAfiliados form = new ListadoAfiliados();
+            form.actionCode = ListadoAfiliados.ACTION_CODE_FOR_LIST_MODIFY_AFILIADO;
             form.Show();
         }
 
         private void buttonEliminarAfiliado_Click(object sender, EventArgs e)
         {
-            Abm_Afiliado.ListadoAfiliados form = new Abm_Afiliado.ListadoAfiliados();
-            form.actionCode = Abm_Afiliado.ListadoAfiliados.ACTION_CODE_FOR_LIST_DELETE_AFILIADO;
+            ListadoAfiliados form = new ListadoAfiliados();
+            form.actionCode = ListadoAfiliados.ACTION_CODE_FOR_LIST_DELETE_AFILIADO;
             form.Show();
         }
 
         private void buttonListadoAfiliados_Click(object sender, EventArgs e)
         {
-            Abm_Afiliado.ListadoAfiliados form = new Abm_Afiliado.ListadoAfiliados();
-            form.actionCode = Abm_Afiliado.ListadoAfiliados.ACTION_CODE_FOR_LIST_LIST_AFILIADO;
+            ListadoAfiliados form = new ListadoAfiliados();
+            form.actionCode = ListadoAfiliados.ACTION_CODE_FOR_LIST_LIST_AFILIADO;
             form.Show();
         }
 
         private void buttonListadoProfesionales_Click(object sender, EventArgs e)
         {
-            Abm_Profesional.ListadoProfesionales form = new Abm_Profesional.ListadoProfesionales();
-            form.actionCode = Abm_Profesional.ListadoProfesionales.ACTION_CODE_FOR_LIST_LIST;
+            ListadoProfesionales form = new ListadoProfesionales();
+            form.actionCode = ListadoProfesionales.ACTION_CODE_FOR_LIST_LIST;
             form.Show();
         }
 
         private void buttonEspecialidadesMedicas_Click(object sender, EventArgs e)
         {
-            Abm_Profesional.Listado_Especialidades_Medicas form = new Abm_Profesional.Listado_Especialidades_Medicas();
+            ListadoEspecialidadesMedicas form = new ListadoEspecialidadesMedicas();
             form.Show();
         }
 
         private void buttonAgendaProfesionales_Click(object sender, EventArgs e)
         {
-            Abm_Profesional.ListadoProfesionales form = new Abm_Profesional.ListadoProfesionales();
-            form.actionCode = Abm_Profesional.ListadoProfesionales.ACTION_CODE_FOR_LIST_VIEW_AGENDA;
+            ListadoProfesionales form = new ListadoProfesionales();
+            form.actionCode = ListadoProfesionales.ACTION_CODE_FOR_LIST_VIEW_AGENDA;
             form.Show();
         }
 
         private void buttonCompraBonos_Click(object sender, EventArgs e)
         {
-            Compra_Bono.Form1 form = new Compra_Bono.Form1();
+            ComprarBono form = new ComprarBono();
             form.Show();
         }
 
         private void buttonPedidoTurno_Click(object sender, EventArgs e)
         {
-            Pedir_Turno.Form1 form = new Pedir_Turno.Form1();
+            PedirTurnoForm form = new PedirTurnoForm();
             form.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Abm_Planes.Form1 form = new Abm_Planes.Form1();
+            ListadoPlanes form = new ListadoPlanes();
             form.Show();
         }
 
         private void buttonEspecialidadesCancelaciones_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.EspecialidadConMasCancelaciones form = new Listados_Estadisticos.EspecialidadConMasCancelaciones();
+            EspecialidadConMasCancelaciones form = new EspecialidadConMasCancelaciones();
             form.Show();
         }
 
         private void buttonProfesionalesPorPlan_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.ProfesionalesMasConsultados form = new Listados_Estadisticos.ProfesionalesMasConsultados();
+            ProfesionalesMasConsultados form = new ProfesionalesMasConsultados();
             form.Show();
         }
 
         private void buttonProfesionalesMenosHoras_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.ProfesionalesConMenosHoras form = new Listados_Estadisticos.ProfesionalesConMenosHoras();
+            ProfesionalesConMenosHoras form = new ProfesionalesConMenosHoras();
             form.Show();
         }
 
         private void buttonAfiliadosBonos_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.AfiliadosConMasBonos form = new Listados_Estadisticos.AfiliadosConMasBonos();
+            AfiliadosConMasBonos form = new AfiliadosConMasBonos();
             form.Show();
         }
 
         private void buttonEspecialidadesBonos_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.EspecialidadesConMasBonos form = new Listados_Estadisticos.EspecialidadesConMasBonos();
+            EspecialidadesConMasBonos form = new EspecialidadesConMasBonos();
             form.Show();
         }
 
         private void buttonRegistroLlegada_Click(object sender, EventArgs e)
         {
-            Atenciones_medicas.Listado_Atenciones form = new Atenciones_medicas.Listado_Atenciones();
-            form.actionCode = Atenciones_medicas.Listado_Atenciones.ACTION_CODE_FOR_LIST_REGISTRAR_LLEGADA_ATENCION;
+            ListadoAtenciones form = new ListadoAtenciones();
+            form.actionCode = ListadoAtenciones.ACTION_CODE_FOR_LIST_REGISTRAR_LLEGADA_ATENCION;
             form.Show();
         }
 
         private void buttonRegistroResultado_Click(object sender, EventArgs e)
         {
-            Atenciones_medicas.Listado_Atenciones form = new Atenciones_medicas.Listado_Atenciones();
-            form.actionCode = Atenciones_medicas.Listado_Atenciones.ACTION_CODE_FOR_LIST_REGISTRAR_RESULTADO_CONSULTA;
+            ListadoAtenciones form = new ListadoAtenciones();
+            form.actionCode = ListadoAtenciones.ACTION_CODE_FOR_LIST_REGISTRAR_RESULTADO_CONSULTA;
             form.Show();
         }
 
         private void buttonCancelarAtencion_Click(object sender, EventArgs e)
         {
-            Atenciones_medicas.Listado_Atenciones form = new Atenciones_medicas.Listado_Atenciones();
-            form.actionCode = Atenciones_medicas.Listado_Atenciones.ACTION_CODE_FOR_LIST_CANCELAR_ATENCION;
+            ListadoAtenciones form = new ListadoAtenciones();
+            form.actionCode = ListadoAtenciones.ACTION_CODE_FOR_LIST_CANCELAR_ATENCION;
             form.Show();
         }
 

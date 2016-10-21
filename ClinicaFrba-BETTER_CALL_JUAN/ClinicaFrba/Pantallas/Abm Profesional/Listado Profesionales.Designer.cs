@@ -1,4 +1,4 @@
-﻿namespace ClinicaFrba.Abm_Profesional
+﻿namespace ClinicaFrba
 {
     partial class ListadoProfesionales
     {

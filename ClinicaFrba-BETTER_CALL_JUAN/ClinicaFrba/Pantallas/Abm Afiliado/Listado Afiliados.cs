@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Abm_Afiliado
+namespace ClinicaFrba
 {
     public partial class ListadoAfiliados : Form
     {
+        private ListadoAfiliadosController controller;
+
         public ListadoAfiliados()
         {
+            this.controller = new ListadoAfiliadosController(this);
             InitializeComponent();
         }
     }

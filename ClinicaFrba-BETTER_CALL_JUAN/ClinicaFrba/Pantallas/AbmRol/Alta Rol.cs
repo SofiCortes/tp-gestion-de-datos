@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.AbmRol
+namespace ClinicaFrba
 {
-    public partial class Alta_Rol : Form
+    public partial class AltaRol : Form
     {
-        public Alta_Rol()
+        private AltaRolController controller;
+
+        public AltaRol()
         {
+            this.controller = new AltaRolController(this);
+
             InitializeComponent();
         }
     }

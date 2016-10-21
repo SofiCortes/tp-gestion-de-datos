@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Abm_Afiliado
+namespace ClinicaFrba
 {
-    public partial class Modificar_Afiliado : Form
+    public partial class ModificarAfiliado : Form
     {
-        public Modificar_Afiliado()
+        private ModificarAfiliadoController controller;
+
+        public ModificarAfiliado()
         {
+            this.controller = new ModificarAfiliadoController(this);
+
             InitializeComponent();
         }
     }

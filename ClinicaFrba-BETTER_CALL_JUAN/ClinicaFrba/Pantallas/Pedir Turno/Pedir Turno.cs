@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Pedir_Turno
+namespace ClinicaFrba
 {
-    public partial class Form1 : Form
+    public partial class PedirTurnoForm : Form
     {
-        public Form1()
+        private PedirTurnoController controller;
+
+        public PedirTurnoForm()
         {
+            this.controller = new PedirTurnoController(this);
+
             InitializeComponent();
         }
     }

@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Listados_Estadisticos
+namespace ClinicaFrba
 {
     public partial class ProfesionalesConMenosHoras : Form
     {
+        private ProfesionalesConMenosHorasController controller;
+
         public ProfesionalesConMenosHoras()
         {
+            this.controller = new ProfesionalesConMenosHorasController(this);
+
             InitializeComponent();
         }
     }

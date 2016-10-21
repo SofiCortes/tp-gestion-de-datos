@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-namespace ClinicaFrba.Abm_Afiliado
+namespace ClinicaFrba
 {
     partial class ListadoAfiliados
     {

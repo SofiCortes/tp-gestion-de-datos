@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Atenciones_medicas
+namespace ClinicaFrba
 {
-    public partial class Registrar_Resultado_Consulta : Form
+    public partial class RegistrarResultadoConsulta : Form
     {
-        public Registrar_Resultado_Consulta()
+        private RegistrarResultadoConsultaController controller;
+
+        public RegistrarResultadoConsulta()
         {
+            this.controller = new RegistrarResultadoConsultaController(this);
+
             InitializeComponent();
         }
     }

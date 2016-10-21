@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Abm_Profesional
+﻿namespace ClinicaFrba
 {
-    partial class Agenda_Profesional
+    partial class AgendaProfesional
     {
         /// <summary>
         /// Required designer variable.

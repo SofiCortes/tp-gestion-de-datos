@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.AbmRol
+namespace ClinicaFrba
 {
-    public partial class Roles : Form
+    public partial class ListadoRoles : Form
     {
-        public Roles()
+        private ListadoRolesController controller;
+
+        public ListadoRoles()
         {
+            this.controller = new ListadoRolesController(this);
+
             InitializeComponent();
         }
     }

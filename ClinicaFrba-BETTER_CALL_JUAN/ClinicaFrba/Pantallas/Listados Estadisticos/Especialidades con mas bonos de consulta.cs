@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Listados_Estadisticos
+namespace ClinicaFrba
 {
     public partial class EspecialidadesConMasBonos : Form
     {
+        private EspecialidadConMasConsultasController controller;
+
         public EspecialidadesConMasBonos()
         {
+            this.controller = new EspecialidadConMasConsultasController(this);
+
             InitializeComponent();
         }
     }

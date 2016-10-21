@@ -1,4 +1,4 @@
-﻿namespace ClinicaFrba.Listados_Estadisticos
+﻿namespace ClinicaFrba
 {
     partial class EspecialidadConMasCancelaciones
     {

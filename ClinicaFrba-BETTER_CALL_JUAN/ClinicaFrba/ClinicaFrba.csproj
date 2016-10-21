@@ -45,7 +45,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modelo\BD\Manager\AbstractManager.cs" />
-    <Compile Include="Modelo\BD\Manager\Implementacion\LoginManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\AfiliadoManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\AtencionMedicaManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\BonoManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\EstadisticasManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\PlanManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\ProfesionalManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\RolManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\TurnoManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\UsuarioManager.cs" />
     <Compile Include="Modelo\BD\Utiles\ParametroParaSP.cs" />
     <Compile Include="Modelo\Objetos\BajaPaciente.cs" />
     <Compile Include="Modelo\Objetos\BonoConsulta.cs" />
@@ -70,36 +78,42 @@
     <Compile Include="Pantallas\Abm Afiliado\Alta Afiliado.Designer.cs">
       <DependentUpon>Alta Afiliado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Abm Afiliado\AltaAfiliadoController.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Detalle de Afiliado.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Abm Afiliado\Detalle de Afiliado.Designer.cs">
       <DependentUpon>Detalle de Afiliado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Abm Afiliado\DetalleAfiliadoController.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Listado Afiliados.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Abm Afiliado\Listado Afiliados.Designer.cs">
       <DependentUpon>Listado Afiliados.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Abm Afiliado\ListadoAfiliadosController.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Modificar Afiliado.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Abm Afiliado\Modificar Afiliado.Designer.cs">
       <DependentUpon>Modificar Afiliado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Abm Afiliado\ModificarAfiliadoController.cs" />
     <Compile Include="Pantallas\Abm Planes\Listado Planes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Abm Planes\Listado Planes.Designer.cs">
       <DependentUpon>Listado Planes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Abm Planes\ListadoPlanesController.cs" />
     <Compile Include="Pantallas\Abm Profesional\Agenda Profesional.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Abm Profesional\Agenda Profesional.Designer.cs">
       <DependentUpon>Agenda Profesional.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Abm Profesional\AgendaProfesionalController.cs" />
     <Compile Include="Pantallas\Abm Profesional\Listado Especialidades Medicas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,30 +126,36 @@
     <Compile Include="Pantallas\Abm Profesional\Listado Profesionales.Designer.cs">
       <DependentUpon>Listado Profesionales.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Abm Profesional\ListadoEspecialidadesMedicasController.cs" />
+    <Compile Include="Pantallas\Abm Profesional\ListadoProfesionalesController.cs" />
     <Compile Include="Pantallas\AbmRol\Alta Rol.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\AbmRol\Alta Rol.Designer.cs">
       <DependentUpon>Alta Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\AbmRol\AltaRolController.cs" />
     <Compile Include="Pantallas\AbmRol\Listado Roles.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\AbmRol\Listado Roles.Designer.cs">
       <DependentUpon>Listado Roles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\AbmRol\ListadoRolesController.cs" />
     <Compile Include="Pantallas\AbmRol\Modificar Rol.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\AbmRol\Modificar Rol.Designer.cs">
       <DependentUpon>Modificar Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\AbmRol\ModificarRolController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Listado Atenciones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Atenciones medicas\Listado Atenciones.Designer.cs">
       <DependentUpon>Listado Atenciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\ListadoAtencionesController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Registrar Llegada.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,18 +168,24 @@
     <Compile Include="Pantallas\Atenciones medicas\Registrar Resultado Consulta.Designer.cs">
       <DependentUpon>Registrar Resultado Consulta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\RegistrarLlegadaController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\RegistrarResultadoConsultaController.cs" />
     <Compile Include="Pantallas\Compra Bono\Comprar Bono.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Compra Bono\Comprar Bono.Designer.cs">
       <DependentUpon>Comprar Bono.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Compra Bono\ComprarBonoController.cs" />
+    <Compile Include="Pantallas\Listados Estadisticos\AfiliadosConMasBonosController.cs" />
     <Compile Include="Pantallas\Listados Estadisticos\Especialidad con mas cancelaciones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pantallas\Listados Estadisticos\Especialidad con mas cancelaciones.Designer.cs">
       <DependentUpon>Especialidad con mas cancelaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Listados Estadisticos\EspecialidadConMasCancelacionesController.cs" />
+    <Compile Include="Pantallas\Listados Estadisticos\EspecialidadConMasConsultasController.cs" />
     <Compile Include="Pantallas\Listados Estadisticos\Profesionales mas consultados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +210,8 @@
     <Compile Include="Pantallas\Listados Estadisticos\Especialidades con mas bonos de consulta.Designer.cs">
       <DependentUpon>Especialidades con mas bonos de consulta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Listados Estadisticos\ProfesionalesConMenosHorasController.cs" />
+    <Compile Include="Pantallas\Listados Estadisticos\ProfesionalesMasConsultadosController.cs" />
     <Compile Include="Pantallas\Login\LoginController.cs" />
     <Compile Include="Pantallas\Login\LoginForm.cs">
       <SubType>Form</SubType>
@@ -204,6 +232,7 @@
     <Compile Include="Pantallas\Pedir Turno\Pedir Turno.Designer.cs">
       <DependentUpon>Pedir Turno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Pantallas\Abm Afiliado\Listado Afiliados.resx">

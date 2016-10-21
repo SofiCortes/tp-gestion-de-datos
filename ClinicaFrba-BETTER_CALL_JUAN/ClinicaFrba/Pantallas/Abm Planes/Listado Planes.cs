@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Abm_Planes
+namespace ClinicaFrba
 {
-    public partial class Form1 : Form
+    public partial class ListadoPlanes : Form
     {
-        public Form1()
+        private ListadoPlanesController controller;
+
+        public ListadoPlanes()
         {
+            this.controller = new ListadoPlanesController(this);
+
             InitializeComponent();
         }
     }
