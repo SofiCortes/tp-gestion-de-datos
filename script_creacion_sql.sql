@@ -266,13 +266,15 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
     DROP TABLE BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
 	
 
-CREATE TABLE [BETTER_CALL_JUAN].[ConsultasPacientes] (
+CREATE TABLE [BETTER_CALL_JUAN].[Consultas_Pacientes] (
 	[Paciente_Dni] NUMERIC(18,0),
-	[Bono_Consulta_Numero] NUMERIC(18,0)
+	[Bono_Consulta_Numero] NUMERIC(18,0),
+	[Bono_Consulta_Fecha_Impresion] DATETIME,
+	[Plan_Med_Codigo] NUMERIC(18,0)
 );
 
-INSERT INTO BETTER_CALL_JUAN.ConsultasPacientes
-SELECT Paciente_Dni, Bono_Consulta_Numero
+INSERT INTO BETTER_CALL_JUAN.Consultas_Pacientes
+SELECT Paciente_Dni, Bono_Consulta_Numero, Bono_Consulta_Fecha_Impresion, Plan_Med_Codigo
 FROM gd_esquema.Maestra
 WHERE Paciente_Nombre IS NOT NULL AND Paciente_Apellido IS NOT NULL AND Paciente_Dni IS NOT NULL AND Paciente_Direccion IS NOT NULL 
 AND Paciente_Telefono IS NOT NULL AND Paciente_Mail IS NOT NULL AND Paciente_Fecha_Nac IS NOT NULL AND Plan_Med_Codigo IS NOT NULL 
@@ -282,16 +284,14 @@ AND Medico_Nombre IS NOT NULL AND Medico_Apellido IS NOT NULL AND Medico_Dni IS 
 AND Medico_Telefono IS NOT NULL AND Medico_Mail IS NOT NULL AND Medico_Fecha_Nac IS NOT NULL AND Especialidad_Codigo IS NOT NULL 
 AND Especialidad_Descripcion IS NOT NULL AND Tipo_Especialidad_Codigo IS NOT NULL AND Tipo_Especialidad_Descripcion IS NOT NULL 
 AND Compra_Bono_Fecha IS NULL AND Bono_Consulta_Fecha_Impresion IS NOT NULL AND Bono_Consulta_Numero IS NOT NULL
-ORDER BY 1 ASC
+ORDER BY 1 ASC, 2 ASC
 
 --INSERT PACIENTES
 INSERT INTO BETTER_CALL_JUAN.Pacientes (nombre, apellido, tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,plan_medico_cod,habilitado,nro_ultima_consulta)
 SELECT DISTINCT Paciente_Nombre, Paciente_Apellido, 'DNI', Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, 
-Plan_Med_Codigo, 1, (SELECT COUNT(DISTINCT cp.Bono_Consulta_Numero) FROM BETTER_CALL_JUAN.ConsultasPacientes cp WHERE cp.Paciente_Dni = m.Paciente_Dni GROUP BY cp.Paciente_Dni) AS nroUltimaConsulta
+Plan_Med_Codigo, 1, (SELECT COUNT(DISTINCT cp.Bono_Consulta_Numero) FROM BETTER_CALL_JUAN.Consultas_Pacientes cp WHERE cp.Paciente_Dni = m.Paciente_Dni GROUP BY cp.Paciente_Dni) AS nroUltimaConsulta
 FROM gd_esquema.Maestra m
 GROUP BY Paciente_Nombre, Paciente_Apellido,Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, Plan_Med_Codigo
-
-DROP TABLE BETTER_CALL_JUAN.ConsultasPacientes
 
 /* Tabla Medicos */
 INSERT INTO BETTER_CALL_JUAN.Medicos(nombre, apellido, tipo_doc, nro_doc, direccion, telefono, mail, fecha_nac)
@@ -362,22 +362,58 @@ JOIN BETTER_CALL_JUAN.Especialidades E ON E.descripcion = M.Especialidad_Descrip
 where M.Consulta_Enfermedades IS NOT NULL and M.Consulta_Sintomas IS NOT NULL
 
 /* Tabla Bonos Consulta */
-/*
-Se me ocurren dos opciones para asignar correctamente el numero_consulta_paciente a cada bono:
-1) Dos cursores, uno adentro del otro. Uno que por afuera recorra por paciente, y el de adentro que recorra por bono
-	y asigne a cada bono el numero_consulta_paciente basado en un acumulador que se inicia luego de fetchear el paciente.
 
-2) Otra opcion muy mala: Quitar el insert masivo de los nroUltimaConsulta en la tabla Pacientes y poner todos en 0. 
-	Usar este atributo como si fuera el acumulador por paciente mencionado anteriormente. Entonces seria un cursor solo por bono
-	que vaya consultando el atributo del paciente y lo vaya incrementando (me parece peor porque esta haciendo constantemente 
-	select y update a la base por un atributo acumulador que seria mejor q este en memoria(opcion 1).
-	La ventaja de esta opcion es que no hace falta hacer el insert masivo de los nroUltimaConsulta en Pacientes, ya que al finalizar
-	la insercion de los bonos, este atributo queda correcto para cada paciente.
-*/
+DECLARE pacienteCursor CURSOR FOR
+SELECT DISTINCT id, nro_doc FROM BETTER_CALL_JUAN.Pacientes
+
+DECLARE @nro_consulta_paciente NUMERIC(18,0), @dni_paciente NUMERIC(18,0), @paciente_id NUMERIC(18,0)
+
+OPEN pacienteCursor
+FETCH pacienteCursor INTO @paciente_id, @dni_paciente
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+	SET @nro_consulta_paciente = 0
+
+	DECLARE consultaCursor CURSOR FOR
+	SELECT Bono_Consulta_Numero, Bono_Consulta_Fecha_Impresion, Plan_Med_Codigo
+	FROM BETTER_CALL_JUAN.Consultas_Pacientes
+	WHERE Paciente_Dni=@dni_paciente
+
+	OPEN consultaCursor
+	DECLARE @bono_consulta_nro NUMERIC(18,0), @bono_consulta_fecha DATETIME, @plan_med_id NUMERIC(18,0)
+	FETCH consultaCursor INTO @bono_consulta_nro,@bono_consulta_fecha, @plan_med_id
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SET  @nro_consulta_paciente = @nro_consulta_paciente + 1
+		INSERT INTO BETTER_CALL_JUAN.Bonos_Consulta 
+		(fecha_compra,fecha_impresion,numero_consulta_paciente,paciente_compra_id,paciente_usa_id,plan_id)
+		VALUES (@bono_consulta_fecha,@bono_consulta_fecha,@nro_consulta_paciente,@paciente_id,@paciente_id,@plan_med_id)
+		FETCH consultaCursor INTO @bono_consulta_nro,@bono_consulta_fecha, @plan_med_id
+	END
+
+	CLOSE consultaCursor
+	DEALLOCATE consultaCursor
+
+	/*UPDATE BETTER_CALL_JUAN.Pacientes
+	SET nro_ultima_consulta=@nro_consulta_paciente
+	WHERE id=@paciente_id*/
+
+FETCH pacienteCursor INTO @paciente_id, @dni_paciente
+END
+CLOSE pacienteCursor
+DEALLOCATE pacienteCursor
+
+DROP TABLE BETTER_CALL_JUAN.Consultas_Pacientes
 
 /* Tabla Rangos Horarios */
 --Chequear si no conviene no usar la funcion, ya que quizas conviene joinear una sola vez en la query general, como hicimos en turnos.
 --Probe utilizar esta funcion en la migracion de los turnos y lo hacia 4 veces mas lento. 12 segundos contra 3.
+<<<<<<< HEAD
+=======
+
+>>>>>>> 19bc4c794a76f120a213a5932dce6f06d941b9a4
 /*
 CREATE FUNCTION get_medico_especialidad_id(@medico_dni NUMERIC(18,0), @especialidad_id NUMERIC(18,0)) RETURNS NUMERIC(18,0)
 BEGIN
@@ -445,3 +481,4 @@ FROM gd_esquema.Maestra
 GROUP BY Paciente_Dni
 ORDER BY 2 DESC
 */
+
