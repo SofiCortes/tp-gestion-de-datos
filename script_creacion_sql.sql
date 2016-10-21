@@ -336,6 +336,15 @@ ORDER BY 1 ASC
 INSERT INTO BETTER_CALL_JUAN.Roles(nombre,habilitado)
 VALUES('Afiliado',1),('Administrativo',1),('Profesional',1)
 
+/* Tabla Consultas */
+INSERT INTO BETTER_CALL_JUAN.Consultas (sintomas, enfermedades, turno_numero, fecha_hora_llegada, fecha_hora_atencion)
+select DISTINCT M.Consulta_Sintomas, M.Consulta_Enfermedades, T.numero turnoId, M.Turno_Fecha, M.Turno_Fecha
+from gd_esquema.Maestra M
+JOIN BETTER_CALL_JUAN.Pacientes P ON P.nro_doc = M.Paciente_Dni
+JOIN BETTER_CALL_JUAN.Turnos T ON T.fecha_hora = M.Turno_Fecha and T.paciente_id = P.id
+JOIN BETTER_CALL_JUAN.Especialidades E ON E.descripcion = M.Especialidad_Descripcion
+where M.Consulta_Enfermedades IS NOT NULL and M.Consulta_Sintomas IS NOT NULL
+
 /* Tabla Bonos Consulta */
 /*
 Se me ocurren dos opciones para asignar correctamente el numero_consulta_paciente a cada bono:
