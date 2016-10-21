@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.AbmRol
+﻿namespace ClinicaFrba
 {
-    partial class Alta_Rol
+    partial class AltaRol
     {
         /// <summary>
         /// Required designer variable.

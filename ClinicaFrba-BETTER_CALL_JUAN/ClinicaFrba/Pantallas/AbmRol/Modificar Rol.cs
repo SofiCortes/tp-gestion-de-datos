@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.AbmRol
+namespace ClinicaFrba
 {
-    public partial class Modificar_Rol : Form
+    public partial class ModificarRol : Form
     {
-        public Modificar_Rol()
+        private ModificarRolController controller;
+
+        public ModificarRol()
         {
+            this.controller = new ModificarRolController(this);
+
             InitializeComponent();
         }
     }

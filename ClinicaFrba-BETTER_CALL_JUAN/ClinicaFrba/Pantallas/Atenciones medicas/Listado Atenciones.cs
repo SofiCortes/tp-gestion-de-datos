@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Atenciones_medicas
+namespace ClinicaFrba
 {
-    public partial class Listado_Atenciones : Form
+    public partial class ListadoAtenciones : Form
     {
-        public Listado_Atenciones()
+        private ListadoAtencionesController controller;
+
+        public ListadoAtenciones()
         {
+            this.controller = new ListadoAtencionesController(this);
+
             InitializeComponent();
         }
     }

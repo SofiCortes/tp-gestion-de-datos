@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.AbmRol
+﻿namespace ClinicaFrba
 {
-    partial class Roles
+    partial class ListadoRoles
     {
         public static string ACTION_CODE_FOR_LIST_MODIFY_ROL = "ACTION_CODE_FOR_LIST_MODIFY_ROL";
         public static string ACTION_CODE_FOR_LIST_DELETE_ROL = "ACTION_CODE_FOR_LIST_DELETE_ROL";

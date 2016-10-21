@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Atenciones_medicas
+namespace ClinicaFrba
 {
-    public partial class Registrar_Llegada : Form
+    public partial class RegistrarLlegada : Form
     {
-        public Registrar_Llegada()
+        private RegistrarLlegadaController controller;
+
+        public RegistrarLlegada()
         {
+            this.controller = new RegistrarLlegadaController(this);
+
             InitializeComponent();
         }
     }

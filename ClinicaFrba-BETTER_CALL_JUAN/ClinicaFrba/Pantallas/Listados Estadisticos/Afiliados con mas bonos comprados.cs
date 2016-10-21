@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Listados_Estadisticos
+namespace ClinicaFrba
 {
     public partial class AfiliadosConMasBonos : Form
     {
+        private AfiliadosConMasBonosController controller;
+
         public AfiliadosConMasBonos()
         {
+            this.controller = new AfiliadosConMasBonosController(this);
+
             InitializeComponent();
         }
     }

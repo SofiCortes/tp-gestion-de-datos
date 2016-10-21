@@ -200,7 +200,7 @@ namespace ClinicaFrba.Pantalla_Principal
 
         private void buttonPedidoTurno_Click(object sender, EventArgs e)
         {
-            Pedir_Turno.Form1 form = new Pedir_Turno.Form1();
+            PedirTurnoForm form = new PedirTurnoForm();
             form.Show();
         }
 
@@ -212,31 +212,31 @@ namespace ClinicaFrba.Pantalla_Principal
 
         private void buttonEspecialidadesCancelaciones_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.EspecialidadConMasCancelaciones form = new Listados_Estadisticos.EspecialidadConMasCancelaciones();
+            EspecialidadConMasCancelaciones form = new EspecialidadConMasCancelaciones();
             form.Show();
         }
 
         private void buttonProfesionalesPorPlan_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.ProfesionalesMasConsultados form = new Listados_Estadisticos.ProfesionalesMasConsultados();
+            ProfesionalesMasConsultados form = new ProfesionalesMasConsultados();
             form.Show();
         }
 
         private void buttonProfesionalesMenosHoras_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.ProfesionalesConMenosHoras form = new Listados_Estadisticos.ProfesionalesConMenosHoras();
+            ProfesionalesConMenosHoras form = new ProfesionalesConMenosHoras();
             form.Show();
         }
 
         private void buttonAfiliadosBonos_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.AfiliadosConMasBonos form = new Listados_Estadisticos.AfiliadosConMasBonos();
+            AfiliadosConMasBonos form = new AfiliadosConMasBonos();
             form.Show();
         }
 
         private void buttonEspecialidadesBonos_Click(object sender, EventArgs e)
         {
-            Listados_Estadisticos.EspecialidadesConMasBonos form = new Listados_Estadisticos.EspecialidadesConMasBonos();
+            EspecialidadesConMasBonos form = new EspecialidadesConMasBonos();
             form.Show();
         }
 

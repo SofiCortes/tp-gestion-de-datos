@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Compra_Bono
+namespace ClinicaFrba
 {
-    public partial class Form1 : Form
+    public partial class ComprarBono : Form
     {
-        public Form1()
+        private ComprarBonoController controller;
+
+        public ComprarBono()
         {
+            this.controller = new ComprarBonoController(this);
+
             InitializeComponent();
         }
     }

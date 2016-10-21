@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Atenciones_medicas
+﻿namespace ClinicaFrba
 {
-    partial class Listado_Atenciones
+    partial class ListadoAtenciones
     {
         public static string ACTION_CODE_FOR_LIST_CANCELAR_ATENCION = "ACTION_CODE_FOR_LIST_CANCELAR_ATENCION";
         public static string ACTION_CODE_FOR_LIST_REGISTRAR_LLEGADA_ATENCION = "ACTION_CODE_FOR_LIST_REGISTRAR_LLEGADA_ATENCION";

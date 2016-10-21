@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Abm_Profesional
+namespace ClinicaFrba
 {
-    public partial class Agenda_Profesional : Form
+    public partial class AgendaProfesional : Form
     {
-        public Agenda_Profesional()
+        private AgendaProfesionalController controller;
+
+        public AgendaProfesional()
         {
+            this.controller = new AgendaProfesionalController(this);
+
             InitializeComponent();
         }
     }

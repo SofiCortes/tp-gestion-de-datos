@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Atenciones_medicas
+﻿namespace ClinicaFrba
 {
-    partial class Registrar_Resultado_Consulta
+    partial class RegistrarResultadoConsulta
     {
         /// <summary>
         /// Required designer variable.

@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Abm_Profesional
+namespace ClinicaFrba
 {
-    public partial class Listado_Especialidades_Medicas : Form
+    public partial class ListadoEspecialidadesMedicas : Form
     {
-        public Listado_Especialidades_Medicas()
+        private ListadoEspecialidadesMedicasController controller;
+
+        public ListadoEspecialidadesMedicas()
         {
+            this.controller = new ListadoEspecialidadesMedicasController(this);
+
             InitializeComponent();
         }
     }

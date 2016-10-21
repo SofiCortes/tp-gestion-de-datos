@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Abm_Profesional
+namespace ClinicaFrba
 {
     public partial class ListadoProfesionales : Form
     {
+        private ListadoProfesionalesController controller;
+
         public ListadoProfesionales()
         {
+            this.controller = new ListadoProfesionalesController(this);
+
             InitializeComponent();
         }
     }
