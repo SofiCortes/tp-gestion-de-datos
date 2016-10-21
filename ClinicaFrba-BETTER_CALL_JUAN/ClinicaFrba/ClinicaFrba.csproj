@@ -47,6 +47,23 @@
     <Compile Include="Modelo\BD\Manager\AbstractManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\LoginManager.cs" />
     <Compile Include="Modelo\BD\Utiles\ParametroParaSP.cs" />
+    <Compile Include="Modelo\Objetos\BajaPaciente.cs" />
+    <Compile Include="Modelo\Objetos\BonoConsulta.cs" />
+    <Compile Include="Modelo\Objetos\CambioDePlan.cs" />
+    <Compile Include="Modelo\Objetos\Cancelacion.cs" />
+    <Compile Include="Modelo\Objetos\Consulta.cs" />
+    <Compile Include="Modelo\Objetos\Especialidad.cs" />
+    <Compile Include="Modelo\Objetos\Funcionalidad.cs" />
+    <Compile Include="Modelo\Objetos\Medico.cs" />
+    <Compile Include="Modelo\Objetos\OperacionCompra.cs" />
+    <Compile Include="Modelo\Objetos\Paciente.cs" />
+    <Compile Include="Modelo\Objetos\PlanMedico.cs" />
+    <Compile Include="Modelo\Objetos\RangoAtencion.cs" />
+    <Compile Include="Modelo\Objetos\Rol.cs" />
+    <Compile Include="Modelo\Objetos\TipoCancelacion.cs" />
+    <Compile Include="Modelo\Objetos\TipoEspecialidad.cs" />
+    <Compile Include="Modelo\Objetos\Turno.cs" />
+    <Compile Include="Modelo\Objetos\Usuario.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Alta Afiliado.cs">
       <SubType>Form</SubType>
     </Compile>
