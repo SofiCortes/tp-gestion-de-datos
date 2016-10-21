@@ -334,7 +334,23 @@ ORDER BY 1 ASC
 
 /* Tabla Roles */
 INSERT INTO BETTER_CALL_JUAN.Roles(nombre,habilitado)
-VALUES('Afiliado',1),('Administrativo',1),('Profesional',1)
+VALUES ('Administrador',1),('Afiliado',1),('Administrativo',1),('Profesional',1)
+
+/* Tabla Funcionalidades */
+INSERT INTO BETTER_CALL_JUAN.Funcionalidades(descripcion)
+VALUES('Dar de alta afiliado'),('Dar de baja afiliado'),('Modificar afiliado')
+,('Dar de alta profesional'),('Dar de baja profesional'),('Modificar profesional')
+,('Dar de alta especialidad médica'),('Dar de baja especialidad médica'),('Modificar especialidad médica')
+,('Dar de alta plan'),('Dar de baja plan'),('Modificar plan')
+,('Registrar agenda profesional'),('Registro de llegada para atención médica'),('Cancelar atención médica')
+,('Generar listado estadístico'),('Comprar bono'),('Pedir turno')
+,('Registro de resultado para atención médica')
+
+/* Tabla Roles Funcionalidades */
+INSERT INTO BETTER_CALL_JUAN.Roles_Funcionalidades(rol_id,funcionalidad_id)
+VALUES(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14)
+,(1,15),(1,16),(1,17),(1,18),(1,19),(2,17),(2,18),(3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14)
+,(3,15),(3,16),(4,15),(4,19)
 
 /* Tabla Bonos Consulta */
 /*
@@ -353,7 +369,7 @@ Se me ocurren dos opciones para asignar correctamente el numero_consulta_pacient
 /* Tabla Rangos Horarios */
 --Chequear si no conviene no usar la funcion, ya que quizas conviene joinear una sola vez en la query general, como hicimos en turnos.
 --Probe utilizar esta funcion en la migracion de los turnos y lo hacia 4 veces mas lento. 12 segundos contra 3.
-
+/*
 CREATE FUNCTION get_medico_especialidad_id(@medico_dni NUMERIC(18,0), @especialidad_id NUMERIC(18,0)) RETURNS NUMERIC(18,0)
 BEGIN
 DECLARE @medico_especialidad_id NUMERIC(18,0)
@@ -366,6 +382,7 @@ WHERE m.nro_doc=@medico_dni AND me.especialidad_cod=@especialidad_id
 RETURN @medico_especialidad_id
 END
 GO
+*/
 
 /** FIN MIGRACION **/
 
