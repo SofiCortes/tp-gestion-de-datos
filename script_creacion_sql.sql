@@ -379,6 +379,14 @@ FROM BETTER_CALL_JUAN.Consultas_Pacientes cp1
 
 DROP TABLE BETTER_CALL_JUAN.Consultas_Pacientes
 
+/* Tabla Operaciones Compra */
+
+INSERT INTO BETTER_CALL_JUAN.Operaciones_Compra (cant_bonos, monto_total, paciente_id)
+SELECT COUNT(*), SUM(Plan_Med_Precio_Bono_Consulta), p.id
+FROM gd_esquema.Maestra m JOIN BETTER_CALL_JUAN.Pacientes p ON (m.Paciente_Dni = p.nro_doc)
+WHERE Compra_Bono_Fecha IS NOT NULL
+GROUP BY p.id, Compra_Bono_Fecha
+
 /* Tabla Rangos Horarios */
 
 CREATE TABLE #MedicosEspecialidadesTemp (
