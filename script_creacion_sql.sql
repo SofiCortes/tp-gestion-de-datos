@@ -364,52 +364,9 @@ where M.Consulta_Enfermedades IS NOT NULL and M.Consulta_Sintomas IS NOT NULL
 
 /* Tabla Bonos Consulta */
 
-DECLARE pacienteCursor CURSOR FOR
-SELECT DISTINCT id, nro_doc FROM BETTER_CALL_JUAN.Pacientes
-
-DECLARE @nro_consulta_paciente NUMERIC(18,0), @dni_paciente NUMERIC(18,0), @paciente_id NUMERIC(18,0)
-
-OPEN pacienteCursor
-FETCH pacienteCursor INTO @paciente_id, @dni_paciente
-
-WHILE @@FETCH_STATUS = 0
-BEGIN
-	SET @nro_consulta_paciente = 0
-
-	DECLARE consultaCursor CURSOR FOR
-	SELECT Bono_Consulta_Numero, Bono_Consulta_Fecha_Impresion, Plan_Med_Codigo
-	FROM BETTER_CALL_JUAN.Consultas_Pacientes
-	WHERE Paciente_Dni=@dni_paciente
-
-	OPEN consultaCursor
-	DECLARE @bono_consulta_nro NUMERIC(18,0), @bono_consulta_fecha DATETIME, @plan_med_id NUMERIC(18,0)
-	FETCH consultaCursor INTO @bono_consulta_nro,@bono_consulta_fecha, @plan_med_id
-
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-		SET  @nro_consulta_paciente = @nro_consulta_paciente + 1
-		INSERT INTO BETTER_CALL_JUAN.Bonos_Consulta 
-		(fecha_compra,fecha_impresion,numero_consulta_paciente,paciente_compra_id,paciente_usa_id,plan_id)
-		VALUES (@bono_consulta_fecha,@bono_consulta_fecha,@nro_consulta_paciente,@paciente_id,@paciente_id,@plan_med_id)
-		FETCH consultaCursor INTO @bono_consulta_nro,@bono_consulta_fecha, @plan_med_id
-	END
-
-	CLOSE consultaCursor
-	DEALLOCATE consultaCursor
-
-	/*UPDATE BETTER_CALL_JUAN.Pacientes
-	SET nro_ultima_consulta=@nro_consulta_paciente
-	WHERE id=@paciente_id*/
-
-FETCH pacienteCursor INTO @paciente_id, @dni_paciente
-END
-CLOSE pacienteCursor
-DEALLOCATE pacienteCursor
-
 DROP TABLE BETTER_CALL_JUAN.Consultas_Pacientes
 
 /* Tabla Rangos Horarios */
-<<<<<<< HEAD
 
 CREATE TABLE #MedicosEspecialidadesTemp (
 medico_dni numeric(18,0),
@@ -614,28 +571,6 @@ INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta,
 INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES	(6,	CAST ('2016-10-01 10:00' AS TIME(0)), CAST ('2016-10-01 13:00' AS TIME(0)),	(SELECT med_esp_id FROM #MedicosEspecialidadesTemp WHERE medico_dni = 85129809 AND esp_codigo = 10019)) --190
 
 DROP TABLE #MedicosEspecialidadesTemp
-=======
---Chequear si no conviene no usar la funcion, ya que quizas conviene joinear una sola vez en la query general, como hicimos en turnos.
---Probe utilizar esta funcion en la migracion de los turnos y lo hacia 4 veces mas lento. 12 segundos contra 3.
-<<<<<<< HEAD
-=======
-
->>>>>>> 19bc4c794a76f120a213a5932dce6f06d941b9a4
-/*
-CREATE FUNCTION get_medico_especialidad_id(@medico_dni NUMERIC(18,0), @especialidad_id NUMERIC(18,0)) RETURNS NUMERIC(18,0)
-BEGIN
-DECLARE @medico_especialidad_id NUMERIC(18,0)
-SET @medico_especialidad_id = 
-(
-SELECT me.id 
-FROM BETTER_CALL_JUAN.Medicos_Especialidades me JOIN BETTER_CALL_JUAN.Medicos m ON (me.medico_id = m.matricula)
-WHERE m.nro_doc=@medico_dni AND me.especialidad_cod=@especialidad_id
-)
-RETURN @medico_especialidad_id
-END
-GO
-*/
->>>>>>> e3a5eb30ea6b68b524078d59f843aaae3cc28a55
 
 /** FIN MIGRACION **/
 
@@ -680,13 +615,4 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionali
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
 
-/*
---No hay cambios de planes en Maestra
---Ya que en este select no hay nadie con mas de 1 en cantPlanes
-
-SELECT Paciente_Dni, COUNT(DISTINCT Plan_Med_Codigo) cantPlanes
-FROM gd_esquema.Maestra
-GROUP BY Paciente_Dni
-ORDER BY 2 DESC
-*/
 
