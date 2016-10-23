@@ -262,8 +262,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
 /* Tabla Pacientes */
 
 --Nros Ultimas Consultas
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.nrosUltimasConsultasPacientes'))
-    DROP TABLE BETTER_CALL_JUAN.nrosUltimasConsultasPacientes
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Consultas_Pacientes'))
+    DROP TABLE BETTER_CALL_JUAN.Consultas_Pacientes
 	
 
 CREATE TABLE [BETTER_CALL_JUAN].[Consultas_Pacientes] (
@@ -363,6 +363,19 @@ JOIN BETTER_CALL_JUAN.Especialidades E ON E.descripcion = M.Especialidad_Descrip
 where M.Consulta_Enfermedades IS NOT NULL and M.Consulta_Sintomas IS NOT NULL
 
 /* Tabla Bonos Consulta */
+
+INSERT INTO BETTER_CALL_JUAN.Bonos_Consulta 
+(fecha_compra,fecha_impresion,numero_consulta_paciente,paciente_compra_id,paciente_usa_id,plan_id)
+SELECT cp1.Bono_Consulta_Fecha_Impresion, cp1.Bono_Consulta_Fecha_Impresion,( 
+SELECT nro_consulta_paciente FROM
+(SELECT Bono_Consulta_Numero,ROW_NUMBER() OVER (ORDER BY Bono_Consulta_Fecha_Impresion,Bono_Consulta_Numero) AS nro_consulta_paciente 
+FROM  BETTER_CALL_JUAN.Consultas_Pacientes cp2 
+WHERE cp2.Paciente_Dni=cp1.Paciente_Dni) AS tab1
+WHERE cp1.Bono_Consulta_Numero=tab1.Bono_Consulta_Numero), 
+(SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc=Paciente_Dni), 
+(SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc=Paciente_Dni),
+cp1.Plan_Med_Codigo
+FROM BETTER_CALL_JUAN.Consultas_Pacientes cp1
 
 DROP TABLE BETTER_CALL_JUAN.Consultas_Pacientes
 
@@ -614,5 +627,3 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionali
 
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
-
-
