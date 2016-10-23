@@ -270,11 +270,12 @@ CREATE TABLE [BETTER_CALL_JUAN].[Consultas_Pacientes] (
 	[Paciente_Dni] NUMERIC(18,0),
 	[Bono_Consulta_Numero] NUMERIC(18,0),
 	[Bono_Consulta_Fecha_Impresion] DATETIME,
-	[Plan_Med_Codigo] NUMERIC(18,0)
+	[Plan_Med_Codigo] NUMERIC(18,0),
+	[Turno_Numero] NUMERIC(18,0)
 );
 
 INSERT INTO BETTER_CALL_JUAN.Consultas_Pacientes
-SELECT Paciente_Dni, Bono_Consulta_Numero, Bono_Consulta_Fecha_Impresion, Plan_Med_Codigo
+SELECT Paciente_Dni, Bono_Consulta_Numero, Bono_Consulta_Fecha_Impresion, Plan_Med_Codigo, Turno_Numero
 FROM gd_esquema.Maestra
 WHERE Paciente_Nombre IS NOT NULL AND Paciente_Apellido IS NOT NULL AND Paciente_Dni IS NOT NULL AND Paciente_Direccion IS NOT NULL 
 AND Paciente_Telefono IS NOT NULL AND Paciente_Mail IS NOT NULL AND Paciente_Fecha_Nac IS NOT NULL AND Plan_Med_Codigo IS NOT NULL 
@@ -284,7 +285,7 @@ AND Medico_Nombre IS NOT NULL AND Medico_Apellido IS NOT NULL AND Medico_Dni IS 
 AND Medico_Telefono IS NOT NULL AND Medico_Mail IS NOT NULL AND Medico_Fecha_Nac IS NOT NULL AND Especialidad_Codigo IS NOT NULL 
 AND Especialidad_Descripcion IS NOT NULL AND Tipo_Especialidad_Codigo IS NOT NULL AND Tipo_Especialidad_Descripcion IS NOT NULL 
 AND Compra_Bono_Fecha IS NULL AND Bono_Consulta_Fecha_Impresion IS NOT NULL AND Bono_Consulta_Numero IS NOT NULL
-ORDER BY 1 ASC, 2 ASC
+ORDER BY Paciente_Dni, Turno_Numero
 
 --INSERT PACIENTES
 
@@ -353,31 +354,46 @@ VALUES(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12)
 ,(1,15),(1,16),(1,17),(1,18),(1,19),(2,17),(2,18),(3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14)
 ,(3,15),(3,16),(4,15),(4,19)
 
-/* Tabla Consultas */
-INSERT INTO BETTER_CALL_JUAN.Consultas (sintomas, enfermedades, turno_numero, fecha_hora_llegada, fecha_hora_atencion)
-select DISTINCT M.Consulta_Sintomas, M.Consulta_Enfermedades, T.numero turnoId, M.Turno_Fecha, M.Turno_Fecha
-from gd_esquema.Maestra M
-JOIN BETTER_CALL_JUAN.Pacientes P ON P.nro_doc = M.Paciente_Dni
-JOIN BETTER_CALL_JUAN.Turnos T ON T.fecha_hora = M.Turno_Fecha and T.paciente_id = P.id
-JOIN BETTER_CALL_JUAN.Especialidades E ON E.descripcion = M.Especialidad_Descripcion
-where M.Consulta_Enfermedades IS NOT NULL and M.Consulta_Sintomas IS NOT NULL
-
 /* Tabla Bonos Consulta */
 
 INSERT INTO BETTER_CALL_JUAN.Bonos_Consulta 
 (fecha_compra,fecha_impresion,numero_consulta_paciente,paciente_compra_id,paciente_usa_id,plan_id)
-SELECT cp1.Bono_Consulta_Fecha_Impresion, cp1.Bono_Consulta_Fecha_Impresion,( 
-SELECT nro_consulta_paciente FROM
-(SELECT Bono_Consulta_Numero,ROW_NUMBER() OVER (ORDER BY Bono_Consulta_Fecha_Impresion,Bono_Consulta_Numero) AS nro_consulta_paciente 
-FROM  BETTER_CALL_JUAN.Consultas_Pacientes cp2 
-WHERE cp2.Paciente_Dni=cp1.Paciente_Dni) AS tab1
-WHERE cp1.Bono_Consulta_Numero=tab1.Bono_Consulta_Numero), 
-(SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc=Paciente_Dni), 
-(SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc=Paciente_Dni),
+SELECT cp1.Bono_Consulta_Fecha_Impresion, cp1.Bono_Consulta_Fecha_Impresion,
+(
+SELECT nro_consulta_paciente 
+FROM
+	(SELECT Bono_Consulta_Numero,ROW_NUMBER() OVER (ORDER BY Turno_Numero) AS nro_consulta_paciente 
+	FROM  BETTER_CALL_JUAN.Consultas_Pacientes cp2 
+	WHERE cp2.Paciente_Dni=cp1.Paciente_Dni) 
+	AS tab1
+WHERE cp1.Bono_Consulta_Numero=tab1.Bono_Consulta_Numero
+) as nro_consulta_paciente, 
+(SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc=Paciente_Dni) as paciente_compra_id, 
+(SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc=Paciente_Dni) as paciente_usa_id,
 cp1.Plan_Med_Codigo
 FROM BETTER_CALL_JUAN.Consultas_Pacientes cp1
 
 DROP TABLE BETTER_CALL_JUAN.Consultas_Pacientes
+
+/* Tabla Consultas */
+INSERT INTO BETTER_CALL_JUAN.Consultas (sintomas, enfermedades, turno_numero, fecha_hora_llegada, fecha_hora_atencion, bono_consulta_id)
+SELECT DISTINCT M.Consulta_Sintomas, M.Consulta_Enfermedades, T.numero turnoId, M.Turno_Fecha, M.Turno_Fecha,
+(SELECT DISTINCT id FROM BETTER_CALL_JUAN.Bonos_Consulta B 
+WHERE B.paciente_usa_id = P.id AND 
+B.numero_consulta_paciente=
+	(SELECT rownum FROM 
+		(SELECT DISTINCT M2.Turno_Numero, ROW_NUMBER() OVER(ORDER BY M2.Turno_Numero) rownum 
+		FROM gd_esquema.Maestra M2 
+		WHERE M2.Paciente_Dni=P.nro_doc AND M2.Turno_Numero IS NOT NULL AND M2.Consulta_Sintomas IS NOT NULL)
+		as turnosPaciente 
+	WHERE Turno_Numero=M.Turno_Numero
+	)
+) as bono_consulta_id
+FROM gd_esquema.Maestra M
+JOIN BETTER_CALL_JUAN.Pacientes P ON P.nro_doc = M.Paciente_Dni
+JOIN BETTER_CALL_JUAN.Turnos T ON T.fecha_hora = M.Turno_Fecha AND T.paciente_id = P.id
+JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = M.Especialidad_Codigo
+WHERE M.Consulta_Enfermedades IS NOT NULL AND M.Consulta_Sintomas IS NOT NULL
 
 /* Tabla Operaciones Compra */
 
@@ -635,3 +651,10 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionali
 
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
+
+/* --Hay consultas con el mismo turno
+select COUNT(*)
+from BETTER_CALL_JUAN.Consultas
+GROUP BY turno_numero
+Order by 1 desc
+*/
