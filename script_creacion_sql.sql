@@ -361,11 +361,11 @@ INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
 VALUES('admin',HASHBYTES('SHA2_256','w23e'))
 
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
-SELECT nro_doc, HASHBYTES('SHA2_256', 'blandios') password
+SELECT nro_doc, HASHBYTES('SHA2_256', 'afiliadofrba') password
 FROM BETTER_CALL_JUAN.Pacientes
 
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
-SELECT nro_doc, HASHBYTES('SHA2_256', 'sajarrucho') password
+SELECT nro_doc, HASHBYTES('SHA2_256', 'profesionalfrba') password
 FROM BETTER_CALL_JUAN.Medicos
 
 /* Tabla Roles Usuarios */
