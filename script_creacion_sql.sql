@@ -84,8 +84,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Funcionalidades] (
 
 CREATE TABLE [BETTER_CALL_JUAN].[Usuarios] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [username] VARCHAR(255) UNIQUE,
-  [password] VARCHAR(255),
+  [username] VARCHAR(255) UNIQUE NOT NULL,
+  [password] VARCHAR(255) NOT NULL,
   [intentos_fallidos] SMALLINT DEFAULT 0,
   PRIMARY KEY ([id])
 );
@@ -679,3 +679,54 @@ ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
 
 ALTER TABLE BETTER_CALL_JUAN.Turnos DROP COLUMN turno_numero_maestra
+
+-----------------------------------------
+
+/** PROCEDURES **/
+
+DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Login
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
+AS
+BEGIN
+	DECLARE @passwordReal VARCHAR(255), @intentosFallidos SMALLINT, @idUsuario NUMERIC(18,0)
+
+	SELECT @idUsuario=id, @passwordReal=password, @intentosFallidos=intentos_fallidos
+	FROM BETTER_CALL_JUAN.Usuarios
+	WHERE username=@user
+
+	IF (@idUsuario IS NULL) 
+		SET @retorno= -1	--No existe el usuario
+	ELSE 
+	BEGIN
+		IF(@intentosFallidos>=3)
+			SET @retorno= -2 --Usuario inhabilitado
+		ELSE 
+		BEGIN
+			IF(@passwordReal = HASHBYTES('SHA2_256',@passwordIngresada))
+			BEGIN
+				IF(@intentosFallidos>0)
+					BEGIN
+						UPDATE BETTER_CALL_JUAN.Usuarios
+						SET intentos_fallidos=0
+						WHERE id=@idUsuario	
+					END	
+
+				IF ((SELECT COUNT(DISTINCT ru.rol_id) FROM BETTER_CALL_JUAN.Roles_Usuarios ru WHERE ru.user_id=@idUsuario) = 1)
+					SET  @retorno=1 --Login OK. Tiene 1 rol
+				ELSE
+					SET @retorno=2 ---Login OK. Tiene mas de 1 rol
+			END
+			ELSE
+			BEGIN
+				UPDATE BETTER_CALL_JUAN.Usuarios
+				SET intentos_fallidos= @intentosFallidos + 1
+				WHERE id=@idUsuario	
+				
+				SET @retorno= -3 --Contrasenia incorrecta
+			END
+		END 
+
+	END
+END
+GO
