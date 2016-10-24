@@ -111,6 +111,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Turnos] (
   [paciente_id] NUMERIC(18,0),
   [medico_especialidad_id] NUMERIC(18,0),
   [cancelacion_id] NUMERIC(18,0),
+  [turno_numero_maestra] NUMERIC(18,0),
   PRIMARY KEY ([numero])
 );
 
@@ -327,9 +328,10 @@ ORDER BY med.matricula, Especialidad_Codigo
 
 /* Tabla Turnos */
 
-INSERT INTO BETTER_CALL_JUAN.Turnos (fecha_hora,paciente_id,medico_especialidad_id)
+INSERT INTO BETTER_CALL_JUAN.Turnos (fecha_hora,paciente_id,medico_especialidad_id, turno_numero_maestra)
 SELECT DISTINCT Turno_Fecha, p.id AS paciente_id, 
-(SELECT id FROM BETTER_CALL_JUAN.Medicos_Especialidades WHERE medico_id=med.matricula AND especialidad_cod=maestra.Especialidad_Codigo) AS medico_especialidad_id
+(SELECT id FROM BETTER_CALL_JUAN.Medicos_Especialidades WHERE medico_id=med.matricula AND especialidad_cod=maestra.Especialidad_Codigo) AS medico_especialidad_id,
+maestra.Turno_Numero
 FROM gd_esquema.Maestra maestra JOIN BETTER_CALL_JUAN.Pacientes p ON (maestra.Paciente_Dni  =  p.nro_doc) JOIN BETTER_CALL_JUAN.Medicos med ON (maestra.Medico_Dni = med.nro_doc)
 WHERE Turno_Numero IS NOT NULL AND Turno_Fecha IS NOT NULL
 ORDER BY 1 ASC
@@ -391,9 +393,11 @@ B.numero_consulta_paciente=
 ) as bono_consulta_id
 FROM gd_esquema.Maestra M
 JOIN BETTER_CALL_JUAN.Pacientes P ON P.nro_doc = M.Paciente_Dni
-JOIN BETTER_CALL_JUAN.Turnos T ON T.fecha_hora = M.Turno_Fecha AND T.paciente_id = P.id
+JOIN BETTER_CALL_JUAN.Turnos T ON T.turno_numero_maestra = M.Turno_Numero
 JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = M.Especialidad_Codigo
 WHERE M.Consulta_Enfermedades IS NOT NULL AND M.Consulta_Sintomas IS NOT NULL
+
+ALTER TABLE BETTER_CALL_JUAN.Turnos DROP COLUMN turno_numero_maestra
 
 /* Tabla Operaciones Compra */
 
