@@ -84,7 +84,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Funcionalidades] (
 
 CREATE TABLE [BETTER_CALL_JUAN].[Usuarios] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [username] VARCHAR(255),
+  [username] VARCHAR(255) UNIQUE,
   [password] VARCHAR(255),
   [intentos_fallidos] SMALLINT,
   PRIMARY KEY ([id])
