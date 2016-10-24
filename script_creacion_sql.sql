@@ -356,6 +356,30 @@ VALUES(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12)
 ,(1,15),(1,16),(1,17),(1,18),(1,19),(2,17),(2,18),(3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14)
 ,(3,15),(3,16),(4,15),(4,19)
 
+/* Tabla Usuarios */
+INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
+VALUES('admin',HASHBYTES('SHA2_256','w23e'))
+
+INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
+SELECT nro_doc, HASHBYTES('SHA2_256', 'blandios') password
+FROM BETTER_CALL_JUAN.Pacientes
+
+INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
+SELECT nro_doc, HASHBYTES('SHA2_256', 'sajarrucho') password
+FROM BETTER_CALL_JUAN.Medicos
+
+/* Tabla Roles Usuarios */
+INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
+VALUES(1,1)
+
+INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
+SELECT u.id, 2 rol
+FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Usuarios u ON (CONVERT(VARCHAR(18),p.nro_doc) = u.username)
+
+INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
+SELECT u.id, 4 rol
+FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Usuarios u ON (CONVERT(VARCHAR(18),m.nro_doc) = u.username)
+
 /* Tabla Bonos Consulta */
 
 INSERT INTO BETTER_CALL_JUAN.Bonos_Consulta 
