@@ -86,7 +86,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Usuarios] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [username] VARCHAR(255) UNIQUE,
   [password] VARCHAR(255),
-  [intentos_fallidos] SMALLINT,
+  [intentos_fallidos] SMALLINT DEFAULT 0,
   PRIMARY KEY ([id])
 );
 
@@ -421,8 +421,6 @@ JOIN BETTER_CALL_JUAN.Turnos T ON T.turno_numero_maestra = M.Turno_Numero
 JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = M.Especialidad_Codigo
 WHERE M.Consulta_Enfermedades IS NOT NULL AND M.Consulta_Sintomas IS NOT NULL
 
-ALTER TABLE BETTER_CALL_JUAN.Turnos DROP COLUMN turno_numero_maestra
-
 /* Tabla Operaciones Compra */
 
 INSERT INTO BETTER_CALL_JUAN.Operaciones_Compra (cant_bonos, monto_total, paciente_id)
@@ -680,3 +678,4 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionali
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
 
+ALTER TABLE BETTER_CALL_JUAN.Turnos DROP COLUMN turno_numero_maestra
