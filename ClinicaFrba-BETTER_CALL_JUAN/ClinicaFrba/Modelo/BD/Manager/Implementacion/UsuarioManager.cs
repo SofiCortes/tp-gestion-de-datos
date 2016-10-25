@@ -13,8 +13,9 @@ namespace ClinicaFrba
         public LoginManager() : base(new ConexionBD())
         {}
 
-        public void loginUser(string username, string password)
+        public int loginUser(string username, string password)
         {
+            int returnValue = -4;
             try
             {
                 ParametroParaSP parametro1 = new ParametroParaSP("user", SqlDbType.VarChar, username);
@@ -30,7 +31,7 @@ namespace ClinicaFrba
                 SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Login", parametros);
                 procedure.ExecuteNonQuery();
 
-                var returnValue = procedure.Parameters["@retorno"].Value;
+                returnValue = (int)procedure.Parameters["@retorno"].Value;
             }
             catch (Exception e)
             {
@@ -40,6 +41,7 @@ namespace ClinicaFrba
             {
                 this.closeDB();
             }
+            return returnValue;
         }
 
     }
