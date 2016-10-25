@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace ClinicaFrba
 {
@@ -28,8 +29,20 @@ namespace ClinicaFrba
         public SqlCommand createCallableProcedure(string storeProcedureName, List<ParametroParaSP> parameters)
         {
             SqlCommand storeProcedure = this.conexion.getStoreProcedureCall(storeProcedureName);
-            parameters.ForEach(parameter => 
-                storeProcedure.Parameters.Add("@" + parameter.parametroEnSP, parameter.type).Value = parameter.value
+            parameters.ForEach(delegate(ParametroParaSP parameter)
+            {
+                if (parameter.value != null)
+                {
+                    SqlParameter sqlParameter = new SqlParameter("@" + parameter.parametroEnSP, parameter.value);
+                    storeProcedure.Parameters.Add(sqlParameter);
+                }
+                else
+                {
+                    SqlParameter sqlParameter = new SqlParameter("@" + parameter.parametroEnSP, parameter.type);
+                    sqlParameter.Direction = ParameterDirection.Output;
+                    storeProcedure.Parameters.Add(sqlParameter);
+                }
+            }
             );
             return storeProcedure;
         }

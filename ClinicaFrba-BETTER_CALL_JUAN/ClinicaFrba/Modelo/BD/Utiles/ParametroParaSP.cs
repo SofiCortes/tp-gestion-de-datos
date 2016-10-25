@@ -20,5 +20,11 @@ namespace ClinicaFrba
             this.type = type;
             this.value = value;
         }
+
+        public ParametroParaSP(String parametroEnSP, SqlDbType type)
+        {
+            this.parametroEnSP = parametroEnSP;
+            this.type = type;
+        }
     }
 }

@@ -686,6 +686,7 @@ ALTER TABLE BETTER_CALL_JUAN.Turnos DROP COLUMN turno_numero_maestra
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Login'))
 DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Login
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
