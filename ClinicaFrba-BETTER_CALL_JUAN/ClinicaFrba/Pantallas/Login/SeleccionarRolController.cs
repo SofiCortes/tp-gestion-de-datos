@@ -11,10 +11,14 @@ namespace ClinicaFrba
         private SeleccionarRol form;
         private SeleccionarRolListener listener;
 
-        public SeleccionarRolController(SeleccionarRol form, SeleccionarRolListener listener)
+        public SeleccionarRolController(SeleccionarRol form)
+        {
+            this.form = form;
+        }
+
+        public void setListener(SeleccionarRolListener listener)
         {
             this.listener = listener;
-            this.form = form;
         }
     }
 }

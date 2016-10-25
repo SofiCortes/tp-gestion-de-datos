@@ -38,7 +38,9 @@ namespace ClinicaFrba
 
         internal void mostrarDialogoSeleccionRol(List<Rol> roles)
         {
-            SeleccionarRol Form = new SeleccionarRol(this.loginController, roles);
+            SeleccionarRol Form = new SeleccionarRol();
+            Form.setSeleccionarRolListener(this.loginController);
+            Form.setRoles(roles);
             Form.ShowDialog();
         }
 

@@ -14,18 +14,21 @@ namespace ClinicaFrba
     {
         private SeleccionarRolController controller;
 
-        public SeleccionarRol(SeleccionarRolListener listener, List<Rol> roles)
+        public SeleccionarRol()
         {
-            this.controller = new SeleccionarRolController(this, listener);
+            this.controller = new SeleccionarRolController(this);
 
             InitializeComponent();
-
-            this.showRolesForSelection(roles);
         }
 
-        private void showRolesForSelection(List<Rol> roles)
+        public void setSeleccionarRolListener(SeleccionarRolListener listener)
         {
-            throw new NotImplementedException();
+            this.controller.setListener(listener);
+        }
+
+        public void setRoles(List<Rol> roles)
+        {
+           //Aca se muestran los roles
         }
     }
 }

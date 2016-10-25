@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    interface SeleccionarRolListener
+    public interface SeleccionarRolListener
     {
 
-        public void rolSeleccionado(Rol rol);
+        void rolSeleccionado(Rol rol);
 
     }
 }
