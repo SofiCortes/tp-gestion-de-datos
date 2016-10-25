@@ -698,6 +698,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Funcionalidades_De_Rol
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Funcionalidades_De_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Funcionalidades_De_Rol
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
 BEGIN
@@ -762,3 +766,12 @@ BEGIN
 	WHERE F.id = RF.funcionalidad_id
 END
 GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Planes]
+AS
+BEGIN
+	SELECT PM.codigo, PM.descripcion
+	FROM BETTER_CALL_JUAN.Planes_Medicos PM
+END
+GO
+
