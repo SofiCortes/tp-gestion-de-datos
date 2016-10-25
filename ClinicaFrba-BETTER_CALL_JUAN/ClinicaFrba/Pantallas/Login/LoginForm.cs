@@ -35,5 +35,23 @@ namespace ClinicaFrba
             MessageBox.Show(mensaje, "Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        internal void mostrarDialogoSeleccionRol(List<Rol> roles)
+        {
+            SeleccionarRol Form = new SeleccionarRol(this.loginController, roles);
+            Form.ShowDialog();
+        }
+
+        internal void showPantallaPrincipal()
+        {
+            PantallaPrincipal pantallaPrincipal = new PantallaPrincipal();
+            pantallaPrincipal.Show();
+            this.Dispose();
+        }
+
+        private void LoginFom_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

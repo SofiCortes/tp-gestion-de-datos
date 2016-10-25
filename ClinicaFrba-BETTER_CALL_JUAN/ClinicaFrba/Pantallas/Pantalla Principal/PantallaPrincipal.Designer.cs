@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Pantalla_Principal
+﻿namespace ClinicaFrba
 {
-    partial class Pantalla_Principal
+    partial class PantallaPrincipal
     {
         /// <summary>
         /// Required designer variable.
@@ -523,6 +523,7 @@
             this.Controls.Add(this.groupBoxListadoEstadistico);
             this.Name = "Pantalla_Principal";
             this.Text = "Pantalla_Principal";
+            this.FormClosed += PantallaPrincipal_FormClosed;
             this.groupBoxAcciones.ResumeLayout(false);
             this.groupBoxAcciones.PerformLayout();
             this.groupBoxAfiliados.ResumeLayout(false);

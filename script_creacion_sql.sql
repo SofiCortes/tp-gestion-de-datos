@@ -687,7 +687,15 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 /** PROCEDURES **/
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Login'))
-DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Login
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Login
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Roles'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Roles
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Funcionalidades_De_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Funcionalidades_De_Rol
 GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
@@ -732,5 +740,25 @@ BEGIN
 		END 
 
 	END
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Roles] (@user VARCHAR(255))
+AS
+BEGIN
+	SELECT R.nombre FROM BETTER_CALL_JUAN.Roles R
+	JOIN BETTER_CALL_JUAN.Usuarios U ON U.username = @user
+	JOIN BETTER_CALL_JUAN.Roles_Usuarios RU ON U.id = RU.user_id
+	WHERE RU.rol_id = R.id
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Funcionalidades_De_Rol] (@rol VARCHAR(255))
+AS
+BEGIN
+	SELECT F.descripcion FROM BETTER_CALL_JUAN.Funcionalidades F
+	JOIN BETTER_CALL_JUAN.Roles R ON R.nombre = @rol
+	JOIN BETTER_CALL_JUAN.Roles_Funcionalidades RF ON RF.rol_id = R.id
+	WHERE F.id = RF.funcionalidad_id
 END
 GO

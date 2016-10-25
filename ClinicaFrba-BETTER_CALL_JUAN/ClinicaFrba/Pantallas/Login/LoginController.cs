@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    class LoginController
+    class LoginController : SeleccionarRolListener
     {
         private static int NO_EXISTE_EL_USUARIO_LOGIN_RESULT = -1;
         private static int USUARIO_INHABILITADO_LOGIN_RESULT = -2;
@@ -24,8 +24,8 @@ namespace ClinicaFrba
 
         internal void loginUser(string username, string password)
         {
-            LoginManager loginManager = new LoginManager();
-            int loginResult = loginManager.loginUser(username, password);
+            UsuarioManager usuarioManager = new UsuarioManager();
+            int loginResult = usuarioManager.loginUser(username, password);
 
             if (loginResult == NO_EXISTE_EL_USUARIO_LOGIN_RESULT)
             {
@@ -39,14 +39,53 @@ namespace ClinicaFrba
             {
                 loginForm.ShowErrorDialog("Contrasena incorrecta");
             }
-            else if (loginResult == LOGIN_OK_1_ROL_LOGIN_RESULT)
+            else if (loginResult == LOGIN_OK_1_ROL_LOGIN_RESULT || loginResult == LOGIN_OK_MAS_DE_1_ROL_LOGIN_RESULT)
             {
-                //Traer el rol???
+                this.getRolesDeUsuario(username);
             }
-            else if (loginResult == LOGIN_OK_MAS_DE_1_ROL_LOGIN_RESULT)
+        }
+
+        public void getRolesDeUsuario(string username)
+        {
+            UsuarioManager usuarioManager = new UsuarioManager();
+            List<Rol> roles = usuarioManager.getRolesDeUsuario(username);
+            if (roles != null)
             {
-                //Traer los roles para seleccion??
+                if (roles.Count() == 1)
+                {
+                    this.getFuncionalidadesParaRol(roles.ElementAt(0));
+                }
+                else
+                {
+                    this.loginForm.mostrarDialogoSeleccionRol(roles);
+                }
             }
+            else
+            {
+                loginForm.ShowErrorDialog("Ocurrio un error al obtener los roles del usuario. Por favor intentelo de nuevo.");
+            }
+        }
+
+        private void getFuncionalidadesParaRol(Rol rol)
+        {
+            RolManager rolManager = new RolManager();
+            List<String> funcionalidades = rolManager.getFuncionalidadesDeRol(rol.nombre);
+
+            if (funcionalidades != null)
+            {
+                UsuarioFuncionalidades.getInstance().addFuncionalidades(funcionalidades);
+                this.loginForm.showPantallaPrincipal();
+            }
+            else
+            {
+                loginForm.ShowErrorDialog("Ocurrio un error al obtener las funcionalidades del usuario. Por favor intentelo de nuevo.");
+            }
+        }
+
+
+        public void rolSeleccionado(Rol rol)
+        {
+            this.getFuncionalidadesParaRol(rol);
         }
     }
 }

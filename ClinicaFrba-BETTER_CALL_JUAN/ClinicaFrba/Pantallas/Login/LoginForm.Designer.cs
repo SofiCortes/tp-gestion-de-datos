@@ -109,6 +109,7 @@ namespace ClinicaFrba
             this.Controls.Add(this.label1);
             this.Name = "LoginForm";
             this.Text = "Login";
+            this.FormClosed += this.LoginFom_FormClosed;
             this.ResumeLayout(false);
             this.PerformLayout();
 

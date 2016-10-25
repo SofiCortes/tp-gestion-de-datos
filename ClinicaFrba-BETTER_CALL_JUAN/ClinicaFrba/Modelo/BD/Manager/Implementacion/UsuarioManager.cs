@@ -8,9 +8,10 @@ using System.Data.SqlClient;
 
 namespace ClinicaFrba
 {
-    class LoginManager : AbstractManager
+    class UsuarioManager : AbstractManager
     {
-        public LoginManager() : base(new ConexionBD())
+        public UsuarioManager()
+            : base(new ConexionBD())
         {}
 
         public int loginUser(string username, string password)
@@ -44,5 +45,42 @@ namespace ClinicaFrba
             return returnValue;
         }
 
+
+        internal List<Rol> getRolesDeUsuario(string username)
+        {
+            List<Rol> roles = new List<Rol>();
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("user", SqlDbType.VarChar, username);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Roles", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        Rol rol = new Rol();
+                        rol.nombre = sqlReader.GetString(0);
+
+                        roles.Add(rol);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                roles = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return roles;
+        }
     }
 }

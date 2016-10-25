@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Pantalla_Principal
+namespace ClinicaFrba
 {
-    public partial class Pantalla_Principal : Form
+    public partial class PantallaPrincipal : Form
     {
-        public Pantalla_Principal()
+        public PantallaPrincipal()
         {
             InitializeComponent();
+        }
+
+        private void PantallaPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
 
         private void buttonRoles_Click(object sender, EventArgs e)
