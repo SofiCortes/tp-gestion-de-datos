@@ -54,6 +54,7 @@
     <Compile Include="Modelo\BD\Manager\Implementacion\RolManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\TurnoManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\UsuarioManager.cs" />
+    <Compile Include="Modelo\BD\Utiles\ConversionHelper.cs" />
     <Compile Include="Modelo\BD\Utiles\ParametroParaSP.cs" />
     <Compile Include="Modelo\Objetos\BajaPaciente.cs" />
     <Compile Include="Modelo\Objetos\BonoConsulta.cs" />

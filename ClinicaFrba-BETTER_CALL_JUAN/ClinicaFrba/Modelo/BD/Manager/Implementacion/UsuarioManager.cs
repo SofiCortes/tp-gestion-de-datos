@@ -31,7 +31,7 @@ namespace ClinicaFrba
                 SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Login", parametros);
                 procedure.ExecuteNonQuery();
 
-                returnValue = (int)procedure.Parameters["@retorno"].Value;
+                returnValue = Convert.ToInt32(procedure.Parameters["@retorno"].Value);
             }
             catch (Exception e)
             {
