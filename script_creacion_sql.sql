@@ -786,3 +786,11 @@ BEGIN
 	FROM BETTER_CALL_JUAN.Roles R
 END
 GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Todas_Las_Funcionalidades]
+AS
+BEGIN
+	SELECT id, descripcion
+	FROM BETTER_CALL_JUAN.Funcionalidades
+END
+GO

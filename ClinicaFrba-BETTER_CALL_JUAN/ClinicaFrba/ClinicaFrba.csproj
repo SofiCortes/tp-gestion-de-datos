@@ -49,6 +49,7 @@
     <Compile Include="Modelo\BD\Manager\Implementacion\AtencionMedicaManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\BonoManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\EstadisticasManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\FuncionalidadManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\PlanManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\ProfesionalManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\RolManager.cs" />
@@ -249,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Planes\Listado Planes.resx">
       <DependentUpon>Listado Planes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\AbmRol\Alta Rol.resx">
+      <DependentUpon>Alta Rol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\AbmRol\Listado Roles.resx">
       <DependentUpon>Listado Roles.cs</DependentUpon>
