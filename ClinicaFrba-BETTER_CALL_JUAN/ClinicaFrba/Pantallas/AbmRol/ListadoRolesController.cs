@@ -14,5 +14,20 @@ namespace ClinicaFrba
         {
             this.form = form;
         }
+
+        public void llenarListadoRoles()
+        {
+            RolManager rolManager = new RolManager();
+            List<Rol> roles = rolManager.buscarTodos();
+
+            if (roles != null)
+            {
+                this.form.showRolesInTable(roles);
+            }
+            else
+            {
+                this.form.ShowErrorDialog("Ocurrio un error al obtener los Roles.");
+            }
+        }
     }
 }

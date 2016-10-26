@@ -33,13 +33,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.resultadosRolesGrid = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.resultadosRolesGrid = new System.Windows.Forms.DataGridView();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.buscarButton = new System.Windows.Forms.Button();
-            this.nombreColumnGrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.habilitadoColumnGrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultadosRolesGrid)).BeginInit();
             this.SuspendLayout();
@@ -51,21 +49,17 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(244, 62);
+            this.groupBox1.Size = new System.Drawing.Size(327, 62);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
             // 
-            // resultadosRolesGrid
+            // textBox1
             // 
-            this.resultadosRolesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultadosRolesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nombreColumnGrid,
-            this.habilitadoColumnGrid});
-            this.resultadosRolesGrid.Location = new System.Drawing.Point(13, 134);
-            this.resultadosRolesGrid.Name = "resultadosRolesGrid";
-            this.resultadosRolesGrid.Size = new System.Drawing.Size(243, 210);
-            this.resultadosRolesGrid.TabIndex = 1;
+            this.textBox1.Location = new System.Drawing.Point(90, 26);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 25);
+            this.textBox1.TabIndex = 1;
             // 
             // label1
             // 
@@ -76,12 +70,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre rol";
             // 
-            // textBox1
+            // resultadosRolesGrid
             // 
-            this.textBox1.Location = new System.Drawing.Point(90, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 25);
-            this.textBox1.TabIndex = 1;
+            this.resultadosRolesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.resultadosRolesGrid.Location = new System.Drawing.Point(13, 134);
+            this.resultadosRolesGrid.Name = "resultadosRolesGrid";
+            this.resultadosRolesGrid.Size = new System.Drawing.Size(326, 210);
+            this.resultadosRolesGrid.TabIndex = 1;
             // 
             // limpiarButton
             // 
@@ -96,35 +91,23 @@
             // buscarButton
             // 
             this.buscarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buscarButton.Location = new System.Drawing.Point(181, 80);
+            this.buscarButton.Location = new System.Drawing.Point(264, 80);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 30);
             this.buscarButton.TabIndex = 3;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
             // 
-            // nombreColumnGrid
-            // 
-            this.nombreColumnGrid.HeaderText = "Nombre";
-            this.nombreColumnGrid.Name = "nombreColumnGrid";
-            this.nombreColumnGrid.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            // 
-            // habilitadoColumnGrid
-            // 
-            this.habilitadoColumnGrid.HeaderText = "Habilitado";
-            this.habilitadoColumnGrid.Name = "habilitadoColumnGrid";
-            this.habilitadoColumnGrid.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            // 
-            // Roles
+            // ListadoRoles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(270, 356);
+            this.ClientSize = new System.Drawing.Size(353, 356);
             this.Controls.Add(this.buscarButton);
             this.Controls.Add(this.resultadosRolesGrid);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Listado de Roles";
+            this.Name = "ListadoRoles";
             this.Text = "Listado de Roles";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -141,8 +124,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Button buscarButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombreColumnGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn habilitadoColumnGrid;
 
         public string actionCode { get; set; }
     }

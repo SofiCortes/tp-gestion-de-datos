@@ -29,21 +29,24 @@ namespace ClinicaFrba
         public SqlCommand createCallableProcedure(string storeProcedureName, List<ParametroParaSP> parameters)
         {
             SqlCommand storeProcedure = this.conexion.getStoreProcedureCall(storeProcedureName);
-            parameters.ForEach(delegate(ParametroParaSP parameter)
+            if (parameters != null)
             {
-                if (parameter.value != null)
+                parameters.ForEach(delegate(ParametroParaSP parameter)
                 {
-                    SqlParameter sqlParameter = new SqlParameter("@" + parameter.parametroEnSP, parameter.value);
-                    storeProcedure.Parameters.Add(sqlParameter);
+                    if (parameter.value != null)
+                    {
+                        SqlParameter sqlParameter = new SqlParameter("@" + parameter.parametroEnSP, parameter.value);
+                        storeProcedure.Parameters.Add(sqlParameter);
+                    }
+                    else
+                    {
+                        SqlParameter sqlParameter = new SqlParameter("@" + parameter.parametroEnSP, parameter.type);
+                        sqlParameter.Direction = ParameterDirection.Output;
+                        storeProcedure.Parameters.Add(sqlParameter);
+                    }
                 }
-                else
-                {
-                    SqlParameter sqlParameter = new SqlParameter("@" + parameter.parametroEnSP, parameter.type);
-                    sqlParameter.Direction = ParameterDirection.Output;
-                    storeProcedure.Parameters.Add(sqlParameter);
-                }
+                );
             }
-            );
             return storeProcedure;
         }
 
