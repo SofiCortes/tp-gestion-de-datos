@@ -92,8 +92,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Usuarios] (
 
 CREATE TABLE [BETTER_CALL_JUAN].[Roles] (
   [id] SMALLINT IDENTITY(1,1),
-  [nombre] VARCHAR(255),
-  [habilitado] BIT,
+  [nombre] VARCHAR(255) UNIQUE,
+  [habilitado] BIT DEFAULT 1,
   PRIMARY KEY ([id])
 );
 
@@ -714,6 +714,14 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Crear_Rol
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Obtener_Rol_Id'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Obtener_Rol_Id
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Asignar_Funcionalidad_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Asignar_Funcionalidad_Rol
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
 BEGIN
@@ -803,13 +811,34 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Crear_Rol] (@nombre VARCHAR(255), @habilitado BIT)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Crear_Rol] (@nombre VARCHAR(255), @retorno SMALLINT OUT)
 AS
 BEGIN
-	INSERT INTO BETTER_CALL_JUAN.Roles(nombre, habilitado) VALUES(@nombre, @habilitado)
+	IF ((SELECT id FROM BETTER_CALL_JUAN.Roles WHERE nombre = @nombre) IS NULL)
+	BEGIN
+	INSERT INTO BETTER_CALL_JUAN.Roles(nombre) VALUES(@nombre)
+	SET @retorno = 1
+	END
+	ELSE
+	BEGIN
+	SET @retorno = -1
+	END
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Rol_Id] (@nombre VARCHAR(255), @id SMALLINT OUT)
+AS
+BEGIN
+	SET @id = (SELECT id FROM BETTER_CALL_JUAN.Roles WHERE nombre = @nombre)
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Asignar_Funcionalidad_Rol] (@rol_id SMALLINT, @funcionalidad_id NUMERIC(18,0))
+AS
+BEGIN
+	INSERT INTO BETTER_CALL_JUAN.Roles_Funcionalidades(rol_id, funcionalidad_id) VALUES (@rol_id, @funcionalidad_id)
+END
+GO
 -----------------------------------------
 
 /** TRIGGERS **/

@@ -59,6 +59,7 @@
             this.agregarRolButton.TabIndex = 5;
             this.agregarRolButton.Text = "Agregar";
             this.agregarRolButton.UseVisualStyleBackColor = true;
+            this.agregarRolButton.Click += new System.EventHandler(this.agregarRolButton_Click);
             // 
             // funcPanel
             // 

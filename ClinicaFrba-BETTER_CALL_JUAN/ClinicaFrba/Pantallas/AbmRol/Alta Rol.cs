@@ -48,16 +48,39 @@ namespace ClinicaFrba
                     cbf.Location = new Point(10, ycoords);
                     cbf.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     cbf.Text = func.descripcion;
+                    cbf.Name = func.id.ToString();
                     funcPanel.Controls.Add(cbf);
                     ycoords += 30;
                     this.CBLFuncionalidades.Add(cbf);
                 });
 
-                //funcPanel.Controls.Add(this.checkBoxListFunc);
             }
             else
             {
                 this.ShowErrorDialog("Error al cargar las funcionalidades");
+            }
+        }
+
+        private void agregarRolButton_Click(object sender, EventArgs e)
+        {
+            if (this.CBLFuncionalidades.Any(cbf => cbf.Checked))
+            {
+                Rol rol = new Rol();
+
+                if (RolNameTextBox.Text != "")
+                {
+                    rol.nombre = RolNameTextBox.Text;
+                    this.controller.crearRolConFuncionesSeleccionadas(rol, this.CBLFuncionalidades);
+                    this.Close();
+                }
+                else
+                {
+                    this.ShowErrorDialog("Ingrese un nombre para el rol");
+                }
+            }
+            else
+            {
+                this.ShowErrorDialog("Debe seleccionar al menos una funcionalidad");
             }
         }
 

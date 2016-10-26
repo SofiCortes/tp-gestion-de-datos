@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using ClinicaFrba.Modelo.BD.Manager.Implementacion;
 
 namespace ClinicaFrba
 {
@@ -80,6 +81,35 @@ namespace ClinicaFrba
                 this.closeDB();
             }
             return roles;
+        }
+
+        internal void crearRol(Rol rol, List<Funcionalidad> funcionalidadesAsignadas)
+        {
+            FuncionalidadManager fm = new FuncionalidadManager();
+            ParametroParaSP parametro1 = new ParametroParaSP("nombre", SqlDbType.VarChar, rol.nombre);
+            ParametroParaSP parametro2 = new ParametroParaSP("retorno", SqlDbType.SmallInt);
+
+            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+            parametros.Add(parametro1);
+            parametros.Add(parametro2);
+
+            this.openDB();
+
+            SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Crear_Rol", parametros);
+            procedure.ExecuteNonQuery();
+
+            int ok = Convert.ToInt32(procedure.Parameters["@retorno"].Value);
+            if (ok == 1)
+            {
+                fm.agregarFuncionalidadesAlRol(rol, funcionalidadesAsignadas);
+            }
+            else
+            {
+                AltaRol ar = new AltaRol();
+                ar.ShowErrorDialog("Ya existe el rol ingresado en el sistema");
+            }
+
+            this.closeDB();
         }
     }
 }
