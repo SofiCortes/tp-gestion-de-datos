@@ -16,16 +16,15 @@ namespace ClinicaFrba
             this.form = form;
         }
 
-        internal List<PlanMedico> getPlanesMedicos()
+        internal void llenarPlanesMedicos()
         {
             PlanManager manager = new PlanManager();
             List<PlanMedico> planes = manager.getPlanesMedicos();
 
-            return planes;
-
-
-
-
+            if (planes != null)
+            {
+                this.form.mostrarPlanesMedicos(planes);
+            }
         }
     }
 }

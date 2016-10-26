@@ -30,11 +30,12 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
                     while (sqlReader.Read())
                     {
                         PlanMedico plan = new PlanMedico();
-                        plan.codigo = int.Parse(sqlReader.GetString(0));
+                        plan.codigo = sqlReader.GetDecimal(0);
                         plan.descripcion = sqlReader.GetString(1);
+                        plan.precioBonoConsulta = sqlReader.GetDecimal(2);
+                        plan.precioBonoFarmacia = sqlReader.GetDecimal(3);
 
                         planes.Add(plan);
-                        
                     }
                 }
 

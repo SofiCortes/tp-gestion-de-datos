@@ -28,31 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBoxPlanes = new System.Windows.Forms.ListBox();
+            this.planesGrid = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.planesGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // listBoxPlanes
+            // planesGrid
             // 
-            this.listBoxPlanes.FormattingEnabled = true;
-            this.listBoxPlanes.Location = new System.Drawing.Point(12, 12);
-            this.listBoxPlanes.Name = "listBoxPlanes";
-            this.listBoxPlanes.Size = new System.Drawing.Size(260, 238);
-            this.listBoxPlanes.TabIndex = 0;
+            this.planesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.planesGrid.Location = new System.Drawing.Point(12, 12);
+            this.planesGrid.Name = "planesGrid";
+            this.planesGrid.Size = new System.Drawing.Size(260, 238);
+            this.planesGrid.TabIndex = 0;
             // 
             // ListadoPlanes
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.listBoxPlanes);
+            this.Controls.Add(this.planesGrid);
             this.Name = "ListadoPlanes";
             this.Text = "Listado de planes";
+            ((System.ComponentModel.ISupportInitialize)(this.planesGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBoxPlanes;
+        private System.Windows.Forms.DataGridView planesGrid;
+
     }
 }

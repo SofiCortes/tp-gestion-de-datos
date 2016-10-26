@@ -82,7 +82,6 @@ namespace ClinicaFrba
             }
         }
 
-
         public void rolSeleccionado(Rol rol)
         {
             this.getFuncionalidadesParaRol(rol);

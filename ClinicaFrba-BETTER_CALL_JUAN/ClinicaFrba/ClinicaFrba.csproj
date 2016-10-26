@@ -247,6 +247,9 @@
     <EmbeddedResource Include="Pantallas\Abm Afiliado\Listado Afiliados.resx">
       <DependentUpon>Listado Afiliados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Planes\Listado Planes.resx">
+      <DependentUpon>Listado Planes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\AbmRol\Listado Roles.resx">
       <DependentUpon>Listado Roles.cs</DependentUpon>
     </EmbeddedResource>
