@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicaFrba.Modelo.BD.Manager.Implementacion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,14 @@ namespace ClinicaFrba
         public AltaRolController(AltaRol form)
         {
             this.form = form;
+        }
+
+        internal List<Funcionalidad> obtenerTodasLasFuncionalidades()
+        {
+            FuncionalidadManager funcManager = new FuncionalidadManager();
+            List<Funcionalidad> funcionalidades = funcManager.getTodasLasFuncionalidades();
+
+            return funcionalidades;
         }
     }
 }

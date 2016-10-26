@@ -13,12 +13,53 @@ namespace ClinicaFrba
     public partial class AltaRol : Form
     {
         private AltaRolController controller;
+        private List<CheckBox> CBLFuncionalidades;
 
         public AltaRol()
         {
             this.controller = new AltaRolController(this);
 
             InitializeComponent();
+
+            this.Shown += (s, e1) =>
+            {
+                this.showSeleccionFuncionalidades();
+            };
         }
+
+            internal void ShowErrorDialog(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public void showSeleccionFuncionalidades()
+        {
+            List<Funcionalidad> funcionalidades = controller.obtenerTodasLasFuncionalidades();
+            this.CBLFuncionalidades = new List<CheckBox>();
+            int ycoords = 0;
+
+            if (funcionalidades != null)
+            {
+                funcionalidades.ForEach(func =>
+                {
+                    CheckBox cbf = new CheckBox();
+                    cbf.Width = funcPanel.Width;
+                    cbf.Location = new Point(10, ycoords);
+                    cbf.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    cbf.Text = func.descripcion;
+                    funcPanel.Controls.Add(cbf);
+                    ycoords += 30;
+                    this.CBLFuncionalidades.Add(cbf);
+                });
+
+                //funcPanel.Controls.Add(this.checkBoxListFunc);
+            }
+            else
+            {
+                this.ShowErrorDialog("Error al cargar las funcionalidades");
+            }
+        }
+
     }
 }

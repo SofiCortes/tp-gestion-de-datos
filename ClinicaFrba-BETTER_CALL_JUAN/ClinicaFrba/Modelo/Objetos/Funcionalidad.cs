@@ -28,7 +28,7 @@ namespace ClinicaFrba
         public static string PEDIR_TURNO = "Pedir turno";
         public static string REGISTRO_DE_RESULTADO_PARA_ATENCION_MEDICA = "Registro de resultado para atención médica";
 
-        public int id { get; set; }
+        public decimal id { get; set; }
         public string descripcion { get; set; }
     }
 }

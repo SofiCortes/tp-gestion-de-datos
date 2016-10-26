@@ -28,11 +28,68 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.nombreRolLabel = new System.Windows.Forms.Label();
+            this.RolNameTextBox = new System.Windows.Forms.TextBox();
+            this.agregarRolButton = new System.Windows.Forms.Button();
+            this.funcPanel = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // nombreRolLabel
+            // 
+            this.nombreRolLabel.AutoSize = true;
+            this.nombreRolLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nombreRolLabel.Location = new System.Drawing.Point(12, 18);
+            this.nombreRolLabel.Name = "nombreRolLabel";
+            this.nombreRolLabel.Size = new System.Drawing.Size(47, 13);
+            this.nombreRolLabel.TabIndex = 0;
+            this.nombreRolLabel.Text = "Nombre:";
+            // 
+            // RolNameTextBox
+            // 
+            this.RolNameTextBox.Location = new System.Drawing.Point(65, 15);
+            this.RolNameTextBox.Name = "RolNameTextBox";
+            this.RolNameTextBox.Size = new System.Drawing.Size(179, 20);
+            this.RolNameTextBox.TabIndex = 1;
+            // 
+            // agregarRolButton
+            // 
+            this.agregarRolButton.Location = new System.Drawing.Point(99, 298);
+            this.agregarRolButton.Name = "agregarRolButton";
+            this.agregarRolButton.Size = new System.Drawing.Size(75, 23);
+            this.agregarRolButton.TabIndex = 5;
+            this.agregarRolButton.Text = "Agregar";
+            this.agregarRolButton.UseVisualStyleBackColor = true;
+            // 
+            // funcPanel
+            // 
+            this.funcPanel.AutoScroll = true;
+            this.funcPanel.Location = new System.Drawing.Point(15, 47);
+            this.funcPanel.Name = "funcPanel";
+            this.funcPanel.Size = new System.Drawing.Size(240, 245);
+            this.funcPanel.TabIndex = 6;
+            // 
+            // AltaRol
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(267, 331);
+            this.Controls.Add(this.funcPanel);
+            this.Controls.Add(this.agregarRolButton);
+            this.Controls.Add(this.RolNameTextBox);
+            this.Controls.Add(this.nombreRolLabel);
+            this.Name = "AltaRol";
             this.Text = "Agregar rol";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Label nombreRolLabel;
+        private System.Windows.Forms.TextBox RolNameTextBox;
+        private System.Windows.Forms.Button agregarRolButton;
+        private System.Windows.Forms.Panel funcPanel;
+
     }
 }

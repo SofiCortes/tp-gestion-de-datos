@@ -787,6 +787,14 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Todas_Las_Funcionalidades]
+AS
+BEGIN
+	SELECT id, descripcion
+	FROM BETTER_CALL_JUAN.Funcionalidades
+END
+GO
+
 -----------------------------------------
 
 /** TRIGGERS **/
@@ -804,3 +812,6 @@ BEGIN
 	JOIN BETTER_CALL_JUAN.Pacientes p ON (t.paciente_id = p.id)
 END
 GO
+
+
+

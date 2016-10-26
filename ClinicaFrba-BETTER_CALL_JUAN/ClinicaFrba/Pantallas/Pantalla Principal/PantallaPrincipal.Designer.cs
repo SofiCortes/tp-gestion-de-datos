@@ -507,7 +507,7 @@
             this.groupBoxRoles.Text = "Roles";
             this.groupBoxRoles.Visible = false;
             // 
-            // Pantalla_Principal
+            // PantallaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -521,9 +521,8 @@
             this.Controls.Add(this.groupBoxAfiliados);
             this.Controls.Add(this.groupBoxRoles);
             this.Controls.Add(this.groupBoxListadoEstadistico);
-            this.Name = "Pantalla_Principal";
+            this.Name = "PantallaPrincipal";
             this.Text = "Pantalla_Principal";
-            this.FormClosed += PantallaPrincipal_FormClosed;
             this.groupBoxAcciones.ResumeLayout(false);
             this.groupBoxAcciones.PerformLayout();
             this.groupBoxAfiliados.ResumeLayout(false);
