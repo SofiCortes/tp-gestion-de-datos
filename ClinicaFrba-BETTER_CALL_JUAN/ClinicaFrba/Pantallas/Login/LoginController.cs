@@ -51,14 +51,14 @@ namespace ClinicaFrba
             List<Rol> roles = usuarioManager.getRolesDeUsuario(username);
             if (roles != null)
             {
-                if (roles.Count() == 1)
-                {
-                    this.getFuncionalidadesParaRol(roles.ElementAt(0));
-                }
-                else
-                {
-                    this.loginForm.mostrarDialogoSeleccionRol(roles);
-                }
+                this.loginForm.mostrarDialogoSeleccionRol(roles);
+                //if (roles.Count() == 1)
+                //{
+                //    this.getFuncionalidadesParaRol(roles.ElementAt(0));
+                //}
+                //else
+                //{
+                //}
             }
             else
             {
