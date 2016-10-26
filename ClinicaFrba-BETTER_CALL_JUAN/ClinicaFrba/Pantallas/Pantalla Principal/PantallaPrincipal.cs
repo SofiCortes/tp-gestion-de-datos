@@ -15,6 +15,19 @@ namespace ClinicaFrba
         public PantallaPrincipal()
         {
             InitializeComponent();
+
+            this.Shown += (s, e1) =>
+            {
+                this.ocultarBotonesSinPermisos();
+            };
+        }
+
+        private void ocultarBotonesSinPermisos()
+        {
+            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.DAR_DE_ALTA_AFILIADO))
+            {
+                this.buttonCrearAfiliado.Visible = false;
+            }
         }
 
         private void PantallaPrincipal_FormClosed(object sender, FormClosedEventArgs e)

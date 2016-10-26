@@ -28,7 +28,7 @@ namespace ClinicaFrba
                 funcionalidades = new List<string>();
             }
 
-            nuevasFuncionalidades.ForEach(funcionalidad => funcionalidades.Add(funcionalidad));
+            funcionalidades.AddRange(nuevasFuncionalidades);
         }
 
         public bool tieneFuncionalidad(string funcionalidad)

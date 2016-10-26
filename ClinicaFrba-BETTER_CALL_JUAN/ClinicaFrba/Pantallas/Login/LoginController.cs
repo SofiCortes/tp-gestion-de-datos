@@ -57,7 +57,7 @@ namespace ClinicaFrba
                 }
                 else
                 {
-                    this.loginForm.mostrarDialogoSeleccionRol(roles);
+                    this.loginForm.mostrarDialogoSeleccionRol(roles);       
                 }
             }
             else
@@ -81,7 +81,6 @@ namespace ClinicaFrba
                 loginForm.ShowErrorDialog("Ocurrio un error al obtener las funcionalidades del usuario. Por favor intentelo de nuevo.");
             }
         }
-
 
         public void rolSeleccionado(Rol rol)
         {

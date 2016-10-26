@@ -29,7 +29,6 @@ namespace ClinicaFrba
             loginController.loginUser(username, password);
         }
 
-
         internal void ShowErrorDialog(string mensaje)
         {
             MessageBox.Show(mensaje, "Error",

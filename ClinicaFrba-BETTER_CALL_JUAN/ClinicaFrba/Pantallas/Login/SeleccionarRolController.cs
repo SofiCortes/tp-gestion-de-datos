@@ -20,5 +20,10 @@ namespace ClinicaFrba
         {
             this.listener = listener;
         }
+
+        internal void onRolSeleccionado(Rol rol)
+        {
+            this.listener.rolSeleccionado(rol);
+        }
     }
 }

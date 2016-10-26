@@ -19,6 +19,16 @@ namespace ClinicaFrba
             this.controller = new ListadoPlanesController(this);
 
             InitializeComponent();
+
+            this.Shown += (s, e1) =>
+            {
+                this.controller.llenarPlanesMedicos();
+            };
+        }
+
+        internal void mostrarPlanesMedicos(List<PlanMedico> planes)
+        {
+            this.planesGrid.DataSource = planes;
         }
     }
 }
