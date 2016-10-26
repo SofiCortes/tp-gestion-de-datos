@@ -809,3 +809,21 @@ BEGIN
 	INSERT INTO BETTER_CALL_JUAN.Roles(nombre, habilitado) VALUES(@nombre, @habilitado)
 END
 GO
+
+-----------------------------------------
+
+/** TRIGGERS **/
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Actualizar_Consulta'))
+	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Actualizar_Consulta
+GO
+
+CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Actualizar_Consulta] ON [BETTER_CALL_JUAN].[Consultas] AFTER INSERT
+AS
+BEGIN
+	UPDATE BETTER_CALL_JUAN.Pacientes
+	SET nro_ultima_consulta +=1
+	FROM inserted i JOIN BETTER_CALL_JUAN.Turnos t ON (i.turno_numero = t.numero) 
+	JOIN BETTER_CALL_JUAN.Pacientes p ON (t.paciente_id = p.id)
+END
+GO
