@@ -706,6 +706,14 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Todos_Los_Roles
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Todas_Las_Funcionalidades'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Todas_Las_Funcionalidades
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Crear_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Crear_Rol
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
 BEGIN
@@ -792,5 +800,12 @@ AS
 BEGIN
 	SELECT id, descripcion
 	FROM BETTER_CALL_JUAN.Funcionalidades
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Crear_Rol] (@nombre VARCHAR(255), @habilitado BIT)
+AS
+BEGIN
+	INSERT INTO BETTER_CALL_JUAN.Roles(nombre, habilitado) VALUES(@nombre, @habilitado)
 END
 GO
