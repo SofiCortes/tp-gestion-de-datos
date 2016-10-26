@@ -770,7 +770,7 @@ GO
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Planes]
 AS
 BEGIN
-	SELECT PM.codigo, PM.descripcion
+	SELECT PM.codigo, PM.descripcion, PM.precio_bono_consulta, PM.precio_bono_farmacia
 	FROM BETTER_CALL_JUAN.Planes_Medicos PM
 END
 GO
