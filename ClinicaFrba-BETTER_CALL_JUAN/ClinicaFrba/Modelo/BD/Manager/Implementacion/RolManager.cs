@@ -111,5 +111,23 @@ namespace ClinicaFrba
 
             this.closeDB();
         }
+
+        internal int obtenerRolID(string nombre)
+        {
+            ParametroParaSP parametro1 = new ParametroParaSP("nombre", SqlDbType.VarChar, nombre);
+            ParametroParaSP parametro2 = new ParametroParaSP("id", SqlDbType.SmallInt);
+
+            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+            parametros.Add(parametro1);
+            parametros.Add(parametro2);
+
+            this.openDB();
+
+            SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Obtener_Rol_Id", parametros);
+            procedure.ExecuteNonQuery();
+
+            int id = Convert.ToInt32(procedure.Parameters["@id"].Value);
+            return id;
+        }
     }
 }
