@@ -780,6 +780,9 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Afiliado
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Obtener_Funcionalidades_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Obtener_Funcionalidades_Rol
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
@@ -993,7 +996,6 @@ BEGIN
 END
 GO
 
-
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Baja_Afiliado] (@nro_doc NUMERIC(18,0)) --agregamos el tipo de doc?
 AS
 BEGIN
@@ -1017,6 +1019,15 @@ BEGIN
 	INSERT INTO Bajas_Pacientes(fecha_baja, paciente_id) 
 	VALUES (GETDATE(), (SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc = @nro_doc))
 
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Funcionalidades_Rol] (@rol_id SMALLINT)
+AS
+BEGIN
+	SELECT rf.funcionalidad_id, f.descripcion
+	FROM BETTER_CALL_JUAN.Roles_Funcionalidades rf JOIN BETTER_CALL_JUAN.Funcionalidades f ON (rf.funcionalidad_id = f.id)
+	WHERE rf.rol_id = @rol_id
 END
 GO
 

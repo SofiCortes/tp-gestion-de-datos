@@ -54,3 +54,4 @@ C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba
 C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
 C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.AltaRol.resources
+C:\Users\Marcos\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ModificarRol.resources

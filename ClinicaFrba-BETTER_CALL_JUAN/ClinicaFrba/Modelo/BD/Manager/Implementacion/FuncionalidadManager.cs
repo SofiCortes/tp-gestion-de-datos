@@ -71,5 +71,45 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
 
             this.closeDB();
         }
+
+        internal List<Funcionalidad> obtenerFuncionalidadesRol(int id)
+        {
+            List<Funcionalidad> funcsRol = new List<Funcionalidad>();
+            try
+            {
+            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+            SqlCommand procedure;
+
+            ParametroParaSP parametro3 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, id);
+
+            parametros.Add(parametro3);
+            this.openDB();
+
+            procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Obtener_Funcionalidades_Rol", parametros);
+            SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        Funcionalidad func = new Funcionalidad();
+                        func.id = sqlReader.GetDecimal(0);
+                        func.descripcion = sqlReader.GetString(1);
+
+                        funcsRol.Add(func);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                funcsRol = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return funcsRol;
+        }
+        
     }
 }
