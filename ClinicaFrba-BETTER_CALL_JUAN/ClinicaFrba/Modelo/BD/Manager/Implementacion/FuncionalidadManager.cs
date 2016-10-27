@@ -49,19 +49,10 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
 
         internal void agregarFuncionalidadesAlRol(Rol rol, List<Funcionalidad> funcionalidadesAsignadas)
         {
-            ParametroParaSP parametro1 = new ParametroParaSP("nombre", SqlDbType.VarChar, rol.nombre);
-            ParametroParaSP parametro2 = new ParametroParaSP("id", SqlDbType.SmallInt);
-
+            RolManager rm = new RolManager();
+            rol.id = rm.obtenerRolID(rol.nombre);
             List<ParametroParaSP> parametros = new List<ParametroParaSP>();
-            parametros.Add(parametro1);
-            parametros.Add(parametro2);
-
-            this.openDB();
-
-            SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Obtener_Rol_Id", parametros);
-            procedure.ExecuteNonQuery();
-
-            rol.id = Convert.ToInt32(procedure.Parameters["@id"].Value);
+            SqlCommand procedure;
 
             funcionalidadesAsignadas.ForEach(func =>
             {
