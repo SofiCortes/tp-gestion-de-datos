@@ -713,7 +713,7 @@ ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
 
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Turnos.turno_numero_maestra'))
+IF EXISTS (SELECT * FROM sys.all_columns WHERE name='turno_numero_maestra')
 	ALTER TABLE [BETTER_CALL_JUAN].[Turnos] DROP COLUMN turno_numero_maestra
 
 -----------------------------------------
@@ -767,6 +767,10 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Familiar'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Familiar
 GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Afiliados'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Afiliados
+GO
+
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
@@ -1016,3 +1020,4 @@ BEGIN
 
 END
 GO
+
