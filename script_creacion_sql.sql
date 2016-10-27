@@ -776,6 +776,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Baja_Afiliado
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Modificar_Afiliado'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Afiliado
+GO
+
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
@@ -971,6 +975,24 @@ BEGIN
 	FROM BETTER_CALL_JUAN.Pacientes
 END
 GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Afiliado] (@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @direccion VARCHAR(255), @telefono NUMERIC(18,0), @mail VARCHAR(255), @sexo CHAR(1), @estado_civil VARCHAR(100))
+AS
+BEGIN
+	IF (@nro_doc IS NULL OR NOT EXISTS (SELECT nro_doc FROM Pacientes WHERE tipo_doc=@tipo_doc AND nro_doc=@nro_doc)) 
+	--chequear si esta validacion va aca o como lo manda desde la app
+	BEGIN
+		RAISERROR('No existe afiliado registrado con el numero de documento ingresado.', 10,1)
+		RETURN
+	END
+
+	UPDATE Pacientes
+	SET direccion=@direccion, telefono=@telefono, mail=@mail, sexo=@sexo, estado_civil=@estado_civil
+	WHERE tipo_doc = @tipo_doc AND nro_doc = @nro_doc
+						
+END
+GO
+
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Baja_Afiliado] (@nro_doc NUMERIC(18,0)) --agregamos el tipo de doc?
 AS
