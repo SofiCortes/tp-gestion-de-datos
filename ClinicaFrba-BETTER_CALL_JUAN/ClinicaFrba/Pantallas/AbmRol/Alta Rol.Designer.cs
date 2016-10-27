@@ -32,6 +32,7 @@
             this.RolNameTextBox = new System.Windows.Forms.TextBox();
             this.agregarRolButton = new System.Windows.Forms.Button();
             this.funcPanel = new System.Windows.Forms.Panel();
+            this.labelFuncionalidades = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // nombreRolLabel
@@ -64,16 +65,26 @@
             // funcPanel
             // 
             this.funcPanel.AutoScroll = true;
-            this.funcPanel.Location = new System.Drawing.Point(15, 47);
+            this.funcPanel.Location = new System.Drawing.Point(15, 61);
             this.funcPanel.Name = "funcPanel";
-            this.funcPanel.Size = new System.Drawing.Size(240, 245);
+            this.funcPanel.Size = new System.Drawing.Size(240, 231);
             this.funcPanel.TabIndex = 6;
+            // 
+            // labelFuncionalidades
+            // 
+            this.labelFuncionalidades.AutoSize = true;
+            this.labelFuncionalidades.Location = new System.Drawing.Point(18, 42);
+            this.labelFuncionalidades.Name = "labelFuncionalidades";
+            this.labelFuncionalidades.Size = new System.Drawing.Size(84, 13);
+            this.labelFuncionalidades.TabIndex = 7;
+            this.labelFuncionalidades.Text = "Funcionalidades";
             // 
             // AltaRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(267, 331);
+            this.Controls.Add(this.labelFuncionalidades);
             this.Controls.Add(this.funcPanel);
             this.Controls.Add(this.agregarRolButton);
             this.Controls.Add(this.RolNameTextBox);
@@ -91,6 +102,7 @@
         private System.Windows.Forms.TextBox RolNameTextBox;
         private System.Windows.Forms.Button agregarRolButton;
         private System.Windows.Forms.Panel funcPanel;
+        private System.Windows.Forms.Label labelFuncionalidades;
 
     }
 }
