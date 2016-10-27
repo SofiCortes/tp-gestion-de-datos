@@ -1056,15 +1056,15 @@ GO
 
 /** TRIGGERS **/
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Actualizar_Consulta'))
-	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Actualizar_Consulta
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Insert_Consulta'))
+	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Insert_Consulta
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Insert_Afiliado'))
 	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Insert_Afiliado
 GO
 
-CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Actualizar_Consulta] ON [BETTER_CALL_JUAN].[Consultas] AFTER INSERT
+CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Insert_Consulta] ON [BETTER_CALL_JUAN].[Consultas] AFTER INSERT
 AS
 BEGIN
 	UPDATE BETTER_CALL_JUAN.Pacientes
