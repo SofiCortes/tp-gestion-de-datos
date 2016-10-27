@@ -767,8 +767,13 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Familiar'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Familiar
 GO
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Afiliados'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Afiliados
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Baja_Afiliado'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Baja_Afiliado
 GO
 
 
@@ -967,8 +972,33 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Baja_Afiliado] (@nro_doc NUMERIC(18,0)) --agregamos el tipo de doc?
+AS
+BEGIN
+	IF (@nro_doc IS NULL OR NOT EXISTS (SELECT nro_doc FROM Pacientes WHERE nro_doc=@nro_doc)) 
+	--chequear si esta validacion va aca o como lo manda desde la app
+	BEGIN
+		RAISERROR('No existe afiliado registrado con el numero de documento ingresado.', 10,1)
+		RETURN
+	END
 
------------------------------------------
+	IF((SELECT habilitado FROM Pacientes WHERE nro_doc = @nro_doc) = 0)
+	BEGIN
+		RAISERROR('El afiliado ya está dado de baja.', 10,1)
+		RETURN
+	END
+
+	UPDATE Pacientes
+	SET habilitado = 0
+	WHERE nro_doc = @nro_doc
+
+	INSERT INTO Bajas_Pacientes(fecha_baja, paciente_id) 
+	VALUES (GETDATE(), (SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc = @nro_doc))
+
+END
+GO
+
+----------------------------------------
 
 /** TRIGGERS **/
 
