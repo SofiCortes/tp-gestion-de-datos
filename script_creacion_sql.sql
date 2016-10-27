@@ -216,7 +216,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
 CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [nro_raiz] NUMERIC(18,0),
-  [nro_personal] NUMERIC(2,0),
+  [nro_personal] NUMERIC(2,0) DEFAULT 00,
   [nombre] VARCHAR(255),
   [apellido] VARCHAR(255),
   [tipo_doc] VARCHAR(100),
@@ -227,14 +227,13 @@ CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
   [fecha_nac] DATETIME,
   [sexo] CHAR,
   [estado_civil] VARCHAR(100),
-  [cantidad_familiares] INT,
+  [cantidad_familiares] INT DEFAULT 0,
   [plan_medico_cod] NUMERIC(18,0),
-  [habilitado] BIT,
-  [nro_ultima_consulta] NUMERIC(18,0),
+  [habilitado] BIT DEFAULT 1,
+  [nro_ultima_consulta] NUMERIC(18,0) DEFAULT 0,
   [usuario_id] NUMERIC(18,0),
   PRIMARY KEY ([id]),
-  UNIQUE([tipo_doc], [nro_doc]),
-  --UNIQUE([nro_raiz], [nro_personal])
+  UNIQUE([tipo_doc], [nro_doc])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Cambios_De_Plan] (
@@ -338,23 +337,58 @@ ORDER BY 1 ASC
 
 /* Tabla Roles */
 INSERT INTO BETTER_CALL_JUAN.Roles(nombre,habilitado)
-VALUES ('Administrador',1),('Afiliado',1),('Administrativo',1),('Profesional',1)
+VALUES 
+--1
+('Administrador',1),
+--2
+('Afiliado',1),
+--3
+('Administrativo',1),
+--4
+('Profesional',1)
 
 /* Tabla Funcionalidades */
 INSERT INTO BETTER_CALL_JUAN.Funcionalidades(descripcion)
-VALUES('Dar de alta afiliado'),('Dar de baja afiliado'),('Modificar afiliado')
-,('Dar de alta profesional'),('Dar de baja profesional'),('Modificar profesional')
-,('Dar de alta especialidad médica'),('Dar de baja especialidad médica'),('Modificar especialidad médica')
-,('Dar de alta plan'),('Dar de baja plan'),('Modificar plan')
-,('Registrar agenda profesional'),('Registro de llegada para atención médica'),('Cancelar atención médica')
-,('Generar listado estadístico'),('Comprar bono'),('Pedir turno')
-,('Registro de resultado para atención médica')
+VALUES
+--1
+('Dar de alta afiliado'),
+--2
+('Dar de baja afiliado'),
+--3
+('Modificar afiliado'),
+--4
+('Registro de llegada para atención médica'),
+--5
+('Cancelar atención médica'),
+--6
+('Generar listado estadístico'),
+--7
+('Comprar bono'),
+--8
+('Pedir turno'),
+--9
+('Registro de resultado para atención médica'), 
+--10
+('Acciones con roles'),
+--11
+('Acciones con afiliados'),
+--12
+('Acciones con profesionales'),
+--13
+('Acciones con planes'),
+--14
+('Acciones con bonos'),
+--15
+('Acciones con turnos'),
+--16
+('Acciones con atencion medica')
 
 /* Tabla Roles Funcionalidades */
 INSERT INTO BETTER_CALL_JUAN.Roles_Funcionalidades(rol_id,funcionalidad_id)
-VALUES(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14)
-,(1,15),(1,16),(1,17),(1,18),(1,19),(2,17),(2,18),(3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(3,7),(3,8),(3,9),(3,10),(3,11),(3,12),(3,13),(3,14)
-,(3,15),(3,16),(4,15),(4,19)
+VALUES(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),
+(2,7),(2,8),(2,14),(2,15),
+(3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(3,11),(3,16),
+(4,5),(4,9),(4,16)
 
 /* Tabla Usuarios */
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
@@ -722,6 +756,18 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Asignar_Funcionalidad_Rol
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Nuevo_Grupo'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Nuevo_Grupo
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Familiar'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Familiar
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
 BEGIN
@@ -839,12 +885,95 @@ BEGIN
 	INSERT INTO BETTER_CALL_JUAN.Roles_Funcionalidades(rol_id, funcionalidad_id) VALUES (@rol_id, @funcionalidad_id)
 END
 GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Alta_Usuario_Afiliado](@username VARCHAR(255), @id NUMERIC(18,0) OUT)
+AS
+BEGIN
+	INSERT INTO BETTER_CALL_JUAN.Usuarios (username,password) 
+	VALUES (@username,'afiliadofrba')
+
+	SELECT @id=MAX(id)
+	FROM BETTER_CALL_JUAN.Usuarios
+
+	RETURN @id
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Alta_Afiliado_Familiar](@nro_raiz NUMERIC(18,0),@nombre VARCHAR(255),@apellido VARCHAR(255),
+																	   @tipo_doc VARCHAR(100),@nro_doc NUMERIC(18,0),@direccion VARCHAR(255),
+																	   @telefono NUMERIC(18,0),@mail VARCHAR(255),@fecha_nac DATETIME, 
+																	   @sexo CHAR(1), @estado_civil VARCHAR(100),@plan_medico_cod NUMERIC(18,0))
+AS
+BEGIN
+	IF (@nro_raiz IS NULL OR NOT EXISTS (SELECT nro_raiz FROM Pacientes WHERE nro_raiz=@nro_raiz))
+	BEGIN
+		RAISERROR('Debe especificarse un numero raiz valido',10,1)
+		RETURN
+	END
+
+	DECLARE @usuario_id NUMERIC(18,0)
+	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @nro_doc, @usuario_id OUT
+
+	INSERT INTO BETTER_CALL_JUAN.Pacientes  
+	(nro_raiz,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,
+	fecha_nac,sexo,estado_civil,plan_medico_cod,usuario_id)
+	VALUES
+	(@nro_raiz,@nombre,@apellido,@tipo_doc,@nro_doc,@direccion,@telefono,
+	@mail,@fecha_nac,@sexo,@estado_civil,@plan_medico_cod,@usuario_id)
+
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Alta_Afiliado_Nuevo_Grupo](@nombre VARCHAR(255),@apellido VARCHAR(255),@tipo_doc VARCHAR(100),
+																		  @nro_doc NUMERIC(18,0),@direccion VARCHAR(255),@telefono NUMERIC(18,0),
+																		  @mail VARCHAR(255),@fecha_nac DATETIME, @sexo CHAR(1), 
+																		  @estado_civil VARCHAR(100),@plan_medico_cod NUMERIC(18,0))
+AS
+BEGIN
+	DECLARE @nro_raiz_nuevo NUMERIC(18,0)
+
+	SELECT @nro_raiz_nuevo=MAX(nro_raiz)
+	FROM BETTER_CALL_JUAN.Pacientes
+		
+	IF(@nro_raiz_nuevo IS NULL)
+		SET @nro_raiz_nuevo=1
+	ELSE
+		SET @nro_raiz_nuevo= @nro_raiz_nuevo+1
+
+	DECLARE @usuario_id NUMERIC(18,0)
+	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @nro_doc, @usuario_id OUT
+
+	INSERT INTO BETTER_CALL_JUAN.Pacientes  
+	(nro_raiz,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,
+	fecha_nac,sexo,estado_civil,plan_medico_cod,usuario_id)
+	VALUES
+	(@nro_raiz_nuevo,@nombre,@apellido,@tipo_doc,@nro_doc,@direccion,@telefono,
+	@mail,@fecha_nac,@sexo,@estado_civil,@plan_medico_cod,@usuario_id)
+
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Afiliados]
+AS
+BEGIN
+	SELECT id,nro_raiz,nro_personal,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,sexo,
+	estado_civil,cantidad_familiares,plan_medico_cod,habilitado,nro_ultima_consulta,usuario_id
+
+	FROM BETTER_CALL_JUAN.Pacientes
+END
+GO
+
+
 -----------------------------------------
 
 /** TRIGGERS **/
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Actualizar_Consulta'))
 	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Actualizar_Consulta
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Insert_Afiliado'))
+	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Insert_Afiliado
 GO
 
 CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Actualizar_Consulta] ON [BETTER_CALL_JUAN].[Consultas] AFTER INSERT
@@ -854,5 +983,36 @@ BEGIN
 	SET nro_ultima_consulta +=1
 	FROM inserted i JOIN BETTER_CALL_JUAN.Turnos t ON (i.turno_numero = t.numero) 
 	JOIN BETTER_CALL_JUAN.Pacientes p ON (t.paciente_id = p.id)
+END
+GO
+
+CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Insert_Afiliado] ON [BETTER_CALL_JUAN].[Pacientes] AFTER INSERT
+AS
+BEGIN
+	DECLARE @id_nuevo_afiliado NUMERIC(18,0), @nro_raiz_nuevo_afiliado NUMERIC(18,0), 
+			@cant_familiares INT, @maxNroPersonalDeGrupo NUMERIC(2,0)
+			
+	--Obtengo datos insertados
+
+	SELECT @id_nuevo_afiliado=id, @nro_raiz_nuevo_afiliado=nro_raiz from inserted
+	
+	--Obtengo datos de su familia	
+
+	SELECT @cant_familiares=(COUNT(DISTINCT id)-1) , @maxNroPersonalDeGrupo = MAX(nro_personal)
+	FROM BETTER_CALL_JUAN.Pacientes 
+	WHERE nro_raiz=@nro_raiz_nuevo_afiliado
+
+	--Actualizo Cant Familiares
+
+	UPDATE BETTER_CALL_JUAN.Pacientes
+	SET cantidad_familiares = @cant_familiares
+	WHERE nro_raiz=@nro_raiz_nuevo_afiliado
+
+	--Actualizo Nro Personal Al Insertado
+
+	UPDATE BETTER_CALL_JUAN.Pacientes
+	SET nro_personal = @maxNroPersonalDeGrupo + 1
+	WHERE id=@id_nuevo_afiliado
+
 END
 GO
