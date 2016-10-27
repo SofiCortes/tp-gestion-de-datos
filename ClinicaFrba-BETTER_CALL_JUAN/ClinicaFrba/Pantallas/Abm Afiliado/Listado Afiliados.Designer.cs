@@ -33,21 +33,16 @@ namespace ClinicaFrba
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.resultadosRolesGrid = new System.Windows.Forms.DataGridView();
-            this.nombreColumnGrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.habilitadoColumnGrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PlanMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.afiliadosGrid = new System.Windows.Forms.DataGridView();
             this.buscarButton = new System.Windows.Forms.Button();
             this.limpiarButton = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.resultadosRolesGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.afiliadosGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -63,6 +58,14 @@ namespace ClinicaFrba
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(144, 65);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(167, 25);
+            this.comboBox1.TabIndex = 3;
             // 
             // label2
             // 
@@ -89,37 +92,14 @@ namespace ClinicaFrba
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre/Apellido";
             // 
-            // resultadosRolesGrid
+            // afiliadosGrid
             // 
-            this.resultadosRolesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultadosRolesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nombreColumnGrid,
-            this.habilitadoColumnGrid,
-            this.PlanMedico});
-            this.resultadosRolesGrid.Location = new System.Drawing.Point(12, 183);
-            this.resultadosRolesGrid.Name = "resultadosRolesGrid";
-            this.resultadosRolesGrid.Size = new System.Drawing.Size(494, 210);
-            this.resultadosRolesGrid.TabIndex = 5;
-            this.resultadosRolesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            // 
-            // nombreColumnGrid
-            // 
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nombreColumnGrid.DefaultCellStyle = dataGridViewCellStyle1;
-            this.nombreColumnGrid.HeaderText = "Numero Afiliado";
-            this.nombreColumnGrid.Name = "nombreColumnGrid";
-            // 
-            // habilitadoColumnGrid
-            // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.habilitadoColumnGrid.DefaultCellStyle = dataGridViewCellStyle2;
-            this.habilitadoColumnGrid.HeaderText = "Nombre y Apellido";
-            this.habilitadoColumnGrid.Name = "habilitadoColumnGrid";
-            // 
-            // PlanMedico
-            // 
-            this.PlanMedico.HeaderText = "PlanMedico";
-            this.PlanMedico.Name = "PlanMedico";
+            this.afiliadosGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.afiliadosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.afiliadosGrid.Location = new System.Drawing.Point(12, 183);
+            this.afiliadosGrid.Name = "afiliadosGrid";
+            this.afiliadosGrid.Size = new System.Drawing.Size(494, 210);
+            this.afiliadosGrid.TabIndex = 5;
             // 
             // buscarButton
             // 
@@ -141,28 +121,20 @@ namespace ClinicaFrba
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(144, 65);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(167, 25);
-            this.comboBox1.TabIndex = 3;
-            // 
             // ListadoAfiliados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(517, 411);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.resultadosRolesGrid);
+            this.Controls.Add(this.afiliadosGrid);
             this.Controls.Add(this.buscarButton);
             this.Controls.Add(this.limpiarButton);
             this.Name = "ListadoAfiliados";
             this.Text = "Listado de afiliados";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.resultadosRolesGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.afiliadosGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -172,13 +144,10 @@ namespace ClinicaFrba
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView resultadosRolesGrid;
+        private System.Windows.Forms.DataGridView afiliadosGrid;
         private System.Windows.Forms.Button buscarButton;
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombreColumnGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn habilitadoColumnGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PlanMedico;
         private System.Windows.Forms.ComboBox comboBox1;
 
         public string actionCode { get; set; }

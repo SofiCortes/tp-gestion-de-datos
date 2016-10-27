@@ -11,9 +11,9 @@ namespace ClinicaFrba
         public int id { get; set; }
         public string sintomas { get; set; }
         public string enfermedades { get; set; }
-        public int turnoNumero { get; set; }
+        public decimal turnoNumero { get; set; }
         public DateTime fechaHoraLlegada { get; set; }
         public DateTime fechaHoraAtencion { get; set; }
-        public int bonoConsultaId { get; set; }
+        public decimal bonoConsultaId { get; set; }
     }
 }

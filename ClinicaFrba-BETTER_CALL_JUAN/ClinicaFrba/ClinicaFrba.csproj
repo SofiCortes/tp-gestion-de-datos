@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modelo\BD\Manager\AbstractManager.cs" />
-    <Compile Include="Modelo\BD\Manager\Implementacion\AfiliadoManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\PacienteManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\AtencionMedicaManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\BonoManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\EstadisticasManager.cs" />

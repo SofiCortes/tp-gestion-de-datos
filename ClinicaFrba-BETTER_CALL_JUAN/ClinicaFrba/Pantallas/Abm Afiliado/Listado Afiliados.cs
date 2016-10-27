@@ -18,6 +18,29 @@ namespace ClinicaFrba
         {
             this.controller = new ListadoAfiliadosController(this);
             InitializeComponent();
+
+            this.Shown += (s, e1) =>
+            {
+                this.controller.llenarListadoAfiliados();
+            };
+        }
+
+        internal void showErrorMessage(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal void llenarListaConPacientes(List<Paciente> pacientes)
+        {
+            this.afiliadosGrid.DataSource = pacientes.Select(
+                paciente => new
+                {
+                    NumeroAfiliado = paciente.nroRaiz + "-" + paciente.nroPersonal,
+                    NombreyApellido = paciente.apellido + ", " + paciente.nombre,
+                    Plan = paciente.planMedicoCod
+                }
+            ).ToList();
         }
     }
 }

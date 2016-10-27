@@ -8,10 +8,10 @@ namespace ClinicaFrba
 {
     class RangoAtencion
     {
-        public int id { get; set; }
+        public decimal id { get; set; }
         public int diaDeLaSemana { get; set; }
         public DateTime horaDesde { get; set; }
         public DateTime horaHasta { get; set; }
-        public int medicoEspecialidadId { get; set; }
+        public decimal medicoEspecialidadId { get; set; }
     }
 }

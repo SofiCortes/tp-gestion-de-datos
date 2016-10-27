@@ -30,5 +30,11 @@ namespace ClinicaFrba
         {
             this.planesGrid.DataSource = planes;
         }
+
+        internal void showErroMessage(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

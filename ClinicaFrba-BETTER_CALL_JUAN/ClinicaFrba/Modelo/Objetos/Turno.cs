@@ -8,11 +8,11 @@ namespace ClinicaFrba
 {
     class Turno
     {
-        public int numero { get; set; }
+        public decimal numero { get; set; }
         public DateTime fechaHora { get; set; }
-        public int pacienteId { get; set; }
-        public int medicoEspecialidadId { get; set; }
-        public int cancelacionId { get; set; }
+        public decimal pacienteId { get; set; }
+        public decimal medicoEspecialidadId { get; set; }
+        public decimal cancelacionId { get; set; }
 
     }
 }

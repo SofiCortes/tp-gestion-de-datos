@@ -10,7 +10,7 @@ namespace ClinicaFrba
     {
         public decimal codigo { get; set; }
         public string descripcion { get; set; }
-        public Decimal precioBonoConsulta { get; set; }
-        public Decimal precioBonoFarmacia { get; set; }
+        public decimal precioBonoConsulta { get; set; }
+        public decimal precioBonoFarmacia { get; set; }
     }
 }

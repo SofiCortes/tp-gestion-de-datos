@@ -8,9 +8,9 @@ namespace ClinicaFrba
 {
     class OperacionCompra
     {
-        public int id { get; set; }
-        public int cantidadBonos { get; set; }
-        public Decimal montoTotal { get; set; }
-        public int pacienteId { get; set; }
+        public decimal id { get; set; }
+        public decimal cantidadBonos { get; set; }
+        public decimal montoTotal { get; set; }
+        public decimal pacienteId { get; set; }
     }
 }

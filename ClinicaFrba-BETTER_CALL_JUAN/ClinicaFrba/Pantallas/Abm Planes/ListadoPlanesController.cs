@@ -25,6 +25,10 @@ namespace ClinicaFrba
             {
                 this.form.mostrarPlanesMedicos(planes);
             }
+            else
+            {
+                this.form.showErroMessage("Ocurrio un error al mostrar los Planes Medicos.");
+            }
         }
     }
 }

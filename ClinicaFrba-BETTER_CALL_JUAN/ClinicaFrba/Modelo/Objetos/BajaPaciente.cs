@@ -8,8 +8,8 @@ namespace ClinicaFrba
 {
     class BajaPaciente
     {
-        public int id { get; set; }
-        public int pacienteId { get; set; }
+        public decimal id { get; set; }
+        public decimal pacienteId { get; set; }
         public DateTime fechaBaja { get; set; }
     }
 }

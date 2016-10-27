@@ -8,7 +8,7 @@ namespace ClinicaFrba
 {
     class TipoCancelacion
     {
-        public int id { get; set; }
+        public decimal id { get; set; }
         public string nombre { get; set; }
     }
 }

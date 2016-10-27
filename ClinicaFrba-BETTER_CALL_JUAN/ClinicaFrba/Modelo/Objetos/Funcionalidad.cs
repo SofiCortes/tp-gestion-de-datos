@@ -11,22 +11,20 @@ namespace ClinicaFrba
         public static string DAR_DE_ALTA_AFILIADO = "Dar de alta afiliado";
         public static string DAR_DE_BAJA_AFILIADO = "Dar de baja afiliado";
         public static string MODIFICAR_AFILIADO = "Modificar afiliado";
-        public static string DAR_DE_ALTA_PROFESIONAL = "Dar de alta profesional";
-        public static string DAR_DE_BAJA_PROFESIONAL = "Dar de baja profesional";
-        public static string MODIFICAR_PROFESIONAL = "Modificar profesional";
-        public static string DAR_DE_ALTA_ESPECIALIDAD_MEDICA = "Dar de alta especialidad médica";
-        public static string DAR_DE_VAJA_ESPECIALIDAD_MEDICA = "Dar de baja especialidad médica";
-        public static string MODIFICAR_ESPECIALIDAD_MEDICA = "Modificar especialidad médica";
-        public static string DAR_DE_ALTA_PLAN = "Dar de alta plan";
-        public static string DAR_DE_BAJA_PLAN = "Dar de baja plan";
-        public static string MODIFICAR_PLAN = "Modificar plan";
-        public static string REGISTRAR_AGENDA_PROFESIONAL = "Registrar agenda profesional";
         public static string REGISTRO_DE_LLEGADA_PARA_ATENCION_MEDICA = "Registro de llegada para atención médica";
         public static string CANCELAR_ATENCION_MEDICA = "Cancelar atención médica";
         public static string GENERAR_LISTADO_ESTADISTICO = "Generar listado estadístico";
         public static string COMPRAR_BONO = "Comprar bono";
         public static string PEDIR_TURNO = "Pedir turno";
         public static string REGISTRO_DE_RESULTADO_PARA_ATENCION_MEDICA = "Registro de resultado para atención médica";
+
+        public static string ACCIONES_CON_ROLES = "Acciones con roles";
+        public static string ACCIONES_CON_AFILIADOS = "Acciones con afiliados";
+        public static string ACCIONES_CON_PROFESIONALES = "Acciones con profesionales";
+        public static string ACCIONES_CON_PLANES = "Acciones con planes";
+        public static string ACCIONES_CON_BONOS = "Acciones con bonos";
+        public static string ACCIONES_CON_TURNOS = "Acciones con turnos";
+        public static string ACCIONES_CON_ATENCION_MEDICA = "Acciones con atencion medica";
 
         public decimal id { get; set; }
         public string descripcion { get; set; }

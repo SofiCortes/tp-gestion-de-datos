@@ -14,5 +14,19 @@ namespace ClinicaFrba
         {
             this.form = form;
         }
+
+        internal void llenarListadoAfiliados()
+        {
+            PacienteManager pacienteManager = new PacienteManager();
+            List<Paciente> pacientes = pacienteManager.findAll();
+            if (pacientes != null)
+            {
+                this.form.llenarListaConPacientes(pacientes);
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al mostrar los Afiliados.");
+            }
+        }
     }
 }

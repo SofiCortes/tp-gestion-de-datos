@@ -8,11 +8,11 @@ namespace ClinicaFrba
 {
     class CambioDePlan
     {
-        public int id { get; set;  }
-        public int pacienteId { get; set; }
+        public decimal id { get; set;  }
+        public decimal pacienteId { get; set; }
         public DateTime fechaCambio { get; set; }
         public string motivoCambio { get; set; }
-        public int planAnteriorId { get; set; }
-        public int planNuevoId { get; set; }
+        public decimal planAnteriorId { get; set; }
+        public decimal planNuevoId { get; set; }
     }
 }

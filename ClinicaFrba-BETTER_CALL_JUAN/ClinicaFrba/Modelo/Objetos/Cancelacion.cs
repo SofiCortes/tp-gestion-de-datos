@@ -8,8 +8,8 @@ namespace ClinicaFrba
 {
     class Cancelacion
     {
-        public int id { get; set; }
-        public int tipoCancelacionId { get; set; }
+        public decimal id { get; set; }
+        public decimal tipoCancelacionId { get; set; }
         public string motivo { get; set; }
     }
 }

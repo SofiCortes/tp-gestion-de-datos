@@ -8,12 +8,12 @@ namespace ClinicaFrba
 {
     class BonoConsulta
     {
-        public int id { get; set; }
+        public decimal id { get; set; }
         public DateTime fechaCompra { get; set; }
         public DateTime fechaImpresion { get; set; }
-        public int numeroConsultaPaciente { get; set; }
-        public int pacienteCompraId { get; set; }
-        public int pacienteUsaId { get; set; }
-        public int planId { get; set; }
+        public decimal numeroConsultaPaciente { get; set; }
+        public decimal pacienteCompraId { get; set; }
+        public decimal pacienteUsaId { get; set; }
+        public decimal planId { get; set; }
     }
 }
