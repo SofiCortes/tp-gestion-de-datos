@@ -780,8 +780,13 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Afiliado
 GO
 
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Modificar_Plan_Medico'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Plan_Medico
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Comprar_Bonos'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Comprar_Bonos
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Obtener_Funcionalidades_Rol'))
@@ -1051,6 +1056,34 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Comprar_Bonos] (@id_afiliado_comprador NUMERIC(18,0), @cant_bonos NUMERIC(18,0),
+															   @plan_medico_bono_id NUMERIC(18,0), @monto_a_pagar NUMERIC(18,2) OUT)
+AS
+BEGIN
+	DECLARE @precio_bono NUMERIC(18,0)
+
+	SELECT @precio_bono=p.precio_bono_consulta
+	FROM BETTER_CALL_JUAN.Planes_Medicos p
+	WHERE p.codigo  = @plan_medico_bono_id
+
+	SET @monto_a_pagar = @precio_bono * @cant_bonos
+
+	INSERT INTO BETTER_CALL_JUAN.Operaciones_Compra (cant_bonos,monto_total,paciente_id) 
+	VALUES (@cant_bonos,@monto_a_pagar,@id_afiliado_comprador)
+
+	DECLARE @i INT = 0;
+
+	WHILE @i< @cant_bonos
+	BEGIN
+	   INSERT INTO BETTER_CALL_JUAN.Bonos_Consulta (fecha_compra,paciente_compra_id,plan_id)
+	   VALUES (GETDATE() /*@@fecha_del_sistema*/,@id_afiliado_comprador,@plan_medico_bono_id)
+	   SET @i = @i + 1;
+	END;
+
+	RETURN @monto_a_pagar
+END
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Funcionalidades_Rol] (@rol_id SMALLINT)
 AS
 BEGIN
@@ -1064,15 +1097,15 @@ GO
 
 /** TRIGGERS **/
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Actualizar_Consulta'))
-	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Actualizar_Consulta
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Insert_Consulta'))
+	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Insert_Consulta
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Insert_Afiliado'))
 	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Insert_Afiliado
 GO
 
-CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Actualizar_Consulta] ON [BETTER_CALL_JUAN].[Consultas] AFTER INSERT
+CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Insert_Consulta] ON [BETTER_CALL_JUAN].[Consultas] AFTER INSERT
 AS
 BEGIN
 	UPDATE BETTER_CALL_JUAN.Pacientes
