@@ -395,11 +395,11 @@ INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
 VALUES('admin',HASHBYTES('SHA2_256','w23e'))
 
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
-SELECT nro_doc, HASHBYTES('SHA2_256', 'afiliadofrba') password
+SELECT tipo_doc+cast(nro_doc as varchar), HASHBYTES('SHA2_256', 'afiliadofrba') password
 FROM BETTER_CALL_JUAN.Pacientes
 
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
-SELECT nro_doc, HASHBYTES('SHA2_256', 'profesionalfrba') password
+SELECT tipo_doc+cast(nro_doc as varchar), HASHBYTES('SHA2_256', 'profesionalfrba') password
 FROM BETTER_CALL_JUAN.Medicos
 
 /* Tabla Roles Usuarios */
@@ -408,11 +408,11 @@ VALUES(1,1)
 
 INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
 SELECT u.id, 2 rol
-FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Usuarios u ON (CONVERT(VARCHAR(18),p.nro_doc) = u.username)
+FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Usuarios u ON ((p.tipo_doc+ cast(p.nro_doc as varchar)) = u.username)
 
 INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
 SELECT u.id, 4 rol
-FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Usuarios u ON (CONVERT(VARCHAR(18),m.nro_doc) = u.username)
+FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Usuarios u ON ((m.tipo_doc+ cast(m.nro_doc as varchar)) = u.username)
 
 /* Tabla Bonos Consulta */
 
@@ -895,11 +895,11 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Alta_Usuario_Afiliado](@username VARCHAR(255), @id NUMERIC(18,0) OUT)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Alta_Usuario_Afiliado](@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @id NUMERIC(18,0) OUT)
 AS
 BEGIN
 	INSERT INTO BETTER_CALL_JUAN.Usuarios (username,password) 
-	VALUES (@username,'afiliadofrba')
+	VALUES (@tipo_doc+cast(@nro_doc as varchar),'afiliadofrba')
 
 	SELECT @id=MAX(id)
 	FROM BETTER_CALL_JUAN.Usuarios
@@ -921,7 +921,7 @@ BEGIN
 	END
 
 	DECLARE @usuario_id NUMERIC(18,0)
-	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @nro_doc, @usuario_id OUT
+	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @tipo_doc, @nro_doc, @usuario_id OUT
 
 	INSERT INTO BETTER_CALL_JUAN.Pacientes  
 	(nro_raiz,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,
@@ -950,7 +950,7 @@ BEGIN
 		SET @nro_raiz_nuevo= @nro_raiz_nuevo+1
 
 	DECLARE @usuario_id NUMERIC(18,0)
-	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @nro_doc, @usuario_id OUT
+	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @tipo_doc, @nro_doc, @usuario_id OUT
 
 	INSERT INTO BETTER_CALL_JUAN.Pacientes  
 	(nro_raiz,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,
