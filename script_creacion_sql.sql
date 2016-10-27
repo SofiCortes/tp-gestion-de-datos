@@ -780,6 +780,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Afiliado
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Comprar_Bonos'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Comprar_Bonos
+GO
+
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
@@ -1017,6 +1021,34 @@ BEGIN
 	INSERT INTO Bajas_Pacientes(fecha_baja, paciente_id) 
 	VALUES (GETDATE(), (SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc = @nro_doc))
 
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Comprar_Bonos] (@id_afiliado_comprador NUMERIC(18,0), @cant_bonos NUMERIC(18,0),
+															   @plan_medico_bono_id NUMERIC(18,0), @monto_a_pagar NUMERIC(18,2) OUT)
+AS
+BEGIN
+	DECLARE @precio_bono NUMERIC(18,0)
+
+	SELECT @precio_bono=p.precio_bono_consulta
+	FROM BETTER_CALL_JUAN.Planes_Medicos p
+	WHERE p.codigo  = @plan_medico_bono_id
+
+	SET @monto_a_pagar = @precio_bono * @cant_bonos
+
+	INSERT INTO BETTER_CALL_JUAN.Operaciones_Compra (cant_bonos,monto_total,paciente_id) 
+	VALUES (@cant_bonos,@monto_a_pagar,@id_afiliado_comprador)
+
+	DECLARE @i INT = 0;
+
+	WHILE @i< @cant_bonos
+	BEGIN
+	   INSERT INTO BETTER_CALL_JUAN.Bonos_Consulta (fecha_compra,paciente_compra_id,plan_id)
+	   VALUES (GETDATE() /*@@fecha_del_sistema*/,@id_afiliado_comprador,@plan_medico_bono_id)
+	   SET @i = @i + 1;
+	END;
+
+	RETURN @monto_a_pagar
 END
 GO
 
