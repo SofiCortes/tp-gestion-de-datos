@@ -78,7 +78,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 
 CREATE TABLE [BETTER_CALL_JUAN].[Funcionalidades] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [descripcion] VARCHAR(255),
+  [descripcion] VARCHAR(255) NOT NULL,
   PRIMARY KEY ([id])
 );
 
@@ -86,30 +86,30 @@ CREATE TABLE [BETTER_CALL_JUAN].[Usuarios] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [username] VARCHAR(255) UNIQUE NOT NULL,
   [password] VARCHAR(255) NOT NULL,
-  [intentos_fallidos] SMALLINT DEFAULT 0,
+  [intentos_fallidos] SMALLINT DEFAULT 0 NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Roles] (
   [id] SMALLINT IDENTITY(1,1),
-  [nombre] VARCHAR(255) UNIQUE,
-  [habilitado] BIT DEFAULT 1,
+  [nombre] VARCHAR(255) UNIQUE NOT NULL,
+  [habilitado] BIT DEFAULT 1  NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Operaciones_Compra] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [cant_bonos] NUMERIC(4,0),
-  [monto_total] NUMERIC(18,0),
-  [paciente_id] NUMERIC(18,0),
+  [cant_bonos] NUMERIC(4,0) NOT NULL,
+  [monto_total] NUMERIC(18,0) NOT NULL,
+  [paciente_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Turnos] (
   [numero] NUMERIC(18,0) IDENTITY(1,1),
-  [fecha_hora] DATETIME,
-  [paciente_id] NUMERIC(18,0),
-  [medico_especialidad_id] NUMERIC(18,0),
+  [fecha_hora] DATETIME NOT NULL,
+  [paciente_id] NUMERIC(18,0) NOT NULL,
+  [medico_especialidad_id] NUMERIC(18,0) NOT NULL,
   [cancelacion_id] NUMERIC(18,0),
   [turno_numero_maestra] NUMERIC(18,0),
   PRIMARY KEY ([numero])
@@ -117,58 +117,58 @@ CREATE TABLE [BETTER_CALL_JUAN].[Turnos] (
 
 CREATE TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [medico_id] NUMERIC(18,0),
-  [especialidad_cod] NUMERIC(18,0),
+  [medico_id] NUMERIC(18,0) NOT NULL,
+  [especialidad_cod] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Cancelaciones] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [tipo_cancelacion_id] NUMERIC(18,0),
-  [motivo] VARCHAR(255),
+  [tipo_cancelacion_id] NUMERIC(18,0) NOT NULL,
+  [motivo] VARCHAR(255) NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Roles_Usuarios] (
   [user_id] NUMERIC(18,0),
-  [rol_id] SMALLINT,
+  [rol_id] SMALLINT NOT NULL,
   PRIMARY KEY ([user_id], [rol_id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Especialidades] (
   [codigo] NUMERIC(18,0),
-  [descripcion] VARCHAR(255),
-  [tipo_especialidad_cod] NUMERIC(18,0),
+  [descripcion] VARCHAR(255) NOT NULL,
+  [tipo_especialidad_cod] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([codigo])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Cancelaciones] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [nombre] VARCHAR(255),
+  [nombre] VARCHAR(255) NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Consultas] (
   [id] INT IDENTITY(1,1),
-  [sintomas] VARCHAR(255),
-  [enfermedades] VARCHAR(255),
-  [turno_numero] NUMERIC(18,0),
-  [fecha_hora_llegada] DATETIME,
-  [fecha_hora_atencion] DATETIME,
-  [bono_consulta_id] NUMERIC(18,0),
+  [sintomas] VARCHAR(255) NOT NULL,
+  [enfermedades] VARCHAR(255) NOT NULL,
+  [turno_numero] NUMERIC(18,0) NOT NULL,
+  [fecha_hora_llegada] DATETIME NOT NULL,
+  [fecha_hora_atencion] DATETIME NOT NULL,
+  [bono_consulta_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Bajas_Pacientes] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [paciente_id] NUMERIC(18,0),
-  [fecha_baja] DATETIME,
+  [paciente_id] NUMERIC(18,0) NOT NULL,
+  [fecha_baja] DATETIME NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Especialidades] (
   [codigo] NUMERIC(18,0),
-  [descripcion] VARCHAR(255),
+  [descripcion] VARCHAR(255) NOT NULL,
   PRIMARY KEY ([codigo])
 );
 
@@ -180,33 +180,33 @@ CREATE TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] (
 
 CREATE TABLE [BETTER_CALL_JUAN].[Bonos_Consulta] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [fecha_compra] DATETIME,
+  [fecha_compra] DATETIME NOT NULL,
   [fecha_impresion] DATETIME,
   [numero_consulta_paciente] NUMERIC(18,0),
-  [paciente_compra_id] NUMERIC(18,0),
+  [paciente_compra_id] NUMERIC(18,0) NOT NULL,
   [paciente_usa_id] NUMERIC(18,0),
-  [plan_id] NUMERIC(18,0),
+  [plan_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
   [codigo] NUMERIC(18,0),
-  [descripcion] VARCHAR(255),
-  [precio_bono_consulta] NUMERIC(18,0),
-  [precio_bono_farmacia] NUMERIC(18,0),
+  [descripcion] VARCHAR(255) NOT NULL,
+  [precio_bono_consulta] NUMERIC(18,0) NOT NULL,
+  [precio_bono_farmacia] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([codigo])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
   [matricula] NUMERIC(18,0) IDENTITY(1,1),
-  [nombre] VARCHAR(255),
-  [apellido] VARCHAR(255),
-  [tipo_doc] VARCHAR(100),
-  [nro_doc] NUMERIC(18,0),
-  [direccion] VARCHAR(255),
-  [telefono] NUMERIC(18,0),
+  [nombre] VARCHAR(255) NOT NULL,
+  [apellido] VARCHAR(255) NOT NULL,
+  [tipo_doc] VARCHAR(100) NOT NULL,
+  [nro_doc] NUMERIC(18,0) NOT NULL,
+  [direccion] VARCHAR(255) NOT NULL,
+  [telefono] NUMERIC(18,0) NOT NULL,
   [mail] VARCHAR(255),
-  [fecha_nac] DATETIME,
+  [fecha_nac] DATETIME NOT NULL,
   [sexo] CHAR(1),
   [usuario_id] NUMERIC(18,0),
   PRIMARY KEY ([matricula]),
@@ -216,21 +216,21 @@ CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
 CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [nro_raiz] NUMERIC(18,0),
-  [nro_personal] NUMERIC(2,0) DEFAULT 00,
-  [nombre] VARCHAR(255),
-  [apellido] VARCHAR(255),
-  [tipo_doc] VARCHAR(100),
-  [nro_doc] NUMERIC(18,0),
-  [direccion] VARCHAR(255),
-  [telefono] NUMERIC(18,0),
+  [nro_personal] NUMERIC(2,0) DEFAULT 00 NOT NULL,
+  [nombre] VARCHAR(255) NOT NULL,
+  [apellido] VARCHAR(255) NOT NULL,
+  [tipo_doc] VARCHAR(100) NOT NULL,
+  [nro_doc] NUMERIC(18,0) NOT NULL,
+  [direccion] VARCHAR(255) NOT NULL,
+  [telefono] NUMERIC(18,0) NOT NULL,
   [mail] VARCHAR(255),
-  [fecha_nac] DATETIME,
-  [sexo] CHAR,
+  [fecha_nac] DATETIME NOT NULL,
+  [sexo] CHAR(1),
   [estado_civil] VARCHAR(100),
-  [cantidad_familiares] INT DEFAULT 0,
-  [plan_medico_cod] NUMERIC(18,0),
-  [habilitado] BIT DEFAULT 1,
-  [nro_ultima_consulta] NUMERIC(18,0) DEFAULT 0,
+  [cantidad_familiares] INT DEFAULT 0 NOT NULL,
+  [plan_medico_cod] NUMERIC(18,0) NOT NULL,
+  [habilitado] BIT DEFAULT 1 NOT NULL,
+  [nro_ultima_consulta] NUMERIC(18,0) DEFAULT 0 NOT NULL,
   [usuario_id] NUMERIC(18,0),
   PRIMARY KEY ([id]),
   UNIQUE([tipo_doc], [nro_doc])
@@ -238,19 +238,19 @@ CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
 
 CREATE TABLE [BETTER_CALL_JUAN].[Cambios_De_Plan] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [paciente_id] NUMERIC(18,0),
-  [fecha_cambio] DATETIME,
-  [motivo_cambio] VARCHAR(500),
-  [plan_anterior_id] NUMERIC(18,0),
-  [plan_nuevo_id] NUMERIC(18,0),
+  [paciente_id] NUMERIC(18,0) NOT NULL,
+  [fecha_cambio] DATETIME NOT NULL,
+  [motivo_cambio] VARCHAR(500) NOT NULL,
+  [plan_anterior_id] NUMERIC(18,0) NOT NULL,
+  [plan_nuevo_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
 
 CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [dia_semana] NUMERIC(1,0),
-  [hora_desde] TIME,
-  [hora_hasta] TIME,
+  [dia_semana] NUMERIC(1,0) NOT NULL,
+  [hora_desde] TIME NOT NULL,
+  [hora_hasta] TIME NOT NULL,
   [medico_especialidad_id] NUMERIC(18,0),
   PRIMARY KEY ([id])
 );
@@ -395,11 +395,11 @@ INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
 VALUES('admin',HASHBYTES('SHA2_256','w23e'))
 
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
-SELECT nro_doc, HASHBYTES('SHA2_256', 'afiliadofrba') password
+SELECT tipo_doc+cast(nro_doc as varchar), HASHBYTES('SHA2_256', 'afiliadofrba') password
 FROM BETTER_CALL_JUAN.Pacientes
 
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
-SELECT nro_doc, HASHBYTES('SHA2_256', 'profesionalfrba') password
+SELECT tipo_doc+cast(nro_doc as varchar), HASHBYTES('SHA2_256', 'profesionalfrba') password
 FROM BETTER_CALL_JUAN.Medicos
 
 /* Tabla Roles Usuarios */
@@ -408,11 +408,11 @@ VALUES(1,1)
 
 INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
 SELECT u.id, 2 rol
-FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Usuarios u ON (CONVERT(VARCHAR(18),p.nro_doc) = u.username)
+FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Usuarios u ON ((p.tipo_doc+ cast(p.nro_doc as varchar)) = u.username)
 
 INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
 SELECT u.id, 4 rol
-FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Usuarios u ON (CONVERT(VARCHAR(18),m.nro_doc) = u.username)
+FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Usuarios u ON ((m.tipo_doc+ cast(m.nro_doc as varchar)) = u.username)
 
 /* Tabla Bonos Consulta */
 
@@ -784,6 +784,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Plan_Medico
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Obtener_Funcionalidades_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Obtener_Funcionalidades_Rol
+GO
+
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
@@ -903,11 +907,11 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Alta_Usuario_Afiliado](@username VARCHAR(255), @id NUMERIC(18,0) OUT)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Alta_Usuario_Afiliado](@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @id NUMERIC(18,0) OUT)
 AS
 BEGIN
 	INSERT INTO BETTER_CALL_JUAN.Usuarios (username,password) 
-	VALUES (@username,'afiliadofrba')
+	VALUES (@tipo_doc+cast(@nro_doc as varchar),'afiliadofrba')
 
 	SELECT @id=MAX(id)
 	FROM BETTER_CALL_JUAN.Usuarios
@@ -929,7 +933,7 @@ BEGIN
 	END
 
 	DECLARE @usuario_id NUMERIC(18,0)
-	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @nro_doc, @usuario_id OUT
+	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @tipo_doc, @nro_doc, @usuario_id OUT
 
 	INSERT INTO BETTER_CALL_JUAN.Pacientes  
 	(nro_raiz,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,
@@ -958,7 +962,7 @@ BEGIN
 		SET @nro_raiz_nuevo= @nro_raiz_nuevo+1
 
 	DECLARE @usuario_id NUMERIC(18,0)
-	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @nro_doc, @usuario_id OUT
+	EXEC BETTER_CALL_JUAN.Procedure_Alta_Usuario_Afiliado @tipo_doc, @nro_doc, @usuario_id OUT
 
 	INSERT INTO BETTER_CALL_JUAN.Pacientes  
 	(nro_raiz,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,
@@ -1044,6 +1048,15 @@ BEGIN
 	INSERT INTO Bajas_Pacientes(fecha_baja, paciente_id) 
 	VALUES (GETDATE(), (SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc = @nro_doc))
 
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Funcionalidades_Rol] (@rol_id SMALLINT)
+AS
+BEGIN
+	SELECT rf.funcionalidad_id, f.descripcion
+	FROM BETTER_CALL_JUAN.Roles_Funcionalidades rf JOIN BETTER_CALL_JUAN.Funcionalidades f ON (rf.funcionalidad_id = f.id)
+	WHERE rf.rol_id = @rol_id
 END
 GO
 

@@ -42,5 +42,17 @@ namespace ClinicaFrba
                 }
             ).ToList();
         }
+
+        private void resultadosRolesGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.actionCode == ACTION_CODE_FOR_LIST_MODIFY_ROL)
+            {
+                Rol rol = controller.obtenerRol(resultadosRolesGrid);
+                ModificarRol mr = new ModificarRol();
+                mr.showModificarRol(rol);
+                //this.Close();
+            }
+        }
+
     }
 }
