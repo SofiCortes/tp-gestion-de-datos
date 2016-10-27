@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ClinicaFrba
 {
@@ -28,6 +29,15 @@ namespace ClinicaFrba
             {
                 this.form.ShowErrorDialog("Ocurrio un error al obtener los Roles.");
             }
+        }
+
+        internal Rol obtenerRol(System.Windows.Forms.DataGridView resultadosRolesGrid)
+        {
+            DataGridViewSelectedCellCollection dataSelectedCell = resultadosRolesGrid.SelectedCells;
+            DataGridViewCell dgvc = dataSelectedCell[0];
+            Rol rol = new Rol();
+            rol.nombre = dgvc.Value.ToString();
+            return rol;
         }
     }
 }
