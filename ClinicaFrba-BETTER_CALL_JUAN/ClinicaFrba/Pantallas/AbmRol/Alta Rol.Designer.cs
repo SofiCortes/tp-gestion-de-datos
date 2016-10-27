@@ -75,9 +75,9 @@
             this.labelFuncionalidades.AutoSize = true;
             this.labelFuncionalidades.Location = new System.Drawing.Point(18, 42);
             this.labelFuncionalidades.Name = "labelFuncionalidades";
-            this.labelFuncionalidades.Size = new System.Drawing.Size(84, 13);
+            this.labelFuncionalidades.Size = new System.Drawing.Size(87, 13);
             this.labelFuncionalidades.TabIndex = 7;
-            this.labelFuncionalidades.Text = "Funcionalidades";
+            this.labelFuncionalidades.Text = "Funcionalidades:";
             // 
             // AltaRol
             // 
