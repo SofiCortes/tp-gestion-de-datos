@@ -817,6 +817,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Especialidades_Con_Mas_Bonos_Utilizados
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Obtener_Estado_Habilitado_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Obtener_Estado_Habilitado_Rol
+GO
+
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
@@ -1053,7 +1057,6 @@ BEGIN
 						
 END
 GO
-
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Baja_Afiliado] (@nro_doc NUMERIC(18,0)) --agregamos el tipo de doc?
 AS
@@ -1296,6 +1299,12 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Estado_Habilitado_Rol] (@rol_id SMALLINT, @habilitado SMALLINT OUT)
+AS
+BEGIN
+	SET @habilitado = (SELECT habilitado FROM BETTER_CALL_JUAN.Roles WHERE id = @rol_id)
+END
+GO
 
 ----------------------------------------
 

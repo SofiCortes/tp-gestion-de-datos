@@ -50,7 +50,7 @@ namespace ClinicaFrba
                 Rol rol = controller.obtenerRol(resultadosRolesGrid);
                 ModificarRol mr = new ModificarRol();
                 mr.showModificarRol(rol);
-                //this.Close();
+                this.Close();
             }
         }
 

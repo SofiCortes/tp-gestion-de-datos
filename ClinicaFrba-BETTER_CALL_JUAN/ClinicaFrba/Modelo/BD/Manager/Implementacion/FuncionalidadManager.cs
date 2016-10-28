@@ -110,6 +110,35 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
             }
             return funcsRol;
         }
-        
+
+
+        internal void modificarFuncionalidadesDeRol(Rol rol, List<Funcionalidad> funcionalidadesAsignadas)
+        {
+            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+            SqlCommand procedure;
+            ParametroParaSP parametro3 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, rol.id);
+            parametros.Add(parametro3);
+
+            this.openDB();
+
+            procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol", parametros);
+            procedure.ExecuteNonQuery();
+
+            funcionalidadesAsignadas.ForEach(func =>
+            {
+                parametros.Clear();
+
+                ParametroParaSP parametro4 = new ParametroParaSP("funcionalidad_id", SqlDbType.Decimal, func.id);
+
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
+
+                procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Asignar_Funcionalidad_Rol", parametros);
+                procedure.ExecuteNonQuery();
+
+            });
+
+            this.closeDB();
+        }
     }
 }

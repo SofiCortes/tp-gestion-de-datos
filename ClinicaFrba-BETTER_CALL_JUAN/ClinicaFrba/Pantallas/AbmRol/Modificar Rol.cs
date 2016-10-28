@@ -14,6 +14,7 @@ namespace ClinicaFrba
     {
         private ModificarRolController controller;
         private List<CheckBox> CBLFuncionalidades;
+        private Rol rolAModif;
 
         public ModificarRol()
         {
@@ -28,6 +29,9 @@ namespace ClinicaFrba
             rol.id = controller.obtenerRolID(rol);
             
             List<Funcionalidad> funcsDelRol = controller.obtenerTodasLasFuncionalidadesDelRol(rol.id);
+
+            rolAModif = new Rol();
+            rolAModif.id = rol.id;
 
             this.mostrarTodasLasFuncionalidades();
             this.mostrarFuncionalidadesDelRol(funcsDelRol);
@@ -81,6 +85,28 @@ namespace ClinicaFrba
         {
             MessageBox.Show(mensaje, "Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void buttonModificar_Click(object sender, EventArgs e)
+        {
+            if (textBoxNombreNuevoRol.Text != "")
+            {
+                rolAModif.nombre = textBoxNombreNuevoRol.Text;
+            }
+            else
+            {
+                rolAModif.nombre = rolSeleccionado.Text;
+            }
+
+            if (this.CBLFuncionalidades.Any(cbf => cbf.Checked))
+            {
+                this.controller.modificarRol(rolAModif, this.CBLFuncionalidades);
+                this.Close();
+            }
+            else
+            {
+                this.ShowErrorDialog("Debe seleccionar al menos una funcionalidad");
+            }
         }
     }
 }
