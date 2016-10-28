@@ -797,6 +797,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Pedir_Turno
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
 BEGIN
@@ -1129,6 +1133,18 @@ BEGIN
 END
 GO
 */
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones]
+AS
+BEGIN
+	SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
+	FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
+	JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.id = t.cancelacion_id)
+	GROUP BY e.codigo, e.descripcion
+	ORDER BY cantCancelaciones DESC
+END
+GO
+
 ----------------------------------------
 
 /** TRIGGERS **/
