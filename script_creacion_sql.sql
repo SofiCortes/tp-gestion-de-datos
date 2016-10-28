@@ -110,7 +110,6 @@ CREATE TABLE [BETTER_CALL_JUAN].[Turnos] (
   [fecha_hora] DATETIME NOT NULL,
   [paciente_id] NUMERIC(18,0) NOT NULL,
   [medico_especialidad_id] NUMERIC(18,0) NOT NULL,
-  [cancelacion_id] NUMERIC(18,0),
   [turno_numero_maestra] NUMERIC(18,0),
   PRIMARY KEY ([numero])
 );
@@ -126,6 +125,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Cancelaciones] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [tipo_cancelacion_id] NUMERIC(18,0) NOT NULL,
   [motivo] VARCHAR(255) NOT NULL,
+  [turno_numero] NUMERIC(18,0) NOT NULL UNIQUE,
+  [hecha_por_paciente] BIT NOT NULL,
   PRIMARY KEY ([id])
 );
 
@@ -693,9 +694,9 @@ ALTER TABLE [BETTER_CALL_JUAN].[Operaciones_Compra] ADD CONSTRAINT paciente_id_o
 
 ALTER TABLE [BETTER_CALL_JUAN].[Turnos] ADD CONSTRAINT paciente_id_turno FOREIGN KEY (paciente_id) REFERENCES [BETTER_CALL_JUAN].[Pacientes](id)
 ALTER TABLE [BETTER_CALL_JUAN].[Turnos] ADD CONSTRAINT medico_especialidad_id_turno FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
-ALTER TABLE [BETTER_CALL_JUAN].[Turnos] ADD CONSTRAINT cancelacion_id_turno FOREIGN KEY (cancelacion_id) REFERENCES [BETTER_CALL_JUAN].[Cancelaciones](id)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT tipo_cancelacion_id_cancelacion FOREIGN KEY (tipo_cancelacion_id) REFERENCES [BETTER_CALL_JUAN].[Tipos_Cancelaciones](id)
+ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT turno_numero_cancelacion FOREIGN KEY (turnp_numero) REFERENCES [BETTER_CALL_JUAN].[Turnos](numero)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] ADD CONSTRAINT medico_especialidad_id_rango_atencion FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
 
