@@ -780,7 +780,6 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Afiliado
 GO
 
-
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Modificar_Plan_Medico'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Plan_Medico
 GO
@@ -808,6 +807,16 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun_Especialidad'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun_Especialidad
 GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Top_5_Afiliados_Con_Mayor_Cantidad_Bonos_Comprados'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Afiliados_Con_Mayor_Cantidad_Bonos_Comprados
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Top_5_Especialidades_Con_Mas_Bonos_Utilizados'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Especialidades_Con_Mas_Bonos_Utilizados
+GO
+
+------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
@@ -1147,6 +1156,12 @@ GO
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones](@fechaDesde DATE, @fechaHasta DATE)
 AS
 BEGIN
+	IF (@fechaHasta <= @fechaDesde)
+	BEGIN
+		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
+		RETURN
+	END
+
 	SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
 	FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
 	JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.id = t.cancelacion_id)
@@ -1160,6 +1175,17 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Mas_Consultad
 (@plan_medico_id NUMERIC(18,0),@fechaDesde DATE, @fechaHasta DATE)
 AS 
 BEGIN
+	IF (@fechaHasta <= @fechaDesde)
+	BEGIN
+		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
+		RETURN
+	END
+
+	IF NOT EXISTS(SELECT codigo FROM BETTER_CALL_JUAN.Planes_Medicos WHERE codigo=@plan_medico_id)
+	BEGIN
+		RAISERROR('Id de plan medico incorrecto',10,1)
+		RETURN
+	END
 
 	SELECT TOP 5 med.matricula, med.nombre, med.apellido,esp.codigo,esp.descripcion, COUNT(DISTINCT cons.id) cantConsultas
 
@@ -1180,6 +1206,18 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Con_Menos_Hor
 (@especialidad_cod NUMERIC(18,0),@fechaDesde DATE, @fechaHasta DATE)
 AS
 BEGIN
+	IF (@fechaHasta <= @fechaDesde)
+	BEGIN
+		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
+		RETURN
+	END
+
+	IF NOT EXISTS (SELECT codigo FROM BETTER_CALL_JUAN.Especialidades WHERE codigo=@especialidad_cod)
+	BEGIN
+		RAISERROR('Codigo de especialidad incorrecto',10,1)
+		RETURN
+	END
+
 	SELECT TOP 5 med.matricula, med.nombre, med.apellido, COUNT(DISTINCT c.id)/2 cantHorasTrabajadas --porque cada consulta dura media hora
 	FROM BETTER_CALL_JUAN.Medicos med 
 	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=med.matricula AND med_esp.especialidad_cod=@especialidad_cod)
@@ -1190,6 +1228,44 @@ BEGIN
 	ORDER BY cantHorasTrabajadas ASC
 END
 GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Afiliados_Con_Mayor_Cantidad_Bonos_Comprados](@fechaDesde DATE, @fechaHasta DATE)
+AS
+BEGIN
+	IF (@fechaHasta <= @fechaDesde)
+	BEGIN
+		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
+		RETURN
+	END
+
+	SELECT TOP 5 p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares, COUNT(DISTINCT b.id) cantBonosComprados
+	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Bonos_Consulta b ON (b.paciente_compra_id=p.id)
+	WHERE cast(b.fecha_compra as DATE) BETWEEN @fechaDesde AND @fechaHasta
+	GROUP BY p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares
+	ORDER BY cantBonosComprados DESC
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Bonos_Utilizados](@fechaDesde DATE, @fechaHasta DATE)
+AS
+BEGIN
+	IF (@fechaHasta <= @fechaDesde)
+	BEGIN
+		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
+		RETURN
+	END
+
+	SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantBonosUtilizados --porque para cada consulta se usa un bono
+	FROM BETTER_CALL_JUAN.Especialidades e 
+	JOIN Medicos_Especialidades med_esp ON (e.codigo = med_esp.especialidad_cod)
+	JOIN Turnos t ON (t.medico_especialidad_id = med_esp.id)
+	JOIN Consultas c ON (c.turno_numero = t.numero)
+	WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta
+	GROUP BY e.codigo, e.descripcion
+	ORDER BY cantBonosUtilizados DESC
+END
+GO
+
 
 ----------------------------------------
 
@@ -1243,4 +1319,3 @@ BEGIN
 
 END
 GO
-
