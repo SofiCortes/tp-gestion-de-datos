@@ -696,7 +696,7 @@ ALTER TABLE [BETTER_CALL_JUAN].[Turnos] ADD CONSTRAINT paciente_id_turno FOREIGN
 ALTER TABLE [BETTER_CALL_JUAN].[Turnos] ADD CONSTRAINT medico_especialidad_id_turno FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT tipo_cancelacion_id_cancelacion FOREIGN KEY (tipo_cancelacion_id) REFERENCES [BETTER_CALL_JUAN].[Tipos_Cancelaciones](id)
-ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT turno_numero_cancelacion FOREIGN KEY (turnp_numero) REFERENCES [BETTER_CALL_JUAN].[Turnos](numero)
+ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT turno_numero_cancelacion FOREIGN KEY (turno_numero) REFERENCES [BETTER_CALL_JUAN].[Turnos](numero)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] ADD CONSTRAINT medico_especialidad_id_rango_atencion FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
 
@@ -1165,7 +1165,7 @@ BEGIN
 
 	SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
 	FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
-	JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.id = t.cancelacion_id)
+	JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.turno_numero = t.numero)
 	WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta 
 	GROUP BY e.codigo, e.descripcion
 	ORDER BY cantCancelaciones DESC
