@@ -801,6 +801,11 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan
+GO
+
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
 BEGIN
@@ -1145,6 +1150,29 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan]
+AS --No estoy seguro de que sea esto lo que pide el enunciado, que dice "Top 5 de los profesionales 
+   --mas consultados por plan, detallando tambien bajo que Especialidad"
+BEGIN
+
+	SELECT TOP 5 med.matricula, med.nombre, med.apellido,plan_med.codigo, plan_med.descripcion, 
+				 esp.codigo, esp.descripcion, COUNT(DISTINCT cons.id) cantConsultas
+
+	FROM BETTER_CALL_JUAN.Medicos med 
+	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med.matricula = med_esp.medico_id)
+	JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id) 
+	JOIN BETTER_CALL_JUAN.Consultas cons ON (cons.turno_numero=t.numero)
+	JOIN BETTER_CALL_JUAN.Especialidades esp ON (esp.codigo = med_esp.especialidad_cod) 
+	JOIN BETTER_CALL_JUAN.Pacientes pac ON (pac.id = t.paciente_id)
+	JOIN BETTER_CALL_JUAN.Planes_Medicos plan_med ON (plan_med.codigo=pac.plan_medico_cod)
+
+	GROUP BY med.matricula, med.nombre, med.apellido,plan_med.codigo, plan_med.descripcion, 
+			 esp.codigo, esp.descripcion
+	ORDER BY cantConsultas DESC
+
+END
+GO
+
 ----------------------------------------
 
 /** TRIGGERS **/
@@ -1197,4 +1225,3 @@ BEGIN
 
 END
 GO
-
