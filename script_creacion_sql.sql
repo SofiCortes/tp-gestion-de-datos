@@ -33,14 +33,14 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles_Usuarios'))
     DROP TABLE BETTER_CALL_JUAN.Roles_Usuarios
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelaciones'))
+    DROP TABLE BETTER_CALL_JUAN.Cancelaciones
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Turnos'))
     DROP TABLE BETTER_CALL_JUAN.Turnos
 	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Bonos_Consulta'))
     DROP TABLE BETTER_CALL_JUAN.Bonos_Consulta
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelaciones'))
-    DROP TABLE BETTER_CALL_JUAN.Cancelaciones
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Funcionalidades'))
     DROP TABLE BETTER_CALL_JUAN.Funcionalidades
@@ -1154,21 +1154,50 @@ GO
 
 /** TOP 5 **/
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones](@fechaDesde DATE, @fechaHasta DATE)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones](@autor_cancelacion CHAR(1),@fechaDesde DATE, @fechaHasta DATE)
 AS
 BEGIN
+	IF (@autor_cancelacion NOT IN ('A','M','T'))
+	BEGIN
+		RAISERROR('@autor_cancelacion debe ser A para Afiliados, M para medicos o T para todos',10,1)
+		RETURN
+	END
+
 	IF (@fechaHasta <= @fechaDesde)
 	BEGIN
 		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
 		RETURN
 	END
+	
+	IF(@autor_cancelacion='A')
+	BEGIN
+		SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
+		FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
+		JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.turno_numero = t.numero)
+		WHERE c.hecha_por_paciente=1 AND cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta 
+		GROUP BY e.codigo, e.descripcion
+		ORDER BY cantCancelaciones DESC
+	END
 
-	SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
-	FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
-	JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.turno_numero = t.numero)
-	WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta 
-	GROUP BY e.codigo, e.descripcion
-	ORDER BY cantCancelaciones DESC
+	ELSE IF(@autor_cancelacion='M')
+	BEGIN
+		SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
+		FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
+		JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.turno_numero = t.numero)
+		WHERE c.hecha_por_paciente=0 AND cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta 
+		GROUP BY e.codigo, e.descripcion
+		ORDER BY cantCancelaciones DESC
+	END
+
+	ELSE IF(@autor_cancelacion='T')
+	BEGIN
+		SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
+		FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
+		JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.turno_numero = t.numero)
+		WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta 
+		GROUP BY e.codigo, e.descripcion
+		ORDER BY cantCancelaciones DESC
+	END
 END
 GO
 
