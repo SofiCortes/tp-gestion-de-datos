@@ -805,6 +805,9 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
@@ -1139,24 +1142,24 @@ END
 GO
 */
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones]
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones](@fechaDesde DATE, @fechaHasta DATE)
 AS
 BEGIN
 	SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
 	FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
 	JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.id = t.cancelacion_id)
+	WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta 
 	GROUP BY e.codigo, e.descripcion
 	ORDER BY cantCancelaciones DESC
 END
 GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan]
-AS --No estoy seguro de que sea esto lo que pide el enunciado, que dice "Top 5 de los profesionales 
-   --mas consultados por plan, detallando tambien bajo que Especialidad"
+(@plan_medico_id NUMERIC(18,0),@fechaDesde DATE, @fechaHasta DATE)
+AS 
 BEGIN
 
-	SELECT TOP 5 med.matricula, med.nombre, med.apellido,plan_med.codigo, plan_med.descripcion, 
-				 esp.codigo, esp.descripcion, COUNT(DISTINCT cons.id) cantConsultas
+	SELECT TOP 5 med.matricula, med.nombre, med.apellido,esp.codigo,esp.descripcion, COUNT(DISTINCT cons.id) cantConsultas
 
 	FROM BETTER_CALL_JUAN.Medicos med 
 	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med.matricula = med_esp.medico_id)
@@ -1164,12 +1167,26 @@ BEGIN
 	JOIN BETTER_CALL_JUAN.Consultas cons ON (cons.turno_numero=t.numero)
 	JOIN BETTER_CALL_JUAN.Especialidades esp ON (esp.codigo = med_esp.especialidad_cod) 
 	JOIN BETTER_CALL_JUAN.Pacientes pac ON (pac.id = t.paciente_id)
-	JOIN BETTER_CALL_JUAN.Planes_Medicos plan_med ON (plan_med.codigo=pac.plan_medico_cod)
-
-	GROUP BY med.matricula, med.nombre, med.apellido,plan_med.codigo, plan_med.descripcion, 
-			 esp.codigo, esp.descripcion
+	WHERE pac.plan_medico_cod=@plan_medico_id AND cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta
+	GROUP BY med.matricula, med.nombre, med.apellido,esp.codigo, esp.descripcion
 	ORDER BY cantConsultas DESC
 
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun]
+(@plan_medico_id NUMERIC(18,0),@especialidad_cod NUMERIC(18,0),@fechaDesde DATE, @fechaHasta DATE)
+AS
+BEGIN
+	SELECT TOP 5 med.matricula, med.nombre, med.apellido, COUNT(DISTINCT c.id)/2 cantHorasTrabajadas --porque cada consulta dura media hora
+	FROM BETTER_CALL_JUAN.Medicos med 
+	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=med.matricula AND med_esp.especialidad_cod=@especialidad_cod)
+	JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id)
+	JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = t.numero)
+	JOIN BETTER_CALL_JUAN.Pacientes p ON (t.paciente_id = p.id)
+	WHERE p.plan_medico_cod=@plan_medico_id AND cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta
+	GROUP BY med.matricula, med.nombre, med.apellido
+	ORDER BY cantHorasTrabajadas ASC
 END
 GO
 
@@ -1225,3 +1242,4 @@ BEGIN
 
 END
 GO
+
