@@ -805,8 +805,8 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan
 GO
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun'))
-	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun_Especialidad'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun_Especialidad
 GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
@@ -1142,6 +1142,8 @@ END
 GO
 */
 
+/** TOP 5 **/
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones](@fechaDesde DATE, @fechaHasta DATE)
 AS
 BEGIN
@@ -1174,8 +1176,8 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun]
-(@plan_medico_id NUMERIC(18,0),@especialidad_cod NUMERIC(18,0),@fechaDesde DATE, @fechaHasta DATE)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun_Especialidad]
+(@especialidad_cod NUMERIC(18,0),@fechaDesde DATE, @fechaHasta DATE)
 AS
 BEGIN
 	SELECT TOP 5 med.matricula, med.nombre, med.apellido, COUNT(DISTINCT c.id)/2 cantHorasTrabajadas --porque cada consulta dura media hora
@@ -1183,8 +1185,7 @@ BEGIN
 	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=med.matricula AND med_esp.especialidad_cod=@especialidad_cod)
 	JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id)
 	JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = t.numero)
-	JOIN BETTER_CALL_JUAN.Pacientes p ON (t.paciente_id = p.id)
-	WHERE p.plan_medico_cod=@plan_medico_id AND cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta
+	WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta
 	GROUP BY med.matricula, med.nombre, med.apellido
 	ORDER BY cantHorasTrabajadas ASC
 END
