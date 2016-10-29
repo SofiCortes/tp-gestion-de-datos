@@ -48,7 +48,6 @@ namespace ClinicaFrba
             return funcionalidades;
         }
 
-
         internal List<Rol> buscarTodos()
         {
             List<Rol> roles = new List<Rol>();
@@ -127,6 +126,7 @@ namespace ClinicaFrba
             procedure.ExecuteNonQuery();
 
             int id = Convert.ToInt32(procedure.Parameters["@id"].Value);
+
             this.closeDB();
 
             return id;
@@ -182,6 +182,21 @@ namespace ClinicaFrba
             this.openDB();
 
             SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Habilitar_Rol", parametros);
+            procedure.ExecuteNonQuery();
+
+            this.closeDB();
+        }
+
+        internal void eliminarRol(Rol rol)
+        {
+            ParametroParaSP parametro1 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, rol.id);
+
+            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+            parametros.Add(parametro1);
+
+            this.openDB();
+
+            SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Eliminar_Rol", parametros);
             procedure.ExecuteNonQuery();
 
             this.closeDB();

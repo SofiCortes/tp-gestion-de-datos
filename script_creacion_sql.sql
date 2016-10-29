@@ -833,6 +833,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Habilitar_Rol
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Eliminar_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Eliminar_Rol
+GO
+
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
@@ -1189,6 +1193,18 @@ UPDATE BETTER_CALL_JUAN.Roles
 SET habilitado = 1
 WHERE id = @rol_id
 END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Eliminar_Rol] (@rol_id SMALLINT)
+AS
+BEGIN
+	UPDATE BETTER_CALL_JUAN.Roles
+	SET habilitado = 0
+	WHERE id = @rol_id
+	END
+
+	DELETE FROM BETTER_CALL_JUAN.Roles_Usuarios
+	WHERE rol_id = @rol_id
 GO
 
 /** TOP 5 **/
