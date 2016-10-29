@@ -171,5 +171,20 @@ namespace ClinicaFrba
 
             return habilitado;
         }
+
+        internal void habilitarRol(int id)
+        {
+            ParametroParaSP parametro1 = new ParametroParaSP("rol_id", SqlDbType.VarChar, id);
+
+            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+            parametros.Add(parametro1);
+
+            this.openDB();
+
+            SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Habilitar_Rol", parametros);
+            procedure.ExecuteNonQuery();
+
+            this.closeDB();
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace ClinicaFrba
             {
                 habilitarCB.Visible = false;
             }
-            
+
             List<Funcionalidad> funcsDelRol = controller.obtenerTodasLasFuncionalidadesDelRol(rol.id);
 
             rolAModif = new Rol();
@@ -102,6 +102,12 @@ namespace ClinicaFrba
             else
             {
                 rolAModif.nombre = rolSeleccionado.Text;
+            }
+
+            if (habilitarCB.Checked == true)
+            {
+                rolAModif.habilitado = true;
+                this.controller.habilitarRol(rolAModif);
             }
 
             if (this.CBLFuncionalidades.Any(cbf => cbf.Checked))
