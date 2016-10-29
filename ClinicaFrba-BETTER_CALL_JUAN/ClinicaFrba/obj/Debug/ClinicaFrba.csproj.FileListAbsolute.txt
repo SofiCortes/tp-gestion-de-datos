@@ -74,3 +74,4 @@ C:\Users\Marcos\Desktop\BETTER_CALL_JUAN2\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFr
 C:\Users\Marcos\Desktop\BETTER_CALL_JUAN2 - copia\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
 C:\Users\Marcos\Desktop\BETTER_CALL_JUAN2 - copia\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.exe
 C:\Users\Marcos\Desktop\BETTER_CALL_JUAN2 - copia\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ModificarRol.resources

@@ -428,7 +428,7 @@
             this.buttonProfesionalesMenosHoras.Name = "buttonProfesionalesMenosHoras";
             this.buttonProfesionalesMenosHoras.Size = new System.Drawing.Size(187, 59);
             this.buttonProfesionalesMenosHoras.TabIndex = 4;
-            this.buttonProfesionalesMenosHoras.Text = "Profesionales con menos horas trabajadas por Plan y Especialidad";
+            this.buttonProfesionalesMenosHoras.Text = "Profesionales con menos horas trabajadas por Especialidad";
             this.buttonProfesionalesMenosHoras.UseVisualStyleBackColor = true;
             this.buttonProfesionalesMenosHoras.Click += new System.EventHandler(this.buttonProfesionalesMenosHoras_Click);
             // 
