@@ -75,3 +75,6 @@ C:\Users\Marcos\Desktop\BETTER_CALL_JUAN2 - copia\ClinicaFrba-BETTER_CALL_JUAN\C
 C:\Users\Marcos\Desktop\BETTER_CALL_JUAN2 - copia\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.exe
 C:\Users\Marcos\Desktop\BETTER_CALL_JUAN2 - copia\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
 C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ModificarRol.resources
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ModificarRol.resources
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ProfesionalesConMenosHoras.resources
+C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ProfesionalesMasConsultados.resources

@@ -15,5 +15,25 @@ namespace ClinicaFrba
             this.form = form;
         }
 
+
+        internal void buscarEspecialidades()
+        {
+            ProfesionalManager profesionalManager = new ProfesionalManager();
+            List<Especialidad> especialidades = profesionalManager.buscarEspecialidades();
+
+            if (especialidades != null)
+            {
+                this.form.completarComboEspecialidades(especialidades);
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al obtener las Especialidades");
+            }
+        }
+
+        internal void buscarProfesionalesConFiltros(string anioSeleccionado, string semestreSeleccionado, string mesSeleccionado, string especialidadSeleccionada)
+        {
+
+        }
     }
 }

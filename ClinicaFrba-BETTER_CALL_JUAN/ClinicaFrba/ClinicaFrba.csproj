@@ -260,6 +260,12 @@
     <EmbeddedResource Include="Pantallas\AbmRol\Modificar Rol.resx">
       <DependentUpon>Modificar Rol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Listados Estadisticos\Profesionales con menos horas trabajadas.resx">
+      <DependentUpon>Profesionales con menos horas trabajadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Listados Estadisticos\Profesionales mas consultados.resx">
+      <DependentUpon>Profesionales mas consultados.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
