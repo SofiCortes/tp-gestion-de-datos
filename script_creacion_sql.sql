@@ -2,6 +2,10 @@
 USE [GD2C2016]
 GO
 
+--Seteo el primer dia de la semana como Lunes
+
+SET DATEFIRST 1
+
 /** CREACION DE SCHEMA **/
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'BETTER_CALL_JUAN')
 BEGIN
@@ -833,6 +837,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Habilitar_Rol
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno
+GO
+
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
@@ -1148,24 +1156,31 @@ BEGIN
 END
 GO
 
-/* **FALTA COMPLETAR**
-
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horarios_Disponibles](@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Fecha_Esta_Disponible_Para_Turno]
+(@fecha DATE,@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0), @fecha_disponible BIT OUT)
 AS
 BEGIN
-	DECLARE @medico_especialidad_id NUMERIC(18,0)
+	DECLARE @medico_especialidad_id NUMERIC(18,0), @cantTurnosDisponibles INT, @cantTurnosOcupados INT, @cantTurnosTotales INT
 
 	SELECT @medico_especialidad_id=me.id
 	FROM BETTER_CALL_JUAN.Medicos_Especialidades me
 	WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
 
-	SELECT R.dia_semana, R.hora_desde, R.hora_hasta
-	FROM BETTER_CALL_JUAN.Rangos_Atencion R
-	WHERE R.medico_especialidad_id=@medico_especialidad_id
+	SELECT @cantTurnosTotales = SUM(DATEDIFF(mi,r.hora_desde,r.hora_hasta))/30
+	FROM BETTER_CALL_JUAN.Rangos_Atencion r	
+	WHERE r.medico_especialidad_id=@medico_especialidad_id AND r.dia_semana=DATEPART(dw,@fecha)
+	
+	SELECT @cantTurnosOcupados= COUNT(DISTINCT t.numero)
+	FROM BETTER_CALL_JUAN.Turnos t
+	WHERE convert(date,t.fecha_hora)=@fecha AND t.medico_especialidad_id=@medico_especialidad_id
 
+	SET @cantTurnosDisponibles=@cantTurnosTotales-@cantTurnosOcupados
+
+	SET @fecha_disponible = CASE WHEN @cantTurnosDisponibles > 0 THEN 1 --la fecha esta disponible
+								ELSE 0 --la fecha no esta disponible
+							END
 END
 GO
-*/
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Estado_Habilitado_Rol] (@rol_id SMALLINT, @habilitado SMALLINT OUT)
 AS
