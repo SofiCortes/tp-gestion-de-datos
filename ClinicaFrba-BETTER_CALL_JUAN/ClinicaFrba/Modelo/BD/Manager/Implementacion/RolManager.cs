@@ -127,6 +127,8 @@ namespace ClinicaFrba
             procedure.ExecuteNonQuery();
 
             int id = Convert.ToInt32(procedure.Parameters["@id"].Value);
+            this.closeDB();
+
             return id;
         }
 
@@ -148,6 +150,26 @@ namespace ClinicaFrba
             fm.modificarFuncionalidadesDeRol(rol, funcionalidadesAsignadas);
             
             this.closeDB();
+        }
+
+        internal int obtenerEstadoHabilitacionRol(int id)
+        {
+            ParametroParaSP parametro1 = new ParametroParaSP("rol_id", SqlDbType.VarChar, id);
+            ParametroParaSP parametro2 = new ParametroParaSP("habilitado", SqlDbType.SmallInt);
+
+            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+            parametros.Add(parametro1);
+            parametros.Add(parametro2);
+
+            this.openDB();
+
+            SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Obtener_Estado_Habilitado_Rol", parametros);
+            procedure.ExecuteNonQuery();
+
+            int habilitado = Convert.ToInt32(procedure.Parameters["@habilitado"].Value);
+            this.closeDB();
+
+            return habilitado;
         }
     }
 }

@@ -27,6 +27,12 @@ namespace ClinicaFrba
         {
             rolSeleccionado.Text = rol.nombre;
             rol.id = controller.obtenerRolID(rol);
+            rol.habilitado = controller.obtenerEstadoHabilitacionRol(rol);
+
+            if (rol.habilitado)
+            {
+                habilitarCB.Visible = false;
+            }
             
             List<Funcionalidad> funcsDelRol = controller.obtenerTodasLasFuncionalidadesDelRol(rol.id);
 
