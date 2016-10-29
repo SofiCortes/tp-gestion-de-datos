@@ -1258,24 +1258,26 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Con_Menos_Hor
 (@especialidad_cod NUMERIC(18,0), @anio INT, @mes INT)
 AS
 BEGIN
-	IF(@especialidad_cod = 0)
-		SELECT TOP 5 med.matricula, med.nombre, med.apellido, COUNT(DISTINCT c.id)/2 cantHorasTrabajadas --porque cada consulta dura media hora
-		FROM BETTER_CALL_JUAN.Medicos med 
-		JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON med_esp.medico_id=med.matricula
-		JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id)
-		JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = t.numero)
-		WHERE Format(t.fecha_hora, 'yyyy') = @anio AND Format(t.fecha_hora, 'MM') = @mes
-		GROUP BY med.matricula, med.nombre, med.apellido
-		ORDER BY cantHorasTrabajadas ASC
+	
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_0 VARCHAR(300) = 'SELECT TOP 5 med.matricula, med.nombre, med.apellido, COUNT(DISTINCT c.id)/2 cantHorasTrabajadas FROM BETTER_CALL_JUAN.Medicos med'
+	DECLARE @QUERY_1 VARCHAR(300)
+	DECLARE @QUERY_2 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id) JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = t.numero)'
+	DECLARE @QUERY_3 VARCHAR(300)
+	DECLARE @QUERY_4 VARCHAR(300) = ' GROUP BY med.matricula, med.nombre, med.apellido ORDER BY cantHorasTrabajadas ASC'
+
+	IF @especialidad_cod = 0
+		SET @QUERY_1 = ' JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON med_esp.medico_id=med.matricula'
 	ELSE
-		SELECT TOP 5 med.matricula, med.nombre, med.apellido, COUNT(DISTINCT c.id)/2 cantHorasTrabajadas --porque cada consulta dura media hora
-		FROM BETTER_CALL_JUAN.Medicos med 
-		JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=med.matricula AND med_esp.especialidad_cod=@especialidad_cod)
-		JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id)
-		JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = t.numero)
-		WHERE Format(t.fecha_hora, 'yyyy') = @anio AND Format(t.fecha_hora, 'MM') = @mes
-		GROUP BY med.matricula, med.nombre, med.apellido
-		ORDER BY cantHorasTrabajadas ASC
+		SET @QUERY_1 = ' JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=med.matricula AND med_esp.especialidad_cod= @especialidad_cod)'
+	
+	IF @mes = 0
+		SET @QUERY_3 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio'
+	ELSE
+		SET @QUERY_3 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') = @mes'
+
+	SET @QUERY_FINAL = @QUERY_0 + @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
+	EXEC sp_executesql @QUERY_FINAL, N'@especialidad_cod NUMERIC(18,0), @anio INT, @mes INT', @especialidad_cod, @anio, @mes
 END
 GO
 
