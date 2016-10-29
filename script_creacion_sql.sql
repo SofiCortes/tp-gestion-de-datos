@@ -821,6 +821,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Obtener_Estado_Habilitado_Rol
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Nombres_Especialidades'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Nombres_Especialidades
+GO
+
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
@@ -1155,6 +1159,21 @@ END
 GO
 */
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Estado_Habilitado_Rol] (@rol_id SMALLINT, @habilitado SMALLINT OUT)
+AS
+BEGIN
+	SET @habilitado = (SELECT habilitado FROM BETTER_CALL_JUAN.Roles WHERE id = @rol_id)
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Nombres_Especialidades]
+AS
+BEGIN
+	SELECT e.descripcion
+	FROM BETTER_CALL_JUAN.Especialidades e
+END
+GO
+
 /** TOP 5 **/
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones](@autor_cancelacion CHAR(1),@fechaDesde DATE, @fechaHasta DATE)
@@ -1299,12 +1318,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Estado_Habilitado_Rol] (@rol_id SMALLINT, @habilitado SMALLINT OUT)
-AS
-BEGIN
-	SET @habilitado = (SELECT habilitado FROM BETTER_CALL_JUAN.Roles WHERE id = @rol_id)
-END
-GO
+/** FIN TOP 5 **/
 
 ----------------------------------------
 
