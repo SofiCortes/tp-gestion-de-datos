@@ -33,11 +33,11 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles_Usuarios'))
     DROP TABLE BETTER_CALL_JUAN.Roles_Usuarios
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Turnos'))
-    DROP TABLE BETTER_CALL_JUAN.Turnos
-
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelaciones'))
     DROP TABLE BETTER_CALL_JUAN.Cancelaciones
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Turnos'))
+    DROP TABLE BETTER_CALL_JUAN.Turnos
 	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Bonos_Consulta'))
     DROP TABLE BETTER_CALL_JUAN.Bonos_Consulta
