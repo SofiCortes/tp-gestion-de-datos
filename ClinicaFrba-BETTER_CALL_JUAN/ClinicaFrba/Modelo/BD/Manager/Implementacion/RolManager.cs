@@ -201,5 +201,42 @@ namespace ClinicaFrba
 
             this.closeDB();
         }
+
+        internal List<Rol> buscarTodosHabilitados()
+        {
+            List<Rol> roles = new List<Rol>();
+            try
+            {
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Todos_Los_Roles", null);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        Rol rol = new Rol();
+                        rol.id = sqlReader.GetInt16(0);
+                        rol.nombre = sqlReader.GetString(1);
+                        rol.habilitado = sqlReader.GetBoolean(2);
+
+                        if (rol.habilitado)
+                        {
+                            roles.Add(rol);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                roles = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return roles;
+        }
     }
 }

@@ -22,7 +22,14 @@ namespace ClinicaFrba
 
             this.Shown += (s, e1) =>
             {
-                this.controller.llenarListadoRoles(); 
+                if (this.actionCode == ACTION_CODE_FOR_LIST_DELETE_ROL)
+                {
+                    this.controller.llenarListadoRolesHabilitados();
+                }
+                else
+                {
+                    this.controller.llenarListadoRoles();
+                }
             };
         }
 

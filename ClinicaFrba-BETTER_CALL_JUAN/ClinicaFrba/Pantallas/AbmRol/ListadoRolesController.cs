@@ -46,5 +46,20 @@ namespace ClinicaFrba
             rol.id = rm.obtenerRolID(rol.nombre);
             rm.eliminarRol(rol);
         }
+
+        internal void llenarListadoRolesHabilitados()
+        {
+            RolManager rolManager = new RolManager();
+            List<Rol> roles = rolManager.buscarTodosHabilitados();
+
+            if (roles != null)
+            {
+                this.form.showRolesInTable(roles);
+            }
+            else
+            {
+                this.form.ShowErrorDialog("Ocurrio un error al obtener los Roles.");
+            }
+        }
     }
 }
