@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.buscarButton = new System.Windows.Forms.Button();
-            this.resultadosRolesGrid = new System.Windows.Forms.DataGridView();
+            this.resultadosTop5Grid = new System.Windows.Forms.DataGridView();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboMes = new System.Windows.Forms.ComboBox();
@@ -40,7 +40,7 @@
             this.comboEspecialidad = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboAnio = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.resultadosRolesGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultadosTop5Grid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,13 +64,13 @@
             this.buscarButton.UseVisualStyleBackColor = true;
             this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
-            // resultadosRolesGrid
+            // resultadosTop5Grid
             // 
-            this.resultadosRolesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultadosRolesGrid.Location = new System.Drawing.Point(12, 189);
-            this.resultadosRolesGrid.Name = "resultadosRolesGrid";
-            this.resultadosRolesGrid.Size = new System.Drawing.Size(607, 210);
-            this.resultadosRolesGrid.TabIndex = 9;
+            this.resultadosTop5Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.resultadosTop5Grid.Location = new System.Drawing.Point(12, 189);
+            this.resultadosTop5Grid.Name = "resultadosTop5Grid";
+            this.resultadosTop5Grid.Size = new System.Drawing.Size(607, 210);
+            this.resultadosTop5Grid.TabIndex = 9;
             // 
             // limpiarButton
             // 
@@ -125,6 +125,7 @@
             this.comboSemestre.Name = "comboSemestre";
             this.comboSemestre.Size = new System.Drawing.Size(139, 25);
             this.comboSemestre.TabIndex = 5;
+            this.comboSemestre.SelectedIndexChanged += new System.EventHandler(this.comboSemestre_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -159,6 +160,7 @@
             this.comboAnio.Name = "comboAnio";
             this.comboAnio.Size = new System.Drawing.Size(121, 25);
             this.comboAnio.TabIndex = 1;
+            this.comboAnio.SelectedIndexChanged += new System.EventHandler(this.comboAnio_SelectedIndexChanged);
             // 
             // ProfesionalesConMenosHoras
             // 
@@ -166,12 +168,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(635, 428);
             this.Controls.Add(this.buscarButton);
-            this.Controls.Add(this.resultadosRolesGrid);
+            this.Controls.Add(this.resultadosTop5Grid);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.groupBox1);
             this.Name = "ProfesionalesConMenosHoras";
             this.Text = "Profesionales con menos horas trabajadas";
-            ((System.ComponentModel.ISupportInitialize)(this.resultadosRolesGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultadosTop5Grid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -182,7 +184,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buscarButton;
-        private System.Windows.Forms.DataGridView resultadosRolesGrid;
+        private System.Windows.Forms.DataGridView resultadosTop5Grid;
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboEspecialidad;

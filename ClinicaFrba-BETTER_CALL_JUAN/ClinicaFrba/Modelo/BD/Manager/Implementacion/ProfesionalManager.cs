@@ -23,7 +23,7 @@ namespace ClinicaFrba
             {
                 this.openDB();
 
-                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Nombres_Especialidades", null);
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Especialidades", null);
                 SqlDataReader sqlReader = procedure.ExecuteReader();
 
                 if (sqlReader.HasRows)
@@ -31,7 +31,8 @@ namespace ClinicaFrba
                     while (sqlReader.Read())
                     {
                         Especialidad especialidad = new Especialidad();
-                        especialidad.descripcion = sqlReader.GetString(0);
+                        especialidad.codigo = sqlReader.GetDecimal(0);
+                        especialidad.descripcion = sqlReader.GetString(1);
                         especialidades.Add(especialidad);
                     }
                 }

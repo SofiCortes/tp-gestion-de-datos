@@ -55,7 +55,9 @@
     <Compile Include="Modelo\BD\Manager\Implementacion\RolManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\TurnoManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\UsuarioManager.cs" />
+    <Compile Include="Modelo\BD\Utiles\DateHelper.cs" />
     <Compile Include="Modelo\BD\Utiles\ParametroParaSP.cs" />
+    <Compile Include="Modelo\Objetos\DAO\MedicoDAO.cs" />
     <Compile Include="Modelo\UsuarioFuncionalidades.cs" />
     <Compile Include="Modelo\Objetos\BajaPaciente.cs" />
     <Compile Include="Modelo\Objetos\BonoConsulta.cs" />

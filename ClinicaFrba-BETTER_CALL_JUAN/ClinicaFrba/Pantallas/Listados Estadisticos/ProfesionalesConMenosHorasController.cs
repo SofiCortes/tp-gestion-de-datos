@@ -31,9 +31,21 @@ namespace ClinicaFrba
             }
         }
 
-        internal void buscarProfesionalesConFiltros(string anioSeleccionado, string semestreSeleccionado, string mesSeleccionado, string especialidadSeleccionada)
+        internal void buscarProfesionalesConFiltros(string anioSeleccionado, string mesSeleccionado, Especialidad especialidadSeleccionada)
         {
+            decimal especialidadCod = especialidadSeleccionada.codigo;
+            mesSeleccionado = DateHelper.getNumeroMesConNombreMes(mesSeleccionado);
+            EstadisticasManager estadisticasManager = new EstadisticasManager();
+            List<MedicoDAO> medicos = estadisticasManager.getProfesionalesConMenosHoras(anioSeleccionado, mesSeleccionado, especialidadCod);
 
+            if (medicos != null)
+            {
+                this.form.showListado(medicos);
+            }
+            else
+            {
+                this.form.showErrorMessage("No se encontro ningun Profesional para la busqueda realizada.");
+            }
         }
     }
 }
