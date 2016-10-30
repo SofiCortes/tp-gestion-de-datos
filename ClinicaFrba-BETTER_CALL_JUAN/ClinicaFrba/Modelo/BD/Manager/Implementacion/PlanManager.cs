@@ -58,12 +58,12 @@ namespace ClinicaFrba
 
             try
             {
-                ParametroParaSP parametro1 = new ParametroParaSP("plan", SqlDbType.VarChar, queryPlan);
+                ParametroParaSP parametro1 = new ParametroParaSP("descripcion", SqlDbType.VarChar, queryPlan);
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 this.openDB();
 
-                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Planes", parametros);
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Buscar_Plan_Por_Nombre", parametros);
                 SqlDataReader sqlReader = procedure.ExecuteReader();
 
                 if (sqlReader.HasRows)
