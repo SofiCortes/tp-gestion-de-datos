@@ -39,5 +39,27 @@ namespace ClinicaFrba
             rol.nombre = dgvc.Value.ToString();
             return rol;
         }
+
+        internal void eliminarRol(Rol rol)
+        {
+            RolManager rm = new RolManager();
+            rol.id = rm.obtenerRolID(rol.nombre);
+            rm.eliminarRol(rol);
+        }
+
+        internal void llenarListadoRolesHabilitados()
+        {
+            RolManager rolManager = new RolManager();
+            List<Rol> roles = rolManager.buscarTodosHabilitados();
+
+            if (roles != null)
+            {
+                this.form.showRolesInTable(roles);
+            }
+            else
+            {
+                this.form.ShowErrorDialog("Ocurrio un error al obtener los Roles.");
+            }
+        }
     }
 }

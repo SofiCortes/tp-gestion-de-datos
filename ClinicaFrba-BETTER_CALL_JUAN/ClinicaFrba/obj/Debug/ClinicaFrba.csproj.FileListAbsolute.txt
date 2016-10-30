@@ -78,6 +78,27 @@ C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ModificarRol.resources
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ProfesionalesConMenosHoras.resources
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ProfesionalesMasConsultados.resources
+<<<<<<< HEAD
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.AfiliadosConMasBonos.resources
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.EspecialidadConMasCancelaciones.resources
 C:\Users\Julian\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.EspecialidadesConMasBonos.resources
+=======
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.exe
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\bin\Debug\ClinicaFrba.exe
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\bin\Debug\ClinicaFrba.pdb
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ListadoAfiliados.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ListadoPlanes.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.AltaRol.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ListadoRoles.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ModificarRol.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ProfesionalesConMenosHoras.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ProfesionalesMasConsultados.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.LoginForm.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.SeleccionarRol.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.PantallaPrincipal.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
+C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
+>>>>>>> c564abbdeb532ab05ab965eed7b93413217afa71

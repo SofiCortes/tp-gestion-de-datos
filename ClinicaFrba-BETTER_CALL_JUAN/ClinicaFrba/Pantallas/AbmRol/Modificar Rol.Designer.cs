@@ -35,6 +35,7 @@
             this.buttonModificar = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxNombreNuevoRol = new System.Windows.Forms.TextBox();
+            this.habilitarCB = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -58,7 +59,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 50);
+            this.label2.Location = new System.Drawing.Point(11, 71);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 13);
             this.label2.TabIndex = 2;
@@ -67,14 +68,14 @@
             // funcPanel
             // 
             this.funcPanel.AutoScroll = true;
-            this.funcPanel.Location = new System.Drawing.Point(12, 66);
+            this.funcPanel.Location = new System.Drawing.Point(14, 87);
             this.funcPanel.Name = "funcPanel";
             this.funcPanel.Size = new System.Drawing.Size(265, 294);
             this.funcPanel.TabIndex = 7;
             // 
             // buttonModificar
             // 
-            this.buttonModificar.Location = new System.Drawing.Point(110, 366);
+            this.buttonModificar.Location = new System.Drawing.Point(109, 387);
             this.buttonModificar.Name = "buttonModificar";
             this.buttonModificar.Size = new System.Drawing.Size(75, 23);
             this.buttonModificar.TabIndex = 8;
@@ -85,7 +86,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 30);
+            this.label3.Location = new System.Drawing.Point(12, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 13);
             this.label3.TabIndex = 9;
@@ -93,16 +94,27 @@
             // 
             // textBoxNombreNuevoRol
             // 
-            this.textBoxNombreNuevoRol.Location = new System.Drawing.Point(95, 27);
+            this.textBoxNombreNuevoRol.Location = new System.Drawing.Point(95, 29);
             this.textBoxNombreNuevoRol.Name = "textBoxNombreNuevoRol";
             this.textBoxNombreNuevoRol.Size = new System.Drawing.Size(182, 20);
             this.textBoxNombreNuevoRol.TabIndex = 10;
+            // 
+            // habilitarCB
+            // 
+            this.habilitarCB.AutoSize = true;
+            this.habilitarCB.Location = new System.Drawing.Point(14, 51);
+            this.habilitarCB.Name = "habilitarCB";
+            this.habilitarCB.Size = new System.Drawing.Size(64, 17);
+            this.habilitarCB.TabIndex = 11;
+            this.habilitarCB.Text = "Habilitar";
+            this.habilitarCB.UseVisualStyleBackColor = true;
             // 
             // ModificarRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(287, 401);
+            this.ClientSize = new System.Drawing.Size(290, 422);
+            this.Controls.Add(this.habilitarCB);
             this.Controls.Add(this.textBoxNombreNuevoRol);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.buttonModificar);
@@ -126,6 +138,7 @@
         private System.Windows.Forms.Button buttonModificar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxNombreNuevoRol;
+        private System.Windows.Forms.CheckBox habilitarCB;
 
     }
 }

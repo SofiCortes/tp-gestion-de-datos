@@ -57,5 +57,18 @@ namespace ClinicaFrba
 
             rm.modificarRol(rol, funcionalidadesAsignadas);
         }
+
+        internal bool obtenerEstadoHabilitacionRol(Rol rol)
+        {
+            RolManager rm = new RolManager();
+            int habilitado = rm.obtenerEstadoHabilitacionRol(rol.id);
+            return (habilitado == 1);
+        }
+
+        internal void habilitarRol(Rol rolAModif)
+        {
+            RolManager rm = new RolManager();
+            rm.habilitarRol(rolAModif.id);
+        }
     }
 }
