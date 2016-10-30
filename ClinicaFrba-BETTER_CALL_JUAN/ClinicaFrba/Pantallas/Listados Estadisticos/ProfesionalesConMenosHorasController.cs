@@ -17,8 +17,8 @@ namespace ClinicaFrba
 
         internal void buscarEspecialidades()
         {
-            ProfesionalManager profesionalManager = new ProfesionalManager();
-            List<Especialidad> especialidades = profesionalManager.buscarEspecialidades();
+            EspecialidadMedicaManager especialidadMedicaManager = new EspecialidadMedicaManager();
+            List<Especialidad> especialidades = especialidadMedicaManager.findAll();
 
             if (especialidades != null)
             {

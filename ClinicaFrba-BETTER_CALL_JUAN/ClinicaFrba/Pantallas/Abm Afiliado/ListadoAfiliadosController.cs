@@ -43,10 +43,10 @@ namespace ClinicaFrba
             }
         }
 
-        internal void buscarAfiliados(string query, PlanMedico planMedicoSeleccionado)
+        internal void buscarAfiliados(string queryNombre, string queryApellido, PlanMedico planMedicoSeleccionado)
         {
             PacienteManager pacienteManager = new PacienteManager();
-            List<Paciente> pacientes = pacienteManager.buscarAfiliadosPorNombreYPlan(query, planMedicoSeleccionado.codigo);
+            List<Paciente> pacientes = pacienteManager.buscarAfiliadosPorNombreYPlan(queryNombre, queryApellido, planMedicoSeleccionado.codigo);
 
             if (pacientes != null)
             {

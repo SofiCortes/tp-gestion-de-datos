@@ -11,5 +11,7 @@ namespace ClinicaFrba
         public decimal codigo { get; set; }
         public string descripcion { get; set; }
         public decimal tipoEspecialidadCod { get; set; }
+
+        public TipoEspecialidad tipoEspecialidad { get; set; }
     }
 }

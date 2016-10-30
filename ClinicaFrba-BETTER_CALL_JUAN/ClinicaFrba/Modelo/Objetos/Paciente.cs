@@ -26,5 +26,7 @@ namespace ClinicaFrba
         public bool habilitado { get; set; }
         public decimal nroUltimaConsulta { get; set; }
         public decimal usuarioId { get; set; }
+
+        public string planMedicoDescripcion { get; set; }
     }
 }

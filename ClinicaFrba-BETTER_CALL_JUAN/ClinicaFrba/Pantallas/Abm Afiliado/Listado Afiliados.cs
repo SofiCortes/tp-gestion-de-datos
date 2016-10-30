@@ -39,7 +39,7 @@ namespace ClinicaFrba
                 {
                     NumeroAfiliado = paciente.nroRaiz + "-" + paciente.nroPersonal,
                     NombreyApellido = paciente.apellido + ", " + paciente.nombre,
-                    Plan = paciente.planMedicoCod
+                    Plan = paciente.planMedicoDescripcion
                 }
             ).ToList();
         }
@@ -63,17 +63,19 @@ namespace ClinicaFrba
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             this.textBoxNombre.Text = "";
+            this.textBoxApellido.Text = "";
             this.afiliadosGrid.DataSource = null;
             this.comboPlanes.SelectedIndex = 0;
         }
 
         private void buscarButton_Click(object sender, EventArgs e)
         {
-            string query = this.textBoxNombre.Text;
-            if (query.Trim().Length > 0 || this.comboPlanes.SelectedIndex != 0)
+            string queryNombre = this.textBoxNombre.Text;
+            string queryApellido = this.textBoxApellido.Text;
+            if (queryNombre.Trim().Length > 0 || queryApellido.Trim().Length > 0 || this.comboPlanes.SelectedIndex != 0)
             {
                 PlanMedico planMedicoSeleccionado = (PlanMedico)this.comboPlanes.SelectedItem;
-                this.controller.buscarAfiliados(query, planMedicoSeleccionado);
+                this.controller.buscarAfiliados(queryNombre, queryApellido, planMedicoSeleccionado);
             }
             else
             {
