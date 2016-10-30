@@ -94,7 +94,7 @@ namespace ClinicaFrba
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 17);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Contrasena";
+            this.label3.Text = "Contraseña";
             // 
             // LoginForm
             // 

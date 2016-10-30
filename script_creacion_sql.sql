@@ -839,6 +839,7 @@ GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Eliminar_Rol'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Eliminar_Rol
+GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno
@@ -851,7 +852,33 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol
 GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Rol
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Rol_Habilitado'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Rol_Habilitado
+GO
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Rol] (@rol_nombre VARCHAR(255))
+AS
+BEGIN
+	SELECT *
+	FROM BETTER_CALL_JUAN.Roles R
+	WHERE R.nombre like '%'+ @rol_nombre +'%'
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Rol_Habilitado] (@rol_nombre VARCHAR(255))
+AS
+BEGIN
+	SELECT *
+	FROM BETTER_CALL_JUAN.Roles R
+	WHERE R.nombre like '%'+ @rol_nombre +'%' AND R.habilitado = 1
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS

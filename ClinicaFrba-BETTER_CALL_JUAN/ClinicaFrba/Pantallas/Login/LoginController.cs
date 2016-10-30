@@ -37,7 +37,7 @@ namespace ClinicaFrba
             }
             else if (loginResult == CONTRASENIA_INCORRECTA_LOGIN_RESULT)
             {
-                loginForm.ShowErrorDialog("Contrasena incorrecta");
+                loginForm.ShowErrorDialog("Contraseña incorrecta");
             }
             else if (loginResult == LOGIN_OK_1_ROL_LOGIN_RESULT || loginResult == LOGIN_OK_MAS_DE_1_ROL_LOGIN_RESULT)
             {
