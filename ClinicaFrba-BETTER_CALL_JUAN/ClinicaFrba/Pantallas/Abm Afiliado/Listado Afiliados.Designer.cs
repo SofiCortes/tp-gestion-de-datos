@@ -41,12 +41,16 @@ namespace ClinicaFrba
             this.afiliadosGrid = new System.Windows.Forms.DataGridView();
             this.buscarButton = new System.Windows.Forms.Button();
             this.limpiarButton = new System.Windows.Forms.Button();
+            this.textBoxApellido = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.afiliadosGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxApellido);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.comboPlanes);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxNombre);
@@ -78,9 +82,9 @@ namespace ClinicaFrba
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(144, 26);
+            this.textBoxNombre.Location = new System.Drawing.Point(79, 26);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(167, 25);
+            this.textBoxNombre.Size = new System.Drawing.Size(138, 25);
             this.textBoxNombre.TabIndex = 1;
             // 
             // label1
@@ -88,9 +92,9 @@ namespace ClinicaFrba
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 17);
+            this.label1.Size = new System.Drawing.Size(57, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Nombre/Apellido";
+            this.label1.Text = "Nombre";
             // 
             // afiliadosGrid
             // 
@@ -123,6 +127,22 @@ namespace ClinicaFrba
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
+            // textBoxApellido
+            // 
+            this.textBoxApellido.Location = new System.Drawing.Point(344, 26);
+            this.textBoxApellido.Name = "textBoxApellido";
+            this.textBoxApellido.Size = new System.Drawing.Size(144, 25);
+            this.textBoxApellido.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(272, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 17);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Apellido";
+            // 
             // ListadoAfiliados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -151,6 +171,8 @@ namespace ClinicaFrba
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboPlanes;
+        private TextBox textBoxApellido;
+        private Label label3;
 
         public string actionCode { get; set; }
 

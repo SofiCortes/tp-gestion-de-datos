@@ -46,9 +46,10 @@ namespace ClinicaFrba
                         paciente.estadoCivil = !sqlReader.IsDBNull(12) ? sqlReader.GetString(12) : "";
                         paciente.cantidadFamiliares = sqlReader.GetInt32(13);
                         paciente.planMedicoCod = sqlReader.GetDecimal(14);
-                        paciente.habilitado = sqlReader.GetBoolean(15);
-                        paciente.nroUltimaConsulta = sqlReader.GetDecimal(16);
-                        paciente.usuarioId = !sqlReader.IsDBNull(17) ? sqlReader.GetDecimal(17) : 0;
+                        paciente.planMedicoDescripcion = sqlReader.GetString(15);
+                        paciente.habilitado = sqlReader.GetBoolean(16);
+                        paciente.nroUltimaConsulta = sqlReader.GetDecimal(17);
+                        paciente.usuarioId = !sqlReader.IsDBNull(18) ? sqlReader.GetDecimal(18) : 0;
 
                         pacientes.Add(paciente);
                     }
@@ -65,16 +66,18 @@ namespace ClinicaFrba
             return pacientes;
         }
 
-        internal List<Paciente> buscarAfiliadosPorNombreYPlan(string query, decimal planCode)
+        internal List<Paciente> buscarAfiliadosPorNombreYPlan(string queryNombre, string queryApellido, decimal planCode)
         {
             List<Paciente> pacientes = new List<Paciente>();
             try
             {
-                ParametroParaSP parametro1 = new ParametroParaSP("nombre_apellido", SqlDbType.VarChar, query);
-                ParametroParaSP parametro2 = new ParametroParaSP("plan_codigo", SqlDbType.Decimal, planCode);
+                ParametroParaSP parametro1 = new ParametroParaSP("nombre", SqlDbType.VarChar, queryNombre);
+                ParametroParaSP parametro2 = new ParametroParaSP("apellido", SqlDbType.VarChar, queryApellido);
+                ParametroParaSP parametro3 = new ParametroParaSP("plan_codigo", SqlDbType.Decimal, planCode);
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);
+                parametros.Add(parametro3);
 
                 this.openDB();
 
@@ -101,9 +104,10 @@ namespace ClinicaFrba
                         paciente.estadoCivil = !sqlReader.IsDBNull(12) ? sqlReader.GetString(12) : "";
                         paciente.cantidadFamiliares = sqlReader.GetInt32(13);
                         paciente.planMedicoCod = sqlReader.GetDecimal(14);
-                        paciente.habilitado = sqlReader.GetBoolean(15);
-                        paciente.nroUltimaConsulta = sqlReader.GetDecimal(16);
-                        paciente.usuarioId = !sqlReader.IsDBNull(17) ? sqlReader.GetDecimal(17) : 0;
+                        paciente.planMedicoDescripcion = sqlReader.GetString(15);
+                        paciente.habilitado = sqlReader.GetBoolean(16);
+                        paciente.nroUltimaConsulta = sqlReader.GetDecimal(17);
+                        paciente.usuarioId = !sqlReader.IsDBNull(18) ? sqlReader.GetDecimal(18) : 0;
 
                         pacientes.Add(paciente);
                     }
