@@ -93,7 +93,7 @@ namespace ClinicaFrba
                     Matricula = medico.matricula,
                     NombreYApellido = medico.apellido + ", " + medico.nombre,
                     Documento = medico.tipoDoc + " " + medico.nroDoc,
-                    Sexo = medico.sexo.Equals('M') ? "Masculino" : "Femenino"
+                    Sexo = medico.sexo.Equals('-') ? "-" : medico.sexo.Equals('M') ? "Masculino" : "Femenino"
                 }
             ).ToList();
         }
