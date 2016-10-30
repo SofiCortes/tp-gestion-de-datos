@@ -865,7 +865,20 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Filtros
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Tipos_Especialidades'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Tipos_Especialidades
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Tipos_Especialidades]
+AS
+BEGIN
+	SELECT te.codigo, te.descripcion
+	FROM BETTER_CALL_JUAN.Tipos_Especialidades te
+	ORDER BY te.descripcion
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Afiliados_Filtros] 
 (@nombre VARCHAR(255), @apellido VARCHAR(255),@plan_codigo NUMERIC(18,0))
@@ -1531,3 +1544,4 @@ BEGIN
 
 END
 GO
+
