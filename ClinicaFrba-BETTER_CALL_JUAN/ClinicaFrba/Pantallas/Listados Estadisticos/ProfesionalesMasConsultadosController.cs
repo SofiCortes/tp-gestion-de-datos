@@ -36,7 +36,7 @@ namespace ClinicaFrba
             semestreSeleccionado = semestreSeleccionado.Equals("Primer semestre") ? "1" : "2";
             mesSeleccionado = StoredProcedureHelper.getNumeroMesConNombreMes(mesSeleccionado);
             EstadisticasManager estadisticasManager = new EstadisticasManager();
-            List<MedicoDAO> medicos = estadisticasManager.getProfesionalesMasConsultados(anioSeleccionado, mesSeleccionado, planMedicoCod);
+            List<MedicoDAO> medicos = estadisticasManager.getProfesionalesMasConsultados(semestreSeleccionado, anioSeleccionado, mesSeleccionado, planMedicoCod);
 
             if (medicos != null)
             {

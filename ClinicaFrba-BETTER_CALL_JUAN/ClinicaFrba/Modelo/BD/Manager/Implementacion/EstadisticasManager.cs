@@ -16,7 +16,7 @@ namespace ClinicaFrba
         }
 
 
-        internal List<MedicoDAO> getProfesionalesConMenosHoras(string anioSeleccionado, string mesSeleccionado, decimal especialidadCod)
+        internal List<MedicoDAO> getProfesionalesConMenosHoras(string semestreSeleccionado, string anioSeleccionado, string mesSeleccionado, decimal especialidadCod)
         {
             List<MedicoDAO> medicos = new List<MedicoDAO>();
 
@@ -25,10 +25,12 @@ namespace ClinicaFrba
                 ParametroParaSP parametro1 = new ParametroParaSP("especialidad_cod", SqlDbType.Decimal, especialidadCod);
                 ParametroParaSP parametro2 = new ParametroParaSP("anio", SqlDbType.Int, int.Parse(anioSeleccionado));
                 ParametroParaSP parametro3 = new ParametroParaSP("mes", SqlDbType.Int, int.Parse(mesSeleccionado));
+                ParametroParaSP parametro4 = new ParametroParaSP("semestre", SqlDbType.Int, int.Parse(semestreSeleccionado));
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);
                 parametros.Add(parametro3);
+                parametros.Add(parametro4);
 
                 this.openDB();
 
@@ -65,7 +67,7 @@ namespace ClinicaFrba
             return medicos;
         }
 
-        internal List<MedicoDAO> getProfesionalesMasConsultados(string anioSeleccionado, string mesSeleccionado, decimal planMedicoCod)
+        internal List<MedicoDAO> getProfesionalesMasConsultados(string semestreSeleccionado, string anioSeleccionado, string mesSeleccionado, decimal planMedicoCod)
         {
             List<MedicoDAO> medicos = new List<MedicoDAO>();
 
@@ -74,10 +76,12 @@ namespace ClinicaFrba
                 ParametroParaSP parametro1 = new ParametroParaSP("plan_medico_id", SqlDbType.Decimal, planMedicoCod);
                 ParametroParaSP parametro2 = new ParametroParaSP("anio", SqlDbType.Int, int.Parse(anioSeleccionado));
                 ParametroParaSP parametro3 = new ParametroParaSP("mes", SqlDbType.Int, int.Parse(mesSeleccionado));
+                ParametroParaSP parametro4 = new ParametroParaSP("semestre", SqlDbType.Int, int.Parse(semestreSeleccionado));
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);
                 parametros.Add(parametro3);
+                parametros.Add(parametro4);
 
                 this.openDB();
 

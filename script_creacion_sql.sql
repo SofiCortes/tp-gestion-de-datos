@@ -1272,7 +1272,7 @@ END
 GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan]
-(@plan_medico_id NUMERIC(18,0), @anio INT, @mes INT)
+(@plan_medico_id NUMERIC(18,0), @anio INT, @mes INT, @semestre INT)
 AS 
 BEGIN
 	DECLARE @QUERY_FINAL NVARCHAR(2000)
@@ -1288,7 +1288,12 @@ BEGIN
 	DECLARE @QUERY_9 VARCHAR(300) = ' ORDER BY cantConsultas DESC'
 
 	IF @mes = 0
-		SET @QUERY_6 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio'		
+		BEGIN
+			IF @semestre = 1
+				SET @QUERY_6 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (1, 2, 3, 4, 5, 6)'
+			ELSE
+				SET @QUERY_6 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (7, 8, 9, 10, 11, 12)'
+		END	
 	ELSE
 		SET @QUERY_6 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') = @mes'
 
@@ -1304,7 +1309,7 @@ END
 GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun_Especialidad]
-(@especialidad_cod NUMERIC(18,0), @anio INT, @mes INT)
+(@especialidad_cod NUMERIC(18,0), @anio INT, @mes INT, @semestre INT)
 AS
 BEGIN
 	
@@ -1321,7 +1326,12 @@ BEGIN
 		SET @QUERY_1 = ' JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=med.matricula AND med_esp.especialidad_cod= @especialidad_cod)'
 		
 	IF @mes = 0
-		SET @QUERY_3 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio'
+		BEGIN
+			IF @semestre = 1
+				SET @QUERY_3 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (1, 2, 3, 4, 5, 6)'
+			ELSE
+				SET @QUERY_3 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (7, 8, 9, 10, 11, 12)'
+		END
 	ELSE
 		SET @QUERY_3 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') = @mes'
 
