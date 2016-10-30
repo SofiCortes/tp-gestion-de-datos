@@ -1356,23 +1356,32 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Bonos_Utilizados](@fechaDesde DATE, @fechaHasta DATE)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Bonos_Utilizados]
+(@semestre INT, @anio INT, @mes INT)
 AS
 BEGIN
-	IF (@fechaHasta <= @fechaDesde)
-	BEGIN
-		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
-		RETURN
-	END
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(300) = 'SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantBonosUtilizados FROM BETTER_CALL_JUAN.Especialidades e '
+	DECLARE @QUERY_2 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (e.codigo = med_esp.especialidad_cod)'
+	DECLARE @QUERY_3 VARCHAR(200) = ' JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id = med_esp.id)'
+	DECLARE @QUERY_4 VARCHAR(200) = ' JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = t.numero)'
+	DECLARE @QUERY_5 VARCHAR(200)
+	DECLARE @QUERY_6 VARCHAR(200) = ' GROUP BY e.codigo, e.descripcion'
+	DECLARE @QUERY_7 VARCHAR(200) = ' ORDER BY cantBonosUtilizados DESC'
+	
+	IF @mes = 0
+		BEGIN
+			IF @semestre = 1
+				SET @QUERY_5 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (1, 2, 3, 4, 5, 6)'
+			ELSE
+				SET @QUERY_5 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (7, 8, 9, 10, 11, 12)'
+		END
+	ELSE
+		SET @QUERY_5 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') = @mes'
 
-	SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantBonosUtilizados --porque para cada consulta se usa un bono
-	FROM BETTER_CALL_JUAN.Especialidades e 
-	JOIN Medicos_Especialidades med_esp ON (e.codigo = med_esp.especialidad_cod)
-	JOIN Turnos t ON (t.medico_especialidad_id = med_esp.id)
-	JOIN Consultas c ON (c.turno_numero = t.numero)
-	WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta
-	GROUP BY e.codigo, e.descripcion
-	ORDER BY cantBonosUtilizados DESC
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4 + @QUERY_5 + @QUERY_6 + @QUERY_7
+	EXEC sp_executesql @QUERY_FINAL, N'@semestre INT, @anio INT, @mes INT', @semestre, @anio, @mes
+	
 END
 GO
 

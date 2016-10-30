@@ -11,6 +11,7 @@ namespace ClinicaFrba
 
         public Especialidad especialidad { get; set; }
         public int cantCancelaciones { get; set; }
+        public int cantBonosUtilizados { get; set; }
 
     }
 }

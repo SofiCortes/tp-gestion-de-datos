@@ -221,5 +221,53 @@ namespace ClinicaFrba
             }
             return pacientes;
         }
+
+        internal List<EspecialidadDAO> getEspecialidadesConMasConsultas(string anioSeleccionado, string mesSeleccionado, string semestreSeleccionado)
+        {
+            List<EspecialidadDAO> especialidades = new List<EspecialidadDAO>();
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("semestre", SqlDbType.Int, int.Parse(semestreSeleccionado));
+                ParametroParaSP parametro2 = new ParametroParaSP("anio", SqlDbType.Int, int.Parse(anioSeleccionado));
+                ParametroParaSP parametro3 = new ParametroParaSP("mes", SqlDbType.Int, int.Parse(mesSeleccionado));
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Top_5_Especialidades_Con_Mas_Bonos_Utilizados", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        EspecialidadDAO especialidadDAO = new EspecialidadDAO();
+
+                        Especialidad especialidad = new Especialidad();
+                        especialidad.codigo = sqlReader.GetDecimal(0);
+                        especialidad.descripcion = sqlReader.GetString(1);
+
+                        especialidadDAO.cantBonosUtilizados = sqlReader.GetInt32(2);
+                        especialidadDAO.especialidad = especialidad;
+
+                        especialidades.Add(especialidadDAO);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                especialidades = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return especialidades;
+        }
     }
 }
