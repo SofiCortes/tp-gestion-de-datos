@@ -64,5 +64,109 @@ namespace ClinicaFrba
             }
             return medicos;
         }
+
+        internal List<MedicoDAO> getProfesionalesMasConsultados(string anioSeleccionado, string mesSeleccionado, decimal planMedicoCod)
+        {
+            List<MedicoDAO> medicos = new List<MedicoDAO>();
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("plan_medico_id", SqlDbType.Decimal, planMedicoCod);
+                ParametroParaSP parametro2 = new ParametroParaSP("anio", SqlDbType.Int, int.Parse(anioSeleccionado));
+                ParametroParaSP parametro3 = new ParametroParaSP("mes", SqlDbType.Int, int.Parse(mesSeleccionado));
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        MedicoDAO medicoDAO = new MedicoDAO();
+
+                        Medico medico = new Medico();
+                        medico.matricula = sqlReader.GetDecimal(0);
+                        medico.nombre = sqlReader.GetString(1);
+                        medico.apellido = sqlReader.GetString(2);
+
+                        Especialidad especialidad = new Especialidad();
+                        especialidad.codigo = sqlReader.GetDecimal(3);
+                        especialidad.descripcion = sqlReader.GetString(4);
+
+                        medicoDAO.medico = medico;
+                        medicoDAO.especialidadMedico = especialidad;
+                        medicoDAO.cantConsultas = sqlReader.GetInt32(5);
+
+                        medicos.Add(medicoDAO);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                medicos = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return medicos;
+        }
+
+        internal List<EspecialidadDAO> getEspecialidadesConMasCancelaciones(string autorCancelacion, string anioSeleccionado, string mesSeleccionado, string semestreSeleccionado)
+        {
+            List<EspecialidadDAO> especialidades = new List<EspecialidadDAO>();
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("autor_cancelacion", SqlDbType.Char, autorCancelacion.ElementAt(0));
+                ParametroParaSP parametro2 = new ParametroParaSP("semestre", SqlDbType.Int, int.Parse(semestreSeleccionado));
+                ParametroParaSP parametro3 = new ParametroParaSP("anio", SqlDbType.Int, int.Parse(anioSeleccionado));
+                ParametroParaSP parametro4 = new ParametroParaSP("mes", SqlDbType.Int, int.Parse(mesSeleccionado));
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        EspecialidadDAO especialidadDAO = new EspecialidadDAO();
+
+                        Especialidad especialidad = new Especialidad();
+                        especialidad.codigo = sqlReader.GetDecimal(0);
+                        especialidad.descripcion = sqlReader.GetString(1);
+
+                        especialidadDAO.cantCancelaciones = sqlReader.GetInt32(2);
+                        especialidadDAO.especialidad = especialidad;
+
+                        especialidades.Add(especialidadDAO);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                especialidades = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return especialidades;
+        }
     }
 }

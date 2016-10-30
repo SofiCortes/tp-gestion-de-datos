@@ -10,5 +10,8 @@ namespace ClinicaFrba
     {
         public Medico medico { get; set; }
         public int cantHorasTrabajadas { get; set; }
+        public int cantConsultas { get; set; }
+
+        public Especialidad especialidadMedico { get; set; }
     }
 }

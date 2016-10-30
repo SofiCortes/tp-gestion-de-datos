@@ -56,7 +56,7 @@
             // buscarButton
             // 
             this.buscarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buscarButton.Location = new System.Drawing.Point(544, 134);
+            this.buscarButton.Location = new System.Drawing.Point(544, 139);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 30);
             this.buscarButton.TabIndex = 11;
@@ -67,7 +67,7 @@
             // resultadosTop5Grid
             // 
             this.resultadosTop5Grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultadosTop5Grid.Location = new System.Drawing.Point(12, 189);
+            this.resultadosTop5Grid.Location = new System.Drawing.Point(12, 207);
             this.resultadosTop5Grid.Name = "resultadosTop5Grid";
             this.resultadosTop5Grid.Size = new System.Drawing.Size(607, 210);
             this.resultadosTop5Grid.TabIndex = 9;
@@ -75,7 +75,7 @@
             // limpiarButton
             // 
             this.limpiarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.limpiarButton.Location = new System.Drawing.Point(12, 134);
+            this.limpiarButton.Location = new System.Drawing.Point(12, 139);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 30);
             this.limpiarButton.TabIndex = 10;
@@ -96,7 +96,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(607, 116);
+            this.groupBox1.Size = new System.Drawing.Size(607, 121);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
@@ -166,7 +166,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 428);
+            this.ClientSize = new System.Drawing.Size(635, 435);
             this.Controls.Add(this.buscarButton);
             this.Controls.Add(this.resultadosTop5Grid);
             this.Controls.Add(this.limpiarButton);

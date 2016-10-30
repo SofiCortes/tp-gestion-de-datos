@@ -60,7 +60,7 @@ namespace ClinicaFrba
                 this.comboMes.Enabled = false;
                 this.comboEspecialidad.Enabled = false;
 
-                this.controller.buscarProfesionalesConFiltros(anioSeleccionado, mesSeleccionado, especialidadSeleccionada);
+                this.controller.buscarProfesionalesConFiltros(semestreSeleccionado, anioSeleccionado, mesSeleccionado, especialidadSeleccionada);
             }
         }
 
@@ -151,5 +151,6 @@ namespace ClinicaFrba
                 }
             ).ToList();
         }
+        
     }
 }

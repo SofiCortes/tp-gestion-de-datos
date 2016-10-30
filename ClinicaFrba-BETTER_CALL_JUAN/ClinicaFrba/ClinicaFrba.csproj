@@ -55,8 +55,9 @@
     <Compile Include="Modelo\BD\Manager\Implementacion\RolManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\TurnoManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\UsuarioManager.cs" />
-    <Compile Include="Modelo\BD\Utiles\DateHelper.cs" />
+    <Compile Include="Modelo\BD\Utiles\StoredProcedureHelper.cs" />
     <Compile Include="Modelo\BD\Utiles\ParametroParaSP.cs" />
+    <Compile Include="Modelo\Objetos\DAO\EspecialidadDAO.cs" />
     <Compile Include="Modelo\Objetos\DAO\MedicoDAO.cs" />
     <Compile Include="Modelo\UsuarioFuncionalidades.cs" />
     <Compile Include="Modelo\Objetos\BajaPaciente.cs" />
@@ -261,6 +262,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\AbmRol\Modificar Rol.resx">
       <DependentUpon>Modificar Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Listados Estadisticos\Afiliados con mas bonos comprados.resx">
+      <DependentUpon>Afiliados con mas bonos comprados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Listados Estadisticos\Especialidad con mas cancelaciones.resx">
+      <DependentUpon>Especialidad con mas cancelaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Listados Estadisticos\Especialidades con mas bonos de consulta.resx">
+      <DependentUpon>Especialidades con mas bonos de consulta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Listados Estadisticos\Profesionales con menos horas trabajadas.resx">
       <DependentUpon>Profesionales con menos horas trabajadas.cs</DependentUpon>

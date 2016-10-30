@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    class DateHelper
+    class StoredProcedureHelper
     {
 
         public static string getNumeroMesConNombreMes(string nombreMes)
@@ -63,5 +63,23 @@ namespace ClinicaFrba
             return numeroMes;
         }
 
+
+        public static string getAutorCancelacionConTipo(string autorCancelacion)
+        {
+            string cancelacion = "";
+            if (autorCancelacion.Equals("Afiliados"))
+            {
+                cancelacion = "A";
+            }
+            else if (autorCancelacion.Equals("Medicos"))
+            {
+                cancelacion = "M";
+            }
+            else if (autorCancelacion.Equals("Todos"))
+            {
+                cancelacion = "T";
+            }
+            return cancelacion;
+        }
     }
 }
