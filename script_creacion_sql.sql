@@ -880,7 +880,8 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Especialidades_Filtros]
 AS
 BEGIN
 	DECLARE @QUERY_FINAL NVARCHAR(1500)
-	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT e.codigo,e.descripcion FROM BETTER_CALL_JUAN.Especialidades e'
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT e.codigo,e.descripcion,te.descripcion as tipo_especialidad FROM BETTER_CALL_JUAN.Especialidades e 
+									JOIN BETTER_CALL_JUAN.Tipos_Especialidades te ON (e.tipo_especialidad_cod=te.codigo)'
 	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE e.descripcion LIKE @descripcion'
 	DECLARE @QUERY_3 VARCHAR(500) = ' '
 	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY e.descripcion'
@@ -1294,8 +1295,8 @@ GO
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Especialidades]
 AS
 BEGIN
-	SELECT e.codigo, e.descripcion
-	FROM BETTER_CALL_JUAN.Especialidades e
+	SELECT e.codigo, e.descripcion, te.descripcion as tipo_especialidad
+	FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Tipos_Especialidades te ON (e.tipo_especialidad_cod=te.codigo)
 	ORDER BY e.descripcion
 END
 GO
@@ -1568,5 +1569,3 @@ BEGIN
 
 END
 GO
-
-
