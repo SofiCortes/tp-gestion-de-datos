@@ -873,25 +873,65 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Registro_Resultado_Consulta
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Tipos_Especialidades'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Tipos_Especialidades
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Especialidades_Filtros'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Especialidades_Filtros
+GO
+
 ------------------------------------------
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Afiliados_Filtros] 
-(@nombre_apellido VARCHAR(255), @plan_codigo NUMERIC(18,0))
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Especialidades_Filtros] 
+(@descripcion VARCHAR(255), @tipo_especialidad_cod NUMERIC(18,0))
 AS
 BEGIN
 	DECLARE @QUERY_FINAL NVARCHAR(1500)
-	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT * FROM BETTER_CALL_JUAN.Pacientes P '
-	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (P.apellido like @nombre_apellido OR P.nombre like @nombre_apellido)'
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT e.codigo,e.descripcion FROM BETTER_CALL_JUAN.Especialidades e'
+	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE e.descripcion LIKE @descripcion'
 	DECLARE @QUERY_3 VARCHAR(500) = ' '
-	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY P.apellido'
+	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY e.descripcion'
 
-	IF @plan_codigo > 0
-		SET @QUERY_3 = ' AND P.plan_medico_cod = @plan_codigo'
+	IF @tipo_especialidad_cod > 0
+		SET @QUERY_3 = ' AND e.tipo_especialidad_cod=@tipo_especialidad_cod'
 
-	SET @nombre_apellido = '%' + @nombre_apellido + '%'
+	SET @descripcion = '%' + @descripcion + '%'
 		
 	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
-	EXEC sp_executesql @QUERY_FINAL, N'@nombre_apellido VARCHAR(255), @plan_codigo NUMERIC(18,0)', @nombre_apellido, @plan_codigo
+	EXEC sp_executesql @QUERY_FINAL, N'@descripcion VARCHAR(255), @tipo_especialidad_cod NUMERIC(18,0)', @descripcion, @tipo_especialidad_cod
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Tipos_Especialidades]
+AS
+BEGIN
+	SELECT te.codigo, te.descripcion
+	FROM BETTER_CALL_JUAN.Tipos_Especialidades te
+	ORDER BY te.descripcion
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Afiliados_Filtros] 
+(@nombre VARCHAR(255), @apellido VARCHAR(255),@plan_codigo NUMERIC(18,0))
+AS
+BEGIN
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT p.id,p.nro_raiz,p.nro_personal,p.nombre,p.apellido,p.tipo_doc,p.nro_doc,p.direccion,p.telefono,p.mail,
+	p.fecha_nac,p.sexo,p.estado_civil,p.cantidad_familiares,p.plan_medico_cod,pm.descripcion,p.habilitado,p.nro_ultima_consulta,p.usuario_id
+	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Planes_Medicos pm ON (p.plan_medico_cod=pm.codigo)'
+	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (p.nombre LIKE @nombre AND p.apellido LIKE @apellido)'
+	DECLARE @QUERY_3 VARCHAR(500) = ' '
+	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY p.apellido,p.nombre,p.id'
+
+	IF @plan_codigo > 0
+		SET @QUERY_3 = ' AND p.plan_medico_cod = @plan_codigo'
+
+	SET @nombre = '%' + @nombre + '%'
+	SET @apellido = '%' + @apellido + '%'
+		
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
+	EXEC sp_executesql @QUERY_FINAL, N'@nombre VARCHAR(255), @apellido VARCHAR(255), @plan_codigo NUMERIC(18,0)', @nombre, @apellido, @plan_codigo
 END
 GO
 
@@ -1102,9 +1142,9 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Afiliados]
 AS
 BEGIN
 	SELECT id,nro_raiz,nro_personal,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,sexo,
-	estado_civil,cantidad_familiares,plan_medico_cod,habilitado,nro_ultima_consulta,usuario_id
-
-	FROM BETTER_CALL_JUAN.Pacientes
+	estado_civil,cantidad_familiares,plan_medico_cod, pm.descripcion,habilitado,nro_ultima_consulta,usuario_id
+	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Planes_Medicos pm ON (p.plan_medico_cod =pm.codigo)
+	ORDER BY apellido,nombre,id
 END
 GO
 
@@ -1333,7 +1373,9 @@ BEGIN
 END
 GO
 
+
 /** TOP 5 **/
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones]
 (@autor_cancelacion CHAR(1), @semestre INT, @anio INT, @mes INT)
 AS
@@ -1560,3 +1602,5 @@ BEGIN
 
 END
 GO
+
+
