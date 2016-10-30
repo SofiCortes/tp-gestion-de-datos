@@ -868,22 +868,25 @@ GO
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Afiliados_Filtros] 
-(@nombre_apellido VARCHAR(255), @plan_codigo NUMERIC(18,0))
+(@nombre VARCHAR(255), @apellido VARCHAR(255),@plan_codigo NUMERIC(18,0))
 AS
 BEGIN
 	DECLARE @QUERY_FINAL NVARCHAR(1500)
-	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT * FROM BETTER_CALL_JUAN.Pacientes P '
-	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (P.apellido like @nombre_apellido OR P.nombre like @nombre_apellido)'
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT p.id,p.nro_raiz,p.nro_personal,p.nombre,p.apellido,p.tipo_doc,p.nro_doc,p.direccion,p.telefono,p.mail,
+	p.fecha_nac,p.sexo,p.estado_civil,p.cantidad_familiares,p.plan_medico_cod,pm.descripcion,p.habilitado,p.nro_ultima_consulta,p.usuario_id
+	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Planes_Medicos pm ON (p.plan_medico_cod=pm.codigo)'
+	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (p.nombre LIKE @nombre AND p.apellido LIKE @apellido)'
 	DECLARE @QUERY_3 VARCHAR(500) = ' '
-	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY P.apellido'
+	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY p.apellido,p.nombre,p.id'
 
 	IF @plan_codigo > 0
-		SET @QUERY_3 = ' AND P.plan_medico_cod = @plan_codigo'
+		SET @QUERY_3 = ' AND p.plan_medico_cod = @plan_codigo'
 
-	SET @nombre_apellido = '%' + @nombre_apellido + '%'
+	SET @nombre = '%' + @nombre + '%'
+	SET @apellido = '%' + @apellido + '%'
 		
 	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
-	EXEC sp_executesql @QUERY_FINAL, N'@nombre_apellido VARCHAR(255), @plan_codigo NUMERIC(18,0)', @nombre_apellido, @plan_codigo
+	EXEC sp_executesql @QUERY_FINAL, N'@nombre VARCHAR(255), @apellido VARCHAR(255), @plan_codigo NUMERIC(18,0)', @nombre, @apellido, @plan_codigo
 END
 GO
 
@@ -1094,9 +1097,9 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Afiliados]
 AS
 BEGIN
 	SELECT id,nro_raiz,nro_personal,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,sexo,
-	estado_civil,cantidad_familiares,plan_medico_cod,habilitado,nro_ultima_consulta,usuario_id
-
-	FROM BETTER_CALL_JUAN.Pacientes
+	estado_civil,cantidad_familiares,plan_medico_cod, pm.descripcion,habilitado,nro_ultima_consulta,usuario_id
+	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Planes_Medicos pm ON (p.plan_medico_cod =pm.codigo)
+	ORDER BY apellido,nombre,id
 END
 GO
 
@@ -1298,8 +1301,10 @@ AS
 BEGIN
 	DELETE FROM BETTER_CALL_JUAN.Roles_Funcionalidades WHERE rol_id = @rol_id
 END
+GO
 
 /** TOP 5 **/
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones]
 (@autor_cancelacion CHAR(1), @semestre INT, @anio INT, @mes INT)
 AS
