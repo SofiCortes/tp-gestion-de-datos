@@ -881,6 +881,9 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Especialidades_Filtros
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Plan_Por_Nombre'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Plan_Por_Nombre
+GO
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Especialidades_Filtros] 
@@ -1347,7 +1350,7 @@ BEGIN
 	DELETE FROM BETTER_CALL_JUAN.Roles_Funcionalidades WHERE rol_id = @rol_id
 END
 GO
-
+  
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Consulta] (@matricula NUMERIC(18,0), @cod_especialidad NUMERIC(18,0), @fecha DATETIME)
 AS
 BEGIN
@@ -1373,6 +1376,14 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Plan_Por_Nombre] (@descripcion VARCHAR(255))
+AS
+BEGIN
+	SELECT codigo, descripcion, precio_bono_consulta, precio_bono_farmacia
+	FROM Planes_Medicos
+	WHERE descripcion like '%' + @descripcion + '%'
+END
+GO
 
 /** TOP 5 **/
 
