@@ -33,7 +33,7 @@ namespace ClinicaFrba
 
         private void llenarCombos()
         {
-            this.comboAnio.DataSource = new List<string> { "Seleccione anio", "2015", "2016" };
+            this.comboAnio.DataSource = new List<string> { "Seleccione año", "2015", "2016" };
             this.comboCancelacion.DataSource = cancelaciones;
             this.comboSemestre.Enabled = false;
             this.comboMes.Enabled = false;
@@ -91,7 +91,7 @@ namespace ClinicaFrba
             string semestreSeleccionado = (string)this.comboSemestre.SelectedItem;
             string cancelacionSeleccionada = (string)this.comboCancelacion.SelectedItem;
 
-            if (anioSeleccionado.Equals("Seleccione anio") || semestreSeleccionado.Equals("Seleccione semestre") ||
+            if (anioSeleccionado.Equals("Seleccione año") || semestreSeleccionado.Equals("Seleccione semestre") ||
                 mesSeleccionado.Equals("Seleccione mes") || semestreSeleccionado.Equals("Seleccione cancelacion de"))
             {
                 this.showErrorMessage("Seleccione los filtros correctamente");

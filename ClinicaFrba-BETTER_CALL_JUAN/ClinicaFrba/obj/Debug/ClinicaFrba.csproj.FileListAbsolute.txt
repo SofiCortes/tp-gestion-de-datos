@@ -102,3 +102,8 @@ C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_J
 C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
 C:\Users\Marcos\Desktop\Nueva carpeta\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
 >>>>>>> c564abbdeb532ab05ab965eed7b93413217afa71
+C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.AfiliadosConMasBonos.resources
+C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.EspecialidadConMasCancelaciones.resources
+C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.EspecialidadesConMasBonos.resources
+C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ProfesionalesConMenosHoras.resources
+C:\Users\Marco\Desktop\BETTER_CALL_JUAN\ClinicaFrba-BETTER_CALL_JUAN\ClinicaFrba\obj\Debug\ClinicaFrba.ProfesionalesMasConsultados.resources
