@@ -10,7 +10,8 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
 {
     class FuncionalidadManager : AbstractManager
     {
-        public FuncionalidadManager() : base(new ConexionBD())
+        public FuncionalidadManager()
+            : base(new ConexionBD())
         {
         }
 
@@ -49,27 +50,36 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
 
         internal void agregarFuncionalidadesAlRol(Rol rol, List<Funcionalidad> funcionalidadesAsignadas)
         {
-            RolManager rm = new RolManager();
-            rol.id = rm.obtenerRolID(rol.nombre);
-            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
-            SqlCommand procedure;
-
-            funcionalidadesAsignadas.ForEach(func =>
+            try
             {
-                parametros.Clear();
+                RolManager rm = new RolManager();
+                rol.id = rm.obtenerRolID(rol.nombre);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                SqlCommand procedure;
 
-                ParametroParaSP parametro3 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, rol.id);
-                ParametroParaSP parametro4 = new ParametroParaSP("funcionalidad_id", SqlDbType.Decimal, func.id);
+                funcionalidadesAsignadas.ForEach(func =>
+                {
+                    parametros.Clear();
 
-                parametros.Add(parametro3);
-                parametros.Add(parametro4);
+                    ParametroParaSP parametro3 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, rol.id);
+                    ParametroParaSP parametro4 = new ParametroParaSP("funcionalidad_id", SqlDbType.Decimal, func.id);
 
-                procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Asignar_Funcionalidad_Rol", parametros);
-                procedure.ExecuteNonQuery();
+                    parametros.Add(parametro3);
+                    parametros.Add(parametro4);
 
-            });
+                    procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Asignar_Funcionalidad_Rol", parametros);
+                    procedure.ExecuteNonQuery();
 
-            this.closeDB();
+                });
+            }
+            catch (Exception e)
+            {
+                //Algo
+            }
+            finally
+            {
+                this.closeDB();
+            }
         }
 
         internal List<Funcionalidad> obtenerFuncionalidadesRol(int id)
@@ -77,16 +87,16 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
             List<Funcionalidad> funcsRol = new List<Funcionalidad>();
             try
             {
-            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
-            SqlCommand procedure;
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                SqlCommand procedure;
 
-            ParametroParaSP parametro3 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, id);
+                ParametroParaSP parametro3 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, id);
 
-            parametros.Add(parametro3);
-            this.openDB();
+                parametros.Add(parametro3);
+                this.openDB();
 
-            procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Obtener_Funcionalidades_Rol", parametros);
-            SqlDataReader sqlReader = procedure.ExecuteReader();
+                procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Obtener_Funcionalidades_Rol", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
 
                 if (sqlReader.HasRows)
                 {
@@ -114,31 +124,40 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
 
         internal void modificarFuncionalidadesDeRol(Rol rol, List<Funcionalidad> funcionalidadesAsignadas)
         {
-            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
-            SqlCommand procedure;
-            ParametroParaSP parametro3 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, rol.id);
-            parametros.Add(parametro3);
-
-            this.openDB();
-
-            procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol", parametros);
-            procedure.ExecuteNonQuery();
-
-            funcionalidadesAsignadas.ForEach(func =>
+            try
             {
-                parametros.Clear();
-
-                ParametroParaSP parametro4 = new ParametroParaSP("funcionalidad_id", SqlDbType.Decimal, func.id);
-
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                SqlCommand procedure;
+                ParametroParaSP parametro3 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, rol.id);
                 parametros.Add(parametro3);
-                parametros.Add(parametro4);
 
-                procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Asignar_Funcionalidad_Rol", parametros);
+                this.openDB();
+
+                procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol", parametros);
                 procedure.ExecuteNonQuery();
 
-            });
+                funcionalidadesAsignadas.ForEach(func =>
+                {
+                    parametros.Clear();
 
-            this.closeDB();
+                    ParametroParaSP parametro4 = new ParametroParaSP("funcionalidad_id", SqlDbType.Decimal, func.id);
+
+                    parametros.Add(parametro3);
+                    parametros.Add(parametro4);
+
+                    procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Asignar_Funcionalidad_Rol", parametros);
+                    procedure.ExecuteNonQuery();
+
+                });
+            }
+            catch (Exception e)
+            {
+                //Algo
+            }
+            finally
+            {
+                this.closeDB();
+            }
         }
     }
 }

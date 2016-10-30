@@ -33,7 +33,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxRol = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.resultadosRolesGrid = new System.Windows.Forms.DataGridView();
             this.limpiarButton = new System.Windows.Forms.Button();
@@ -44,7 +44,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBoxRol);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -54,12 +54,12 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
             // 
-            // textBox1
+            // textBoxRol
             // 
-            this.textBox1.Location = new System.Drawing.Point(90, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 25);
-            this.textBox1.TabIndex = 1;
+            this.textBoxRol.Location = new System.Drawing.Point(90, 26);
+            this.textBoxRol.Name = "textBoxRol";
+            this.textBoxRol.Size = new System.Drawing.Size(100, 25);
+            this.textBoxRol.TabIndex = 1;
             // 
             // label1
             // 
@@ -88,6 +88,7 @@
             this.limpiarButton.TabIndex = 2;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // buscarButton
             // 
@@ -98,6 +99,7 @@
             this.buscarButton.TabIndex = 3;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // ListadoRoles
             // 
@@ -121,7 +123,7 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView resultadosRolesGrid;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxRol;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Button buscarButton;
