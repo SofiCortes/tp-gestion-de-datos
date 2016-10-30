@@ -885,7 +885,44 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Medicos
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Medicos_Filtros'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Medicos_Filtros
+GO
+
 ------------------------------------------
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Medicos_Filtros] 
+(@matricula NUMERIC(18,0),@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0),@nombre VARCHAR(255), @apellido VARCHAR(255),@especialidad_codigo NUMERIC(18,0))
+AS
+BEGIN
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT DISTINCT m.matricula, m.nombre,m.apellido,m.tipo_doc,m.nro_doc,m.direccion,m.telefono,m.mail,m.fecha_nac,m.sexo
+									 FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=m.matricula)'
+	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (m.tipo_doc LIKE @tipo_doc AND m.nombre LIKE @nombre AND m.apellido LIKE @apellido)'
+	DECLARE @QUERY_3 VARCHAR(500) = ' '
+	DECLARE @QUERY_4 VARCHAR(500) = ' '
+	DECLARE @QUERY_5 VARCHAR(500) = ' '
+	DECLARE @QUERY_6 VARCHAR(500) = ' ORDER BY m.apellido,m.nombre,m.matricula'
+
+	IF @especialidad_codigo >0
+		SET @QUERY_3 = ' AND med_esp.especialidad_cod = @especialidad_codigo'
+
+	IF @matricula >0
+		SET @QUERY_4 = ' AND m.matricula = @matricula'
+
+	IF @nro_doc >0
+		SET @QUERY_5 = ' AND m.nro_doc = @nro_doc'
+
+	SET @tipo_doc = '%' + @tipo_doc + '%'
+	SET @nombre = '%' + @nombre + '%'
+	SET @apellido = '%' + @apellido + '%'
+	
+		
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4 + @QUERY_5+ @QUERY_6
+
+	EXEC sp_executesql @QUERY_FINAL, N'@matricula NUMERIC(18,0),@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0),@nombre VARCHAR(255), @apellido VARCHAR(255),
+									   @especialidad_codigo NUMERIC(18,0)',@matricula,@tipo_doc, @nro_doc,@nombre, @apellido,@especialidad_codigo
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Medicos]
 AS
@@ -932,7 +969,7 @@ AS
 BEGIN
 	DECLARE @QUERY_FINAL NVARCHAR(1500)
 	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT p.id,p.nro_raiz,p.nro_personal,p.nombre,p.apellido,p.tipo_doc,p.nro_doc,p.direccion,p.telefono,p.mail,
-	p.fecha_nac,p.sexo,p.estado_civil,p.cantidad_familiares,p.plan_medico_cod,pm.descripcion,p.habilitado,p.nro_ultima_consulta,p.usuario_id
+	p.fecha_nac,p.sexo,p.estado_civil,p.cantidad_familiares,p.plan_medico_cod,pm.descripcion,p.habilitado,p.nro_ultima_consulta
 	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Planes_Medicos pm ON (p.plan_medico_cod=pm.codigo)'
 	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (p.nombre LIKE @nombre AND p.apellido LIKE @apellido)'
 	DECLARE @QUERY_3 VARCHAR(500) = ' '
