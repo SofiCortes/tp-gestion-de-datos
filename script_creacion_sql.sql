@@ -927,7 +927,7 @@ GO
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Medicos]
 AS
 BEGIN
-	SELECT m.matricula, m.nombre,m.apellido,m.tipo_doc,m.nro_doc,m.direccion,m.telefono,m.mail,m.fecha_nac,m.sexo
+	SELECT m.matricula, m.nombre,m.apellido,m.tipo_doc,m.nro_doc,m.direccion,m.telefono,m.mail,m.fecha_nac,m.sexo, m.usuario_id
 	FROM BETTER_CALL_JUAN.Medicos m
 	ORDER BY m.apellido, m.nombre, m.matricula
 END
