@@ -59,6 +59,7 @@
     <Compile Include="Modelo\BD\Utiles\ParametroParaSP.cs" />
     <Compile Include="Modelo\Objetos\DAO\EspecialidadDAO.cs" />
     <Compile Include="Modelo\Objetos\DAO\MedicoDAO.cs" />
+    <Compile Include="Modelo\Objetos\DAO\PacienteDAO.cs" />
     <Compile Include="Modelo\UsuarioFuncionalidades.cs" />
     <Compile Include="Modelo\Objetos\BajaPaciente.cs" />
     <Compile Include="Modelo\Objetos\BonoConsulta.cs" />

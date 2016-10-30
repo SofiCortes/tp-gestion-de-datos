@@ -168,5 +168,58 @@ namespace ClinicaFrba
             }
             return especialidades;
         }
+
+        internal List<PacienteDAO> getAfiliadosConMasBonos(string anioSeleccionado, string mesSeleccionado, string semestreSeleccionado)
+        {
+            List<PacienteDAO> pacientes = new List<PacienteDAO>();
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("semestre", SqlDbType.Int, int.Parse(semestreSeleccionado));
+                ParametroParaSP parametro2 = new ParametroParaSP("anio", SqlDbType.Int, int.Parse(anioSeleccionado));
+                ParametroParaSP parametro3 = new ParametroParaSP("mes", SqlDbType.Int, int.Parse(mesSeleccionado));
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Top_5_Afiliados_Con_Mayor_Cantidad_Bonos_Comprados", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        PacienteDAO pacienteDAO = new PacienteDAO();
+
+                        Paciente paciente = new Paciente();
+                        paciente.nombre = sqlReader.GetString(0);
+                        paciente.apellido = sqlReader.GetString(1);
+                        paciente.tipoDoc = sqlReader.GetString(2);
+                        paciente.nroDoc = sqlReader.GetDecimal(3);
+                        paciente.direccion = sqlReader.GetString(4);
+                        paciente.telefono = sqlReader.GetDecimal(5);
+                        paciente.cantidadFamiliares = sqlReader.GetInt32(6);
+
+                        pacienteDAO.cantBonosComprados = sqlReader.GetInt32(7);
+                        pacienteDAO.paciente = paciente;
+
+                        pacientes.Add(pacienteDAO);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                pacientes = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return pacientes;
+        }
     }
 }

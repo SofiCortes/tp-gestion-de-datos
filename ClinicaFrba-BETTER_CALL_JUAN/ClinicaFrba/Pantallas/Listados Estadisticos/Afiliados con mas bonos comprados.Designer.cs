@@ -51,6 +51,7 @@
             this.buscarButton.TabIndex = 15;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // resultadosTop5Grid
             // 
@@ -69,6 +70,7 @@
             this.limpiarButton.TabIndex = 14;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // groupBox1
             // 
@@ -110,6 +112,7 @@
             this.comboSemestre.Name = "comboSemestre";
             this.comboSemestre.Size = new System.Drawing.Size(139, 25);
             this.comboSemestre.TabIndex = 5;
+            this.comboSemestre.SelectedIndexChanged += new System.EventHandler(this.comboSemestre_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -127,6 +130,7 @@
             this.comboAnio.Name = "comboAnio";
             this.comboAnio.Size = new System.Drawing.Size(121, 25);
             this.comboAnio.TabIndex = 1;
+            this.comboAnio.SelectedIndexChanged += new System.EventHandler(this.comboAnio_SelectedIndexChanged);
             // 
             // label1
             // 

@@ -1283,20 +1283,29 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Afiliados_Con_Mayor_Cantidad_Bonos_Comprados](@fechaDesde DATE, @fechaHasta DATE)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Afiliados_Con_Mayor_Cantidad_Bonos_Comprados]
+(@semestre INT, @anio INT, @mes INT)
 AS
 BEGIN
-	IF (@fechaHasta <= @fechaDesde)
-	BEGIN
-		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
-		RETURN
-	END
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(300) = 'SELECT TOP 5 p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares, COUNT(DISTINCT b.id) cantBonosComprados'
+	DECLARE @QUERY_2 VARCHAR(300) = ' FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Bonos_Consulta b ON (b.paciente_compra_id=p.id)'
+	DECLARE @QUERY_3 VARCHAR(200)
+	DECLARE @QUERY_4 VARCHAR(200) = ' GROUP BY p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares'
+	DECLARE @QUERY_5 VARCHAR(200) = ' ORDER BY cantBonosComprados DESC'
+	
+	IF @mes = 0
+		BEGIN
+			IF @semestre = 1
+				SET @QUERY_3 = ' WHERE Format(b.fecha_compra, ''yyyy'') = @anio AND Format(b.fecha_compra, ''MM'') IN (1, 2, 3, 4, 5, 6)'
+			ELSE
+				SET @QUERY_3 = ' WHERE Format(b.fecha_compra, ''yyyy'') = @anio AND Format(b.fecha_compra, ''MM'') IN (7, 8, 9, 10, 11, 12)'
+		END
+	ELSE
+		SET @QUERY_3 = ' WHERE Format(b.fecha_compra, ''yyyy'') = @anio AND Format(b.fecha_compra, ''MM'') = @mes'
 
-	SELECT TOP 5 p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares, COUNT(DISTINCT b.id) cantBonosComprados
-	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Bonos_Consulta b ON (b.paciente_compra_id=p.id)
-	WHERE cast(b.fecha_compra as DATE) BETWEEN @fechaDesde AND @fechaHasta
-	GROUP BY p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares
-	ORDER BY cantBonosComprados DESC
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4 + @QUERY_5
+	EXEC sp_executesql @QUERY_FINAL, N'@semestre INT, @anio INT, @mes INT', @semestre, @anio, @mes
 END
 GO
 
