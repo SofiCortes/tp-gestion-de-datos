@@ -869,7 +869,31 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Tipos_Especialidades
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Especialidades_Filtros'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Especialidades_Filtros
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Especialidades_Filtros] 
+(@descripcion VARCHAR(255), @tipo_especialidad_cod NUMERIC(18,0))
+AS
+BEGIN
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT e.codigo,e.descripcion FROM BETTER_CALL_JUAN.Especialidades e'
+	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE e.descripcion LIKE @descripcion'
+	DECLARE @QUERY_3 VARCHAR(500) = ' '
+	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY e.descripcion'
+
+	IF @tipo_especialidad_cod > 0
+		SET @QUERY_3 = ' AND e.tipo_especialidad_cod=@tipo_especialidad_cod'
+
+	SET @descripcion = '%' + @descripcion + '%'
+		
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
+	EXEC sp_executesql @QUERY_FINAL, N'@descripcion VARCHAR(255), @tipo_especialidad_cod NUMERIC(18,0)', @descripcion, @tipo_especialidad_cod
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Tipos_Especialidades]
 AS
@@ -1544,4 +1568,5 @@ BEGIN
 
 END
 GO
+
 
