@@ -1414,8 +1414,7 @@ BEGIN
 
 	SELECT nombre, apellido, t.fecha_hora, c.fecha_hora_llegada
 	FROM Consultas c JOIN Turnos t ON (c.turno_numero = t.numero) JOIN Pacientes p ON (t.paciente_id = p.id)
-	WHERE DATEDIFF(day, @fecha, fecha_hora) = 0
- 
+	WHERE DATEDIFF(day, @fecha, fecha_hora) = 0 AND medico_especialidad_id = @medico_especialidad_id
 END
 GO
 
