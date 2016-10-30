@@ -865,6 +865,14 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Filtros
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Consulta'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Consulta
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Registro_Resultado_Consulta'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Registro_Resultado_Consulta
+GO
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Tipos_Especialidades'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Tipos_Especialidades
 GO
@@ -1340,6 +1348,32 @@ BEGIN
 	DELETE FROM BETTER_CALL_JUAN.Roles_Funcionalidades WHERE rol_id = @rol_id
 END
 GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Consulta] (@matricula NUMERIC(18,0), @cod_especialidad NUMERIC(18,0), @fecha DATETIME)
+AS
+BEGIN
+	DECLARE @medico_especialidad_id NUMERIC(18,0)
+
+	SELECT @medico_especialidad_id = id
+	FROM Medicos_Especialidades
+	WHERE medico_id = @matricula AND especialidad_cod = @cod_especialidad
+
+	SELECT nombre, apellido, t.fecha_hora, c.fecha_hora_llegada
+	FROM Consultas c JOIN Turnos t ON (c.turno_numero = t.numero) JOIN Pacientes p ON (t.paciente_id = p.id)
+	WHERE DATEDIFF(day, @fecha, fecha_hora) = 0
+ 
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Registro_Resultado_Consulta] (@id_consulta INT, @hora_atencion DATETIME, @sintomas VARCHAR(255), @diagnostico VARCHAR(255))
+AS
+BEGIN
+	UPDATE Consultas
+	SET fecha_hora_atencion=@hora_atencion, sintomas=@sintomas, enfermedades=@diagnostico
+	WHERE id=@id_consulta 
+END
+GO
+
 
 /** TOP 5 **/
 
