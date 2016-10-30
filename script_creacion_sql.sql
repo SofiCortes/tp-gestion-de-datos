@@ -844,6 +844,13 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Modificar_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Rol
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol
+GO
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
@@ -1221,6 +1228,24 @@ BEGIN
 	DELETE FROM BETTER_CALL_JUAN.Roles_Usuarios
 	WHERE rol_id = @rol_id
 GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Rol] (@rol_id SMALLINT, @nombre VARCHAR(255))
+AS
+BEGIN
+	IF((SELECT nombre FROM BETTER_CALL_JUAN.Roles WHERE nombre=@nombre) IS NULL)
+	BEGIN
+	UPDATE BETTER_CALL_JUAN.Roles
+	SET nombre = @nombre
+	WHERE id = @rol_id
+	END
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Borrar_Funcionalidad_Rol] (@rol_id SMALLINT)
+AS
+BEGIN
+	DELETE FROM BETTER_CALL_JUAN.Roles_Funcionalidades WHERE rol_id = @rol_id
+END
 
 /** TOP 5 **/
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones]
