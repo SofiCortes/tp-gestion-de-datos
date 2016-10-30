@@ -845,6 +845,14 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Modificar_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Rol
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol
+GO
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Rol'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Rol
 GO
@@ -852,11 +860,14 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Rol_Habilitado'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Rol_Habilitado
 GO
+<<<<<<< HEAD
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Filtros'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Filtros
 GO
 
+=======
+>>>>>>> 8b206f5ad09362ea9c6024a25f9b6e61a572316c
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Afiliados_Filtros] 
@@ -1272,6 +1283,24 @@ BEGIN
 	DELETE FROM BETTER_CALL_JUAN.Roles_Usuarios
 	WHERE rol_id = @rol_id
 GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Rol] (@rol_id SMALLINT, @nombre VARCHAR(255))
+AS
+BEGIN
+	IF((SELECT nombre FROM BETTER_CALL_JUAN.Roles WHERE nombre=@nombre) IS NULL)
+	BEGIN
+	UPDATE BETTER_CALL_JUAN.Roles
+	SET nombre = @nombre
+	WHERE id = @rol_id
+	END
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Borrar_Funcionalidad_Rol] (@rol_id SMALLINT)
+AS
+BEGIN
+	DELETE FROM BETTER_CALL_JUAN.Roles_Funcionalidades WHERE rol_id = @rol_id
+END
 
 /** TOP 5 **/
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones]
