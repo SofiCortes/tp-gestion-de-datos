@@ -45,10 +45,15 @@ namespace ClinicaFrba
             }
         }
 
-        internal void buscarProfesionalesConFiltros(string queryNombre, string queryApellido, string queryDocumento, string queryMatricula, Especialidad especialidadSeleccionada)
+        internal void buscarProfesionalesConFiltros(string queryNombre, string queryApellido, string tipoDocSeleccionado, string queryDocumento, string queryMatricula, Especialidad especialidadSeleccionada)
         {
+            decimal documento = queryDocumento.Length > 0 ? decimal.Parse(queryDocumento) : 0;
+            decimal matricula = queryMatricula.Length > 0 ? decimal.Parse(queryMatricula) : 0;
+            tipoDocSeleccionado = tipoDocSeleccionado.Equals("Seleccionar Tipo de Documento")
+                || tipoDocSeleccionado.Equals("Todos")  ? "" : tipoDocSeleccionado;
+
             ProfesionalManager profesionalManager = new ProfesionalManager();
-            List<Medico> medicosFiltrados = profesionalManager.buscarMedicosPorFiltro(queryNombre, queryApellido, queryDocumento, queryMatricula, especialidadSeleccionada.codigo);
+            List<Medico> medicosFiltrados = profesionalManager.buscarMedicosPorFiltro(queryNombre, queryApellido, tipoDocSeleccionado, documento, matricula, especialidadSeleccionada.codigo);
 
             if (medicosFiltrados != null)
             {

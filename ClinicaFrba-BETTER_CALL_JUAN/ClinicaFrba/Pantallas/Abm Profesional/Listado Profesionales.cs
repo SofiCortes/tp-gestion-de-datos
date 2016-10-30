@@ -12,6 +12,8 @@ namespace ClinicaFrba
 {
     public partial class ListadoProfesionales : Form
     {
+        private List<string> tiposDocumentos = new List<string> { "Seleccionar Tipo de Documento", "Todos", "CI", "DNI", "LC", "LD"};
+
         private ListadoProfesionalesController controller;
 
         public ListadoProfesionales()
@@ -22,14 +24,21 @@ namespace ClinicaFrba
 
             this.Shown += (s, e1) =>
             {
+                this.llenarComboTipoDoc();
                 this.controller.llenarComboEspecialidades();
                 this.controller.llenarListadoProfesionales();
             };
         }
 
+        private void llenarComboTipoDoc()
+        {
+            this.comboTipoDoc.DataSource = tiposDocumentos;
+        }
+
         private void limpiarButton_Click(object sender, EventArgs e)
         {
             this.comboEspecialidad.SelectedIndex = 0;
+            this.comboTipoDoc.SelectedIndex = 0;
             this.textBoxApellido.Text = "";
             this.textBoxNombre.Text = "";
             this.textBoxDocumento.Text = "";
@@ -44,15 +53,17 @@ namespace ClinicaFrba
             string queryDocumento = this.textBoxDocumento.Text.Trim();
             string queryMatricula = this.textBoxMatricula.Text.Trim();
             int selectedIndexOfEspecialidades = this.comboEspecialidad.SelectedIndex;
+            int selectedIndexOfTipoDoc = this.comboTipoDoc.SelectedIndex;
 
             if (queryNombre.Length > 0 || queryApellido.Length > 0 || queryDocumento.Length > 0
-                || queryMatricula.Length > 0 || selectedIndexOfEspecialidades > 0)
+                || queryMatricula.Length > 0 || selectedIndexOfEspecialidades > 0 || selectedIndexOfTipoDoc > 0)
             {
                 this.buscarButton.Enabled = false;
                 this.limpiarButton.Enabled = false;
 
                 Especialidad especialidadSeleccionada = (Especialidad)this.comboEspecialidad.SelectedItem;
-                this.controller.buscarProfesionalesConFiltros(queryNombre, queryApellido, queryDocumento, queryMatricula, especialidadSeleccionada);
+                string tipoDocSeleccionado = (string)this.comboTipoDoc.SelectedItem;
+                this.controller.buscarProfesionalesConFiltros(queryNombre, queryApellido, tipoDocSeleccionado, queryDocumento, queryMatricula, especialidadSeleccionada);
             }
             else
             {
@@ -97,5 +108,11 @@ namespace ClinicaFrba
                 }
             ).ToList();
         }
+
+        internal void keyPressNumericTextBox(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
     }
 }
