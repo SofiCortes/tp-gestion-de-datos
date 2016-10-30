@@ -881,7 +881,20 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Especialidades_Filtros
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Medicos'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Medicos
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Medicos]
+AS
+BEGIN
+	SELECT m.matricula, m.nombre,m.apellido,m.tipo_doc,m.nro_doc,m.direccion,m.telefono,m.mail,m.fecha_nac,m.sexo
+	FROM BETTER_CALL_JUAN.Medicos m
+	ORDER BY m.apellido, m.nombre, m.matricula
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Especialidades_Filtros] 
 (@descripcion VARCHAR(255), @tipo_especialidad_cod NUMERIC(18,0))
