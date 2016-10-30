@@ -34,9 +34,9 @@ namespace ClinicaFrba
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboPlanes = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.afiliadosGrid = new System.Windows.Forms.DataGridView();
             this.buscarButton = new System.Windows.Forms.Button();
@@ -47,9 +47,9 @@ namespace ClinicaFrba
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.comboPlanes);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -59,13 +59,13 @@ namespace ClinicaFrba
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
             // 
-            // comboBox1
+            // comboPlanes
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(144, 65);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(167, 25);
-            this.comboBox1.TabIndex = 3;
+            this.comboPlanes.FormattingEnabled = true;
+            this.comboPlanes.Location = new System.Drawing.Point(144, 65);
+            this.comboPlanes.Name = "comboPlanes";
+            this.comboPlanes.Size = new System.Drawing.Size(167, 25);
+            this.comboPlanes.TabIndex = 3;
             // 
             // label2
             // 
@@ -76,12 +76,12 @@ namespace ClinicaFrba
             this.label2.TabIndex = 2;
             this.label2.Text = "Plan medico";
             // 
-            // textBox1
+            // textBoxNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(144, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(167, 25);
-            this.textBox1.TabIndex = 1;
+            this.textBoxNombre.Location = new System.Drawing.Point(144, 26);
+            this.textBoxNombre.Name = "textBoxNombre";
+            this.textBoxNombre.Size = new System.Drawing.Size(167, 25);
+            this.textBoxNombre.TabIndex = 1;
             // 
             // label1
             // 
@@ -110,6 +110,7 @@ namespace ClinicaFrba
             this.buscarButton.TabIndex = 7;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // limpiarButton
             // 
@@ -120,6 +121,7 @@ namespace ClinicaFrba
             this.limpiarButton.TabIndex = 6;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // ListadoAfiliados
             // 
@@ -142,13 +144,13 @@ namespace ClinicaFrba
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView afiliadosGrid;
         private System.Windows.Forms.Button buscarButton;
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboPlanes;
 
         public string actionCode { get; set; }
 

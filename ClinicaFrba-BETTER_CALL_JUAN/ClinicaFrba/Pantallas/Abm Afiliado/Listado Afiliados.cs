@@ -21,6 +21,7 @@ namespace ClinicaFrba
 
             this.Shown += (s, e1) =>
             {
+                this.controller.llenarComboPlanes();
                 this.controller.llenarListadoAfiliados();
             };
         }
@@ -41,6 +42,43 @@ namespace ClinicaFrba
                     Plan = paciente.planMedicoCod
                 }
             ).ToList();
+        }
+
+        internal void llenarComboPlanes(List<PlanMedico> planes)
+        {
+            PlanMedico planDummy = new PlanMedico();
+            planDummy.codigo = -1;
+            planDummy.descripcion = "Seleccione plan medico";
+            planes.Insert(0, planDummy);
+
+            PlanMedico planTodos = new PlanMedico();
+            planTodos.codigo = 0;
+            planTodos.descripcion = "Todos";
+            planes.Insert(1, planTodos);
+
+            this.comboPlanes.DataSource = planes;
+            this.comboPlanes.DisplayMember = "descripcion";
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            this.textBoxNombre.Text = "";
+            this.afiliadosGrid.DataSource = null;
+            this.comboPlanes.SelectedIndex = 0;
+        }
+
+        private void buscarButton_Click(object sender, EventArgs e)
+        {
+            string query = this.textBoxNombre.Text;
+            if (query.Trim().Length > 0 || this.comboPlanes.SelectedIndex != 0)
+            {
+                PlanMedico planMedicoSeleccionado = (PlanMedico)this.comboPlanes.SelectedItem;
+                this.controller.buscarAfiliados(query, planMedicoSeleccionado);
+            }
+            else
+            {
+                this.showErrorMessage("Complete algun filtro para poder realizar la busqueda");
+            }
         }
     }
 }

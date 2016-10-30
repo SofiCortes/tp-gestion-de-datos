@@ -28,5 +28,34 @@ namespace ClinicaFrba
                 this.form.showErrorMessage("Ocurrio un error al mostrar los Afiliados.");
             }
         }
+
+        internal void llenarComboPlanes()
+        {
+            PlanManager planManager = new PlanManager();
+            List<PlanMedico> planes = planManager.getPlanesMedicos();
+            if (planes != null)
+            {
+                this.form.llenarComboPlanes(planes);
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al obtener los Planes.");
+            }
+        }
+
+        internal void buscarAfiliados(string query, PlanMedico planMedicoSeleccionado)
+        {
+            PacienteManager pacienteManager = new PacienteManager();
+            List<Paciente> pacientes = pacienteManager.buscarAfiliadosPorNombreYPlan(query, planMedicoSeleccionado.codigo);
+
+            if (pacientes != null)
+            {
+                this.form.llenarListaConPacientes(pacientes);
+            }
+            else
+            {
+                this.form.showErrorMessage("No se encontraron afiliados que coincidan con su busqueda");
+            }
+        }
     }
 }

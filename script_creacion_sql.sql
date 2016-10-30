@@ -860,7 +860,32 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Rol_Habilitado'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Rol_Habilitado
 GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Filtros'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Filtros
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Afiliados_Filtros] 
+(@nombre_apellido VARCHAR(255), @plan_codigo NUMERIC(18,0))
+AS
+BEGIN
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT * FROM BETTER_CALL_JUAN.Pacientes P '
+	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (P.apellido like @nombre_apellido OR P.nombre like @nombre_apellido)'
+	DECLARE @QUERY_3 VARCHAR(500) = ' '
+	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY P.apellido'
+
+	IF @plan_codigo > 0
+		SET @QUERY_3 = ' AND P.plan_medico_cod = @plan_codigo'
+
+	SET @nombre_apellido = '%' + @nombre_apellido + '%'
+		
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
+	EXEC sp_executesql @QUERY_FINAL, N'@nombre_apellido VARCHAR(255), @plan_codigo NUMERIC(18,0)', @nombre_apellido, @plan_codigo
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Rol] (@rol_nombre VARCHAR(255))
 AS
