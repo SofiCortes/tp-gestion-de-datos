@@ -46,6 +46,9 @@ namespace ClinicaFrba
 
         internal void showRolesInTable(List<Rol> roles)
         {
+            this.buscarButton.Enabled = true;
+            this.limpiarButton.Enabled = true;
+
             resultadosRolesGrid.DataSource = roles.Select(
                 rol => new
                 {
@@ -82,7 +85,7 @@ namespace ClinicaFrba
             if (textoABuscar != null && textoABuscar.Trim().Length > 0)
             {
                 this.buscarButton.Enabled = false;
-                this.limpiarButton.Enabled = true;
+                this.limpiarButton.Enabled = false;
                 if (this.actionCode == ACTION_CODE_FOR_LIST_DELETE_ROL)
                 {
                     this.controller.buscarRolesPorNombreHabilitados(textoABuscar);
