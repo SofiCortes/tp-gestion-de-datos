@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modelo\BD\Manager\AbstractManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\EspecialidadMedicaManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\PacienteManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\AtencionMedicaManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\BonoManager.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Modelo\BD\Manager\Implementacion\PlanManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\ProfesionalManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\RolManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\TipoEspecialidadManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\TurnoManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\UsuarioManager.cs" />
     <Compile Include="Modelo\BD\Utiles\StoredProcedureHelper.cs" />
@@ -254,6 +256,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Planes\Listado Planes.resx">
       <DependentUpon>Listado Planes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Profesional\Listado Especialidades Medicas.resx">
+      <DependentUpon>Listado Especialidades Medicas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Profesional\Listado Profesionales.resx">
+      <DependentUpon>Listado Profesionales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\AbmRol\Alta Rol.resx">
       <DependentUpon>Alta Rol.cs</DependentUpon>

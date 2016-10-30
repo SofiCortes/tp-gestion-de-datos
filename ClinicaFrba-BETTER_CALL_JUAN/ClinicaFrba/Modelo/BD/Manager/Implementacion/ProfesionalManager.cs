@@ -14,39 +14,66 @@ namespace ClinicaFrba
         {
         }
 
-
-        internal List<Especialidad> buscarEspecialidades()
+        internal List<Medico> findAll()
         {
-            List<Especialidad> especialidades = new List<Especialidad>();
+            List<Medico> medicos = new List<Medico>();
 
             try
             {
                 this.openDB();
 
-                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Especialidades", null);
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Medicos", null);
                 SqlDataReader sqlReader = procedure.ExecuteReader();
 
                 if (sqlReader.HasRows)
                 {
                     while (sqlReader.Read())
                     {
-                        Especialidad especialidad = new Especialidad();
-                        especialidad.codigo = sqlReader.GetDecimal(0);
-                        especialidad.descripcion = sqlReader.GetString(1);
-                        especialidades.Add(especialidad);
+
                     }
                 }
 
             }
             catch (Exception e)
             {
-                especialidades = null;
+                medicos = null;
             }
             finally
             {
                 this.closeDB();
             }
-            return especialidades;
+            return medicos;
+        }
+
+        internal List<Medico> buscarMedicosPorFiltro(string queryNombre, string queryApellido, string queryDocumento, string queryMatricula, decimal p)
+        {
+            List<Medico> medicos = new List<Medico>();
+
+            try
+            {
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Medicos_Con_Filtros", null);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                medicos = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return medicos;
         }
     }
 }
