@@ -2,6 +2,10 @@
 USE [GD2C2016]
 GO
 
+--Seteo el primer dia de la semana como Lunes
+
+SET DATEFIRST 1
+
 /** CREACION DE SCHEMA **/
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'BETTER_CALL_JUAN')
 BEGIN
@@ -825,7 +829,56 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Nombres_Especialidades
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Especialidades'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Especialidades
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Habilitar_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Habilitar_Rol
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Eliminar_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Eliminar_Rol
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Modificar_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Rol
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Borrar_Funcionalidad_Rol
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Rol'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Rol
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Rol_Habilitado'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Rol_Habilitado
+GO
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Rol] (@rol_nombre VARCHAR(255))
+AS
+BEGIN
+	SELECT *
+	FROM BETTER_CALL_JUAN.Roles R
+	WHERE R.nombre like '%'+ @rol_nombre +'%'
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Rol_Habilitado] (@rol_nombre VARCHAR(255))
+AS
+BEGIN
+	SELECT *
+	FROM BETTER_CALL_JUAN.Roles R
+	WHERE R.nombre like '%'+ @rol_nombre +'%' AND R.habilitado = 1
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
 AS
@@ -1140,24 +1193,31 @@ BEGIN
 END
 GO
 
-/* **FALTA COMPLETAR**
-
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horarios_Disponibles](@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Fecha_Esta_Disponible_Para_Turno]
+(@fecha DATE,@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0), @fecha_disponible BIT OUT)
 AS
 BEGIN
-	DECLARE @medico_especialidad_id NUMERIC(18,0)
+	DECLARE @medico_especialidad_id NUMERIC(18,0), @cantTurnosDisponibles INT, @cantTurnosOcupados INT, @cantTurnosTotales INT
 
 	SELECT @medico_especialidad_id=me.id
 	FROM BETTER_CALL_JUAN.Medicos_Especialidades me
 	WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
 
-	SELECT R.dia_semana, R.hora_desde, R.hora_hasta
-	FROM BETTER_CALL_JUAN.Rangos_Atencion R
-	WHERE R.medico_especialidad_id=@medico_especialidad_id
+	SELECT @cantTurnosTotales = SUM(DATEDIFF(mi,r.hora_desde,r.hora_hasta))/30
+	FROM BETTER_CALL_JUAN.Rangos_Atencion r	
+	WHERE r.medico_especialidad_id=@medico_especialidad_id AND r.dia_semana=DATEPART(dw,@fecha)
+	
+	SELECT @cantTurnosOcupados= COUNT(DISTINCT t.numero)
+	FROM BETTER_CALL_JUAN.Turnos t
+	WHERE convert(date,t.fecha_hora)=@fecha AND t.medico_especialidad_id=@medico_especialidad_id
 
+	SET @cantTurnosDisponibles=@cantTurnosTotales-@cantTurnosOcupados
+
+	SET @fecha_disponible = CASE WHEN @cantTurnosDisponibles > 0 THEN 1 --la fecha esta disponible
+								ELSE 0 --la fecha no esta disponible
+							END
 END
 GO
-*/
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Estado_Habilitado_Rol] (@rol_id SMALLINT, @habilitado SMALLINT OUT)
 AS
@@ -1166,17 +1226,57 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Nombres_Especialidades]
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Especialidades]
 AS
 BEGIN
-	SELECT e.descripcion
+	SELECT e.codigo, e.descripcion
 	FROM BETTER_CALL_JUAN.Especialidades e
+	ORDER BY e.descripcion
 END
 GO
 
-/** TOP 5 **/
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Habilitar_Rol] (@rol_id SMALLINT)
+AS
+BEGIN
+UPDATE BETTER_CALL_JUAN.Roles
+SET habilitado = 1
+WHERE id = @rol_id
+END
+GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones](@autor_cancelacion CHAR(1),@fechaDesde DATE, @fechaHasta DATE)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Eliminar_Rol] (@rol_id SMALLINT)
+AS
+BEGIN
+	UPDATE BETTER_CALL_JUAN.Roles
+	SET habilitado = 0
+	WHERE id = @rol_id
+	END
+
+	DELETE FROM BETTER_CALL_JUAN.Roles_Usuarios
+	WHERE rol_id = @rol_id
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Rol] (@rol_id SMALLINT, @nombre VARCHAR(255))
+AS
+BEGIN
+	IF((SELECT nombre FROM BETTER_CALL_JUAN.Roles WHERE nombre=@nombre) IS NULL)
+	BEGIN
+	UPDATE BETTER_CALL_JUAN.Roles
+	SET nombre = @nombre
+	WHERE id = @rol_id
+	END
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Borrar_Funcionalidad_Rol] (@rol_id SMALLINT)
+AS
+BEGIN
+	DELETE FROM BETTER_CALL_JUAN.Roles_Funcionalidades WHERE rol_id = @rol_id
+END
+
+/** TOP 5 **/
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones]
+(@autor_cancelacion CHAR(1), @semestre INT, @anio INT, @mes INT)
 AS
 BEGIN
 	IF (@autor_cancelacion NOT IN ('A','M','T'))
@@ -1185,136 +1285,165 @@ BEGIN
 		RETURN
 	END
 
-	IF (@fechaHasta <= @fechaDesde)
-	BEGIN
-		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
-		RETURN
-	END
-	
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(200) = 'SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones'
+	DECLARE @QUERY_2 VARCHAR(250) = ' FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)'
+	DECLARE @QUERY_3 VARCHAR(250) = ' JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.turno_numero = t.numero)'
+	DECLARE @QUERY_4 VARCHAR(250)
+	DECLARE @QUERY_5 VARCHAR(250)
+	DECLARE @QUERY_6 VARCHAR(200) = ' GROUP BY e.codigo, e.descripcion ORDER BY cantCancelaciones DESC'
+
+	IF @mes = 0
+		BEGIN
+			IF @semestre = 1
+				SET @QUERY_4 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (1, 2, 3, 4, 5, 6)'
+			ELSE
+				SET @QUERY_4 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (7, 8, 9, 10, 11, 12)'
+		END
+	ELSE
+		SET @QUERY_4 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') = @mes'
+
 	IF(@autor_cancelacion='A')
 	BEGIN
-		SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
-		FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
-		JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.turno_numero = t.numero)
-		WHERE c.hecha_por_paciente=1 AND cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta 
-		GROUP BY e.codigo, e.descripcion
-		ORDER BY cantCancelaciones DESC
+		SET @QUERY_5 = ' AND c.hecha_por_paciente=1'
 	END
 
 	ELSE IF(@autor_cancelacion='M')
 	BEGIN
-		SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
-		FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
-		JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.turno_numero = t.numero)
-		WHERE c.hecha_por_paciente=0 AND cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta 
-		GROUP BY e.codigo, e.descripcion
-		ORDER BY cantCancelaciones DESC
+		SET @QUERY_5 = ' AND c.hecha_por_paciente=0'
 	END
 
 	ELSE IF(@autor_cancelacion='T')
 	BEGIN
-		SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantCancelaciones
-		FROM BETTER_CALL_JUAN.Especialidades e JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (e.codigo = me.especialidad_cod)
-		JOIN BETTER_CALL_JUAN.Turnos t ON (me.id = t.medico_especialidad_id) JOIN BETTER_CALL_JUAN.Cancelaciones c ON (c.turno_numero = t.numero)
-		WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta 
-		GROUP BY e.codigo, e.descripcion
-		ORDER BY cantCancelaciones DESC
+		SET @QUERY_5 = ' '
 	END
+	
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4 + @QUERY_5 + @QUERY_6
+	EXEC sp_executesql @QUERY_FINAL, N'@autor_cancelacion CHAR(1), @semestre INT, @anio INT, @mes INT', @autor_cancelacion, @semestre, @anio, @mes
 END
 GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan]
-(@plan_medico_id NUMERIC(18,0),@fechaDesde DATE, @fechaHasta DATE)
+(@plan_medico_id NUMERIC(18,0), @anio INT, @mes INT, @semestre INT)
 AS 
 BEGIN
-	IF (@fechaHasta <= @fechaDesde)
-	BEGIN
-		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
-		RETURN
-	END
+	DECLARE @QUERY_FINAL NVARCHAR(2000)
+	DECLARE @QUERY_0 VARCHAR(300) = 'SELECT TOP 5 med.matricula, med.nombre, med.apellido,esp.codigo,esp.descripcion, COUNT(DISTINCT cons.id) cantConsultas FROM BETTER_CALL_JUAN.Medicos med '
+	DECLARE @QUERY_1 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med.matricula = med_esp.medico_id)'
+	DECLARE @QUERY_2 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id)'
+	DECLARE @QUERY_3 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Consultas cons ON (cons.turno_numero=t.numero)'
+	DECLARE @QUERY_4 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Especialidades esp ON (esp.codigo = med_esp.especialidad_cod)'
+	DECLARE @QUERY_5 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Pacientes pac ON (pac.id = t.paciente_id)'
+	DECLARE @QUERY_6 VARCHAR(300)
+	DECLARE @QUERY_7 VARCHAR(300)
+	DECLARE @QUERY_8 VARCHAR(300) = ' GROUP BY med.matricula, med.nombre, med.apellido,esp.codigo, esp.descripcion'
+	DECLARE @QUERY_9 VARCHAR(300) = ' ORDER BY cantConsultas DESC'
 
-	IF NOT EXISTS(SELECT codigo FROM BETTER_CALL_JUAN.Planes_Medicos WHERE codigo=@plan_medico_id)
-	BEGIN
-		RAISERROR('Id de plan medico incorrecto',10,1)
-		RETURN
-	END
+	IF @mes = 0
+		BEGIN
+			IF @semestre = 1
+				SET @QUERY_6 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (1, 2, 3, 4, 5, 6)'
+			ELSE
+				SET @QUERY_6 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (7, 8, 9, 10, 11, 12)'
+		END	
+	ELSE
+		SET @QUERY_6 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') = @mes'
 
-	SELECT TOP 5 med.matricula, med.nombre, med.apellido,esp.codigo,esp.descripcion, COUNT(DISTINCT cons.id) cantConsultas
-
-	FROM BETTER_CALL_JUAN.Medicos med 
-	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med.matricula = med_esp.medico_id)
-	JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id) 
-	JOIN BETTER_CALL_JUAN.Consultas cons ON (cons.turno_numero=t.numero)
-	JOIN BETTER_CALL_JUAN.Especialidades esp ON (esp.codigo = med_esp.especialidad_cod) 
-	JOIN BETTER_CALL_JUAN.Pacientes pac ON (pac.id = t.paciente_id)
-	WHERE pac.plan_medico_cod=@plan_medico_id AND cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta
-	GROUP BY med.matricula, med.nombre, med.apellido,esp.codigo, esp.descripcion
-	ORDER BY cantConsultas DESC
+	IF @plan_medico_id = 0
+		SET @QUERY_7 = ''
+	ELSE
+		SET @QUERY_7 = ' AND pac.plan_medico_cod=@plan_medico_id'
+		
+	SET @QUERY_FINAL = @QUERY_0 + @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4 + @QUERY_5 + @QUERY_6 + @QUERY_7 + @QUERY_8 + @QUERY_9
+	EXEC sp_executesql @QUERY_FINAL, N'@plan_medico_id NUMERIC(18,0), @anio INT, @mes INT', @plan_medico_id, @anio, @mes
 
 END
 GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun_Especialidad]
-(@especialidad_cod NUMERIC(18,0),@fechaDesde DATE, @fechaHasta DATE)
+(@especialidad_cod NUMERIC(18,0), @anio INT, @mes INT, @semestre INT)
 AS
 BEGIN
-	IF (@fechaHasta <= @fechaDesde)
-	BEGIN
-		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
-		RETURN
-	END
+	
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_0 VARCHAR(300) = 'SELECT TOP 5 med.matricula, med.nombre, med.apellido, COUNT(DISTINCT c.id)/2 cantHorasTrabajadas FROM BETTER_CALL_JUAN.Medicos med'
+	DECLARE @QUERY_1 VARCHAR(300)
+	DECLARE @QUERY_2 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id) JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = t.numero)'
+	DECLARE @QUERY_3 VARCHAR(300)
+	DECLARE @QUERY_4 VARCHAR(300) = ' GROUP BY med.matricula, med.nombre, med.apellido ORDER BY cantHorasTrabajadas ASC'
 
-	IF NOT EXISTS (SELECT codigo FROM BETTER_CALL_JUAN.Especialidades WHERE codigo=@especialidad_cod)
-	BEGIN
-		RAISERROR('Codigo de especialidad incorrecto',10,1)
-		RETURN
-	END
+	IF @especialidad_cod = 0
+		SET @QUERY_1 = ' JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON med_esp.medico_id=med.matricula'
+	ELSE
+		SET @QUERY_1 = ' JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=med.matricula AND med_esp.especialidad_cod= @especialidad_cod)'
+		
+	IF @mes = 0
+		BEGIN
+			IF @semestre = 1
+				SET @QUERY_3 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (1, 2, 3, 4, 5, 6)'
+			ELSE
+				SET @QUERY_3 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (7, 8, 9, 10, 11, 12)'
+		END
+	ELSE
+		SET @QUERY_3 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') = @mes'
 
-	SELECT TOP 5 med.matricula, med.nombre, med.apellido, COUNT(DISTINCT c.id)/2 cantHorasTrabajadas --porque cada consulta dura media hora
-	FROM BETTER_CALL_JUAN.Medicos med 
-	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=med.matricula AND med_esp.especialidad_cod=@especialidad_cod)
-	JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id=med_esp.id)
-	JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = t.numero)
-	WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta
-	GROUP BY med.matricula, med.nombre, med.apellido
-	ORDER BY cantHorasTrabajadas ASC
+	SET @QUERY_FINAL = @QUERY_0 + @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
+	EXEC sp_executesql @QUERY_FINAL, N'@especialidad_cod NUMERIC(18,0), @anio INT, @mes INT', @especialidad_cod, @anio, @mes
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Afiliados_Con_Mayor_Cantidad_Bonos_Comprados](@fechaDesde DATE, @fechaHasta DATE)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Afiliados_Con_Mayor_Cantidad_Bonos_Comprados]
+(@semestre INT, @anio INT, @mes INT)
 AS
 BEGIN
-	IF (@fechaHasta <= @fechaDesde)
-	BEGIN
-		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
-		RETURN
-	END
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(300) = 'SELECT TOP 5 p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares, COUNT(DISTINCT b.id) cantBonosComprados'
+	DECLARE @QUERY_2 VARCHAR(300) = ' FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Bonos_Consulta b ON (b.paciente_compra_id=p.id)'
+	DECLARE @QUERY_3 VARCHAR(200)
+	DECLARE @QUERY_4 VARCHAR(200) = ' GROUP BY p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares'
+	DECLARE @QUERY_5 VARCHAR(200) = ' ORDER BY cantBonosComprados DESC'
+	
+	IF @mes = 0
+		BEGIN
+			IF @semestre = 1
+				SET @QUERY_3 = ' WHERE Format(b.fecha_compra, ''yyyy'') = @anio AND Format(b.fecha_compra, ''MM'') IN (1, 2, 3, 4, 5, 6)'
+			ELSE
+				SET @QUERY_3 = ' WHERE Format(b.fecha_compra, ''yyyy'') = @anio AND Format(b.fecha_compra, ''MM'') IN (7, 8, 9, 10, 11, 12)'
+		END
+	ELSE
+		SET @QUERY_3 = ' WHERE Format(b.fecha_compra, ''yyyy'') = @anio AND Format(b.fecha_compra, ''MM'') = @mes'
 
-	SELECT TOP 5 p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares, COUNT(DISTINCT b.id) cantBonosComprados
-	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Bonos_Consulta b ON (b.paciente_compra_id=p.id)
-	WHERE cast(b.fecha_compra as DATE) BETWEEN @fechaDesde AND @fechaHasta
-	GROUP BY p.nombre,p.apellido,p.tipo_doc,p.nro_doc, p.direccion, p.telefono,p.cantidad_familiares
-	ORDER BY cantBonosComprados DESC
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4 + @QUERY_5
+	EXEC sp_executesql @QUERY_FINAL, N'@semestre INT, @anio INT, @mes INT', @semestre, @anio, @mes
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Bonos_Utilizados](@fechaDesde DATE, @fechaHasta DATE)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Bonos_Utilizados]
+(@semestre INT, @anio INT, @mes INT)
 AS
 BEGIN
-	IF (@fechaHasta <= @fechaDesde)
-	BEGIN
-		RAISERROR('@fechaHasta debe ser mayor que @fechaDesde',10,1)
-		RETURN
-	END
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(300) = 'SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantBonosUtilizados FROM BETTER_CALL_JUAN.Especialidades e '
+	DECLARE @QUERY_2 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (e.codigo = med_esp.especialidad_cod)'
+	DECLARE @QUERY_3 VARCHAR(200) = ' JOIN BETTER_CALL_JUAN.Turnos t ON (t.medico_especialidad_id = med_esp.id)'
+	DECLARE @QUERY_4 VARCHAR(200) = ' JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = t.numero)'
+	DECLARE @QUERY_5 VARCHAR(200)
+	DECLARE @QUERY_6 VARCHAR(200) = ' GROUP BY e.codigo, e.descripcion'
+	DECLARE @QUERY_7 VARCHAR(200) = ' ORDER BY cantBonosUtilizados DESC'
+	
+	IF @mes = 0
+		BEGIN
+			IF @semestre = 1
+				SET @QUERY_5 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (1, 2, 3, 4, 5, 6)'
+			ELSE
+				SET @QUERY_5 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') IN (7, 8, 9, 10, 11, 12)'
+		END
+	ELSE
+		SET @QUERY_5 = ' WHERE Format(t.fecha_hora, ''yyyy'') = @anio AND Format(t.fecha_hora, ''MM'') = @mes'
 
-	SELECT TOP 5 e.codigo, e.descripcion, COUNT(DISTINCT c.id) cantBonosUtilizados --porque para cada consulta se usa un bono
-	FROM BETTER_CALL_JUAN.Especialidades e 
-	JOIN Medicos_Especialidades med_esp ON (e.codigo = med_esp.especialidad_cod)
-	JOIN Turnos t ON (t.medico_especialidad_id = med_esp.id)
-	JOIN Consultas c ON (c.turno_numero = t.numero)
-	WHERE cast(t.fecha_hora as DATE) BETWEEN @fechaDesde AND @fechaHasta
-	GROUP BY e.codigo, e.descripcion
-	ORDER BY cantBonosUtilizados DESC
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4 + @QUERY_5 + @QUERY_6 + @QUERY_7
+	EXEC sp_executesql @QUERY_FINAL, N'@semestre INT, @anio INT, @mes INT', @semestre, @anio, @mes
+	
 END
 GO
 

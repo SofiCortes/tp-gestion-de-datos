@@ -22,7 +22,7 @@ namespace ClinicaFrba
         {
             try
             {
-                if (connection == null)
+                if (connection == null || connection.ConnectionString == "")
                 {
                     configureConnection();
                 }

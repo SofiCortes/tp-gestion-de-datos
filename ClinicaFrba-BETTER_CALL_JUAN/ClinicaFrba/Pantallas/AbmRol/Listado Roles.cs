@@ -22,8 +22,20 @@ namespace ClinicaFrba
 
             this.Shown += (s, e1) =>
             {
-                this.controller.llenarListadoRoles(); 
+                this.llenarListadoRoles();
             };
+        }
+
+        private void llenarListadoRoles()
+        {
+            if (this.actionCode == ACTION_CODE_FOR_LIST_DELETE_ROL)
+            {
+                this.controller.llenarListadoRolesHabilitados();
+            }
+            else
+            {
+                this.controller.llenarListadoRoles();
+            }
         }
 
         internal void ShowErrorDialog(string mensaje)
@@ -34,6 +46,9 @@ namespace ClinicaFrba
 
         internal void showRolesInTable(List<Rol> roles)
         {
+            this.buscarButton.Enabled = true;
+            this.limpiarButton.Enabled = true;
+
             resultadosRolesGrid.DataSource = roles.Select(
                 rol => new
                 {
@@ -45,6 +60,7 @@ namespace ClinicaFrba
 
         private void resultadosRolesGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             if (this.actionCode == ACTION_CODE_FOR_LIST_MODIFY_ROL)
             {
                 Rol rol = controller.obtenerRol(resultadosRolesGrid);
@@ -52,6 +68,43 @@ namespace ClinicaFrba
                 mr.showModificarRol(rol);
                 this.Close();
             }
+            else
+            {
+                if (this.actionCode == ACTION_CODE_FOR_LIST_DELETE_ROL)
+                {
+                    Rol rol = controller.obtenerRol(resultadosRolesGrid);
+                    controller.eliminarRol(rol);
+                    this.Close();
+                }
+            }
+        }
+
+        private void buscarButton_Click(object sender, EventArgs e)
+        {
+            string textoABuscar = this.textBoxRol.Text;
+            if (textoABuscar != null && textoABuscar.Trim().Length > 0)
+            {
+                this.buscarButton.Enabled = false;
+                this.limpiarButton.Enabled = false;
+                if (this.actionCode == ACTION_CODE_FOR_LIST_DELETE_ROL)
+                {
+                    this.controller.buscarRolesPorNombreHabilitados(textoABuscar);
+                }
+                else
+                {
+                    this.controller.buscarRolesPorNombre(textoABuscar);
+                }
+            }
+            else
+            {
+                this.ShowErrorDialog("Ingrese el texto para poder realizar la busqueda");
+            }
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            this.textBoxRol.Text = "";
+            this.resultadosRolesGrid.DataSource = null;
         }
 
     }

@@ -15,7 +15,6 @@ namespace ClinicaFrba
             this.form = form;
         }
 
-
         internal void buscarEspecialidades()
         {
             ProfesionalManager profesionalManager = new ProfesionalManager();
@@ -31,9 +30,23 @@ namespace ClinicaFrba
             }
         }
 
-        internal void buscarProfesionalesConFiltros(string anioSeleccionado, string semestreSeleccionado, string mesSeleccionado, string especialidadSeleccionada)
+        internal void buscarProfesionalesConFiltros(string semestreSeleccionado, string anioSeleccionado, string mesSeleccionado, Especialidad especialidadSeleccionada)
         {
+            decimal especialidadCod = especialidadSeleccionada.codigo;
+            semestreSeleccionado = semestreSeleccionado.Equals("Primer semestre") ? "1" : "2";
+            mesSeleccionado = StoredProcedureHelper.getNumeroMesConNombreMes(mesSeleccionado);
+            EstadisticasManager estadisticasManager = new EstadisticasManager();
+            List<MedicoDAO> medicos = estadisticasManager.getProfesionalesConMenosHoras(semestreSeleccionado, anioSeleccionado, mesSeleccionado, especialidadCod);
 
+            if (medicos != null)
+            {
+                this.form.showListado(medicos);
+            }
+            else
+            {
+                this.form.showErrorMessage("No se encontro ningun Profesional para la busqueda realizada.");
+            }
         }
+
     }
 }
