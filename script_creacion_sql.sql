@@ -468,6 +468,21 @@ FROM gd_esquema.Maestra m JOIN BETTER_CALL_JUAN.Pacientes p ON (m.Paciente_Dni =
 WHERE Compra_Bono_Fecha IS NOT NULL
 GROUP BY p.id, Compra_Bono_Fecha
 
+/* Asociacion Pacientes y Medicos con su usuario id */
+UPDATE BETTER_CALL_JUAN.Pacientes 
+SET usuario_id = u.id 
+FROM(
+SELECT id, username
+FROM BETTER_CALL_JUAN.Usuarios) u
+WHERE (Pacientes.tipo_doc + CONVERT(VARCHAR(255),Pacientes.nro_doc)) = u.username
+
+UPDATE BETTER_CALL_JUAN.Medicos 
+SET usuario_id = u.id 
+FROM(
+SELECT id, username
+FROM BETTER_CALL_JUAN.Usuarios) u
+WHERE (Medicos.tipo_doc + CONVERT(VARCHAR(255),Medicos.nro_doc)) = u.username
+
 /* Tabla Rangos Horarios */
 
 CREATE TABLE #MedicosEspecialidadesTemp (
@@ -901,7 +916,37 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Cancelar_Turnos_Franja_Profesional
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Medico_Y_Especialidad_Para_Turno'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Medico_Y_Especialidad_Para_Turno
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Medico_Y_Especialidad_Para_Turno](@nombre VARCHAR(255),@apellido VARCHAR(255), @especialidad_codigo NUMERIC(18,0))
+AS
+BEGIN
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT DISTINCT m.nombre,m.apellido, e.descripcion
+									 FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=m.matricula)
+									 JOIN BETTER_CALL_JUAN.Especialidades e ON (med_esp.especialidad_cod=e.codigo)'
+	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (m.nombre LIKE @nombre AND m.apellido LIKE @apellido)'
+	DECLARE @QUERY_3 VARCHAR(500) = ' '
+	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY m.apellido,m.nombre,e.descripcion'
+
+	IF @especialidad_codigo >0
+		SET @QUERY_3 = ' AND med_esp.especialidad_cod = @especialidad_codigo'
+
+	SET @nombre = '%' + @nombre + '%'
+	SET @apellido = '%' + @apellido + '%'
+	
+		
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
+
+	EXEC sp_executesql @QUERY_FINAL, N'@nombre VARCHAR(255), @apellido VARCHAR(255),
+									   @especialidad_codigo NUMERIC(18,0)',@nombre, @apellido,@especialidad_codigo
+END
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Medicos_Filtros] 
 (@matricula NUMERIC(18,0),@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0),@nombre VARCHAR(255), @apellido VARCHAR(255),@especialidad_codigo NUMERIC(18,0))
 AS
@@ -1655,10 +1700,38 @@ GO
 CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Insert_Consulta] ON [BETTER_CALL_JUAN].[Consultas] AFTER INSERT
 AS
 BEGIN
-	UPDATE BETTER_CALL_JUAN.Pacientes
-	SET nro_ultima_consulta +=1
-	FROM inserted i JOIN BETTER_CALL_JUAN.Turnos t ON (i.turno_numero = t.numero) 
-	JOIN BETTER_CALL_JUAN.Pacientes p ON (t.paciente_id = p.id)
+	DECLARE @bono_consulta_id NUMERIC(18,0), @turno_numero NUMERIC(18,0), 
+	@nro_nueva_consulta_paciente NUMERIC(18,0),@paciente_id NUMERIC(18,0)
+
+	DECLARE consultaCursor CURSOR FOR
+	SELECT i.bono_consulta_id, i.turno_numero
+	FROM inserted i
+
+	OPEN consultaCursor
+
+	FETCH consultaCursor INTO @bono_consulta_id,@turno_numero
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+
+		SELECT @nro_nueva_consulta_paciente=p.nro_ultima_consulta+1, @paciente_id=p.id
+		FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Turnos t ON (t.paciente_id=p.id)
+		WHERE t.numero=@turno_numero
+
+		UPDATE BETTER_CALL_JUAN.Pacientes
+		SET nro_ultima_consulta=@nro_nueva_consulta_paciente
+		WHERE id=@paciente_id
+
+		UPDATE BETTER_CALL_JUAN.Bonos_Consulta
+		SET numero_consulta_paciente=@nro_nueva_consulta_paciente
+		WHERE id=@bono_consulta_id
+
+		FETCH consultaCursor INTO @bono_consulta_id,@turno_numero
+
+	END
+
+	CLOSE consultaCursor
+	DEALLOCATE consultaCursor
 END
 GO
 

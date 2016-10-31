@@ -116,5 +116,50 @@ namespace ClinicaFrba
             }
             return medicos;
         }
+
+        internal Dictionary<Medico, String> buscarMedicosConSuEspecialidad(string queryNombre, string queryApellido, decimal especialidadCodigo)
+        {
+            Dictionary<Medico,String> medEsp = new Dictionary<Medico,String>();
+
+            try
+            {
+                ParametroParaSP parametro4 = new ParametroParaSP("nombre", SqlDbType.VarChar, queryNombre);
+                ParametroParaSP parametro5 = new ParametroParaSP("apellido", SqlDbType.VarChar, queryApellido);
+                ParametroParaSP parametro6 = new ParametroParaSP("especialidad_codigo", SqlDbType.Decimal, especialidadCodigo);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro4);
+                parametros.Add(parametro5);
+                parametros.Add(parametro6);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Medico_Y_Especialidad_Para_Turno", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        Medico medico = new Medico();
+
+                        medico.nombre = sqlReader.GetString(0);
+                        medico.apellido = sqlReader.GetString(1);
+                        string especialidad = sqlReader.GetString(2);
+
+                        medEsp.Add(medico, especialidad);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                medEsp = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return medEsp;
+        }
     }
 }
