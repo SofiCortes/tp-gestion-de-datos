@@ -931,13 +931,13 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Medico_Y_Especialidad_Para_Tu
 AS
 BEGIN
 	DECLARE @QUERY_FINAL NVARCHAR(1500)
-	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT DISTINCT m.nombre,m.apellido, e.descripcion
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT DISTINCT m.matricula,m.nombre,m.apellido, e.descripcion
 									 FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=m.matricula)
 									 JOIN BETTER_CALL_JUAN.Especialidades e ON (med_esp.especialidad_cod=e.codigo)
 									 WHERE '
 	DECLARE @QUERY_2 VARCHAR(500) = ' '
 	DECLARE @QUERY_3 VARCHAR(500) = 'm.nombre LIKE @nombre AND m.apellido LIKE @apellido'
-	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY m.apellido,m.nombre,e.descripcion'
+	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY m.apellido,m.nombre,m.matricula,e.descripcion'
 
 	IF @especialidad_codigo >0
 		SET @QUERY_2 = 'med_esp.especialidad_cod = @especialidad_codigo AND '
