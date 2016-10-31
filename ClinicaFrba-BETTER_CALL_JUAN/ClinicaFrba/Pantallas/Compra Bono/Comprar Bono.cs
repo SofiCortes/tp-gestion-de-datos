@@ -19,6 +19,39 @@ namespace ClinicaFrba
             this.controller = new ComprarBonoController(this);
 
             InitializeComponent();
+
+            this.Shown += (s, e1) =>
+            {
+                this.controller.buscarPlanMedicoDelAfiliado();
+            };
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (numericUpDownBonos.Value > 0)
+            {
+                this.controller.comprarBonos(numericUpDownBonos.Value);
+            }
+            else
+            {
+                this.showErrorMessage("Seleccione un valor mayor a 0.");
+            }
+        }
+
+        internal void showPlanMedico(string p)
+        {
+            this.labelPlanMedico.Text = p;
+        }
+
+        internal void showErrorMessage(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal void showInformationMessage(string p)
+        {
+            throw new NotImplementedException();
         }
     }
 }

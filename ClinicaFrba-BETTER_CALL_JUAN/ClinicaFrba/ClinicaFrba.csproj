@@ -62,7 +62,7 @@
     <Compile Include="Modelo\Objetos\DAO\EspecialidadDAO.cs" />
     <Compile Include="Modelo\Objetos\DAO\MedicoDAO.cs" />
     <Compile Include="Modelo\Objetos\DAO\PacienteDAO.cs" />
-    <Compile Include="Modelo\UsuarioFuncionalidades.cs" />
+    <Compile Include="Modelo\UsuarioConfiguracion.cs" />
     <Compile Include="Modelo\Objetos\BajaPaciente.cs" />
     <Compile Include="Modelo\Objetos\BonoConsulta.cs" />
     <Compile Include="Modelo\Objetos\CambioDePlan.cs" />
@@ -278,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\AbmRol\Modificar Rol.resx">
       <DependentUpon>Modificar Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Compra Bono\Comprar Bono.resx">
+      <DependentUpon>Comprar Bono.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Listados Estadisticos\Afiliados con mas bonos comprados.resx">
       <DependentUpon>Afiliados con mas bonos comprados.cs</DependentUpon>

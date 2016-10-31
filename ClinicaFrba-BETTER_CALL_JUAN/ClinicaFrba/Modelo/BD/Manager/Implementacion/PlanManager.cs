@@ -91,5 +91,42 @@ namespace ClinicaFrba
             }
             return planes;
         }
+
+        internal PlanMedico buscarPorUsuarioId(decimal usuarioId)
+        {
+            PlanMedico plan = new PlanMedico();
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("usuario_id", SqlDbType.Decimal, usuarioId);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Buscar_Plan_Por_Usuario_Id", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        plan.codigo = sqlReader.GetDecimal(0);
+                        plan.descripcion = sqlReader.GetString(1);
+                        plan.precioBonoConsulta = sqlReader.GetDecimal(2);
+                        plan.precioBonoFarmacia = sqlReader.GetDecimal(3);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                plan = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return plan;
+        }
     }
 }

@@ -931,6 +931,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Cancelar_Turno_Afiliado
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Plan_Por_Usuario_Id'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Plan_Por_Usuario_Id
+GO
+
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Medico_Y_Especialidad_Para_Turno](@nombre VARCHAR(255),@apellido VARCHAR(255), @especialidad_codigo NUMERIC(18,0))
@@ -1074,7 +1078,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno SMALLINT OUT)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Login] (@user VARCHAR(255), @passwordIngresada VARCHAR(255), @retorno NUMERIC(18,0) OUT)
 AS
 BEGIN
 	DECLARE @passwordReal VARCHAR(255), @intentosFallidos SMALLINT, @idUsuario NUMERIC(18,0)
@@ -1101,9 +1105,9 @@ BEGIN
 					END	
 
 				IF ((SELECT COUNT(DISTINCT ru.rol_id) FROM BETTER_CALL_JUAN.Roles_Usuarios ru WHERE ru.user_id=@idUsuario) = 1)
-					SET  @retorno=1 --Login OK. Tiene 1 rol
+					SET  @retorno= @idUsuario --Login OK. Tiene 1 rol
 				ELSE
-					SET @retorno=2 ---Login OK. Tiene mas de 1 rol
+					SET @retorno= @idUsuario ---Login OK. Tiene mas de 1 rol
 			END
 			ELSE
 			BEGIN
@@ -1335,11 +1339,16 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Comprar_Bonos] (@id_afiliado_comprador NUMERIC(18,0), @cant_bonos NUMERIC(18,0),
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Comprar_Bonos] (@id_usuario NUMERIC(18,0), @cant_bonos NUMERIC(18,0),
 															   @plan_medico_bono_id NUMERIC(18,0), @monto_a_pagar NUMERIC(18,2) OUT)
 AS
 BEGIN
 	DECLARE @precio_bono NUMERIC(18,0)
+	DECLARE @id_afiliado_comprador NUMERIC(18,0)
+
+	SELECT @id_afiliado_comprador = P.id
+	FROM BETTER_CALL_JUAN.Pacientes P
+	WHERE P.usuario_id = @id_usuario
 
 	SELECT @precio_bono=p.precio_bono_consulta
 	FROM BETTER_CALL_JUAN.Planes_Medicos p
@@ -1360,6 +1369,16 @@ BEGIN
 	END;
 
 	RETURN @monto_a_pagar
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Plan_Por_Usuario_Id]
+(@usuario_id NUMERIC(18,0))
+AS
+BEGIN
+	SELECT PM.codigo, PM.descripcion, PM.precio_bono_consulta, PM.precio_bono_farmacia
+	FROM BETTER_CALL_JUAN.Planes_Medicos PM
+	JOIN BETTER_CALL_JUAN.Pacientes P ON (P.usuario_id = @usuario_id AND P.plan_medico_cod = PM.codigo)
 END
 GO
 
