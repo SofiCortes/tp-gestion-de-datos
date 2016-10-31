@@ -23,7 +23,6 @@ namespace ClinicaFrba
             this.Shown += (s, e1) =>
             {
                 this.controller.llenarComboEspecialidades();
-                this.controller.llenarListadoProfesionales();
             };
         }
 
@@ -41,6 +40,54 @@ namespace ClinicaFrba
 
             this.comboEspecialidad.DataSource = especialidades;
             this.comboEspecialidad.DisplayMember = "descripcion";
+        }
+
+        private void buscarButton_Click(object sender, EventArgs e)
+        {
+            string queryNombre = this.textBoxNombre.Text.Trim();
+            string queryApellido = this.textBoxApellido.Text.Trim();
+            int selectedIndexOfEspecialidades = this.comboEspecialidad.SelectedIndex;
+
+            if (queryNombre.Length > 0 || queryApellido.Length > 0 || selectedIndexOfEspecialidades > 0)
+            {
+                this.buscarButton.Enabled = false;
+                this.limpiarButton.Enabled = false;
+
+                Especialidad especialidadSeleccionada = (Especialidad)this.comboEspecialidad.SelectedItem;
+                this.controller.buscarProfesionalesConFiltros(queryNombre, queryApellido, especialidadSeleccionada);
+            }
+            else
+            {
+                this.showErrorMessage("Seleccione algun filtro para realizar su busqueda");
+            }
+        }
+
+        internal void showErrorMessage(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal void llenarListadoProfesionales(List<Medico> medicosFiltrados)
+        {
+            this.buscarButton.Enabled = true;
+            this.limpiarButton.Enabled = true;
+
+            resultadosGrid.DataSource = medicosFiltrados.Select(
+                medico => new
+                {
+                    Matricula = medico.matricula,
+                    NombreYApellido = medico.apellido + ", " + medico.nombre
+                }
+            ).ToList();
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            this.comboEspecialidad.SelectedIndex = 0;
+            this.textBoxApellido.Text = "";
+            this.textBoxNombre.Text = "";
+            this.resultadosGrid.DataSource = null;
         }
     }
 }

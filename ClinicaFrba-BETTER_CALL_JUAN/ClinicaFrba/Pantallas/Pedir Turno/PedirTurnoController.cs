@@ -32,5 +32,20 @@ namespace ClinicaFrba
         }
 
 
+
+        internal void buscarProfesionalesConFiltros(string queryNombre, string queryApellido, Especialidad especialidadSeleccionada)
+        {
+            ProfesionalManager profesionalManager = new ProfesionalManager();
+            List<Medico> medicosFiltrados = profesionalManager.buscarMedicosPorFiltro(queryNombre, queryApellido, "", 0, 0, especialidadSeleccionada.codigo);
+
+            if (medicosFiltrados != null)
+            {
+                this.form.llenarListadoProfesionales(medicosFiltrados);
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al buscar los Profesionales.");
+            }
+        }
     }
 }

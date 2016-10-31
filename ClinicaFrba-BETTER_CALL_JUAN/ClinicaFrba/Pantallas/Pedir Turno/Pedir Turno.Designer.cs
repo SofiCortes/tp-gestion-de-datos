@@ -116,6 +116,7 @@
             this.buscarButton.TabIndex = 15;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // resultadosGrid
             // 
@@ -134,6 +135,7 @@
             this.limpiarButton.TabIndex = 14;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // PedirTurnoForm
             // 
