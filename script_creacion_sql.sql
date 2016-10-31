@@ -931,7 +931,7 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Medico_Y_Especialidad_Para_Tu
 AS
 BEGIN
 	DECLARE @QUERY_FINAL NVARCHAR(1500)
-	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT DISTINCT m.matricula,m.nombre,m.apellido, e.descripcion
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT DISTINCT m.matricula,m.nombre,m.apellido, e.codigo, e.descripcion
 									 FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=m.matricula)
 									 JOIN BETTER_CALL_JUAN.Especialidades e ON (med_esp.especialidad_cod=e.codigo)
 									 WHERE '
