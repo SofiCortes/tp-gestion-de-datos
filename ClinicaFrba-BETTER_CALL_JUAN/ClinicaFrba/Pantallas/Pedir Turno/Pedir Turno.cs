@@ -68,16 +68,17 @@ namespace ClinicaFrba
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        internal void llenarListadoProfesionales(List<Medico> medicosFiltrados)
+        internal void llenarListadoProfesionales(Dictionary<Medico, String> medicosFiltradosConEspecialidad)
         {
             this.buscarButton.Enabled = true;
             this.limpiarButton.Enabled = true;
 
-            resultadosGrid.DataSource = medicosFiltrados.Select(
-                medico => new
+            resultadosGrid.DataSource = medicosFiltradosConEspecialidad.Select(
+                medicoConEspecialidad => new
                 {
-                    Matricula = medico.matricula,
-                    NombreYApellido = medico.apellido + ", " + medico.nombre
+                    Apellido = medicoConEspecialidad.Key.apellido,
+                    Nombre = medicoConEspecialidad.Key.nombre,
+                    Especialidad = medicoConEspecialidad.Value
                 }
             ).ToList();
         }

@@ -36,7 +36,7 @@ namespace ClinicaFrba
         internal void buscarProfesionalesConFiltros(string queryNombre, string queryApellido, Especialidad especialidadSeleccionada)
         {
             ProfesionalManager profesionalManager = new ProfesionalManager();
-            List<Medico> medicosFiltrados = profesionalManager.buscarMedicosPorFiltro(queryNombre, queryApellido, "", 0, 0, especialidadSeleccionada.codigo);
+            Dictionary<Medico,String> medicosFiltrados = profesionalManager.buscarMedicosConSuEspecialidad(queryNombre, queryApellido, especialidadSeleccionada.codigo);
 
             if (medicosFiltrados != null)
             {
