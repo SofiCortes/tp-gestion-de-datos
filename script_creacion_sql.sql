@@ -112,7 +112,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Operaciones_Compra] (
 CREATE TABLE [BETTER_CALL_JUAN].[Turnos] (
   [numero] NUMERIC(18,0) IDENTITY(1,1),
   [fecha_hora] DATETIME NOT NULL,
-  [paciente_id] NUMERIC(18,0) NOT NULL,
+  [paciente_id] NUMERIC(18,0),
   [medico_especialidad_id] NUMERIC(18,0) NOT NULL,
   [turno_numero_maestra] NUMERIC(18,0),
   PRIMARY KEY ([numero])
@@ -131,6 +131,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Cancelaciones] (
   [motivo] VARCHAR(255) NOT NULL,
   [turno_numero] NUMERIC(18,0) NOT NULL UNIQUE,
   [hecha_por_paciente] BIT NOT NULL,
+  [paciente_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
 
@@ -716,11 +717,12 @@ ALTER TABLE [BETTER_CALL_JUAN].[Consultas] ADD CONSTRAINT bono_consulta_id_consu
 
 ALTER TABLE [BETTER_CALL_JUAN].[Operaciones_Compra] ADD CONSTRAINT paciente_id_operacion_compra FOREIGN KEY (paciente_id) REFERENCES [BETTER_CALL_JUAN].[Pacientes](id)
 
-ALTER TABLE [BETTER_CALL_JUAN].[Turnos] ADD CONSTRAINT paciente_id_turno FOREIGN KEY (paciente_id) REFERENCES [BETTER_CALL_JUAN].[Pacientes](id)
+ALTER TABLE [BETTER_CALL_JUAN].[Turnos] WITH NOCHECK ADD CONSTRAINT paciente_id_turno FOREIGN KEY (paciente_id) REFERENCES [BETTER_CALL_JUAN].[Pacientes](id)
 ALTER TABLE [BETTER_CALL_JUAN].[Turnos] ADD CONSTRAINT medico_especialidad_id_turno FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT tipo_cancelacion_id_cancelacion FOREIGN KEY (tipo_cancelacion_id) REFERENCES [BETTER_CALL_JUAN].[Tipos_Cancelaciones](id)
 ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT turno_numero_cancelacion FOREIGN KEY (turno_numero) REFERENCES [BETTER_CALL_JUAN].[Turnos](numero)
+ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT paciente_id_cancelacion FOREIGN KEY (paciente_id) REFERENCES [BETTER_CALL_JUAN].[Pacientes](id)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] ADD CONSTRAINT medico_especialidad_id_rango_atencion FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
 
@@ -923,6 +925,10 @@ GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Medico_Y_Especialidad_Para_Turno'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Medico_Y_Especialidad_Para_Turno
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Cancelar_Turno_Afiliado'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Cancelar_Turno_Afiliado
 GO
 
 ------------------------------------------
@@ -1395,7 +1401,7 @@ BEGIN
 	
 	SELECT @cantTurnosOcupados= COUNT(DISTINCT t.numero)
 	FROM BETTER_CALL_JUAN.Turnos t
-	WHERE convert(date,t.fecha_hora)=@fecha AND t.medico_especialidad_id=@medico_especialidad_id
+	WHERE paciente_id IS NOT NULL AND convert(date,t.fecha_hora)=@fecha AND t.medico_especialidad_id=@medico_especialidad_id
 
 	SET @cantTurnosDisponibles=@cantTurnosTotales-@cantTurnosOcupados
 
@@ -1511,6 +1517,15 @@ BEGIN
 	SELECT @tipo, @motivo, numero, 0
 	FROM Turnos t JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) JOIN Medicos m ON (me.medico_id = m.matricula)
 	WHERE matricula = @matricula AND fecha_hora BETWEEN CONVERT(date,@fecha_inicio) AND CONVERT(date, @fecha_fin)	
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turno_Afiliado] (@paciente_id NUMERIC(18,0), @turno_numero NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
+-- primero se muestra una pantalla donde el afiliado elige el turno que quiere cancelar (solo se muestran los de fechas siguientes, ahi va la validacion de que no puede cancelar el mismo dia). falta este sp
+AS
+BEGIN
+	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero, hecha_por_paciente, paciente_id) VALUES (@tipo, @motivo, @turno_numero, 1, @paciente_id)
+	UPDATE Turnos SET paciente_id = NULL WHERE numero = @turno_numero
 END
 GO
 
