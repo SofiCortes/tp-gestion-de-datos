@@ -242,6 +242,13 @@
     <Compile Include="Pantallas\Pantalla Principal\PantallaPrincipal.Designer.cs">
       <DependentUpon>PantallaPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Pedir Turno\DiasTurnoMedico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Pedir Turno\DiasTurnoMedico.Designer.cs">
+      <DependentUpon>DiasTurnoMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Pedir Turno\DiasTurnoMedicoController.cs" />
     <Compile Include="Pantallas\Pedir Turno\Pedir Turno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Pantalla Principal\PantallaPrincipal.resx">
       <DependentUpon>PantallaPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Pedir Turno\DiasTurnoMedico.resx">
+      <DependentUpon>DiasTurnoMedico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Pedir Turno\Pedir Turno.resx">
       <DependentUpon>Pedir Turno.cs</DependentUpon>

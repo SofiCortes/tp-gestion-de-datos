@@ -117,9 +117,9 @@ namespace ClinicaFrba
             return medicos;
         }
 
-        internal Dictionary<Medico, String> buscarMedicosConSuEspecialidad(string queryNombre, string queryApellido, decimal especialidadCodigo)
+        internal Dictionary<Medico, Especialidad> buscarMedicosConSuEspecialidad(string queryNombre, string queryApellido, decimal especialidadCodigo)
         {
-            Dictionary<Medico,String> medEsp = new Dictionary<Medico,String>();
+            Dictionary<Medico,Especialidad> medEsp = new Dictionary<Medico,Especialidad>();
 
             try
             {
@@ -141,10 +141,13 @@ namespace ClinicaFrba
                     while (sqlReader.Read())
                     {
                         Medico medico = new Medico();
+                        Especialidad especialidad = new Especialidad();
 
-                        medico.nombre = sqlReader.GetString(0);
-                        medico.apellido = sqlReader.GetString(1);
-                        string especialidad = sqlReader.GetString(2);
+                        medico.matricula = sqlReader.GetDecimal(0);
+                        medico.nombre = sqlReader.GetString(1);
+                        medico.apellido = sqlReader.GetString(2);
+                        especialidad.codigo = sqlReader.GetDecimal(3);
+                        especialidad.descripcion = sqlReader.GetString(4);
 
                         medEsp.Add(medico, especialidad);
                     }

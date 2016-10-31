@@ -53,7 +53,7 @@ namespace ClinicaFrba
                 this.buscarButton.Enabled = false;
                 this.limpiarButton.Enabled = false;
 
-                Especialidad especialidadSeleccionada = (Especialidad)this.comboEspecialidad.SelectedItem;
+                Especialidad especialidadSeleccionada = (Especialidad) this.comboEspecialidad.SelectedItem;
                 this.controller.buscarProfesionalesConFiltros(queryNombre, queryApellido, especialidadSeleccionada);
             }
             else
@@ -68,17 +68,18 @@ namespace ClinicaFrba
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        internal void llenarListadoProfesionales(Dictionary<Medico, String> medicosFiltradosConEspecialidad)
+        internal void llenarListadoProfesionales(Dictionary<Medico, Especialidad> medicosFiltradosConEspecialidad)
         {
             this.buscarButton.Enabled = true;
             this.limpiarButton.Enabled = true;
 
-            resultadosGrid.DataSource = medicosFiltradosConEspecialidad.Select(
+            medicosEspecialidadParaTurnoGrid.DataSource = medicosFiltradosConEspecialidad.Select(
                 medicoConEspecialidad => new
                 {
+                    Matricula = medicoConEspecialidad.Key.matricula,
                     Apellido = medicoConEspecialidad.Key.apellido,
                     Nombre = medicoConEspecialidad.Key.nombre,
-                    Especialidad = medicoConEspecialidad.Value
+                    Especialidad = medicoConEspecialidad.Value.descripcion
                 }
             ).ToList();
         }
@@ -88,7 +89,18 @@ namespace ClinicaFrba
             this.comboEspecialidad.SelectedIndex = 0;
             this.textBoxApellido.Text = "";
             this.textBoxNombre.Text = "";
-            this.resultadosGrid.DataSource = null;
+            this.medicosEspecialidadParaTurnoGrid.DataSource = null;
+        }
+
+        private void resultadosGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Medico medico = controller.obtenerMedico(medicosEspecialidadParaTurnoGrid);
+            Especialidad especialidad = new Especialidad();
+            especialidad.descripcion = controller.obtenerDescripcionEspecialidad(medicosEspecialidadParaTurnoGrid);
+
+            DiasTurnoMedico dtm = new DiasTurnoMedico();
+            dtm.showCalendario(medico,especialidad);
+            this.Close();
         }
     }
 }
