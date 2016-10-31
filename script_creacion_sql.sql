@@ -468,6 +468,21 @@ FROM gd_esquema.Maestra m JOIN BETTER_CALL_JUAN.Pacientes p ON (m.Paciente_Dni =
 WHERE Compra_Bono_Fecha IS NOT NULL
 GROUP BY p.id, Compra_Bono_Fecha
 
+/* Asociacion Pacientes y Medicos con su usuario id */
+UPDATE BETTER_CALL_JUAN.Pacientes 
+SET usuario_id = u.id 
+FROM(
+SELECT id, username
+FROM BETTER_CALL_JUAN.Usuarios) u
+WHERE (Pacientes.tipo_doc + CONVERT(VARCHAR(255),Pacientes.nro_doc)) = u.username
+
+UPDATE BETTER_CALL_JUAN.Medicos 
+SET usuario_id = u.id 
+FROM(
+SELECT id, username
+FROM BETTER_CALL_JUAN.Usuarios) u
+WHERE (Medicos.tipo_doc + CONVERT(VARCHAR(255),Medicos.nro_doc)) = u.username
+
 /* Tabla Rangos Horarios */
 
 CREATE TABLE #MedicosEspecialidadesTemp (
