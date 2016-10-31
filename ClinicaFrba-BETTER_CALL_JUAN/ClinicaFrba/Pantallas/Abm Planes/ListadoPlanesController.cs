@@ -30,5 +30,20 @@ namespace ClinicaFrba
                 this.form.showErroMessage("Ocurrio un error al mostrar los Planes Medicos.");
             }
         }
+
+        internal void buscarPlanPorNombre(string queryPlan)
+        {
+            PlanManager manager = new PlanManager();
+            List<PlanMedico> planes = manager.buscarPlanesMedicosPorNombre(queryPlan);
+
+            if (planes != null)
+            {
+                this.form.mostrarPlanesMedicos(planes);
+            }
+            else
+            {
+                this.form.showErroMessage("Ocurrio un error al mostrar los Planes Medicos.");
+            }
+        }
     }
 }

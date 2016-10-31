@@ -12,7 +12,7 @@ namespace ClinicaFrba
         public string nombre { get; set; }
         public string apellido { get; set; }
         public string tipoDoc { get; set; }
-        public int nroDoc { get; set; }
+        public decimal nroDoc { get; set; }
         public string direccion { get; set; }
         public decimal telefono { get; set; }
         public string mail { get; set; }
