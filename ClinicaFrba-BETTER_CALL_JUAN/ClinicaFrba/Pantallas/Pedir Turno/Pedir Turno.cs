@@ -19,6 +19,28 @@ namespace ClinicaFrba
             this.controller = new PedirTurnoController(this);
 
             InitializeComponent();
+
+            this.Shown += (s, e1) =>
+            {
+                this.controller.llenarComboEspecialidades();
+                this.controller.llenarListadoProfesionales();
+            };
+        }
+
+        internal void llenarComboEspecialidades(List<Especialidad> especialidades)
+        {
+            Especialidad especialidadDummy = new Especialidad();
+            especialidadDummy.codigo = -1;
+            especialidadDummy.descripcion = "Seleccione Especialidad";
+            especialidades.Insert(0, especialidadDummy);
+
+            Especialidad especialidadTodas = new Especialidad();
+            especialidadTodas.codigo = 0;
+            especialidadTodas.descripcion = "Todas";
+            especialidades.Insert(1, especialidadTodas);
+
+            this.comboEspecialidad.DataSource = especialidades;
+            this.comboEspecialidad.DisplayMember = "descripcion";
         }
     }
 }
