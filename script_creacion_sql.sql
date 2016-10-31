@@ -897,6 +897,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Cancelar_Turno_Dia_Profesional
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Cancelar_Turnos_Franja_Profesional'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Cancelar_Turnos_Franja_Profesional
+GO
+
 ------------------------------------------
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Medicos_Filtros] 
 (@matricula NUMERIC(18,0),@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0),@nombre VARCHAR(255), @apellido VARCHAR(255),@especialidad_codigo NUMERIC(18,0))
@@ -1450,6 +1454,15 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turnos_Franja_Profesional] (@fecha_inicio DATETIME, @fecha_fin DATETIME, @matricula NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
+AS
+BEGIN
+	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero, hecha_por_paciente)
+	SELECT @tipo, @motivo, numero, 0
+	FROM Turnos t JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) JOIN Medicos m ON (me.medico_id = m.matricula)
+	WHERE matricula = @matricula AND fecha_hora BETWEEN CONVERT(date,@fecha_inicio) AND CONVERT(date, @fecha_fin)	
+END
+GO
 
 /** TOP 5 **/
 
