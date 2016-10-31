@@ -689,6 +689,11 @@ INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta,
 
 DROP TABLE #MedicosEspecialidadesTemp
 
+
+/* Tabla Tipos Cancelaciones */
+
+INSERT INTO BETTER_CALL_JUAN.Tipos_Cancelaciones(nombre) VALUES ('Viaje'),('Enfermedad'),('Otro')
+
 /** FIN MIGRACION **/
 
 /*FOREIGN KEYS*/
