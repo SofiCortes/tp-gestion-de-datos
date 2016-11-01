@@ -260,8 +260,7 @@ namespace ClinicaFrba
 
         private void buttonRegistrarAgenda_Click(object sender, EventArgs e)
         {
-            ListadoProfesionales form = new ListadoProfesionales();
-            form.actionCode = ListadoProfesionales.ACTION_CODE_FOR_ADD_AGENDA_LIST;
+            ListadoProfesionalesParaAgenda form = new ListadoProfesionalesParaAgenda();
             form.Show();
         }
 

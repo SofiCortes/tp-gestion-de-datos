@@ -4,7 +4,6 @@
     {
         public static string ACTION_CODE_FOR_LIST_VIEW_AGENDA = "ACTION_CODE_FOR_LIST_VIEW_AGENDA";
         public static string ACTION_CODE_FOR_LIST_LIST = "ACTION_CODE_FOR_LIST_LIST";
-        public static string ACTION_CODE_FOR_ADD_AGENDA_LIST = "ACTION_CODE_FOR_ADD_AGENDA_LIST";
 
         /// <summary>
         /// Required designer variable.
@@ -193,6 +192,7 @@
             this.resultadosGrid.Name = "resultadosGrid";
             this.resultadosGrid.Size = new System.Drawing.Size(595, 210);
             this.resultadosGrid.TabIndex = 9;
+            this.resultadosGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosGrid_CellContentClick);
             // 
             // limpiarButton
             // 

@@ -102,7 +102,8 @@ namespace ClinicaFrba
                 medico => new
                 {
                     Matricula = medico.matricula,
-                    NombreYApellido = medico.apellido + ", " + medico.nombre,
+                    Apellido = medico.apellido,
+                    Nombre = medico.nombre,
                     Documento = medico.tipoDoc + " " + medico.nroDoc,
                     Sexo = medico.sexo.Equals('-') ? "-" : medico.sexo.Equals('M') ? "Masculino" : "Femenino"
                 }
