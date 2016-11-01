@@ -68,7 +68,7 @@ namespace ClinicaFrba
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        internal void llenarListadoProfesionales(Dictionary<Medico, Especialidad> medicosFiltradosConEspecialidad)
+        internal void llenarListadoProfesionalesConEspecialidad(Dictionary<Medico, Especialidad> medicosFiltradosConEspecialidad)
         {
             this.buscarButton.Enabled = true;
             this.limpiarButton.Enabled = true;
@@ -79,9 +79,12 @@ namespace ClinicaFrba
                     Matricula = medicoConEspecialidad.Key.matricula,
                     Apellido = medicoConEspecialidad.Key.apellido,
                     Nombre = medicoConEspecialidad.Key.nombre,
-                    Especialidad = medicoConEspecialidad.Value.descripcion
+                    Especialidad = medicoConEspecialidad.Value.descripcion,
+                    Codigo = medicoConEspecialidad.Value.codigo
+
                 }
             ).ToList();
+
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -96,8 +99,8 @@ namespace ClinicaFrba
         {
             Medico medico = controller.obtenerMedico(medicosEspecialidadParaTurnoGrid);
             Especialidad especialidad = new Especialidad();
+            especialidad.codigo = controller.obtenerCodigoEspecialidad(medicosEspecialidadParaTurnoGrid);
             especialidad.descripcion = controller.obtenerDescripcionEspecialidad(medicosEspecialidadParaTurnoGrid);
-
             DiasTurnoMedico dtm = new DiasTurnoMedico();
             dtm.showCalendario(medico,especialidad);
             this.Close();

@@ -15,5 +15,21 @@ namespace ClinicaFrba
             this.form = form;
         }
 
+
+        internal void getFechasDisponibles(Medico medico, Especialidad especialidad)
+        {
+            TurnoManager turnoManager = new TurnoManager();
+
+            List<string> fechasDisponibles = turnoManager.getFechasDisponibles(medico, especialidad);
+
+            if (fechasDisponibles != null)
+            {
+                this.form.llenarFechas(fechasDisponibles);
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al buscar las Fechas.");
+            }
+        }
     }
 }

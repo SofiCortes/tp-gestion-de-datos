@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.FechaSeleccionadaButton = new System.Windows.Forms.Button();
-            this.fechasTurnoCalendar = new System.Windows.Forms.MonthCalendar();
+            this.FechasDisponibles = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.FechasDisponibles)).BeginInit();
             this.SuspendLayout();
             // 
             // FechaSeleccionadaButton
@@ -40,22 +41,29 @@
             this.FechaSeleccionadaButton.TabIndex = 1;
             this.FechaSeleccionadaButton.Text = "Seleccionar";
             this.FechaSeleccionadaButton.UseVisualStyleBackColor = true;
+            this.FechaSeleccionadaButton.Click += new System.EventHandler(this.FechaSeleccionadaButton_Click);
             // 
-            // fechasTurnoCalendar
+            // FechasDisponibles
             // 
-            this.fechasTurnoCalendar.Location = new System.Drawing.Point(16, 18);
-            this.fechasTurnoCalendar.Name = "fechasTurnoCalendar";
-            this.fechasTurnoCalendar.TabIndex = 0;
+            this.FechasDisponibles.AllowUserToAddRows = false;
+            this.FechasDisponibles.AllowUserToDeleteRows = false;
+            this.FechasDisponibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FechasDisponibles.Location = new System.Drawing.Point(7, 12);
+            this.FechasDisponibles.Name = "FechasDisponibles";
+            this.FechasDisponibles.ReadOnly = true;
+            this.FechasDisponibles.Size = new System.Drawing.Size(240, 179);
+            this.FechasDisponibles.TabIndex = 2;
             // 
             // DiasTurnoMedico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(259, 233);
+            this.Controls.Add(this.FechasDisponibles);
             this.Controls.Add(this.FechaSeleccionadaButton);
-            this.Controls.Add(this.fechasTurnoCalendar);
             this.Name = "DiasTurnoMedico";
             this.Text = "DiasTurnoMedico";
+            ((System.ComponentModel.ISupportInitialize)(this.FechasDisponibles)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -63,7 +71,7 @@
         #endregion
 
         private System.Windows.Forms.Button FechaSeleccionadaButton;
-        private System.Windows.Forms.MonthCalendar fechasTurnoCalendar;
+        private System.Windows.Forms.DataGridView FechasDisponibles;
 
 
     }

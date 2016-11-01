@@ -41,7 +41,7 @@ namespace ClinicaFrba
 
             if (medicosFiltrados != null)
             {
-                this.form.llenarListadoProfesionales(medicosFiltrados);
+                this.form.llenarListadoProfesionalesConEspecialidad(medicosFiltrados);
             }
             else
             {
@@ -70,6 +70,15 @@ namespace ClinicaFrba
             DataGridViewRow row = dgvc.OwningRow;
             
             return row.Cells[3].Value.ToString();
+        }
+
+        internal decimal obtenerCodigoEspecialidad(DataGridView medicosEspecialidadParaTurnoGrid)
+        {
+            DataGridViewSelectedCellCollection dataSelectedCell = medicosEspecialidadParaTurnoGrid.SelectedCells;
+            DataGridViewCell dgvc = dataSelectedCell[0];
+            DataGridViewRow row = dgvc.OwningRow;
+
+            return decimal.Parse(row.Cells[4].Value.ToString());
         }
     }
 }

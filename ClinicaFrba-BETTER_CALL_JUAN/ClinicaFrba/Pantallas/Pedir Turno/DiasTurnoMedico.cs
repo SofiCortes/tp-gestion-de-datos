@@ -24,7 +24,35 @@ namespace ClinicaFrba
 
         internal void showCalendario(Medico medico, Especialidad especialidad)
         {
+            this.controller.getFechasDisponibles(medico, especialidad);           
+
             this.Show();
+        }
+
+        internal void showErrorMessage(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Error",
+                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal void llenarFechas(List<string> fechasDisponibles)
+        {
+            FechasDisponibles.DataSource = fechasDisponibles.Select(
+                fecha => new
+                {
+                    Fecha = fecha
+                }
+            ).ToList();
+        }
+
+        private void FechaSeleccionadaButton_Click(object sender, EventArgs e)
+        {
+            DataGridViewSelectedCellCollection dataSelectedCell = FechasDisponibles.SelectedCells;
+            DataGridViewCell dgvc = dataSelectedCell[0];
+            DataGridViewRow row = dgvc.OwningRow;
+
+            string fechaElegida=row.Cells[0].Value.ToString();
+
         }
     }
 }
