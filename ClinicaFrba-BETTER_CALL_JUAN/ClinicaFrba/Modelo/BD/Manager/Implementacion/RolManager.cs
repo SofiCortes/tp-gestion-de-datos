@@ -188,7 +188,7 @@ namespace ClinicaFrba
             int habilitado = -1;
             try
             {
-                ParametroParaSP parametro1 = new ParametroParaSP("rol_id", SqlDbType.VarChar, id);
+                ParametroParaSP parametro1 = new ParametroParaSP("rol_id", SqlDbType.SmallInt, id);
                 ParametroParaSP parametro2 = new ParametroParaSP("habilitado", SqlDbType.SmallInt);
 
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();

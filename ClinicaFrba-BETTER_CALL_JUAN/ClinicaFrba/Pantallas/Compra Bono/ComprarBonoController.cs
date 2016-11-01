@@ -46,7 +46,7 @@ namespace ClinicaFrba
             }
             else
             {
-                this.form.showErrorMessage("Ocurrio un error al Realizar la compra.");
+                this.form.showErrorMessage("Ocurrio un error al realizar la compra.");
             }
         }
     }
