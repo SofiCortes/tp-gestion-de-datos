@@ -128,6 +128,12 @@
     <Compile Include="Pantallas\Abm Profesional\Listado Especialidades Medicas.Designer.cs">
       <DependentUpon>Listado Especialidades Medicas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Abm Profesional\Listado Profesionales Para Registrar Agenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Abm Profesional\Listado Profesionales Para Registrar Agenda.Designer.cs">
+      <DependentUpon>Listado Profesionales Para Registrar Agenda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Abm Profesional\Listado Profesionales.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +142,7 @@
     </Compile>
     <Compile Include="Pantallas\Abm Profesional\ListadoEspecialidadesMedicasController.cs" />
     <Compile Include="Pantallas\Abm Profesional\ListadoProfesionalesController.cs" />
+    <Compile Include="Pantallas\Abm Profesional\ListadoProfesionalesParaAgendaController.cs" />
     <Compile Include="Pantallas\AbmRol\Alta Rol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -271,8 +278,14 @@
     <EmbeddedResource Include="Pantallas\Abm Planes\Listado Planes.resx">
       <DependentUpon>Listado Planes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Profesional\Agenda Profesional.resx">
+      <DependentUpon>Agenda Profesional.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Profesional\Listado Especialidades Medicas.resx">
       <DependentUpon>Listado Especialidades Medicas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Profesional\Listado Profesionales Para Registrar Agenda.resx">
+      <DependentUpon>Listado Profesionales Para Registrar Agenda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Profesional\Listado Profesionales.resx">
       <DependentUpon>Listado Profesionales.cs</DependentUpon>
