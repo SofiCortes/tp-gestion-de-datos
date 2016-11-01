@@ -258,6 +258,13 @@ namespace ClinicaFrba
             form.Show();
         }
 
+        private void buttonRegistrarAgenda_Click(object sender, EventArgs e)
+        {
+            ListadoProfesionales form = new ListadoProfesionales();
+            form.actionCode = ListadoProfesionales.ACTION_CODE_FOR_LIST_LIST;
+            form.Show();
+        }
+
         private void buttonEspecialidadesMedicas_Click(object sender, EventArgs e)
         {
             ListadoEspecialidadesMedicas form = new ListadoEspecialidadesMedicas();

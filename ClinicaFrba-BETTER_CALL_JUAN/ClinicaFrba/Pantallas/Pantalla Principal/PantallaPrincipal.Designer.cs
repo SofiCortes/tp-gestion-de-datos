@@ -46,6 +46,7 @@
             this.groupBoxProfesionales = new System.Windows.Forms.GroupBox();
             this.buttonEspecialidadesMedicas = new System.Windows.Forms.Button();
             this.buttonListadoProfesionales = new System.Windows.Forms.Button();
+            this.buttonRegistrarAgenda = new System.Windows.Forms.Button();
             this.groupBoxPlanes = new System.Windows.Forms.GroupBox();
             this.buttonListadoPlanes = new System.Windows.Forms.Button();
             this.groupBoxTurnos = new System.Windows.Forms.GroupBox();
@@ -247,6 +248,7 @@
             this.groupBoxProfesionales.Controls.Add(this.buttonEspecialidadesMedicas);
             this.groupBoxProfesionales.Controls.Add(this.buttonListadoProfesionales);
             this.groupBoxProfesionales.Controls.Add(this.buttonAgendaProfesionales);
+            this.groupBoxProfesionales.Controls.Add(this.buttonRegistrarAgenda);
             this.groupBoxProfesionales.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxProfesionales.Location = new System.Drawing.Point(223, 13);
             this.groupBoxProfesionales.Name = "groupBoxProfesionales";
@@ -275,6 +277,16 @@
             this.buttonListadoProfesionales.Text = "Listado de Profesionales";
             this.buttonListadoProfesionales.UseVisualStyleBackColor = true;
             this.buttonListadoProfesionales.Click += new System.EventHandler(this.buttonListadoProfesionales_Click);
+            //
+            // buttonRegistrarAgenda
+            //
+            this.buttonRegistrarAgenda.Location = new System.Drawing.Point(6, 162);
+            this.buttonRegistrarAgenda.Name = "buttonRegistrarAgenda";
+            this.buttonRegistrarAgenda.Size = new System.Drawing.Size(187, 35);
+            this.buttonRegistrarAgenda.TabIndex = 2;
+            this.buttonRegistrarAgenda.Text = "Registrar Agenda";
+            this.buttonRegistrarAgenda.UseVisualStyleBackColor = true;
+            this.buttonRegistrarAgenda.Click += new System.EventHandler(this.buttonRegistrarAgenda_Click);
             // 
             // groupBoxPlanes
             // 
@@ -557,6 +569,7 @@
         private System.Windows.Forms.GroupBox groupBoxProfesionales;
         private System.Windows.Forms.Button buttonEspecialidadesMedicas;
         private System.Windows.Forms.Button buttonListadoProfesionales;
+        private System.Windows.Forms.Button buttonRegistrarAgenda;
         private System.Windows.Forms.GroupBox groupBoxPlanes;
         private System.Windows.Forms.Button buttonListadoPlanes;
         private System.Windows.Forms.GroupBox groupBoxBonos;
