@@ -863,10 +863,6 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Eliminar_Rol
 GO
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno'))
-	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Fecha_Esta_Disponible_Para_Turno
-GO
-
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Modificar_Rol'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Modificar_Rol
 GO
@@ -935,7 +931,36 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Plan_Por_Usuario_Id
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Fechas_Disponibles_Para_Turno'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Fechas_Disponibles_Para_Turno
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Fechas_Disponibles_Para_Turno](@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
+AS
+BEGIN
+	CREATE TABLE #fechasTemp(fecha DATE)
+
+	DECLARE @i INT = 0, @unaFecha DATE, @fecha_hoy DATE, @estaDisponibleFecha BIT
+
+	SET @fecha_hoy = GETDATE()
+
+	WHILE @i<60
+	BEGIN
+		SET @unaFecha = DATEADD(dd,@i,@fecha_hoy)
+		SET @estaDisponibleFecha= [BETTER_CALL_JUAN].[Function_Fecha_Esta_Disponible_Para_Turno](@unaFecha,@medico_id,@especialidad_codigo)
+		IF( @estaDisponibleFecha=1)
+		BEGIN
+			INSERT INTO #fechasTemp (fecha) VALUES (@unaFecha)		
+		END
+
+		SET @i= @i+1
+	END	
+
+	SELECT fecha FROM #fechasTemp
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Medico_Y_Especialidad_Para_Turno](@nombre VARCHAR(255),@apellido VARCHAR(255), @especialidad_codigo NUMERIC(18,0))
 AS
@@ -1406,32 +1431,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Fecha_Esta_Disponible_Para_Turno]
-(@fecha DATE,@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0), @fecha_disponible BIT OUT)
-AS
-BEGIN
-	DECLARE @medico_especialidad_id NUMERIC(18,0), @cantTurnosDisponibles INT, @cantTurnosOcupados INT, @cantTurnosTotales INT
-
-	SELECT @medico_especialidad_id=me.id
-	FROM BETTER_CALL_JUAN.Medicos_Especialidades me
-	WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
-
-	SELECT @cantTurnosTotales = SUM(DATEDIFF(mi,r.hora_desde,r.hora_hasta))/30
-	FROM BETTER_CALL_JUAN.Rangos_Atencion r	
-	WHERE r.medico_especialidad_id=@medico_especialidad_id AND r.dia_semana=DATEPART(dw,@fecha)
-	
-	SELECT @cantTurnosOcupados= COUNT(DISTINCT t.numero)
-	FROM BETTER_CALL_JUAN.Turnos t
-	WHERE paciente_id IS NOT NULL AND convert(date,t.fecha_hora)=@fecha AND t.medico_especialidad_id=@medico_especialidad_id
-
-	SET @cantTurnosDisponibles=@cantTurnosTotales-@cantTurnosOcupados
-
-	SET @fecha_disponible = CASE WHEN @cantTurnosDisponibles > 0 THEN 1 --la fecha esta disponible
-								ELSE 0 --la fecha no esta disponible
-							END
-END
-GO
-
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Obtener_Estado_Habilitado_Rol] (@rol_id SMALLINT, @habilitado SMALLINT OUT)
 AS
 BEGIN
@@ -1804,5 +1803,39 @@ BEGIN
 	SET nro_personal = @maxNroPersonalDeGrupo + 1
 	WHERE id=@id_nuevo_afiliado
 
+END
+GO
+
+----------------------
+/** FUNCTIONS **/
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Function_Fecha_Esta_Disponible_Para_Turno'))
+	DROP FUNCTION BETTER_CALL_JUAN.Function_Fecha_Esta_Disponible_Para_Turno
+GO
+
+CREATE FUNCTION [BETTER_CALL_JUAN].[Function_Fecha_Esta_Disponible_Para_Turno]
+(@fecha DATE,@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
+RETURNS BIT
+BEGIN
+	DECLARE @medico_especialidad_id NUMERIC(18,0), @cantTurnosDisponibles INT, @cantTurnosOcupados INT, @cantTurnosTotales INT, @fecha_disponible BIT
+
+	SELECT @medico_especialidad_id=me.id
+	FROM BETTER_CALL_JUAN.Medicos_Especialidades me
+	WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
+
+	SELECT @cantTurnosTotales = SUM(DATEDIFF(mi,r.hora_desde,r.hora_hasta))/30
+	FROM BETTER_CALL_JUAN.Rangos_Atencion r	
+	WHERE r.medico_especialidad_id=@medico_especialidad_id AND r.dia_semana=DATEPART(dw,@fecha)
+	
+	SELECT @cantTurnosOcupados= COUNT(DISTINCT t.numero)
+	FROM BETTER_CALL_JUAN.Turnos t
+	WHERE paciente_id IS NOT NULL AND convert(date,t.fecha_hora)=@fecha AND t.medico_especialidad_id=@medico_especialidad_id
+
+	SET @cantTurnosDisponibles=@cantTurnosTotales-@cantTurnosOcupados
+
+	SET @fecha_disponible = CASE WHEN @cantTurnosDisponibles > 0 THEN 1 --la fecha esta disponible
+								ELSE 0 --la fecha no esta disponible
+							END
+	RETURN @fecha_disponible
 END
 GO
