@@ -51,7 +51,7 @@ namespace ClinicaFrba
 
         internal void showInformationMessage(string p)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(p);
         }
     }
 }

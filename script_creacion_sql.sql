@@ -130,8 +130,7 @@ CREATE TABLE [BETTER_CALL_JUAN].[Cancelaciones] (
   [tipo_cancelacion_id] NUMERIC(18,0) NOT NULL,
   [motivo] VARCHAR(255) NOT NULL,
   [turno_numero] NUMERIC(18,0) NOT NULL UNIQUE,
-  [hecha_por_paciente] BIT NOT NULL,
-  [paciente_id] NUMERIC(18,0) NOT NULL,
+  [paciente_id] NUMERIC(18,0),
   PRIMARY KEY ([id])
 );
 
@@ -722,7 +721,7 @@ ALTER TABLE [BETTER_CALL_JUAN].[Turnos] ADD CONSTRAINT medico_especialidad_id_tu
 
 ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT tipo_cancelacion_id_cancelacion FOREIGN KEY (tipo_cancelacion_id) REFERENCES [BETTER_CALL_JUAN].[Tipos_Cancelaciones](id)
 ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT turno_numero_cancelacion FOREIGN KEY (turno_numero) REFERENCES [BETTER_CALL_JUAN].[Turnos](numero)
-ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] ADD CONSTRAINT paciente_id_cancelacion FOREIGN KEY (paciente_id) REFERENCES [BETTER_CALL_JUAN].[Pacientes](id)
+ALTER TABLE [BETTER_CALL_JUAN].[Cancelaciones] WITH NOCHECK ADD CONSTRAINT paciente_id_cancelacion FOREIGN KEY (paciente_id) REFERENCES [BETTER_CALL_JUAN].[Pacientes](id)
 
 ALTER TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] ADD CONSTRAINT medico_especialidad_id_rango_atencion FOREIGN KEY (medico_especialidad_id) REFERENCES [BETTER_CALL_JUAN].[Medicos_Especialidades](id)
 
@@ -1394,6 +1393,7 @@ BEGIN
 	END;
 
 	RETURN @monto_a_pagar
+
 END
 GO
 
@@ -1523,8 +1523,8 @@ GO
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turno_Dia_Profesional] (@fecha DATETIME, @matricula NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
 AS
 BEGIN
-	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero, hecha_por_paciente)
-	SELECT @tipo, @motivo, numero, 0
+	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero)
+	SELECT @tipo, @motivo, numero
 	FROM Turnos t JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) JOIN Medicos m ON (me.medico_id = m.matricula)
 	WHERE matricula = @matricula AND DATEDIFF(day,fecha_hora,@fecha) = 0	
 END
@@ -1533,8 +1533,8 @@ GO
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turnos_Franja_Profesional] (@fecha_inicio DATETIME, @fecha_fin DATETIME, @matricula NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
 AS
 BEGIN
-	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero, hecha_por_paciente)
-	SELECT @tipo, @motivo, numero, 0
+	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero)
+	SELECT @tipo, @motivo, numero
 	FROM Turnos t JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) JOIN Medicos m ON (me.medico_id = m.matricula)
 	WHERE matricula = @matricula AND fecha_hora BETWEEN CONVERT(date,@fecha_inicio) AND CONVERT(date, @fecha_fin)	
 END
@@ -1544,7 +1544,7 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turno_Afiliado] (@pacien
 -- primero se muestra una pantalla donde el afiliado elige el turno que quiere cancelar (solo se muestran los de fechas siguientes, ahi va la validacion de que no puede cancelar el mismo dia). falta este sp
 AS
 BEGIN
-	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero, hecha_por_paciente, paciente_id) VALUES (@tipo, @motivo, @turno_numero, 1, @paciente_id)
+	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero, paciente_id) VALUES (@tipo, @motivo, @turno_numero, @paciente_id)
 	UPDATE Turnos SET paciente_id = NULL WHERE numero = @turno_numero
 END
 GO
@@ -1581,12 +1581,12 @@ BEGIN
 
 	IF(@autor_cancelacion='A')
 	BEGIN
-		SET @QUERY_5 = ' AND c.hecha_por_paciente=1'
+		SET @QUERY_5 = ' AND c.paciente_id IS NOT NULL'
 	END
 
 	ELSE IF(@autor_cancelacion='M')
 	BEGIN
-		SET @QUERY_5 = ' AND c.hecha_por_paciente=0'
+		SET @QUERY_5 = ' AND c.paciente_id IS NULL'
 	END
 
 	ELSE IF(@autor_cancelacion='T')
