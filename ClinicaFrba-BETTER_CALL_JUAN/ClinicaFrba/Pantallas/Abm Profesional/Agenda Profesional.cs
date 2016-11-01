@@ -20,5 +20,10 @@ namespace ClinicaFrba
 
             InitializeComponent();
         }
+
+        internal void showRegistroHorario(Medico medico, Especialidad especialidad)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -142,7 +142,7 @@
     </Compile>
     <Compile Include="Pantallas\Abm Profesional\ListadoEspecialidadesMedicasController.cs" />
     <Compile Include="Pantallas\Abm Profesional\ListadoProfesionalesController.cs" />
-    <Compile Include="Pantallas\Abm Profesional\ListadoProfesionalesParaAgendaController.cs" />
+    <Compile Include="Pantallas\Abm Profesional\ListadoProfesionalesParaRegistrarAgendaController.cs" />
     <Compile Include="Pantallas\AbmRol\Alta Rol.cs">
       <SubType>Form</SubType>
     </Compile>
