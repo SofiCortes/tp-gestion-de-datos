@@ -25,7 +25,7 @@ namespace ClinicaFrba
         internal void loginUser(string username, string password)
         {
             UsuarioManager usuarioManager = new UsuarioManager();
-            int loginResult = usuarioManager.loginUser(username, password);
+            decimal loginResult = usuarioManager.loginUser(username, password);
 
             if (loginResult == NO_EXISTE_EL_USUARIO_LOGIN_RESULT)
             {
@@ -39,8 +39,9 @@ namespace ClinicaFrba
             {
                 loginForm.ShowErrorDialog("Contraseña incorrecta");
             }
-            else if (loginResult == LOGIN_OK_1_ROL_LOGIN_RESULT || loginResult == LOGIN_OK_MAS_DE_1_ROL_LOGIN_RESULT)
+            else
             {
+                UsuarioConfiguracion.getInstance().setUsuarioId(loginResult);
                 this.getRolesDeUsuario(username);
             }
         }
@@ -73,7 +74,7 @@ namespace ClinicaFrba
 
             if (funcionalidades != null)
             {
-                UsuarioFuncionalidades.getInstance().addFuncionalidades(funcionalidades);
+                UsuarioConfiguracion.getInstance().addFuncionalidades(funcionalidades);
                 this.loginForm.showPantallaPrincipal();
             }
             else

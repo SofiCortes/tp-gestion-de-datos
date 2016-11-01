@@ -14,14 +14,14 @@ namespace ClinicaFrba
             : base(new ConexionBD())
         {}
 
-        public int loginUser(string username, string password)
+        public decimal loginUser(string username, string password)
         {
-            int returnValue = -4;
+            decimal returnValue = -4;
             try
             {
                 ParametroParaSP parametro1 = new ParametroParaSP("user", SqlDbType.VarChar, username);
                 ParametroParaSP parametro2 = new ParametroParaSP("passwordIngresada", SqlDbType.VarChar, password);
-                ParametroParaSP parametro3 = new ParametroParaSP("retorno", SqlDbType.SmallInt);
+                ParametroParaSP parametro3 = new ParametroParaSP("retorno", SqlDbType.Decimal);
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);
@@ -32,7 +32,7 @@ namespace ClinicaFrba
                 SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Login", parametros);
                 procedure.ExecuteNonQuery();
 
-                returnValue = Convert.ToInt32(procedure.Parameters["@retorno"].Value);
+                returnValue = Convert.ToDecimal(procedure.Parameters["@retorno"].Value);
             }
             catch (Exception e)
             {

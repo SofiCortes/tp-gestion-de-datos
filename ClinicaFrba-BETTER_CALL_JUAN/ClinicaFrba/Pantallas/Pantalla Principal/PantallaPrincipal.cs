@@ -24,68 +24,68 @@ namespace ClinicaFrba
 
         private void ocultarBotonesSinPermisos()
         {
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.DAR_DE_ALTA_AFILIADO))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.DAR_DE_ALTA_AFILIADO))
             {
                 this.buttonCrearAfiliado.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.DAR_DE_BAJA_AFILIADO))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.DAR_DE_BAJA_AFILIADO))
             {
                 this.buttonEliminarAfiliado.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.MODIFICAR_AFILIADO))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.MODIFICAR_AFILIADO))
             {
                 this.buttonModificarAfiliado.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.REGISTRO_DE_LLEGADA_PARA_ATENCION_MEDICA))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.REGISTRO_DE_LLEGADA_PARA_ATENCION_MEDICA))
             {
                 this.buttonRegistroLlegada.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.CANCELAR_ATENCION_MEDICA))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.CANCELAR_ATENCION_MEDICA))
             {
                 this.buttonCancelarAtencion.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.GENERAR_LISTADO_ESTADISTICO))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.GENERAR_LISTADO_ESTADISTICO))
             {
                 this.buttonListadoEstadistico.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.COMPRAR_BONO))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.COMPRAR_BONO))
             {
                 this.buttonCompraBonos.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.PEDIR_TURNO))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.PEDIR_TURNO))
             {
                 this.buttonPedidoTurno.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.REGISTRO_DE_RESULTADO_PARA_ATENCION_MEDICA))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.REGISTRO_DE_RESULTADO_PARA_ATENCION_MEDICA))
             {
                 this.buttonRegistroResultado.Visible = false;
             }
 
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_ROLES))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_ROLES))
             {
                 this.buttonRoles.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_AFILIADOS))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_AFILIADOS))
             {
                 this.buttonAfiliados.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_PROFESIONALES))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_PROFESIONALES))
             {
                 this.buttonProfesionales.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_PLANES))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_PLANES))
             {
                 this.buttonPlanes.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_BONOS))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_BONOS))
             {
                 this.buttonBonos.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_TURNOS))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_TURNOS))
             {
                 this.buttonTurnos.Visible = false;
             }
-            if (!UsuarioFuncionalidades.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_ATENCION_MEDICA))
+            if (!UsuarioConfiguracion.getInstance().tieneFuncionalidad(Funcionalidad.ACCIONES_CON_ATENCION_MEDICA))
             {
                 this.buttonAtencionMedica.Visible = false;
             }

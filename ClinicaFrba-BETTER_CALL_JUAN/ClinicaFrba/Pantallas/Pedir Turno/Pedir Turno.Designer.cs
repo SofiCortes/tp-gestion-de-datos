@@ -36,10 +36,10 @@
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buscarButton = new System.Windows.Forms.Button();
-            this.resultadosGrid = new System.Windows.Forms.DataGridView();
+            this.medicosEspecialidadParaTurnoGrid = new System.Windows.Forms.DataGridView();
             this.limpiarButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.resultadosGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.medicosEspecialidadParaTurnoGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -118,13 +118,14 @@
             this.buscarButton.UseVisualStyleBackColor = true;
             this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
-            // resultadosGrid
+            // medicosEspecialidadParaTurnoGrid
             // 
-            this.resultadosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultadosGrid.Location = new System.Drawing.Point(18, 208);
-            this.resultadosGrid.Name = "resultadosGrid";
-            this.resultadosGrid.Size = new System.Drawing.Size(504, 273);
-            this.resultadosGrid.TabIndex = 13;
+            this.medicosEspecialidadParaTurnoGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.medicosEspecialidadParaTurnoGrid.Location = new System.Drawing.Point(18, 208);
+            this.medicosEspecialidadParaTurnoGrid.Name = "medicosEspecialidadParaTurnoGrid";
+            this.medicosEspecialidadParaTurnoGrid.Size = new System.Drawing.Size(504, 273);
+            this.medicosEspecialidadParaTurnoGrid.TabIndex = 13;
+            this.medicosEspecialidadParaTurnoGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosGrid_CellContentClick);
             // 
             // limpiarButton
             // 
@@ -144,14 +145,14 @@
             this.ClientSize = new System.Drawing.Size(538, 493);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buscarButton);
-            this.Controls.Add(this.resultadosGrid);
+            this.Controls.Add(this.medicosEspecialidadParaTurnoGrid);
             this.Controls.Add(this.limpiarButton);
             this.Name = "PedirTurnoForm";
             this.RightToLeftLayout = true;
             this.Text = "Pedir Turno";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.resultadosGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.medicosEspecialidadParaTurnoGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -166,7 +167,7 @@
         private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buscarButton;
-        private System.Windows.Forms.DataGridView resultadosGrid;
+        private System.Windows.Forms.DataGridView medicosEspecialidadParaTurnoGrid;
         private System.Windows.Forms.Button limpiarButton;
     }
 }

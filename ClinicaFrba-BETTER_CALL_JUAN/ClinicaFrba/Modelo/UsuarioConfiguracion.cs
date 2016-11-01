@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    class UsuarioFuncionalidades
+    class UsuarioConfiguracion
     {
-        private static UsuarioFuncionalidades selfInstance;
+        private static UsuarioConfiguracion selfInstance;
 
+        private decimal userId;
         private List<string> funcionalidades;
 
-        public static UsuarioFuncionalidades getInstance()
+        public static UsuarioConfiguracion getInstance()
         {
             if (selfInstance == null)
             {
-                selfInstance = new UsuarioFuncionalidades();
+                selfInstance = new UsuarioConfiguracion();
             }
             return selfInstance;
         }
@@ -36,5 +37,14 @@ namespace ClinicaFrba
             return this.funcionalidades.Contains(funcionalidad);
         }
 
+        internal decimal getUsuarioId()
+        {
+            return userId;
+        }
+
+        public void setUsuarioId(decimal userId)
+        {
+            this.userId = userId;
+        }
     }
 }
