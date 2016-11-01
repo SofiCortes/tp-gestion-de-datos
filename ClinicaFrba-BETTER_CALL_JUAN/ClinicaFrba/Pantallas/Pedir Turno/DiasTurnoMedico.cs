@@ -14,6 +14,8 @@ namespace ClinicaFrba
     public partial class DiasTurnoMedico : Form
     {
         private DiasTurnoMedicoController controller;
+        private Medico medico;
+        private Especialidad especialidad;
 
         public DiasTurnoMedico()
         {
@@ -24,6 +26,9 @@ namespace ClinicaFrba
 
         internal void showCalendario(Medico medico, Especialidad especialidad)
         {
+            this.medico = medico;
+            this.especialidad = especialidad;
+
             this.controller.getFechasDisponibles(medico, especialidad);           
 
             this.Show();
@@ -52,6 +57,10 @@ namespace ClinicaFrba
             DataGridViewRow row = dgvc.OwningRow;
 
             string fechaElegida=row.Cells[0].Value.ToString();
+
+            HorariosTurnos horarios = new HorariosTurnos();
+
+            horarios.showHorarios(medico,especialidad,fechaElegida);
 
         }
     }

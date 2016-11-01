@@ -54,5 +54,81 @@ namespace ClinicaFrba
 
             return fechasDisponibles;
         }
+
+        internal List<string> getHorariosDisponiblesParaFecha(Medico medico, Especialidad especialidad, string fechaElegida)
+        {
+            List<string> horariosDisponibles = new List<string>();
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medico.matricula);
+                ParametroParaSP parametro2 = new ParametroParaSP("especialidad_codigo", SqlDbType.Decimal, especialidad.codigo);
+                ParametroParaSP parametro3 = new ParametroParaSP("fecha", SqlDbType.DateTime, DateTime.Parse(fechaElegida));
+                
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Horarios_Disponibles_Para_Turno", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        string horario = sqlReader.GetTimeSpan(0).ToString();
+                        horariosDisponibles.Add(horario);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                horariosDisponibles = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return horariosDisponibles;
+        }
+
+        internal void pedirTurno(Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
+        {
+           try
+            {
+                decimal usuario_id = UsuarioConfiguracion.getInstance().getUsuarioId();
+
+                DateTime fecha_hora_turno  = DateTime.Parse(fechaElegida) + TimeSpan.Parse(horarioElegido);
+
+                ParametroParaSP parametro1 = new ParametroParaSP("usuario_id_afiliado", SqlDbType.Decimal, usuario_id);
+                ParametroParaSP parametro2 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medico.matricula);
+                ParametroParaSP parametro3 = new ParametroParaSP("especialidad_codigo", SqlDbType.Decimal, especialidad.codigo);
+                ParametroParaSP parametro4 = new ParametroParaSP("fecha_hora_turno", SqlDbType.DateTime, fecha_hora_turno);
+
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Pedir_Turno", parametros);
+                procedure.ExecuteNonQuery();
+             }
+            catch (Exception e)
+            {
+               
+            }
+            finally
+            {
+                this.closeDB();
+            }
+        }
     }
 }
