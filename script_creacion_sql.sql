@@ -1367,6 +1367,8 @@ BEGIN
 	   SET @i = @i + 1;
 	END;
 
+	RETURN @monto_a_pagar
+
 END
 GO
 
