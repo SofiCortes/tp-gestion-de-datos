@@ -934,7 +934,74 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Fechas_Disponibles_Para_Turno
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Horarios_Disponibles_Para_Turno'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Horarios_Disponibles_Para_Turno
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horarios_Disponibles_Para_Turno]
+(@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0),@fecha DATETIME)
+AS
+BEGIN
+	DECLARE @diaSemana SMALLINT, @cantTurnos INT, @i INT=0, @hora_desde TIME, @hora_hasta TIME, 
+	@hora_turno TIME, @medico_especialidad_id NUMERIC(18,0), @fecha_hora_turno DATETIME
+
+	CREATE TABLE #horarios
+	(
+	hora TIME
+	)
+
+	SET @diaSemana = DATEPART(dw,@fecha)
+
+	SELECT @medico_especialidad_id=id
+	FROM BETTER_CALL_JUAN.Medicos_Especialidades
+	WHERE medico_id=@medico_id AND especialidad_cod=@especialidad_codigo
+
+	SELECT r.hora_desde,r.hora_hasta INTO #rangosTemp
+	FROM BETTER_CALL_JUAN.Rangos_Atencion r 
+	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (r.medico_especialidad_id = med_esp.id)
+	WHERE med_esp.medico_id=@medico_id AND med_esp.especialidad_cod=@especialidad_codigo AND r.dia_semana=@diaSemana
+
+	DECLARE rangoCursor CURSOR FOR
+	SELECT hora_desde,hora_hasta 
+	FROM #rangosTemp
+
+	OPEN rangoCursor
+
+	FETCH rangoCursor INTO @hora_desde, @hora_hasta
+
+	WHILE @@FETCH_STATUS = 0 
+	BEGIN
+		SET @cantTurnos = DATEDIFF(mi,@hora_desde,@hora_hasta)/30
+
+		SET @i=0
+
+		WHILE @i < @cantTurnos
+		BEGIN
+			SET @hora_turno = DATEADD(mi,30*@i,@hora_desde)
+			SET @fecha_hora_turno= @fecha + cast(@hora_turno as DATETIME)
+			IF NOT EXISTS ( SELECT t.numero	FROM BETTER_CALL_JUAN.Turnos t 
+							WHERE t.medico_especialidad_id=@medico_especialidad_id 
+							AND DATEDIFF(mi,t.fecha_hora,@fecha_hora_turno)=0
+							)
+			BEGIN			
+				INSERT INTO #horarios (hora) VALUES (@hora_turno)
+			END			
+
+			SET @i = @i + 1
+		END
+
+		FETCH rangoCursor INTO @hora_desde, @hora_hasta
+	END
+
+	CLOSE rangoCursor
+	DEALLOCATE rangoCursor
+
+	SELECT hora FROM #horarios
+		
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Fechas_Disponibles_Para_Turno](@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
 AS
@@ -1416,18 +1483,23 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Pedir_Turno](@id_afiliado NUMERIC(18,0),@medico_id NUMERIC(18,0), 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Pedir_Turno](@usuario_id_afiliado NUMERIC(18,0),@medico_id NUMERIC(18,0), 
 															@especialidad_codigo NUMERIC(18,0), @fecha_hora_turno DATETIME)
 AS
 BEGIN
-	DECLARE @medico_especialidad_id NUMERIC(18,0)
+	DECLARE @medico_especialidad_id NUMERIC(18,0), @paciente_id NUMERIC(18,0)
 
 	SELECT @medico_especialidad_id=me.id
 	FROM BETTER_CALL_JUAN.Medicos_Especialidades me
 	WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
 
+	SELECT @paciente_id = p.id
+	FROM BETTER_CALL_JUAN.Pacientes p 
+	JOIN BETTER_CALL_JUAN.Usuarios u 
+	ON (p.usuario_id = u.id  AND u.id=@usuario_id_afiliado)
+
 	INSERT INTO BETTER_CALL_JUAN.Turnos(fecha_hora,paciente_id,medico_especialidad_id)
-	VALUES (@fecha_hora_turno,@id_afiliado,@medico_especialidad_id)
+	VALUES (@fecha_hora_turno,@paciente_id,@medico_especialidad_id)
 END
 GO
 
@@ -1839,3 +1911,4 @@ BEGIN
 	RETURN @fecha_disponible
 END
 GO
+
