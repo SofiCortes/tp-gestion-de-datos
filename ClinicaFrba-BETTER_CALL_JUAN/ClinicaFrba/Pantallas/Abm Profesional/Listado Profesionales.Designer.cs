@@ -4,6 +4,7 @@
     {
         public static string ACTION_CODE_FOR_LIST_VIEW_AGENDA = "ACTION_CODE_FOR_LIST_VIEW_AGENDA";
         public static string ACTION_CODE_FOR_LIST_LIST = "ACTION_CODE_FOR_LIST_LIST";
+        public static string ACTION_CODE_FOR_ADD_AGENDA_LIST = "ACTION_CODE_FOR_ADD_AGENDA_LIST";
 
         /// <summary>
         /// Required designer variable.
