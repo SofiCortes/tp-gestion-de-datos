@@ -35,6 +35,8 @@
             this.numericUpDownBonos = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonComprar = new System.Windows.Forms.Button();
+            this.labelPrecioBono = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBonos)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -55,14 +57,13 @@
             this.labelPlanMedico.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPlanMedico.Location = new System.Drawing.Point(12, 31);
             this.labelPlanMedico.Name = "labelPlanMedico";
-            this.labelPlanMedico.Size = new System.Drawing.Size(213, 20);
+            this.labelPlanMedico.Size = new System.Drawing.Size(0, 20);
             this.labelPlanMedico.TabIndex = 1;
-            this.labelPlanMedico.Text = "PLAN MEDICO DEL USUARIO";
             // 
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 217);
+            this.label3.Location = new System.Drawing.Point(12, 274);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(313, 46);
             this.label3.TabIndex = 2;
@@ -92,7 +93,7 @@
             this.panel1.Controls.Add(this.buttonComprar);
             this.panel1.Controls.Add(this.numericUpDownBonos);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(16, 70);
+            this.panel1.Location = new System.Drawing.Point(16, 127);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(309, 131);
             this.panel1.TabIndex = 5;
@@ -110,11 +111,32 @@
             this.buttonComprar.UseVisualStyleBackColor = true;
             this.buttonComprar.Click += new System.EventHandler(this.button1_Click);
             // 
+            // labelPrecioBono
+            // 
+            this.labelPrecioBono.AutoSize = true;
+            this.labelPrecioBono.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrecioBono.Location = new System.Drawing.Point(12, 82);
+            this.labelPrecioBono.Name = "labelPrecioBono";
+            this.labelPrecioBono.Size = new System.Drawing.Size(0, 20);
+            this.labelPrecioBono.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(13, 64);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(91, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Precio del Bono:";
+            // 
             // ComprarBono
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 275);
+            this.ClientSize = new System.Drawing.Size(337, 339);
+            this.Controls.Add(this.labelPrecioBono);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelPlanMedico);
@@ -138,5 +160,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownBonos;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonComprar;
+        private System.Windows.Forms.Label labelPrecioBono;
+        private System.Windows.Forms.Label label5;
     }
 }

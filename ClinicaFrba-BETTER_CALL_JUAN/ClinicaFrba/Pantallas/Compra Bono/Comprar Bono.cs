@@ -38,9 +38,10 @@ namespace ClinicaFrba
             }
         }
 
-        internal void showPlanMedico(string p)
+        internal void showPlanMedico(string descripcion, decimal precioBono)
         {
-            this.labelPlanMedico.Text = p;
+            this.labelPlanMedico.Text = descripcion;
+            this.labelPrecioBono.Text = "$ " + Convert.ToString(precioBono);
         }
 
         internal void showErrorMessage(string mensaje)
@@ -49,9 +50,10 @@ namespace ClinicaFrba
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        internal void showInformationMessage(string p)
+        internal void showInformationMessage(string mensaje)
         {
-            MessageBox.Show(p);
+            MessageBox.Show(mensaje, "Informacion",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

@@ -192,7 +192,7 @@
             this.resultadosGrid.Name = "resultadosGrid";
             this.resultadosGrid.Size = new System.Drawing.Size(595, 210);
             this.resultadosGrid.TabIndex = 9;
-            this.resultadosGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosGrid_CellContentClick);
+            //this.resultadosGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosGrid_CellContentClick);
             // 
             // limpiarButton
             // 

@@ -23,8 +23,16 @@ namespace ClinicaFrba
 
             if (planMedico != null)
             {
-                this.planMedicoUsuario = planMedico;
-                this.form.showPlanMedico(planMedico.descripcion);
+                if (planMedico.descripcion == null)
+                {
+                    this.form.showErrorMessage("Usted no posee un plan medico");
+                    this.form.Close();
+                }
+                else
+                {
+                    this.planMedicoUsuario = planMedico;
+                    this.form.showPlanMedico(planMedico.descripcion, planMedico.precioBonoConsulta);
+                }
             }
             else
             {
@@ -40,9 +48,10 @@ namespace ClinicaFrba
             BonoManager bonoManager = new BonoManager();
             decimal montoAPagar = bonoManager.comprarBono(usuarioId, cantBonos, planCodigo);
 
-            if (montoAPagar > 0)
+            if (montoAPagar >= 0)
             {
                 this.form.showInformationMessage("La compra fue realizada con exito. El monto a pagar es de $ " + Convert.ToString(montoAPagar));
+                this.form.Close();
             }
             else
             {
