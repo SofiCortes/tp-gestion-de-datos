@@ -50,7 +50,7 @@ namespace ClinicaFrba
             this.textBoxDireccion.Text = "";
             this.textBoxTelefono.Text = "";
             this.textBoxEmail.Text = "";
-            this.textBoxFechaNacimiento.Text = "";
+            this.dateTimePickerFechaNac.ResetText();
             this.comboBoxTipoDoc.SelectedIndex = 0;
             this.comboBoxEstadoCivil.SelectedIndex = 0;
             this.comboBoxSexo.SelectedIndex = 0;
@@ -76,10 +76,11 @@ namespace ClinicaFrba
             Paciente nuevoPaciente = new Paciente();
             nuevoPaciente.nombre = this.textBoxNombre.Text;
             nuevoPaciente.apellido = this.textBoxApellido.Text;
-            nuevoPaciente.nroDoc = Convert.ToDecimal(this.textBoxNroDoc);
+            nuevoPaciente.nroDoc = Convert.ToDecimal(this.textBoxNroDoc.Text);
             nuevoPaciente.direccion = this.textBoxDireccion.Text;
+            nuevoPaciente.mail = this.textBoxEmail.Text;
             nuevoPaciente.telefono = Convert.ToDecimal(this.textBoxTelefono.Text);
-            //paciente.fechaNacimiento
+            nuevoPaciente.fechaNacimiento = this.dateTimePickerFechaNac.Value;
             nuevoPaciente.tipoDoc = (string)this.comboBoxTipoDoc.SelectedItem;
             nuevoPaciente.estadoCivil = (string)this.comboBoxEstadoCivil.SelectedItem;
             nuevoPaciente.sexo = ((string)this.comboBoxSexo.SelectedItem).ElementAt(0);
@@ -121,9 +122,16 @@ namespace ClinicaFrba
                 stringErrorBuilder.Append("Complete el Email.\n");
             }
 
-            if (this.textBoxFechaNacimiento.Text.Trim().Length == 0)
+            if (this.dateTimePickerFechaNac.Value.ToString().Trim().Length == 0)
             {
                 stringErrorBuilder.Append("Complete la Fecha de Nacimiento.\n");
+            }
+            else
+            {
+                DateTime fechaNacimientoSeleccionada = this.dateTimePickerFechaNac.Value;
+                if(fechaNacimientoSeleccionada.CompareTo(DateTime.Now) > 0) {
+                   stringErrorBuilder.Append("La Fecha de Nacimiento debe ser anterior al dia actual.\n");
+                }
             }
 
             if (this.comboBoxEstadoCivil.SelectedIndex == 0)

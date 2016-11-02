@@ -107,7 +107,6 @@ namespace ClinicaFrba
                         paciente.planMedicoDescripcion = sqlReader.GetString(15);
                         paciente.habilitado = sqlReader.GetBoolean(16);
                         paciente.nroUltimaConsulta = sqlReader.GetDecimal(17);
-                        paciente.usuarioId = !sqlReader.IsDBNull(18) ? sqlReader.GetDecimal(18) : 0;
 
                         pacientes.Add(paciente);
                     }
@@ -214,8 +213,6 @@ namespace ClinicaFrba
                 parametros.Add(parametro10);
                 parametros.Add(parametro11);
                 parametros.Add(parametro12);
-
-                this.openDB();
 
                 SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Familiar", parametros);
                 procedure.ExecuteNonQuery();
