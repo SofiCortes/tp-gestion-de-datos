@@ -30,6 +30,9 @@
         {
             this.comboEspecialidad = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.diasPanel = new System.Windows.Forms.Panel();
+            this.buttonAceptar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboEspecialidad
@@ -49,11 +52,40 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Especialidad:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(33, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Días:";
+            // 
+            // diasPanel
+            // 
+            this.diasPanel.AutoScroll = true;
+            this.diasPanel.Location = new System.Drawing.Point(10, 57);
+            this.diasPanel.Name = "diasPanel";
+            this.diasPanel.Size = new System.Drawing.Size(262, 220);
+            this.diasPanel.TabIndex = 8;
+            // 
+            // buttonAceptar
+            // 
+            this.buttonAceptar.Location = new System.Drawing.Point(99, 283);
+            this.buttonAceptar.Name = "buttonAceptar";
+            this.buttonAceptar.Size = new System.Drawing.Size(75, 23);
+            this.buttonAceptar.TabIndex = 9;
+            this.buttonAceptar.Text = "Aceptar";
+            this.buttonAceptar.UseVisualStyleBackColor = true;
+            // 
             // AgendaProfesional
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(282, 314);
+            this.Controls.Add(this.buttonAceptar);
+            this.Controls.Add(this.diasPanel);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboEspecialidad);
             this.Name = "AgendaProfesional";
@@ -67,5 +99,8 @@
 
         private System.Windows.Forms.ComboBox comboEspecialidad;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel diasPanel;
+        private System.Windows.Forms.Button buttonAceptar;
     }
 }
