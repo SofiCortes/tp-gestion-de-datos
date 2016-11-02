@@ -1336,10 +1336,9 @@ GO
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Alta_Afiliado_Nuevo_Grupo](@nombre VARCHAR(255),@apellido VARCHAR(255),@tipo_doc VARCHAR(100),
 																		  @nro_doc NUMERIC(18,0),@direccion VARCHAR(255),@telefono NUMERIC(18,0),
 																		  @mail VARCHAR(255),@fecha_nac DATETIME, @sexo CHAR(1), 
-																		  @estado_civil VARCHAR(100),@plan_medico_cod NUMERIC(18,0))
+																		  @estado_civil VARCHAR(100),@plan_medico_cod NUMERIC(18,0), @nro_raiz_nuevo NUMERIC(18,0) OUT)
 AS
 BEGIN
-	DECLARE @nro_raiz_nuevo NUMERIC(18,0)
 
 	SELECT @nro_raiz_nuevo=MAX(nro_raiz)
 	FROM BETTER_CALL_JUAN.Pacientes

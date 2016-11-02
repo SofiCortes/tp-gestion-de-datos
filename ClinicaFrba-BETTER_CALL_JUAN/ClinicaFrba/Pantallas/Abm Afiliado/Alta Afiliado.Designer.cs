@@ -34,8 +34,6 @@ namespace ClinicaFrba
             this.label10 = new System.Windows.Forms.Label();
             this.comboBoxSexo = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.buttonFechaNacimiento = new System.Windows.Forms.Button();
-            this.textBoxFechaNacimiento = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -59,6 +57,7 @@ namespace ClinicaFrba
             this.label11 = new System.Windows.Forms.Label();
             this.buttonLimpiar = new System.Windows.Forms.Button();
             this.buttonGuardar = new System.Windows.Forms.Button();
+            this.dateTimePickerFechaNac = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -66,12 +65,11 @@ namespace ClinicaFrba
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dateTimePickerFechaNac);
             this.groupBox1.Controls.Add(this.comboBoxEstadoCivil);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.comboBoxSexo);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.buttonFechaNacimiento);
-            this.groupBox1.Controls.Add(this.textBoxFechaNacimiento);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.textBoxEmail);
             this.groupBox1.Controls.Add(this.label6);
@@ -96,12 +94,12 @@ namespace ClinicaFrba
             // 
             // comboBoxEstadoCivil
             // 
+            this.comboBoxEstadoCivil.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxEstadoCivil.FormattingEnabled = true;
             this.comboBoxEstadoCivil.Location = new System.Drawing.Point(97, 268);
             this.comboBoxEstadoCivil.Name = "comboBoxEstadoCivil";
             this.comboBoxEstadoCivil.Size = new System.Drawing.Size(142, 21);
             this.comboBoxEstadoCivil.TabIndex = 20;
-            this.comboBoxEstadoCivil.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // label10
             // 
@@ -114,12 +112,12 @@ namespace ClinicaFrba
             // 
             // comboBoxSexo
             // 
+            this.comboBoxSexo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSexo.FormattingEnabled = true;
             this.comboBoxSexo.Location = new System.Drawing.Point(97, 241);
             this.comboBoxSexo.Name = "comboBoxSexo";
             this.comboBoxSexo.Size = new System.Drawing.Size(142, 21);
             this.comboBoxSexo.TabIndex = 18;
-            this.comboBoxSexo.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // label9
             // 
@@ -129,24 +127,6 @@ namespace ClinicaFrba
             this.label9.Size = new System.Drawing.Size(31, 13);
             this.label9.TabIndex = 17;
             this.label9.Text = "Sexo";
-            // 
-            // buttonFechaNacimiento
-            // 
-            this.buttonFechaNacimiento.Location = new System.Drawing.Point(245, 209);
-            this.buttonFechaNacimiento.Name = "buttonFechaNacimiento";
-            this.buttonFechaNacimiento.Size = new System.Drawing.Size(75, 23);
-            this.buttonFechaNacimiento.TabIndex = 16;
-            this.buttonFechaNacimiento.Text = "Seleccionar";
-            this.buttonFechaNacimiento.UseVisualStyleBackColor = true;
-            this.buttonFechaNacimiento.Click += new System.EventHandler(this.buttonFechaNacimiento_Click);
-            // 
-            // textBoxFechaNacimiento
-            // 
-            this.textBoxFechaNacimiento.Enabled = false;
-            this.textBoxFechaNacimiento.Location = new System.Drawing.Point(97, 211);
-            this.textBoxFechaNacimiento.Name = "textBoxFechaNacimiento";
-            this.textBoxFechaNacimiento.Size = new System.Drawing.Size(142, 20);
-            this.textBoxFechaNacimiento.TabIndex = 15;
             // 
             // label8
             // 
@@ -228,12 +208,12 @@ namespace ClinicaFrba
             // 
             // comboBoxTipoDoc
             // 
+            this.comboBoxTipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoDoc.FormattingEnabled = true;
             this.comboBoxTipoDoc.Location = new System.Drawing.Point(97, 74);
             this.comboBoxTipoDoc.Name = "comboBoxTipoDoc";
             this.comboBoxTipoDoc.Size = new System.Drawing.Size(142, 21);
             this.comboBoxTipoDoc.TabIndex = 5;
-            this.comboBoxTipoDoc.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // label3
             // 
@@ -321,12 +301,12 @@ namespace ClinicaFrba
             // 
             // comboBoxPlanMedico
             // 
+            this.comboBoxPlanMedico.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPlanMedico.FormattingEnabled = true;
             this.comboBoxPlanMedico.Location = new System.Drawing.Point(96, 19);
             this.comboBoxPlanMedico.Name = "comboBoxPlanMedico";
             this.comboBoxPlanMedico.Size = new System.Drawing.Size(142, 21);
             this.comboBoxPlanMedico.TabIndex = 22;
-            this.comboBoxPlanMedico.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // label11
             // 
@@ -356,6 +336,13 @@ namespace ClinicaFrba
             this.buttonGuardar.Text = "Guardar";
             this.buttonGuardar.UseVisualStyleBackColor = true;
             this.buttonGuardar.Click += new System.EventHandler(this.buttonGuardar_Click);
+            // 
+            // dateTimePickerFechaNac
+            // 
+            this.dateTimePickerFechaNac.Location = new System.Drawing.Point(97, 211);
+            this.dateTimePickerFechaNac.Name = "dateTimePickerFechaNac";
+            this.dateTimePickerFechaNac.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerFechaNac.TabIndex = 21;
             // 
             // AltaAfiliado
             // 
@@ -399,8 +386,6 @@ namespace ClinicaFrba
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBoxSexo;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonFechaNacimiento;
-        private System.Windows.Forms.TextBox textBoxFechaNacimiento;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button buttonAgregarFamiliar;
@@ -410,5 +395,6 @@ namespace ClinicaFrba
         private System.Windows.Forms.Button buttonLimpiar;
         private System.Windows.Forms.Button buttonGuardar;
         private System.Windows.Forms.Panel panelFamiliares;
+        private DateTimePicker dateTimePickerFechaNac;
     }
 }

@@ -107,7 +107,6 @@ namespace ClinicaFrba
                         paciente.planMedicoDescripcion = sqlReader.GetString(15);
                         paciente.habilitado = sqlReader.GetBoolean(16);
                         paciente.nroUltimaConsulta = sqlReader.GetDecimal(17);
-                        paciente.usuarioId = !sqlReader.IsDBNull(18) ? sqlReader.GetDecimal(18) : 0;
 
                         pacientes.Add(paciente);
                     }
@@ -122,6 +121,112 @@ namespace ClinicaFrba
                 this.closeDB();
             }
             return pacientes;
+        }
+
+        internal bool agregarAfiliado(Paciente paciente)
+        {
+            bool agregoAfiliado = true;
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("nombre", SqlDbType.VarChar, paciente.nombre);
+                ParametroParaSP parametro2 = new ParametroParaSP("apellido", SqlDbType.VarChar, paciente.apellido);
+                ParametroParaSP parametro3 = new ParametroParaSP("tipo_doc", SqlDbType.VarChar, paciente.tipoDoc);
+                ParametroParaSP parametro4 = new ParametroParaSP("nro_doc", SqlDbType.Decimal, paciente.nroDoc);
+                ParametroParaSP parametro5 = new ParametroParaSP("direccion", SqlDbType.VarChar, paciente.direccion);
+                ParametroParaSP parametro6 = new ParametroParaSP("telefono", SqlDbType.Decimal, paciente.telefono);
+                ParametroParaSP parametro7 = new ParametroParaSP("mail", SqlDbType.VarChar, paciente.mail);
+                ParametroParaSP parametro8 = new ParametroParaSP("fecha_nac", SqlDbType.DateTime, paciente.fechaNacimiento);
+                ParametroParaSP parametro9 = new ParametroParaSP("sexo", SqlDbType.Char, paciente.sexo);
+                ParametroParaSP parametro10 = new ParametroParaSP("estado_civil", SqlDbType.VarChar, paciente.estadoCivil);
+                ParametroParaSP parametro11 = new ParametroParaSP("plan_medico_cod", SqlDbType.Decimal, paciente.planMedico.codigo);
+                ParametroParaSP parametro12 = new ParametroParaSP("nro_raiz_nuevo", SqlDbType.Decimal);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
+                parametros.Add(parametro5);
+                parametros.Add(parametro6);
+                parametros.Add(parametro7);
+                parametros.Add(parametro8);
+                parametros.Add(parametro9);
+                parametros.Add(parametro10);
+                parametros.Add(parametro11);
+                parametros.Add(parametro12);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Nuevo_Grupo", parametros);
+                procedure.ExecuteNonQuery();
+
+                decimal nroRaizNuevoAfiliado = Convert.ToDecimal(procedure.Parameters["@nro_raiz_nuevo"].Value);
+
+                if (paciente.familiares != null && paciente.familiares.Count > 0)
+                {
+                    foreach(Paciente familiar in paciente.familiares) 
+                    {
+                        agregoAfiliado &= this.guardarFamiliar(familiar, nroRaizNuevoAfiliado, paciente.planMedico.codigo);
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                agregoAfiliado = false;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return agregoAfiliado;
+        }
+
+        private bool guardarFamiliar(Paciente paciente, decimal nroRaizNuevoAfiliado, decimal planMedicoCod)
+        {
+            bool agregoAfiliado = true;
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("nro_raiz", SqlDbType.Decimal, nroRaizNuevoAfiliado);
+                ParametroParaSP parametro2 = new ParametroParaSP("nombre", SqlDbType.VarChar, paciente.nombre);
+                ParametroParaSP parametro3 = new ParametroParaSP("apellido", SqlDbType.VarChar, paciente.apellido);
+                ParametroParaSP parametro4 = new ParametroParaSP("tipo_doc", SqlDbType.VarChar, paciente.tipoDoc);
+                ParametroParaSP parametro5 = new ParametroParaSP("nro_doc", SqlDbType.Decimal, paciente.nroDoc);
+                ParametroParaSP parametro6 = new ParametroParaSP("direccion", SqlDbType.VarChar, paciente.direccion);
+                ParametroParaSP parametro7 = new ParametroParaSP("telefono", SqlDbType.Decimal, paciente.telefono);
+                ParametroParaSP parametro8 = new ParametroParaSP("mail", SqlDbType.VarChar, paciente.mail);
+                ParametroParaSP parametro9 = new ParametroParaSP("fecha_nac", SqlDbType.DateTime, paciente.fechaNacimiento);
+                ParametroParaSP parametro10 = new ParametroParaSP("sexo", SqlDbType.Char, paciente.sexo);
+                ParametroParaSP parametro11 = new ParametroParaSP("estado_civil", SqlDbType.VarChar, paciente.estadoCivil);
+                ParametroParaSP parametro12 = new ParametroParaSP("plan_medico_cod", SqlDbType.Decimal, planMedicoCod);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
+                parametros.Add(parametro5);
+                parametros.Add(parametro6);
+                parametros.Add(parametro7);
+                parametros.Add(parametro8);
+                parametros.Add(parametro9);
+                parametros.Add(parametro10);
+                parametros.Add(parametro11);
+                parametros.Add(parametro12);
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Alta_Afiliado_Familiar", parametros);
+                procedure.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                agregoAfiliado = false;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return agregoAfiliado;
         }
     }
 }

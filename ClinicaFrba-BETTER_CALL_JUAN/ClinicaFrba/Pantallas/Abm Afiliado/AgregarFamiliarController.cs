@@ -20,5 +20,10 @@ namespace ClinicaFrba
         {
             this.listener = listener;
         }
+
+        internal void agregarFamiliar(Paciente paciente)
+        {
+            this.listener.onFamiliarCreado(paciente);
+        }
     }
 }
