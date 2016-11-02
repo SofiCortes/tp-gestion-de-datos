@@ -10,17 +10,17 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba
 {
-    public partial class AltaAfiliado : Form
+    public partial class AgregarFamiliar : Form
     {
         private List<string> tiposDocumentos = new List<string> { "Seleccionar...", "CI", "DNI", "LC", "LD" };
         private List<string> estadosCiviles = new List<string> { "Seleccionar...", "Soltero/a", "Casado/a", "Viudo/a", "Concubinato", "Divorciado/a" };
         private List<string> sexos = new List<string> { "Seleccionar...", "Femenino", "Masculino" };
+        
+        private AgregarFamiliarController controller;
 
-        private AltaAfiliadoController controller;
-
-        public AltaAfiliado()
+        public AgregarFamiliar()
         {
-            this.controller = new AltaAfiliadoController(this);
+            this.controller = new AgregarFamiliarController(this);
 
             InitializeComponent();
 
@@ -30,24 +30,16 @@ namespace ClinicaFrba
             };
         }
 
+        public void setAgregarFamiliarListener(AgregarFamiliarListener listener)
+        {
+            this.controller.setAgregarFamiliarListener(listener);
+        }
+
         private void llenarCombos()
         {
-            this.controller.buscarPlanesParaCombo();
             this.comboBoxTipoDoc.DataSource = tiposDocumentos;
             this.comboBoxEstadoCivil.DataSource = estadosCiviles;
             this.comboBoxSexo.DataSource = sexos;
-        }
-
-        private void buttonFechaNacimiento_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonAgregarFamiliar_Click(object sender, EventArgs e)
-        {
-            AgregarFamiliar form = new AgregarFamiliar();
-            form.setAgregarFamiliarListener(this.controller);
-            form.ShowDialog();
         }
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
@@ -62,8 +54,6 @@ namespace ClinicaFrba
             this.comboBoxTipoDoc.SelectedIndex = 0;
             this.comboBoxEstadoCivil.SelectedIndex = 0;
             this.comboBoxSexo.SelectedIndex = 0;
-            this.comboBoxPlanMedico.SelectedIndex = 0;
-            this.panelFamiliares.Controls.Clear();
         }
 
         private void buttonGuardar_Click(object sender, EventArgs e)
@@ -71,27 +61,14 @@ namespace ClinicaFrba
 
         }
 
-        internal void llenarComboPlanesMedicos(List<PlanMedico> planesMedicos)
+        private void buttonFechaNacimiento_Click(object sender, EventArgs e)
         {
-            PlanMedico planMedicoDummy = new PlanMedico();
-            planMedicoDummy.codigo = -1;
-            planMedicoDummy.descripcion = "Seleccionar...";
-            planesMedicos.Insert(0, planMedicoDummy);
 
-            this.comboBoxPlanMedico.DataSource = planesMedicos;
-            this.comboBoxPlanMedico.DisplayMember = "descripcion";
-        }
-
-        internal void showErrorMessage(string mensaje)
-        {
-            MessageBox.Show(mensaje, "Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         internal void keyPressNumericTextBox(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
-
     }
 }

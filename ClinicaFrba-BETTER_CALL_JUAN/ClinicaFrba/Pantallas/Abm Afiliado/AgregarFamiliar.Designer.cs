@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 namespace ClinicaFrba
 {
-    partial class AltaAfiliado
+    partial class AgregarFamiliar
     {
         /// <summary>
         /// Required designer variable.
@@ -51,17 +51,9 @@ namespace ClinicaFrba
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonAgregarFamiliar = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.panelFamiliares = new System.Windows.Forms.Panel();
-            this.comboBoxPlanMedico = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.buttonLimpiar = new System.Windows.Forms.Button();
             this.buttonGuardar = new System.Windows.Forms.Button();
+            this.buttonLimpiar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -90,7 +82,7 @@ namespace ClinicaFrba
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(400, 307);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Principales";
             // 
@@ -102,6 +94,7 @@ namespace ClinicaFrba
             this.comboBoxEstadoCivil.Size = new System.Drawing.Size(142, 21);
             this.comboBoxEstadoCivil.TabIndex = 20;
             this.comboBoxEstadoCivil.DropDownStyle = ComboBoxStyle.DropDownList;
+
             // 
             // label10
             // 
@@ -278,102 +271,39 @@ namespace ClinicaFrba
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.buttonAgregarFamiliar);
-            this.groupBox2.Controls.Add(this.groupBox3);
-            this.groupBox2.Controls.Add(this.comboBoxPlanMedico);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Location = new System.Drawing.Point(13, 326);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(399, 195);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Datos Obra Social";
-            // 
-            // buttonAgregarFamiliar
-            // 
-            this.buttonAgregarFamiliar.Location = new System.Drawing.Point(261, 164);
-            this.buttonAgregarFamiliar.Name = "buttonAgregarFamiliar";
-            this.buttonAgregarFamiliar.Size = new System.Drawing.Size(130, 23);
-            this.buttonAgregarFamiliar.TabIndex = 24;
-            this.buttonAgregarFamiliar.Text = "Agregar Familiar";
-            this.buttonAgregarFamiliar.UseVisualStyleBackColor = true;
-            this.buttonAgregarFamiliar.Click += new System.EventHandler(this.buttonAgregarFamiliar_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.panelFamiliares);
-            this.groupBox3.Location = new System.Drawing.Point(8, 46);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(383, 112);
-            this.groupBox3.TabIndex = 23;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Familiares";
-            // 
-            // panelFamiliares
-            // 
-            this.panelFamiliares.AutoScroll = true;
-            this.panelFamiliares.Location = new System.Drawing.Point(6, 14);
-            this.panelFamiliares.Name = "panelFamiliares";
-            this.panelFamiliares.Size = new System.Drawing.Size(371, 94);
-            this.panelFamiliares.TabIndex = 0;
-            // 
-            // comboBoxPlanMedico
-            // 
-            this.comboBoxPlanMedico.FormattingEnabled = true;
-            this.comboBoxPlanMedico.Location = new System.Drawing.Point(96, 19);
-            this.comboBoxPlanMedico.Name = "comboBoxPlanMedico";
-            this.comboBoxPlanMedico.Size = new System.Drawing.Size(142, 21);
-            this.comboBoxPlanMedico.TabIndex = 22;
-            this.comboBoxPlanMedico.DropDownStyle = ComboBoxStyle.DropDownList;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(5, 22);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(66, 13);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "Plan Medico";
-            // 
-            // buttonLimpiar
-            // 
-            this.buttonLimpiar.Location = new System.Drawing.Point(13, 534);
-            this.buttonLimpiar.Name = "buttonLimpiar";
-            this.buttonLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.buttonLimpiar.TabIndex = 2;
-            this.buttonLimpiar.Text = "Limpiar";
-            this.buttonLimpiar.UseVisualStyleBackColor = true;
-            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
-            // 
             // buttonGuardar
             // 
-            this.buttonGuardar.Location = new System.Drawing.Point(337, 534);
+            this.buttonGuardar.Location = new System.Drawing.Point(337, 325);
             this.buttonGuardar.Name = "buttonGuardar";
             this.buttonGuardar.Size = new System.Drawing.Size(75, 23);
-            this.buttonGuardar.TabIndex = 3;
+            this.buttonGuardar.TabIndex = 5;
             this.buttonGuardar.Text = "Guardar";
             this.buttonGuardar.UseVisualStyleBackColor = true;
             this.buttonGuardar.Click += new System.EventHandler(this.buttonGuardar_Click);
             // 
-            // AltaAfiliado
+            // buttonLimpiar
+            // 
+            this.buttonLimpiar.Location = new System.Drawing.Point(13, 325);
+            this.buttonLimpiar.Name = "buttonLimpiar";
+            this.buttonLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.buttonLimpiar.TabIndex = 4;
+            this.buttonLimpiar.Text = "Limpiar";
+            this.buttonLimpiar.UseVisualStyleBackColor = true;
+            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
+            // 
+            // AgregarFamiliar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(456, 514);
+            this.ClientSize = new System.Drawing.Size(424, 357);
             this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.buttonLimpiar);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "AltaAfiliado";
-            this.Text = "Agregar afiliado";
+            this.Name = "AgregarFamiliar";
+            this.Text = "AgregarFamiliar";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -381,10 +311,13 @@ namespace ClinicaFrba
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBoxApellido;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxNombre;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBoxEstadoCivil;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboBoxSexo;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonFechaNacimiento;
+        private System.Windows.Forms.TextBox textBoxFechaNacimiento;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxTelefono;
@@ -395,20 +328,11 @@ namespace ClinicaFrba
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBoxTipoDoc;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBoxEstadoCivil;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox comboBoxSexo;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonFechaNacimiento;
-        private System.Windows.Forms.TextBox textBoxFechaNacimiento;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button buttonAgregarFamiliar;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ComboBox comboBoxPlanMedico;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button buttonLimpiar;
+        private System.Windows.Forms.TextBox textBoxApellido;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxNombre;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonGuardar;
-        private System.Windows.Forms.Panel panelFamiliares;
+        private System.Windows.Forms.Button buttonLimpiar;
     }
 }

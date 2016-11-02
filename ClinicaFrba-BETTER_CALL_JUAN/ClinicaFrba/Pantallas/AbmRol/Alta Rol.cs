@@ -27,7 +27,7 @@ namespace ClinicaFrba
             };
         }
 
-            internal void ShowErrorDialog(string mensaje)
+        internal void ShowErrorDialog(string mensaje)
         {
             MessageBox.Show(mensaje, "Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
