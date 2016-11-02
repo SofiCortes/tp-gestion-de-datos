@@ -77,7 +77,7 @@
             this.resultadosRolesGrid.Name = "resultadosRolesGrid";
             this.resultadosRolesGrid.Size = new System.Drawing.Size(326, 210);
             this.resultadosRolesGrid.TabIndex = 1;
-            this.resultadosRolesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosRolesGrid_CellContentClick);
+            this.resultadosRolesGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosRolesGrid_CellClick);
             // 
             // limpiarButton
             // 
