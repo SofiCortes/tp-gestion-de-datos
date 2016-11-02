@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboTipoEspecialidad = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buscarButton = new System.Windows.Forms.Button();
             this.resultadosGrid = new System.Windows.Forms.DataGridView();
             this.limpiarButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboTipoEspecialidad = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultadosGrid)).BeginInit();
             this.SuspendLayout();
@@ -53,6 +53,24 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
+            // 
+            // comboTipoEspecialidad
+            // 
+            this.comboTipoEspecialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboTipoEspecialidad.FormattingEnabled = true;
+            this.comboTipoEspecialidad.Location = new System.Drawing.Point(124, 65);
+            this.comboTipoEspecialidad.Name = "comboTipoEspecialidad";
+            this.comboTipoEspecialidad.Size = new System.Drawing.Size(242, 25);
+            this.comboTipoEspecialidad.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 17);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Tipo especialidad";
             // 
             // textBoxNombre
             // 
@@ -99,23 +117,6 @@
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 17);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Tipo especialidad";
-            // 
-            // comboTipoEspecialidad
-            // 
-            this.comboTipoEspecialidad.FormattingEnabled = true;
-            this.comboTipoEspecialidad.Location = new System.Drawing.Point(124, 65);
-            this.comboTipoEspecialidad.Name = "comboTipoEspecialidad";
-            this.comboTipoEspecialidad.Size = new System.Drawing.Size(242, 25);
-            this.comboTipoEspecialidad.TabIndex = 3;
             // 
             // ListadoEspecialidadesMedicas
             // 

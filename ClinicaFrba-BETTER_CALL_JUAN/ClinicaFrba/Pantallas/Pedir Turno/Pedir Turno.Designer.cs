@@ -60,6 +60,7 @@
             // 
             // comboEspecialidad
             // 
+            this.comboEspecialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEspecialidad.FormattingEnabled = true;
             this.comboEspecialidad.Location = new System.Drawing.Point(99, 67);
             this.comboEspecialidad.Name = "comboEspecialidad";

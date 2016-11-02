@@ -44,19 +44,75 @@ namespace ClinicaFrba
 
         internal void agregarAfiliado(Paciente paciente)
         {
-            paciente.familiares = this.familiaresAgregados;
-            PacienteManager pacienteManager = new PacienteManager();
-            bool afiliadoAgregado = pacienteManager.agregarAfiliado(paciente);
-
-            if (afiliadoAgregado)
+            if (!this.documentosNoSeRepitenParaAfiliado(paciente))
             {
-                this.form.showInformationMessage("El Afiliado fue dado de alta correctamente junto a toda su informacion");
-                this.form.Close();
+                paciente.familiares = this.familiaresAgregados;
+                PacienteManager pacienteManager = new PacienteManager();
+                bool puedeModificarse = pacienteManager.puedeGuardarseAfiliado(paciente.tipoDoc, paciente.nroDoc);
+
+                if (puedeModificarse)
+                {
+                    bool afiliadoAgregado = pacienteManager.agregarAfiliado(paciente);
+
+                    if (afiliadoAgregado)
+                    {
+                        this.form.showInformationMessage("El Afiliado fue dado de alta correctamente junto a toda su informacion");
+                        this.form.Close();
+                    }
+                    else
+                    {
+                        this.form.showErrorMessage("Ocurrio un error al agregar el Afiliado");
+                    }
+                }
+                else
+                {
+                    this.form.showErrorMessage("No puede ingresarse el Afiliado porque ya existe uno con el mismo Tipo y Numero de Documento");
+                }
             }
             else
             {
-                this.form.showErrorMessage("Ocurrio un error al agregar el Afiliado");
+                this.form.showErrorMessage("Los documentos del Afiliado y sus Familiares se repiten. Por favor, ingreselos correctamente.");
             }
+        }
+
+        public bool documentosNoSeRepitenParaFamiliar(Paciente paciente)
+        {
+            bool seRepiten = false;
+            if(this.form.getTipoDocSeleccionado().Equals(paciente.tipoDoc)
+                && this.form.getNroDocSeleccionado().Equals(paciente.nroDoc))
+            {
+                seRepiten = true;
+            }
+            else
+            {
+                if (this.familiaresAgregados != null && this.familiaresAgregados.Count > 0)
+                {
+                    foreach (Paciente familiar in this.familiaresAgregados)
+                    {
+                        if (familiar.tipoDoc.Equals(paciente.tipoDoc) && familiar.nroDoc.Equals(paciente.nroDoc))
+                        {
+                            seRepiten = true;
+                        }
+                    }
+                }
+            }
+            return seRepiten;
+        }
+
+        private bool documentosNoSeRepitenParaAfiliado(Paciente paciente)
+        {
+            bool seRepiten = false;
+            if (this.familiaresAgregados != null && this.familiaresAgregados.Count > 0)
+            {
+                foreach (Paciente familiar in this.familiaresAgregados)
+                {
+                    if (familiar.tipoDoc.Equals(paciente.tipoDoc) && familiar.nroDoc.Equals(paciente.nroDoc))
+                    {
+                        seRepiten = true;
+                    }
+                }
+            }
+            return seRepiten;
         }
 
         internal void clearFamiliares()
@@ -89,7 +145,7 @@ namespace ClinicaFrba
         {
             foreach (Paciente familiar in this.familiaresAgregados)
             {
-                if (familiar.nroDoc.Equals(paciente.nroDoc))
+                if (familiar.nroDoc.Equals(paciente.nroDoc) && familiar.tipoDoc.Equals(paciente.tipoDoc))
                 {
                     OpcionesFamiliarDialog OpcionesFamiliarDialog = new OpcionesFamiliarDialog();
                     OpcionesFamiliarDialog.setOpcionesFamiliarListener(this);

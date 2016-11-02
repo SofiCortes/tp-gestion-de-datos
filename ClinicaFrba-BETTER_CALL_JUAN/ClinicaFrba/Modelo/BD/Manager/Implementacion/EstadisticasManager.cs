@@ -123,13 +123,13 @@ namespace ClinicaFrba
             return medicos;
         }
 
-        internal List<EspecialidadDAO> getEspecialidadesConMasCancelaciones(string autorCancelacion, string anioSeleccionado, string mesSeleccionado, string semestreSeleccionado)
+        internal List<EspecialidadDAO> getEspecialidadesConMasCancelaciones(char autorCancelacion, string anioSeleccionado, string mesSeleccionado, string semestreSeleccionado)
         {
             List<EspecialidadDAO> especialidades = new List<EspecialidadDAO>();
 
             try
             {
-                ParametroParaSP parametro1 = new ParametroParaSP("autor_cancelacion", SqlDbType.Char, autorCancelacion.ElementAt(0));
+                ParametroParaSP parametro1 = new ParametroParaSP("autor_cancelacion", SqlDbType.Char, autorCancelacion);
                 ParametroParaSP parametro2 = new ParametroParaSP("semestre", SqlDbType.Int, int.Parse(semestreSeleccionado));
                 ParametroParaSP parametro3 = new ParametroParaSP("anio", SqlDbType.Int, int.Parse(anioSeleccionado));
                 ParametroParaSP parametro4 = new ParametroParaSP("mes", SqlDbType.Int, int.Parse(mesSeleccionado));

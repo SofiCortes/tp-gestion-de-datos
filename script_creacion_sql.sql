@@ -1019,7 +1019,28 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Medico_Para_Agenda
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Validar_Documento'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Validar_Documento
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Validar_Documento]
+(@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @retorno SMALLINT OUT)
+AS
+BEGIN
+	DECLARE @idUsuario NUMERIC(18,0)
+
+	SELECT @idUsuario=id
+	FROM BETTER_CALL_JUAN.Pacientes P
+	WHERE P.tipo_doc like @tipo_doc AND P.nro_doc = @nro_doc
+
+	IF (@idUsuario IS NULL) 
+		SET @retorno= 1	-- No existe el usuario, es correcto que lo creemos
+	ELSE 
+		SET @retorno = 0 -- Ya existe un usuario con ese tipo y numero de documento
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horarios_Disponibles_Para_Turno]
 (@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0),@fecha DATETIME)

@@ -9,5 +9,6 @@ namespace ClinicaFrba
     public interface ModificarFamiliarListener
     {
         void onFamiliarModificado(Paciente paciente);
+        bool documentosNoSeRepitenParaFamiliar(Paciente paciente);
     }
 }
