@@ -1085,7 +1085,7 @@ BEGIN
 			SET @fecha_hora_turno= @fecha + cast(@hora_turno as DATETIME)
 			IF NOT EXISTS ( SELECT t.numero	FROM BETTER_CALL_JUAN.Turnos t 
 							WHERE t.medico_especialidad_id=@medico_especialidad_id 
-							AND DATEDIFF(mi,t.fecha_hora,@fecha_hora_turno)=0
+							AND DATEDIFF(mi,t.fecha_hora,@fecha_hora_turno)=0 AND t.paciente_id IS NOT NULL
 							)
 			BEGIN			
 				INSERT INTO #horarios (hora) VALUES (@hora_turno)
@@ -2048,3 +2048,7 @@ BEGIN
 	RETURN @fecha_disponible
 END
 GO
+
+
+
+
