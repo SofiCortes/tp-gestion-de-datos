@@ -58,7 +58,7 @@ namespace ClinicaFrba
                 this.buscarButton.Enabled = false;
                 this.limpiarButton.Enabled = false;
 
-                Especialidad especialidadSeleccionada = (Especialidad)this.comboEspecialidad.SelectedItem;
+                Especialidad especialidadSeleccionada = (Especialidad) this.comboEspecialidad.SelectedItem;
                 this.controller.buscarProfesionalesConFiltros(queryNombre, queryApellido, especialidadSeleccionada);
             }
             else
@@ -67,7 +67,7 @@ namespace ClinicaFrba
             }
         }
 
-        internal void llenarListadoProfesionalesConEspecialidad(Dictionary<Medico, Especialidad> medicosFiltradosConEspecialidad)
+        internal void llenarListadoProfesionalesConEspecialidad(List<Medico> medicosFiltradosConEspecialidad)
         {
             this.buscarButton.Enabled = true;
             this.limpiarButton.Enabled = true;
@@ -75,11 +75,9 @@ namespace ClinicaFrba
             medicosEspecialidadParaAgendaGrid.DataSource = medicosFiltradosConEspecialidad.Select(
                 medicoConEspecialidad => new
                 {
-                    Matricula = medicoConEspecialidad.Key.matricula,
-                    Apellido = medicoConEspecialidad.Key.apellido,
-                    Nombre = medicoConEspecialidad.Key.nombre,
-                    Especialidad = medicoConEspecialidad.Value.descripcion,
-                    Codigo = medicoConEspecialidad.Value.codigo
+                    Matricula = medicoConEspecialidad.matricula,
+                    Apellido = medicoConEspecialidad.apellido,
+                    Nombre = medicoConEspecialidad.nombre
                 }
             ).ToList();
         }
@@ -92,14 +90,13 @@ namespace ClinicaFrba
             this.medicosEspecialidadParaAgendaGrid.DataSource = null;
         }
 
-        private void medicosEspecialidadParaTurnoGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void medicosEspecialidadParaTurnoGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Medico medico = controller.obtenerMedico(medicosEspecialidadParaAgendaGrid);
-            Especialidad especialidad = new Especialidad();
-            especialidad.codigo = controller.obtenerCodigoEspecialidad(medicosEspecialidadParaAgendaGrid);
-            especialidad.descripcion = controller.obtenerDescripcionEspecialidad(medicosEspecialidadParaAgendaGrid);
+            List<Especialidad> especialidades = new List<Especialidad>();
+            especialidades = controller.obtenerEspecialidadesMedico(medico);
             AgendaProfesional ap = new AgendaProfesional();
-            ap.showRegistroHorario(medico, especialidad);
+            ap.showRegistroHorario(medico, especialidades);
             this.Close();
         }
     }

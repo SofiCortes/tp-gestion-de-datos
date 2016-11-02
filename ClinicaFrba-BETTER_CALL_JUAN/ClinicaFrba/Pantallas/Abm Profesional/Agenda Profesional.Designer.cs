@@ -28,11 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.comboEspecialidad = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // comboEspecialidad
+            // 
+            this.comboEspecialidad.FormattingEnabled = true;
+            this.comboEspecialidad.Location = new System.Drawing.Point(82, 13);
+            this.comboEspecialidad.Name = "comboEspecialidad";
+            this.comboEspecialidad.Size = new System.Drawing.Size(190, 21);
+            this.comboEspecialidad.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(70, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Especialidad:";
+            // 
+            // AgendaProfesional
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboEspecialidad);
+            this.Name = "AgendaProfesional";
             this.Text = "Agenda del Profesional";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ComboBox comboEspecialidad;
+        private System.Windows.Forms.Label label1;
     }
 }

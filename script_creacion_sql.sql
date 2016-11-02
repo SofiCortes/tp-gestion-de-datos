@@ -938,6 +938,14 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Horarios_Disponibles_Para_Turno
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Especialidades_Medico'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Especialidades_Medico
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Medico_Para_Agenda'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Medico_Para_Agenda
+GO
+
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horarios_Disponibles_Para_Turno]
@@ -1621,6 +1629,42 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Especialidades_Medico] (@matricula NUMERIC(18,0))
+AS
+BEGIN
+SELECT e.codigo, e.descripcion
+FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (m.matricula = me.medico_id)
+								JOIN BETTER_CALL_JUAN.Especialidades e ON (me.especialidad_cod = e.codigo)
+WHERE m.matricula = @matricula
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Medico_Para_Agenda](@nombre VARCHAR(255),@apellido VARCHAR(255), @especialidad_codigo NUMERIC(18,0))
+AS
+BEGIN
+	DECLARE @QUERY_FINAL NVARCHAR(1500)
+	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT DISTINCT m.matricula,m.nombre,m.apellido
+									 FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med_esp.medico_id=m.matricula)
+									 JOIN BETTER_CALL_JUAN.Especialidades e ON (med_esp.especialidad_cod=e.codigo)
+									 WHERE '
+	DECLARE @QUERY_2 VARCHAR(500) = ' '
+	DECLARE @QUERY_3 VARCHAR(500) = 'm.nombre LIKE @nombre AND m.apellido LIKE @apellido'
+	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY m.apellido,m.nombre,m.matricula'
+
+	IF @especialidad_codigo >0
+		SET @QUERY_2 = 'med_esp.especialidad_cod = @especialidad_codigo AND '
+
+	SET @nombre = '%' + @nombre + '%'
+	SET @apellido = '%' + @apellido + '%'
+	
+		
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
+
+	EXEC sp_executesql @QUERY_FINAL, N'@nombre VARCHAR(255), @apellido VARCHAR(255),
+									   @especialidad_codigo NUMERIC(18,0)',@nombre, @apellido,@especialidad_codigo
+END
+GO
+
 /** TOP 5 **/
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones]
@@ -1911,4 +1955,3 @@ BEGIN
 	RETURN @fecha_disponible
 END
 GO
-
