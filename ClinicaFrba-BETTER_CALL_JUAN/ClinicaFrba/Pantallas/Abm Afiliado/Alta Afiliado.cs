@@ -72,6 +72,7 @@ namespace ClinicaFrba
                 this.showErrorMessage(exc.Message);
             }
         }
+
         private Paciente buildPaciente()
         {
             Paciente nuevoPaciente = new Paciente();

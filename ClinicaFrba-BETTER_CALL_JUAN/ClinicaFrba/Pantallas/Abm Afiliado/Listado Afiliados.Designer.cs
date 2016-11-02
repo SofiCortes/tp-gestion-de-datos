@@ -104,6 +104,7 @@ namespace ClinicaFrba
             this.afiliadosGrid.Name = "afiliadosGrid";
             this.afiliadosGrid.Size = new System.Drawing.Size(494, 210);
             this.afiliadosGrid.TabIndex = 5;
+            this.afiliadosGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.afiliadosGrid_CellClick);
             // 
             // buscarButton
             // 

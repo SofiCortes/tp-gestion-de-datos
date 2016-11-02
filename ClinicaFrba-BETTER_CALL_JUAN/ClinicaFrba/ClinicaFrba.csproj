@@ -306,6 +306,9 @@
     <EmbeddedResource Include="Pantallas\Abm Afiliado\Listado Afiliados.resx">
       <DependentUpon>Listado Afiliados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Afiliado\Modificar Afiliado.resx">
+      <DependentUpon>Modificar Afiliado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Afiliado\ModificarFamiliar.resx">
       <DependentUpon>ModificarFamiliar.cs</DependentUpon>
     </EmbeddedResource>

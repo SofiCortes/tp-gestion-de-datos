@@ -1023,7 +1023,22 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Validar_Documento
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Por_Documento'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Por_Documento
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Afiliados_Por_Documento]
+(@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0))
+AS
+BEGIN
+	SELECT p.id,p.nro_raiz,p.nro_personal,p.nombre,p.apellido,p.tipo_doc,p.nro_doc,p.direccion,p.telefono,p.mail,
+	p.fecha_nac,p.sexo,p.estado_civil,p.cantidad_familiares,p.plan_medico_cod, p.nro_ultima_consulta
+	FROM BETTER_CALL_JUAN.Pacientes p
+	WHERE p.tipo_doc like @tipo_doc AND p.nro_doc = @nro_doc
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Validar_Documento]
 (@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @retorno SMALLINT OUT)
@@ -1465,19 +1480,14 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Afiliado] (@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @direccion VARCHAR(255), @telefono NUMERIC(18,0), @mail VARCHAR(255), @sexo CHAR(1), @estado_civil VARCHAR(100))
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Afiliado] 
+(@tipo_doc_viejo VARCHAR(100), @nro_doc_viejo NUMERIC(18,0), 
+@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @direccion VARCHAR(255), @telefono NUMERIC(18,0), @mail VARCHAR(255), @sexo CHAR(1), @estado_civil VARCHAR(100))
 AS
 BEGIN
-	IF (@nro_doc IS NULL OR NOT EXISTS (SELECT nro_doc FROM Pacientes WHERE tipo_doc=@tipo_doc AND nro_doc=@nro_doc)) 
-	--chequear si esta validacion va aca o como lo manda desde la app
-	BEGIN
-		RAISERROR('No existe afiliado registrado con el numero de documento ingresado.', 10,1)
-		RETURN
-	END
-
 	UPDATE Pacientes
-	SET direccion=@direccion, telefono=@telefono, mail=@mail, sexo=@sexo, estado_civil=@estado_civil
-	WHERE tipo_doc = @tipo_doc AND nro_doc = @nro_doc
+	SET direccion=@direccion, telefono=@telefono, mail=@mail, sexo=@sexo, estado_civil=@estado_civil, nro_doc=@nro_doc, tipo_doc=@tipo_doc
+	WHERE tipo_doc = @tipo_doc_viejo AND nro_doc = @nro_doc_viejo
 						
 END
 GO
