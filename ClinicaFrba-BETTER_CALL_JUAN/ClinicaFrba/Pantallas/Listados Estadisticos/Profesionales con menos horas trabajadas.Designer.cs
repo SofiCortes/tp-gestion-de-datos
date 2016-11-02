@@ -103,6 +103,7 @@
             // 
             // comboMes
             // 
+            this.comboMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMes.FormattingEnabled = true;
             this.comboMes.Location = new System.Drawing.Point(480, 26);
             this.comboMes.Name = "comboMes";
@@ -120,6 +121,7 @@
             // 
             // comboSemestre
             // 
+            this.comboSemestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboSemestre.FormattingEnabled = true;
             this.comboSemestre.Location = new System.Drawing.Point(264, 26);
             this.comboSemestre.Name = "comboSemestre";
@@ -138,6 +140,7 @@
             // 
             // comboEspecialidad
             // 
+            this.comboEspecialidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEspecialidad.FormattingEnabled = true;
             this.comboEspecialidad.Location = new System.Drawing.Point(94, 75);
             this.comboEspecialidad.Name = "comboEspecialidad";
@@ -155,6 +158,7 @@
             // 
             // comboAnio
             // 
+            this.comboAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboAnio.FormattingEnabled = true;
             this.comboAnio.Location = new System.Drawing.Point(54, 26);
             this.comboAnio.Name = "comboAnio";

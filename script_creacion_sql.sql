@@ -1023,8 +1023,29 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Turnos_Fecha_Por_Medico
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Validar_Documento'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Validar_Documento
+GO
+
 
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Validar_Documento]
+(@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @retorno SMALLINT OUT)
+AS
+BEGIN
+	DECLARE @idUsuario NUMERIC(18,0)
+
+	SELECT @idUsuario=id
+	FROM BETTER_CALL_JUAN.Pacientes P
+	WHERE P.tipo_doc like @tipo_doc AND P.nro_doc = @nro_doc
+
+	IF (@idUsuario IS NULL) 
+		SET @retorno= 1	-- No existe el usuario, es correcto que lo creemos
+	ELSE 
+		SET @retorno = 0 -- Ya existe un usuario con ese tipo y numero de documento
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horarios_Disponibles_Para_Turno]
 (@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0),@fecha DATETIME)
@@ -1069,7 +1090,7 @@ BEGIN
 			SET @fecha_hora_turno= @fecha + cast(@hora_turno as DATETIME)
 			IF NOT EXISTS ( SELECT t.numero	FROM BETTER_CALL_JUAN.Turnos t 
 							WHERE t.medico_especialidad_id=@medico_especialidad_id 
-							AND DATEDIFF(mi,t.fecha_hora,@fecha_hora_turno)=0
+							AND DATEDIFF(mi,t.fecha_hora,@fecha_hora_turno)=0 AND t.paciente_id IS NOT NULL
 							)
 			BEGIN			
 				INSERT INTO #horarios (hora) VALUES (@hora_turno)
@@ -2047,3 +2068,7 @@ BEGIN
 	RETURN @fecha_disponible
 END
 GO
+
+
+
+

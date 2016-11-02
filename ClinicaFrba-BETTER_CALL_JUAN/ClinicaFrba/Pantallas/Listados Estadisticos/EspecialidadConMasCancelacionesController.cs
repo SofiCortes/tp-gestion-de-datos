@@ -17,11 +17,11 @@ namespace ClinicaFrba
 
         internal void buscarEspecialidadesConFiltros(string autorCancelacion, string anioSeleccionado, string mesSeleccionado, string semestreSeleccionado)
         {
-            autorCancelacion = StoredProcedureHelper.getAutorCancelacionConTipo(autorCancelacion);
+            char autorCancelacionChar = StoredProcedureHelper.getAutorCancelacionConTipo(autorCancelacion);
             mesSeleccionado = StoredProcedureHelper.getNumeroMesConNombreMes(mesSeleccionado);
             semestreSeleccionado = semestreSeleccionado.Equals("Primer semestre") ? "1" : "2";
             EstadisticasManager estadisticasManager = new EstadisticasManager();
-            List<EspecialidadDAO> especialidades = estadisticasManager.getEspecialidadesConMasCancelaciones(autorCancelacion, anioSeleccionado, mesSeleccionado, semestreSeleccionado);
+            List<EspecialidadDAO> especialidades = estadisticasManager.getEspecialidadesConMasCancelaciones(autorCancelacionChar, anioSeleccionado, mesSeleccionado, semestreSeleccionado);
 
             if (especialidades != null)
             {

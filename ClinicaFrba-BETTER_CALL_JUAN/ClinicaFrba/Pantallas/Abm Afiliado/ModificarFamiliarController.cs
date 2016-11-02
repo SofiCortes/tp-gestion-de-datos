@@ -34,7 +34,25 @@ namespace ClinicaFrba
 
         internal void modificarFamiliar(Paciente paciente)
         {
-            this.listener.onFamiliarModificado(paciente);
+            if (this.listener.documentosNoSeRepitenParaFamiliar(paciente))
+            {
+                this.form.showErrorMessage("El Tipo y Numero de Documento ingresados corresponden a otro familiar.");
+            }
+            else
+            {
+                PacienteManager pacienteManager = new PacienteManager();
+                bool puedeModificarse = pacienteManager.puedeGuardarseAfiliado(paciente.tipoDoc, paciente.nroDoc);
+
+                if (puedeModificarse)
+                {
+                    this.listener.onFamiliarModificado(paciente);
+                    this.form.Close();
+                }
+                else
+                {
+                    this.form.showErrorMessage("No puede ingresarse el Afiliado porque ya existe uno con el mismo Tipo y Numero de Documento");
+                }
+            }
         }
     }
 }

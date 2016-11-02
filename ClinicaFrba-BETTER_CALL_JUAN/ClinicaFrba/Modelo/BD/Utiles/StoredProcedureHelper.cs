@@ -64,20 +64,20 @@ namespace ClinicaFrba
         }
 
 
-        public static string getAutorCancelacionConTipo(string autorCancelacion)
+        public static char getAutorCancelacionConTipo(string autorCancelacion)
         {
-            string cancelacion = "";
+            char cancelacion = ' ';
             if (autorCancelacion.Equals("Afiliados"))
             {
-                cancelacion = "A";
+                cancelacion = 'A';
             }
             else if (autorCancelacion.Equals("Medicos"))
             {
-                cancelacion = "M";
+                cancelacion = 'M';
             }
             else if (autorCancelacion.Equals("Todos"))
             {
-                cancelacion = "T";
+                cancelacion = 'T';
             }
             return cancelacion;
         }

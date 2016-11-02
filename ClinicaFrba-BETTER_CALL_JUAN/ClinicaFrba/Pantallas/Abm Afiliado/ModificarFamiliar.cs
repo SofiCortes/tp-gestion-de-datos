@@ -180,7 +180,6 @@ namespace ClinicaFrba
                 this.validateData();
                 Paciente paciente = this.buildPaciente();
                 this.controller.modificarFamiliar(paciente);
-                this.Close();
             }
             catch (Exception exc)
             {

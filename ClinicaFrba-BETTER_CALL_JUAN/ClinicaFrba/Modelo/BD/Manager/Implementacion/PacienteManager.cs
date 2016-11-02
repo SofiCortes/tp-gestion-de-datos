@@ -228,5 +228,39 @@ namespace ClinicaFrba
 
             return agregoAfiliado;
         }
+
+        internal bool puedeGuardarseAfiliado(string tipoDoc, decimal nroDoc)
+        {
+            bool puedeGuardarse;
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("tipo_doc", SqlDbType.VarChar, tipoDoc);
+                ParametroParaSP parametro2 = new ParametroParaSP("nro_doc", SqlDbType.Decimal, nroDoc);
+                ParametroParaSP parametro3 = new ParametroParaSP("retorno", SqlDbType.SmallInt); 
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Validar_Documento", parametros);
+                procedure.ExecuteNonQuery();
+
+                int retorno = Convert.ToInt16(procedure.Parameters["@retorno"].Value);
+                puedeGuardarse = retorno == 1;
+            }
+            catch (SqlException e)
+            {
+                puedeGuardarse = false;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return puedeGuardarse;
+        }
     }
 }

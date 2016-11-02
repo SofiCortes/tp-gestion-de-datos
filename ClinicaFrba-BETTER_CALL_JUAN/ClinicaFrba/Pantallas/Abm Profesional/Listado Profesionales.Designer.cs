@@ -75,6 +75,7 @@
             // 
             // comboTipoDoc
             // 
+            this.comboTipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboTipoDoc.FormattingEnabled = true;
             this.comboTipoDoc.Location = new System.Drawing.Point(118, 63);
             this.comboTipoDoc.Name = "comboTipoDoc";
@@ -192,7 +193,6 @@
             this.resultadosGrid.Name = "resultadosGrid";
             this.resultadosGrid.Size = new System.Drawing.Size(595, 210);
             this.resultadosGrid.TabIndex = 9;
-            //this.resultadosGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosGrid_CellContentClick);
             // 
             // limpiarButton
             // 

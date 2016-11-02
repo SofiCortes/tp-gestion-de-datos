@@ -212,8 +212,24 @@ namespace ClinicaFrba
             DataGridViewCell dgvc = dataSelectedCell[0];
             DataGridViewRow row = dgvc.OwningRow;
             Paciente paciente = new Paciente();
+            paciente.tipoDoc = Convert.ToString(row.Cells[2].Value.ToString());
             paciente.nroDoc = Convert.ToDecimal(row.Cells[3].Value.ToString());
             this.controller.onFamiliarClicked(paciente);
+        }
+
+        internal string getTipoDocSeleccionado()
+        {
+            return (string)this.comboBoxTipoDoc.SelectedValue;
+        }
+
+        internal decimal getNroDocSeleccionado()
+        {
+            if (this.textBoxNroDoc.Text.Trim().Length > 0)
+            {
+                decimal nroDocSeleccionado = Convert.ToDecimal(this.textBoxNroDoc.Text.Trim());
+                return nroDocSeleccionado;
+            }
+            return -1;
         }
     }
 }

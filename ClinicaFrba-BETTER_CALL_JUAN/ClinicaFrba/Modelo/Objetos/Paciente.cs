@@ -48,7 +48,7 @@ namespace ClinicaFrba
 
         public override bool Equals(object obj)
         {
-            return ((Paciente)obj).id == this.id;
+            return ((Paciente)obj).tipoDoc == this.tipoDoc && ((Paciente)obj).nroDoc == this.nroDoc;
         }
     }
 }
