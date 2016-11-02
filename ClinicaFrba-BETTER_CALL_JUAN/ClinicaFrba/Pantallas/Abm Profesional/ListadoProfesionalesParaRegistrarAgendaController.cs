@@ -34,7 +34,7 @@ namespace ClinicaFrba
         internal void buscarProfesionalesConFiltros(string queryNombre, string queryApellido, Especialidad especialidadSeleccionada)
         {
             ProfesionalManager profesionalManager = new ProfesionalManager();
-            Dictionary<Medico, Especialidad> medicosFiltrados = profesionalManager.buscarMedicosConSuEspecialidad(queryNombre, queryApellido, especialidadSeleccionada.codigo);
+            List<Medico> medicosFiltrados = profesionalManager.buscarMedicosParaAgenda(queryNombre, queryApellido, especialidadSeleccionada.codigo);
 
             if (medicosFiltrados != null)
             {
@@ -75,6 +75,13 @@ namespace ClinicaFrba
             DataGridViewRow row = dgvc.OwningRow;
 
             return decimal.Parse(row.Cells[4].Value.ToString());
+        }
+
+        internal List<Especialidad> obtenerEspecialidadesMedico(Medico medico)
+        {
+            ProfesionalManager profesionalManager = new ProfesionalManager();
+            List<Especialidad> especialidadesEncontradas = profesionalManager.buscarEspecialidadesMedico(medico);
+            return especialidadesEncontradas;
         }
     }
 }

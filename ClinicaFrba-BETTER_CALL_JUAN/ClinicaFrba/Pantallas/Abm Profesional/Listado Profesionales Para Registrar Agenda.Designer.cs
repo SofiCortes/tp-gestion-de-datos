@@ -125,7 +125,7 @@
             this.medicosEspecialidadParaAgendaGrid.Name = "medicosEspecialidadParaAgendaGrid";
             this.medicosEspecialidadParaAgendaGrid.Size = new System.Drawing.Size(504, 273);
             this.medicosEspecialidadParaAgendaGrid.TabIndex = 17;
-            this.medicosEspecialidadParaAgendaGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.medicosEspecialidadParaTurnoGrid_CellContentClick);
+            this.medicosEspecialidadParaAgendaGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.medicosEspecialidadParaTurnoGrid_CellClick);
             // 
             // limpiarButton
             // 

@@ -164,5 +164,90 @@ namespace ClinicaFrba
             }
             return medEsp;
         }
+
+        internal List<Medico> buscarMedicosParaAgenda(string queryNombre, string queryApellido, decimal especialidadCodigo)
+        {
+            List<Medico> medicos = new List<Medico>();
+
+            try
+            {
+                ParametroParaSP parametro4 = new ParametroParaSP("nombre", SqlDbType.VarChar, queryNombre);
+                ParametroParaSP parametro5 = new ParametroParaSP("apellido", SqlDbType.VarChar, queryApellido);
+                ParametroParaSP parametro6 = new ParametroParaSP("especialidad_codigo", SqlDbType.Decimal, especialidadCodigo);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro4);
+                parametros.Add(parametro5);
+                parametros.Add(parametro6);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Medico_Para_Agenda", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        Medico medico = new Medico();
+
+                        medico.matricula = sqlReader.GetDecimal(0);
+                        medico.nombre = sqlReader.GetString(1);
+                        medico.apellido = sqlReader.GetString(2);
+
+                        medicos.Add(medico);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                medicos = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return medicos;
+        }
+
+        internal List<Especialidad> buscarEspecialidadesMedico(Medico medico)
+        {
+            List<Especialidad> especialidades = new List<Especialidad>();
+
+            try
+            {
+                ParametroParaSP parametro4 = new ParametroParaSP("matricula", SqlDbType.Decimal, medico.matricula);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro4);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Especialidades_Medico", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        Especialidad especialidad = new Especialidad();
+
+                        especialidad.codigo = sqlReader.GetDecimal(0);
+                        especialidad.descripcion = sqlReader.GetString(1);
+
+                        especialidades.Add(especialidad);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                especialidades = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return especialidades;
+        }
     }
 }
