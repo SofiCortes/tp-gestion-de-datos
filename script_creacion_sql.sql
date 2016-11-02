@@ -5,6 +5,7 @@ GO
 --Seteo el primer dia de la semana como Lunes
 
 SET DATEFIRST 1
+GO
 
 /** CREACION DE SCHEMA **/
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'BETTER_CALL_JUAN')
@@ -18,64 +19,84 @@ GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Bajas_Pacientes'))
     DROP TABLE BETTER_CALL_JUAN.Bajas_Pacientes
+GO
 	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cambios_De_Plan'))
     DROP TABLE BETTER_CALL_JUAN.Cambios_De_Plan
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Consultas'))
     DROP TABLE BETTER_CALL_JUAN.Consultas
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Operaciones_Compra'))
     DROP TABLE BETTER_CALL_JUAN.Operaciones_Compra
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Rangos_Atencion'))
     DROP TABLE BETTER_CALL_JUAN.Rangos_Atencion
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles_Funcionalidades'))
     DROP TABLE BETTER_CALL_JUAN.Roles_Funcionalidades
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles_Usuarios'))
     DROP TABLE BETTER_CALL_JUAN.Roles_Usuarios
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelaciones'))
     DROP TABLE BETTER_CALL_JUAN.Cancelaciones
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Turnos'))
     DROP TABLE BETTER_CALL_JUAN.Turnos
-	
+GO
+		
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Bonos_Consulta'))
     DROP TABLE BETTER_CALL_JUAN.Bonos_Consulta
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Funcionalidades'))
     DROP TABLE BETTER_CALL_JUAN.Funcionalidades
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Medicos_Especialidades'))
     DROP TABLE BETTER_CALL_JUAN.Medicos_Especialidades
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Pacientes'))
     DROP TABLE BETTER_CALL_JUAN.Pacientes
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Planes_Medicos'))
     DROP TABLE BETTER_CALL_JUAN.Planes_Medicos
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Roles'))
     DROP TABLE BETTER_CALL_JUAN.Roles
-	
+GO
+		
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Tipos_Cancelaciones'))
     DROP TABLE BETTER_CALL_JUAN.Tipos_Cancelaciones
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Medicos'))
     DROP TABLE BETTER_CALL_JUAN.Medicos
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Especialidades'))
     DROP TABLE BETTER_CALL_JUAN.Especialidades
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Tipos_Especialidades'))
     DROP TABLE BETTER_CALL_JUAN.Tipos_Especialidades
-
+GO
+	
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Usuarios'))
     DROP TABLE BETTER_CALL_JUAN.Usuarios
-
+GO
+	
 /** FIN VALIDACION DE TABLAS **/
 
 /** CREACION DE TABLAS **/
@@ -85,7 +106,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Funcionalidades] (
   [descripcion] VARCHAR(255) NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Usuarios] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [username] VARCHAR(255) UNIQUE NOT NULL,
@@ -93,14 +115,16 @@ CREATE TABLE [BETTER_CALL_JUAN].[Usuarios] (
   [intentos_fallidos] SMALLINT DEFAULT 0 NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Roles] (
   [id] SMALLINT IDENTITY(1,1),
   [nombre] VARCHAR(255) UNIQUE NOT NULL,
   [habilitado] BIT DEFAULT 1  NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Operaciones_Compra] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [cant_bonos] NUMERIC(4,0) NOT NULL,
@@ -108,7 +132,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Operaciones_Compra] (
   [paciente_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Turnos] (
   [numero] NUMERIC(18,0) IDENTITY(1,1),
   [fecha_hora] DATETIME NOT NULL,
@@ -117,14 +142,16 @@ CREATE TABLE [BETTER_CALL_JUAN].[Turnos] (
   [turno_numero_maestra] NUMERIC(18,0),
   PRIMARY KEY ([numero])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [medico_id] NUMERIC(18,0) NOT NULL,
   [especialidad_cod] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Cancelaciones] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [tipo_cancelacion_id] NUMERIC(18,0) NOT NULL,
@@ -133,26 +160,30 @@ CREATE TABLE [BETTER_CALL_JUAN].[Cancelaciones] (
   [paciente_id] NUMERIC(18,0),
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Roles_Usuarios] (
   [user_id] NUMERIC(18,0),
   [rol_id] SMALLINT NOT NULL,
   PRIMARY KEY ([user_id], [rol_id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Especialidades] (
   [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255) NOT NULL,
   [tipo_especialidad_cod] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([codigo])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Cancelaciones] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [nombre] VARCHAR(255) NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Consultas] (
   [id] INT IDENTITY(1,1),
   [sintomas] VARCHAR(255) NOT NULL,
@@ -163,26 +194,30 @@ CREATE TABLE [BETTER_CALL_JUAN].[Consultas] (
   [bono_consulta_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Bajas_Pacientes] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [paciente_id] NUMERIC(18,0) NOT NULL,
   [fecha_baja] DATETIME NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Tipos_Especialidades] (
   [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255) NOT NULL,
   PRIMARY KEY ([codigo])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] (
   [rol_id] SMALLINT,
   [funcionalidad_id] NUMERIC(18,0),
   PRIMARY KEY ([rol_id],[funcionalidad_id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Bonos_Consulta] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [fecha_compra] DATETIME NOT NULL,
@@ -193,7 +228,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Bonos_Consulta] (
   [plan_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
   [codigo] NUMERIC(18,0),
   [descripcion] VARCHAR(255) NOT NULL,
@@ -201,7 +237,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Planes_Medicos] (
   [precio_bono_farmacia] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([codigo])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
   [matricula] NUMERIC(18,0) IDENTITY(1,1),
   [nombre] VARCHAR(255) NOT NULL,
@@ -217,7 +254,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Medicos] (
   PRIMARY KEY ([matricula]),
   UNIQUE([tipo_doc], [nro_doc])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [nro_raiz] NUMERIC(18,0),
@@ -240,7 +278,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
   PRIMARY KEY ([id]),
   UNIQUE([tipo_doc], [nro_doc])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Cambios_De_Plan] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [paciente_id] NUMERIC(18,0) NOT NULL,
@@ -250,7 +289,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Cambios_De_Plan] (
   [plan_nuevo_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
-
+GO
+	
 CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [dia_semana] NUMERIC(1,0) NOT NULL,
@@ -259,7 +299,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
   [medico_especialidad_id] NUMERIC(18,0),
   PRIMARY KEY ([id])
 );
-
+GO
+	
 /** FIN CREACION DE TABLAS **/
 
 /** MIGRACION **/
@@ -269,7 +310,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
 --Nros Ultimas Consultas
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Consultas_Pacientes'))
     DROP TABLE BETTER_CALL_JUAN.Consultas_Pacientes
-	
+GO
+		
 
 CREATE TABLE [BETTER_CALL_JUAN].[Consultas_Pacientes] (
 	[Paciente_Dni] NUMERIC(18,0),
@@ -278,7 +320,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Consultas_Pacientes] (
 	[Plan_Med_Codigo] NUMERIC(18,0),
 	[Turno_Numero] NUMERIC(18,0)
 );
-
+GO
+	
 INSERT INTO BETTER_CALL_JUAN.Consultas_Pacientes
 SELECT Paciente_Dni, Bono_Consulta_Numero, Bono_Consulta_Fecha_Impresion, Plan_Med_Codigo, Turno_Numero
 FROM gd_esquema.Maestra
@@ -291,7 +334,8 @@ AND Medico_Telefono IS NOT NULL AND Medico_Mail IS NOT NULL AND Medico_Fecha_Nac
 AND Especialidad_Descripcion IS NOT NULL AND Tipo_Especialidad_Codigo IS NOT NULL AND Tipo_Especialidad_Descripcion IS NOT NULL 
 AND Compra_Bono_Fecha IS NULL AND Bono_Consulta_Fecha_Impresion IS NOT NULL AND Bono_Consulta_Numero IS NOT NULL
 ORDER BY Paciente_Dni, Turno_Numero
-
+GO
+	
 --INSERT PACIENTES
 
 INSERT INTO BETTER_CALL_JUAN.Pacientes (nombre, apellido, tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,plan_medico_cod,habilitado,nro_ultima_consulta)
@@ -299,37 +343,43 @@ SELECT DISTINCT Paciente_Nombre, Paciente_Apellido, 'DNI', Paciente_Dni, Pacient
 Plan_Med_Codigo, 1, (SELECT COUNT(DISTINCT cp.Bono_Consulta_Numero) FROM BETTER_CALL_JUAN.Consultas_Pacientes cp WHERE cp.Paciente_Dni = m.Paciente_Dni GROUP BY cp.Paciente_Dni) AS nroUltimaConsulta
 FROM gd_esquema.Maestra m
 GROUP BY Paciente_Nombre, Paciente_Apellido,Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, Plan_Med_Codigo
-
+GO
+	
 /* Tabla Medicos */
 INSERT INTO BETTER_CALL_JUAN.Medicos(nombre, apellido, tipo_doc, nro_doc, direccion, telefono, mail, fecha_nac)
 SELECT DISTINCT Medico_Nombre, Medico_Apellido, 'DNI', Medico_Dni, Medico_Direccion, Medico_Telefono, Medico_Mail, Medico_Fecha_Nac
 FROM gd_esquema.Maestra
 WHERE Medico_Dni IS NOT NULL
-
+GO
+	
 /* Tabla Planes Medicos */
 INSERT INTO BETTER_CALL_JUAN.Planes_Medicos(codigo, descripcion, precio_bono_consulta, precio_bono_farmacia)
 SELECT DISTINCT Plan_Med_Codigo, Plan_Med_Descripcion, Plan_Med_Precio_Bono_Consulta, Plan_Med_Precio_Bono_Farmacia
 FROM gd_esquema.Maestra
-
+GO
+	
 /* Tabla Especialidades */
 INSERT INTO BETTER_CALL_JUAN.Especialidades (codigo,descripcion,tipo_especialidad_cod)
 SELECT DISTINCT Especialidad_Codigo, Especialidad_Descripcion, Tipo_Especialidad_Codigo
 FROM gd_esquema.Maestra
 WHERE Especialidad_Codigo IS NOT NULL
-
+GO
+	
 /* Tabla Tipos Especialidades */
 INSERT INTO BETTER_CALL_JUAN.Tipos_Especialidades (codigo,descripcion)
 SELECT DISTINCT Tipo_Especialidad_Codigo, Tipo_Especialidad_Descripcion
 FROM gd_esquema.Maestra
 WHERE Tipo_Especialidad_Codigo IS NOT NULL
-
+GO
+	
 /* Tabla Medicos Especialidades */
 
 INSERT INTO BETTER_CALL_JUAN.Medicos_Especialidades(medico_id, especialidad_cod)
 SELECT DISTINCT med.matricula, Especialidad_Codigo 
 FROM gd_esquema.Maestra maestra JOIN BETTER_CALL_JUAN.Medicos med ON (maestra.Medico_Dni=med.nro_doc)
 ORDER BY med.matricula, Especialidad_Codigo
-
+GO
+	
 /* Tabla Turnos */
 
 INSERT INTO BETTER_CALL_JUAN.Turnos (fecha_hora,paciente_id,medico_especialidad_id, turno_numero_maestra)
@@ -339,7 +389,8 @@ maestra.Turno_Numero
 FROM gd_esquema.Maestra maestra JOIN BETTER_CALL_JUAN.Pacientes p ON (maestra.Paciente_Dni  =  p.nro_doc) JOIN BETTER_CALL_JUAN.Medicos med ON (maestra.Medico_Dni = med.nro_doc)
 WHERE Turno_Numero IS NOT NULL AND Turno_Fecha IS NOT NULL
 ORDER BY 1 ASC
-
+GO
+	
 /* Tabla Roles */
 INSERT INTO BETTER_CALL_JUAN.Roles(nombre,habilitado)
 VALUES 
@@ -351,7 +402,8 @@ VALUES
 ('Administrativo',1),
 --4
 ('Profesional',1)
-
+GO
+	
 /* Tabla Funcionalidades */
 INSERT INTO BETTER_CALL_JUAN.Funcionalidades(descripcion)
 VALUES
@@ -387,38 +439,46 @@ VALUES
 ('Acciones con turnos'),
 --16
 ('Acciones con atencion medica')
-
+GO
+	
 /* Tabla Roles Funcionalidades */
 INSERT INTO BETTER_CALL_JUAN.Roles_Funcionalidades(rol_id,funcionalidad_id)
 VALUES(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),
 (2,7),(2,8),(2,14),(2,15),
 (3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(3,11),(3,16),
 (4,5),(4,9),(4,16)
-
+GO
+	
 /* Tabla Usuarios */
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
 VALUES('admin',HASHBYTES('SHA2_256','w23e'))
-
+GO
+	
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
 SELECT tipo_doc+cast(nro_doc as varchar), HASHBYTES('SHA2_256', 'afiliadofrba') password
 FROM BETTER_CALL_JUAN.Pacientes
-
+GO
+	
 INSERT INTO BETTER_CALL_JUAN.Usuarios(username, password)
 SELECT tipo_doc+cast(nro_doc as varchar), HASHBYTES('SHA2_256', 'profesionalfrba') password
 FROM BETTER_CALL_JUAN.Medicos
-
+GO
+	
 /* Tabla Roles Usuarios */
 INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
 VALUES(1,1)
-
+GO
+	
 INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
 SELECT u.id, 2 rol
 FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Usuarios u ON ((p.tipo_doc+ cast(p.nro_doc as varchar)) = u.username)
-
+GO
+	
 INSERT INTO BETTER_CALL_JUAN.Roles_Usuarios(user_id,rol_id)
 SELECT u.id, 4 rol
 FROM BETTER_CALL_JUAN.Medicos m JOIN BETTER_CALL_JUAN.Usuarios u ON ((m.tipo_doc+ cast(m.nro_doc as varchar)) = u.username)
-
+GO
+	
 /* Tabla Bonos Consulta */
 
 INSERT INTO BETTER_CALL_JUAN.Bonos_Consulta 
@@ -437,9 +497,11 @@ WHERE cp1.Bono_Consulta_Numero=tab1.Bono_Consulta_Numero
 (SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc=Paciente_Dni) as paciente_usa_id,
 cp1.Plan_Med_Codigo
 FROM BETTER_CALL_JUAN.Consultas_Pacientes cp1
-
+GO
+	
 DROP TABLE BETTER_CALL_JUAN.Consultas_Pacientes
-
+GO
+	
 /* Tabla Consultas */
 INSERT INTO BETTER_CALL_JUAN.Consultas (sintomas, enfermedades, turno_numero, fecha_hora_llegada, fecha_hora_atencion, bono_consulta_id)
 SELECT DISTINCT M.Consulta_Sintomas, M.Consulta_Enfermedades, T.numero turnoId, M.Turno_Fecha, M.Turno_Fecha,
@@ -459,7 +521,8 @@ JOIN BETTER_CALL_JUAN.Pacientes P ON P.nro_doc = M.Paciente_Dni
 JOIN BETTER_CALL_JUAN.Turnos T ON T.turno_numero_maestra = M.Turno_Numero
 JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = M.Especialidad_Codigo
 WHERE M.Consulta_Enfermedades IS NOT NULL AND M.Consulta_Sintomas IS NOT NULL
-
+GO
+	
 /* Tabla Operaciones Compra */
 
 INSERT INTO BETTER_CALL_JUAN.Operaciones_Compra (cant_bonos, monto_total, paciente_id)
@@ -467,7 +530,8 @@ SELECT COUNT(DISTINCT Bono_Consulta_Numero) cantBonos, SUM(Plan_Med_Precio_Bono_
 FROM gd_esquema.Maestra m JOIN BETTER_CALL_JUAN.Pacientes p ON (m.Paciente_Dni = p.nro_doc)
 WHERE Compra_Bono_Fecha IS NOT NULL
 GROUP BY p.id, Compra_Bono_Fecha
-
+GO
+	
 /* Asociacion Pacientes y Medicos con su usuario id */
 UPDATE BETTER_CALL_JUAN.Pacientes 
 SET usuario_id = u.id 
@@ -475,14 +539,16 @@ FROM(
 SELECT id, username
 FROM BETTER_CALL_JUAN.Usuarios) u
 WHERE (Pacientes.tipo_doc + CONVERT(VARCHAR(255),Pacientes.nro_doc)) = u.username
-
+GO
+	
 UPDATE BETTER_CALL_JUAN.Medicos 
 SET usuario_id = u.id 
 FROM(
 SELECT id, username
 FROM BETTER_CALL_JUAN.Usuarios) u
 WHERE (Medicos.tipo_doc + CONVERT(VARCHAR(255),Medicos.nro_doc)) = u.username
-
+GO
+	
 /* Tabla Rangos Horarios */
 
 CREATE TABLE #MedicosEspecialidadesTemp (
@@ -490,12 +556,14 @@ medico_dni numeric(18,0),
 esp_codigo numeric(18,0),
 med_esp_id numeric(18,0),
 )
-
+GO
+	
 INSERT INTO #MedicosEspecialidadesTemp
 SELECT med.nro_doc, esp.codigo, med_esp.id
 FROM BETTER_CALL_JUAN.Medicos med JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med.matricula = med_esp.medico_id)
 JOIN BETTER_CALL_JUAN.Especialidades esp ON (esp.codigo = med_esp.especialidad_cod)
-
+GO
+	
 INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES	(1,	CAST ('2016-10-01 7:00' AS TIME(0)), CAST ('2016-10-01 15:00' AS TIME(0)), (SELECT med_esp_id FROM #MedicosEspecialidadesTemp WHERE medico_dni = 28072053 AND esp_codigo = 10018)) --1
 INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES	(1,	CAST ('2016-10-01 8:00' AS TIME(0)), CAST ('2016-10-01 12:00' AS TIME(0)), (SELECT med_esp_id FROM #MedicosEspecialidadesTemp WHERE medico_dni = 35198771 AND esp_codigo = 10006)) --2
 INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES	(1,	CAST ('2016-10-01 13:00' AS TIME(0)), CAST ('2016-10-01 20:00' AS TIME(0)),	(SELECT med_esp_id FROM #MedicosEspecialidadesTemp WHERE medico_dni = 35198771 AND esp_codigo = 10007)) --3
@@ -686,14 +754,17 @@ INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta,
 INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES	(6,	CAST ('2016-10-01 10:00' AS TIME(0)), CAST ('2016-10-01 13:00' AS TIME(0)),	(SELECT med_esp_id FROM #MedicosEspecialidadesTemp WHERE medico_dni = 3116603 AND esp_codigo = 10047)) --188
 INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES	(6,	CAST ('2016-10-01 10:00' AS TIME(0)), CAST ('2016-10-01 15:00' AS TIME(0)),	(SELECT med_esp_id FROM #MedicosEspecialidadesTemp WHERE medico_dni = 93533777 AND esp_codigo = 10037)) --189
 INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion(dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES	(6,	CAST ('2016-10-01 10:00' AS TIME(0)), CAST ('2016-10-01 13:00' AS TIME(0)),	(SELECT med_esp_id FROM #MedicosEspecialidadesTemp WHERE medico_dni = 85129809 AND esp_codigo = 10019)) --190
-
+GO
+	
 DROP TABLE #MedicosEspecialidadesTemp
-
+GO
+	
 
 /* Tabla Tipos Cancelaciones */
 
 INSERT INTO BETTER_CALL_JUAN.Tipos_Cancelaciones(nombre) VALUES ('Viaje'),('Enfermedad'),('Otro')
-
+GO
+	
 /** FIN MIGRACION **/
 
 /*FOREIGN KEYS*/
@@ -737,11 +808,13 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionali
 
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
-
+GO
+	
 
 IF EXISTS (SELECT * FROM sys.all_columns WHERE name='turno_numero_maestra')
 	ALTER TABLE [BETTER_CALL_JUAN].[Turnos] DROP COLUMN turno_numero_maestra
-
+GO
+	
 -----------------------------------------
 
 /** PROCEDURES **/
