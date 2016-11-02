@@ -68,7 +68,95 @@ namespace ClinicaFrba
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
+            try {
+                this.validateData();
+                Paciente paciente = this.buildPaciente();
+                this.controller.agregarAfiliado(paciente);
+            }catch(Exception exc) {
+                this.showErrorMessage(exc.Message);
+            }
+        }
+        private Paciente buildPaciente()
+        {
+            Paciente nuevoPaciente = new Paciente();
+            nuevoPaciente.nombre = this.textBoxNombre.Text;
+            nuevoPaciente.apellido = this.textBoxApellido.Text;
+            nuevoPaciente.nroDoc = Convert.ToDecimal(this.textBoxNroDoc);
+            nuevoPaciente.direccion = this.textBoxDireccion.Text;
+            nuevoPaciente.telefono = Convert.ToDecimal(this.textBoxTelefono.Text);
+            //paciente.fechaNacimiento
+            nuevoPaciente.tipoDoc = (string)this.comboBoxTipoDoc.SelectedItem;
+            nuevoPaciente.estadoCivil = (string)this.comboBoxEstadoCivil.SelectedItem;
+            nuevoPaciente.sexo = ((string)this.comboBoxSexo.SelectedItem).ElementAt(0);
 
+            nuevoPaciente.planMedico = (PlanMedico)this.comboBoxPlanMedico.SelectedItem;
+
+            return nuevoPaciente;
+        }
+
+        private void validateData()
+        {
+            StringBuilder stringErrorBuilder = new StringBuilder();
+
+            if (this.textBoxNombre.Text.Trim().Length == 0)
+            {
+                stringErrorBuilder.Append("Complete el Nombre.\n");
+            }
+
+            if (this.textBoxApellido.Text.Trim().Length == 0)
+            {
+                stringErrorBuilder.Append("Complete el Apellido.\n");
+            }
+
+            if (this.textBoxNroDoc.Text.Trim().Length == 0)
+            {
+                stringErrorBuilder.Append("Complete el Numero de Documento.\n");
+            }
+
+            if (this.textBoxDireccion.Text.Trim().Length == 0)
+            {
+                stringErrorBuilder.Append("Complete la Direccion.\n");
+            }
+
+            if (this.textBoxTelefono.Text.Trim().Length == 0)
+            {
+                stringErrorBuilder.Append("Complete el Telefono.\n");
+            }
+
+            if (this.textBoxEmail.Text.Trim().Length == 0)
+            {
+                stringErrorBuilder.Append("Complete el Email.\n");
+            }
+
+            if (this.textBoxFechaNacimiento.Text.Trim().Length == 0)
+            {
+                stringErrorBuilder.Append("Complete la Fecha de Nacimiento.\n");
+            }
+
+            if (this.comboBoxEstadoCivil.SelectedIndex == 0)
+            {
+                stringErrorBuilder.Append("Seleccione un Estado Civil.\n");
+            }
+
+            if (this.comboBoxSexo.SelectedIndex == 0)
+            {
+                stringErrorBuilder.Append("Seleccione un Sexo.\n");
+            }
+
+            if (this.comboBoxTipoDoc.SelectedIndex == 0)
+            {
+                stringErrorBuilder.Append("Seleccione un Tipo de Documento.\n");
+            }
+
+            if (this.comboBoxPlanMedico.SelectedIndex == 0)
+            {
+                stringErrorBuilder.Append("Seleccione un Plan Medico.\n");
+            }
+
+            if (stringErrorBuilder.ToString().Trim().Length > 0)
+            {
+                throw new Exception(stringErrorBuilder.ToString());
+            }
         }
 
         internal void llenarComboPlanesMedicos(List<PlanMedico> planesMedicos)
@@ -93,5 +181,10 @@ namespace ClinicaFrba
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
+        internal void showInformationMessage(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Informacion",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

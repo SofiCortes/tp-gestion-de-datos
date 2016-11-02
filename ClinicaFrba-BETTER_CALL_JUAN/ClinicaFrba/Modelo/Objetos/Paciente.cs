@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    class Paciente
+    public class Paciente
     {
         public decimal id { get; set; }
         public decimal nroRaiz { get; set; }
@@ -28,5 +28,27 @@ namespace ClinicaFrba
         public decimal usuarioId { get; set; }
 
         public string planMedicoDescripcion { get; set; }
+
+        public PlanMedico planMedico { get; set; }
+        public List<Paciente> familiares { get; set; }
+
+        public void addPaciente(Paciente paciente)
+        {
+            if (familiares == null)
+            {
+                this.familiares = new List<Paciente>();
+            }
+            this.familiares.Add(paciente);
+        }
+
+        public void removePaciente(Paciente paciente)
+        {
+            this.familiares.Remove(paciente);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return ((Paciente)obj).id == this.id;
+        }
     }
 }

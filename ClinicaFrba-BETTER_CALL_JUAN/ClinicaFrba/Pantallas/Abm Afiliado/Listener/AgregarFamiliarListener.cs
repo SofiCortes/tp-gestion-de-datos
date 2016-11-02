@@ -8,5 +8,6 @@ namespace ClinicaFrba
 {
     public interface AgregarFamiliarListener
     {
+        void onFamiliarCreado(Paciente paciente);
     }
 }

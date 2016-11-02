@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    class PlanMedico
+    public class PlanMedico
     {
         public decimal codigo { get; set; }
         public string descripcion { get; set; }
