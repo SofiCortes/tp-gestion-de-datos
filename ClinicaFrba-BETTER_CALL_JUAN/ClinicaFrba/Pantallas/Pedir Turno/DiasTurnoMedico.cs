@@ -60,8 +60,8 @@ namespace ClinicaFrba
 
             HorariosTurnos horarios = new HorariosTurnos();
 
+            horarios.setHorariosTurnosListener(this.controller);
             horarios.showHorarios(medico,especialidad,fechaElegida);
-
         }
     }
 }

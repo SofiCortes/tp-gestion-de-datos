@@ -125,7 +125,7 @@
             this.medicosEspecialidadParaTurnoGrid.Name = "medicosEspecialidadParaTurnoGrid";
             this.medicosEspecialidadParaTurnoGrid.Size = new System.Drawing.Size(504, 273);
             this.medicosEspecialidadParaTurnoGrid.TabIndex = 13;
-            this.medicosEspecialidadParaTurnoGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosGrid_CellContentClick);
+            this.medicosEspecialidadParaTurnoGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosGrid_CellClick);
             // 
             // limpiarButton
             // 

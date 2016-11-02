@@ -263,6 +263,7 @@
       <DependentUpon>HorariosTurnos.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Pedir Turno\HorariosTurnosController.cs" />
+    <Compile Include="Pantallas\Pedir Turno\Listener\HorariosTurnosListener.cs" />
     <Compile Include="Pantallas\Pedir Turno\Pedir Turno.cs">
       <SubType>Form</SubType>
     </Compile>

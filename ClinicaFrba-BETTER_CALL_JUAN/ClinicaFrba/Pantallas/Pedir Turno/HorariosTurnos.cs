@@ -23,6 +23,11 @@ namespace ClinicaFrba
             InitializeComponent();
         }
 
+        internal void setHorariosTurnosListener(HorariosTurnosListener listener)
+        {
+            this.controller.setHorariosTurnosListener(listener);
+        }
+
         internal void showHorarios(Medico medico, Especialidad especialidad, string fechaElegida)
         {
             this.medico = medico;
@@ -61,5 +66,11 @@ namespace ClinicaFrba
             this.controller.pedirTurno(medico, especialidad, fechaElegida, horarioElegido);
         }
 
-   }
+
+        internal void showInformationMessage(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Informacion",
+                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+    }
 }

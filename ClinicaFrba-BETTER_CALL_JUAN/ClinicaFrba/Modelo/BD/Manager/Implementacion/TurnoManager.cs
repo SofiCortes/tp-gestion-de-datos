@@ -64,7 +64,7 @@ namespace ClinicaFrba
                 ParametroParaSP parametro1 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medico.matricula);
                 ParametroParaSP parametro2 = new ParametroParaSP("especialidad_codigo", SqlDbType.Decimal, especialidad.codigo);
                 ParametroParaSP parametro3 = new ParametroParaSP("fecha", SqlDbType.DateTime, DateTime.Parse(fechaElegida));
-                
+
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);
@@ -97,13 +97,14 @@ namespace ClinicaFrba
             return horariosDisponibles;
         }
 
-        internal void pedirTurno(Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
+        internal bool pedirTurno(Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
         {
-           try
+            bool turnoPedido = true;
+            try
             {
                 decimal usuario_id = UsuarioConfiguracion.getInstance().getUsuarioId();
 
-                DateTime fecha_hora_turno  = DateTime.Parse(fechaElegida) + TimeSpan.Parse(horarioElegido);
+                DateTime fecha_hora_turno = DateTime.Parse(fechaElegida) + TimeSpan.Parse(horarioElegido);
 
                 ParametroParaSP parametro1 = new ParametroParaSP("usuario_id_afiliado", SqlDbType.Decimal, usuario_id);
                 ParametroParaSP parametro2 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medico.matricula);
@@ -120,15 +121,16 @@ namespace ClinicaFrba
 
                 SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Pedir_Turno", parametros);
                 procedure.ExecuteNonQuery();
-             }
+            }
             catch (Exception e)
             {
-               
+                turnoPedido = false;
             }
             finally
             {
                 this.closeDB();
             }
+            return turnoPedido;
         }
     }
 }

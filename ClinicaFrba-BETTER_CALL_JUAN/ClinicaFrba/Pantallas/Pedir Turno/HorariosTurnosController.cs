@@ -7,36 +7,51 @@ namespace ClinicaFrba
 {
     class HorariosTurnosController
     {
-         private HorariosTurnos form;
+        private HorariosTurnosListener listener;
+        private HorariosTurnos form;
 
-         public HorariosTurnosController(HorariosTurnos form)
+        public HorariosTurnosController(HorariosTurnos form)
         {
             this.form = form;
         }
 
-        
+        internal void llenarHorariosParaFecha(Medico medico, Especialidad especialidad, string fechaElegida)
+        {
+            TurnoManager managerTurnos = new TurnoManager();
 
-         internal void llenarHorariosParaFecha(Medico medico, Especialidad especialidad, string fechaElegida)
-         {
-             TurnoManager managerTurnos = new TurnoManager();
+            List<string> horariosDisponibles = managerTurnos.getHorariosDisponiblesParaFecha(medico, especialidad, fechaElegida);
 
-             List<string> horariosDisponibles = managerTurnos.getHorariosDisponiblesParaFecha(medico,especialidad,fechaElegida);
+            if (horariosDisponibles != null)
+            {
+                this.form.llenarHorarios(horariosDisponibles);
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al buscar las Fechas.");
+            }
+        }
 
-             if (horariosDisponibles != null)
-             {
-                 this.form.llenarHorarios(horariosDisponibles);
-             }
-             else
-             {
-                 this.form.showErrorMessage("Ocurrio un error al buscar las Fechas.");
-             }
-         }
+        internal void pedirTurno(Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
+        {
+            TurnoManager managerTurnos = new TurnoManager();
+            bool turnoPedido = managerTurnos.pedirTurno(medico, especialidad, fechaElegida, horarioElegido);
 
-         internal void pedirTurno(Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
-         {
-             TurnoManager managerTurnos = new TurnoManager();
+            if (turnoPedido)
+            {
+                this.form.showInformationMessage("Su turno fue solicitado con exito");
+                this.listener.onHorariosTurnosClosed();
+                this.form.Close();
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al solicitar el Turno, por favor intentelo de nuevo.");
+                this.form.Close();
+            }
+        }
 
-             managerTurnos.pedirTurno(medico, especialidad, fechaElegida, horarioElegido);
-         }
+        internal void setHorariosTurnosListener(HorariosTurnosListener listener)
+        {
+            this.listener = listener;
+        }
     }
 }

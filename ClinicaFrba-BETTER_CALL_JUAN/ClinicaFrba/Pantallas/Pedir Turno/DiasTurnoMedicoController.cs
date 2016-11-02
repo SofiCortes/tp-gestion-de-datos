@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    class DiasTurnoMedicoController
+    class DiasTurnoMedicoController : HorariosTurnosListener
     {
         private DiasTurnoMedico form;
 
@@ -14,7 +14,6 @@ namespace ClinicaFrba
         {
             this.form = form;
         }
-
 
         internal void getFechasDisponibles(Medico medico, Especialidad especialidad)
         {
@@ -30,6 +29,11 @@ namespace ClinicaFrba
             {
                 this.form.showErrorMessage("Ocurrio un error al buscar las Fechas.");
             }
+        }
+
+        public void onHorariosTurnosClosed()
+        {
+            this.form.Close();
         }
     }
 }

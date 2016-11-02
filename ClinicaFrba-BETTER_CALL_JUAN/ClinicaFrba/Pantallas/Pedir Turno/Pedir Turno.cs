@@ -84,6 +84,7 @@ namespace ClinicaFrba
 
                 }
             ).ToList();
+            medicosEspecialidadParaTurnoGrid.ClearSelection();
 
         }
 
@@ -95,7 +96,7 @@ namespace ClinicaFrba
             this.medicosEspecialidadParaTurnoGrid.DataSource = null;
         }
 
-        private void resultadosGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void resultadosGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Medico medico = controller.obtenerMedico(medicosEspecialidadParaTurnoGrid);
             Especialidad especialidad = new Especialidad();
