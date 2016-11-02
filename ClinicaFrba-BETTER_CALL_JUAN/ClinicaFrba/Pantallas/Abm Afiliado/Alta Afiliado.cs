@@ -38,11 +38,6 @@ namespace ClinicaFrba
             this.comboBoxSexo.DataSource = sexos;
         }
 
-        private void buttonFechaNacimiento_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonAgregarFamiliar_Click(object sender, EventArgs e)
         {
             AgregarFamiliar form = new AgregarFamiliar();
@@ -63,7 +58,8 @@ namespace ClinicaFrba
             this.comboBoxEstadoCivil.SelectedIndex = 0;
             this.comboBoxSexo.SelectedIndex = 0;
             this.comboBoxPlanMedico.SelectedIndex = 0;
-            this.panelFamiliares.Controls.Clear();
+            this.dataGridFamiliares.DataSource = null;
+            this.controller.clearFamiliares();
         }
 
         private void buttonGuardar_Click(object sender, EventArgs e)
@@ -195,6 +191,29 @@ namespace ClinicaFrba
         {
             MessageBox.Show(mensaje, "Informacion",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        internal void agregarFamiliar(List<Paciente> pacientes)
+        {
+            dataGridFamiliares.DataSource = pacientes.Select(
+                paciente => new
+                {
+                    Nombre = paciente.nombre,
+                    Apellido = paciente.apellido,
+                    TipoDocumento = paciente.tipoDoc,
+                    NumeroDocumento = paciente.nroDoc
+                }
+            ).ToList();
+        }
+
+        private void familiares_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewSelectedCellCollection dataSelectedCell = dataGridFamiliares.SelectedCells;
+            DataGridViewCell dgvc = dataSelectedCell[0];
+            DataGridViewRow row = dgvc.OwningRow;
+            Paciente paciente = new Paciente();
+            paciente.nroDoc = Convert.ToDecimal(row.Cells[3].Value.ToString());
+            this.controller.onFamiliarClicked(paciente);
         }
     }
 }

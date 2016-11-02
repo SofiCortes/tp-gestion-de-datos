@@ -1,7 +1,6 @@
-﻿using System.Windows.Forms;
-namespace ClinicaFrba
+﻿namespace ClinicaFrba
 {
-    partial class AltaAfiliado
+    partial class ModificarFamiliar
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +28,7 @@ namespace ClinicaFrba
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonLimpiar = new System.Windows.Forms.Button();
             this.dateTimePickerFechaNac = new System.Windows.Forms.DateTimePicker();
             this.comboBoxEstadoCivil = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -50,55 +49,27 @@ namespace ClinicaFrba
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonAgregarFamiliar = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.comboBoxPlanMedico = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.buttonLimpiar = new System.Windows.Forms.Button();
             this.buttonGuardar = new System.Windows.Forms.Button();
-            this.dataGridFamiliares = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridFamiliares)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // buttonLimpiar
             // 
-            this.groupBox1.Controls.Add(this.dateTimePickerFechaNac);
-            this.groupBox1.Controls.Add(this.comboBoxEstadoCivil);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.comboBoxSexo);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.textBoxEmail);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.textBoxTelefono);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.textBoxDireccion);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.textBoxNroDoc);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.comboBoxTipoDoc);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBoxApellido);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBoxNombre);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(400, 307);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Datos Principales";
+            this.buttonLimpiar.Location = new System.Drawing.Point(17, 322);
+            this.buttonLimpiar.Name = "buttonLimpiar";
+            this.buttonLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.buttonLimpiar.TabIndex = 7;
+            this.buttonLimpiar.Text = "Limpiar";
+            this.buttonLimpiar.UseVisualStyleBackColor = true;
+            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click_1);
             // 
             // dateTimePickerFechaNac
             // 
             this.dateTimePickerFechaNac.Location = new System.Drawing.Point(97, 211);
             this.dateTimePickerFechaNac.Name = "dateTimePickerFechaNac";
             this.dateTimePickerFechaNac.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerFechaNac.TabIndex = 21;
+            this.dateTimePickerFechaNac.TabIndex = 22;
             // 
             // comboBoxEstadoCivil
             // 
@@ -266,116 +237,71 @@ namespace ClinicaFrba
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.buttonAgregarFamiliar);
-            this.groupBox2.Controls.Add(this.groupBox3);
-            this.groupBox2.Controls.Add(this.comboBoxPlanMedico);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Location = new System.Drawing.Point(13, 326);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(399, 224);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Datos Obra Social";
-            // 
-            // buttonAgregarFamiliar
-            // 
-            this.buttonAgregarFamiliar.Location = new System.Drawing.Point(261, 188);
-            this.buttonAgregarFamiliar.Name = "buttonAgregarFamiliar";
-            this.buttonAgregarFamiliar.Size = new System.Drawing.Size(130, 23);
-            this.buttonAgregarFamiliar.TabIndex = 24;
-            this.buttonAgregarFamiliar.Text = "Agregar Familiar";
-            this.buttonAgregarFamiliar.UseVisualStyleBackColor = true;
-            this.buttonAgregarFamiliar.Click += new System.EventHandler(this.buttonAgregarFamiliar_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.dataGridFamiliares);
-            this.groupBox3.Location = new System.Drawing.Point(8, 46);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(383, 136);
-            this.groupBox3.TabIndex = 23;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Grupo Familiar";
-            // 
-            // comboBoxPlanMedico
-            // 
-            this.comboBoxPlanMedico.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPlanMedico.FormattingEnabled = true;
-            this.comboBoxPlanMedico.Location = new System.Drawing.Point(96, 19);
-            this.comboBoxPlanMedico.Name = "comboBoxPlanMedico";
-            this.comboBoxPlanMedico.Size = new System.Drawing.Size(142, 21);
-            this.comboBoxPlanMedico.TabIndex = 22;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(5, 22);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(66, 13);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "Plan Medico";
-            // 
-            // buttonLimpiar
-            // 
-            this.buttonLimpiar.Location = new System.Drawing.Point(13, 567);
-            this.buttonLimpiar.Name = "buttonLimpiar";
-            this.buttonLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.buttonLimpiar.TabIndex = 2;
-            this.buttonLimpiar.Text = "Limpiar";
-            this.buttonLimpiar.UseVisualStyleBackColor = true;
-            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
-            // 
             // buttonGuardar
             // 
-            this.buttonGuardar.Location = new System.Drawing.Point(337, 567);
+            this.buttonGuardar.Location = new System.Drawing.Point(341, 322);
             this.buttonGuardar.Name = "buttonGuardar";
             this.buttonGuardar.Size = new System.Drawing.Size(75, 23);
-            this.buttonGuardar.TabIndex = 3;
+            this.buttonGuardar.TabIndex = 8;
             this.buttonGuardar.Text = "Guardar";
             this.buttonGuardar.UseVisualStyleBackColor = true;
-            this.buttonGuardar.Click += new System.EventHandler(this.buttonGuardar_Click);
+            this.buttonGuardar.Click += new System.EventHandler(this.buttonGuardar_Click_1);
             // 
-            // dataGridFamiliares
+            // groupBox1
             // 
-            this.dataGridFamiliares.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridFamiliares.Location = new System.Drawing.Point(7, 20);
-            this.dataGridFamiliares.Name = "dataGridFamiliares";
-            this.dataGridFamiliares.Size = new System.Drawing.Size(370, 106);
-            this.dataGridFamiliares.TabIndex = 0;
-            this.dataGridFamiliares.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.familiares_CellClick);
-           
+            this.groupBox1.Controls.Add(this.dateTimePickerFechaNac);
+            this.groupBox1.Controls.Add(this.comboBoxEstadoCivil);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.comboBoxSexo);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.textBoxEmail);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.textBoxTelefono);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.textBoxDireccion);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.textBoxNroDoc);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.comboBoxTipoDoc);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.textBoxApellido);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.textBoxNombre);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(16, 9);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(400, 307);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Datos Principales";
             // 
-            // AltaAfiliado
+            // ModificarFamiliar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(456, 514);
-            this.Controls.Add(this.buttonGuardar);
+            this.ClientSize = new System.Drawing.Size(433, 355);
             this.Controls.Add(this.buttonLimpiar);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.groupBox1);
-            this.Name = "AltaAfiliado";
-            this.Text = "Agregar afiliado";
+            this.Name = "ModificarFamiliar";
+            this.Text = "Modificar Familiar";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridFamiliares)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBoxApellido;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxNombre;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonLimpiar;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFechaNac;
+        private System.Windows.Forms.ComboBox comboBoxEstadoCivil;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboBoxSexo;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxTelefono;
@@ -386,19 +312,11 @@ namespace ClinicaFrba
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBoxTipoDoc;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBoxEstadoCivil;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox comboBoxSexo;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button buttonAgregarFamiliar;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ComboBox comboBoxPlanMedico;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button buttonLimpiar;
+        private System.Windows.Forms.TextBox textBoxApellido;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxNombre;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonGuardar;
-        private DateTimePicker dateTimePickerFechaNac;
-        private DataGridView dataGridFamiliares;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

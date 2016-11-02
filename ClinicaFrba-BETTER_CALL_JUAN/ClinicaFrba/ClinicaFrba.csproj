@@ -109,6 +109,8 @@
     </Compile>
     <Compile Include="Pantallas\Abm Afiliado\ListadoAfiliadosController.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Listener\AgregarFamiliarListener.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\Listener\ModificarFamiliarListener.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\Listener\OpcionesFamiliarListener.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Modificar Afiliado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +118,20 @@
       <DependentUpon>Modificar Afiliado.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Abm Afiliado\ModificarAfiliadoController.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\ModificarFamiliar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Abm Afiliado\ModificarFamiliar.Designer.cs">
+      <DependentUpon>ModificarFamiliar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Abm Afiliado\ModificarFamiliarController.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\OpcionesFamiliarController.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\OpcionesFamiliarDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Abm Afiliado\OpcionesFamiliarDialog.Designer.cs">
+      <DependentUpon>OpcionesFamiliarDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Abm Planes\Listado Planes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -289,6 +305,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Afiliado\Listado Afiliados.resx">
       <DependentUpon>Listado Afiliados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Afiliado\ModificarFamiliar.resx">
+      <DependentUpon>ModificarFamiliar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Afiliado\OpcionesFamiliarDialog.resx">
+      <DependentUpon>OpcionesFamiliarDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Planes\Listado Planes.resx">
       <DependentUpon>Listado Planes.cs</DependentUpon>

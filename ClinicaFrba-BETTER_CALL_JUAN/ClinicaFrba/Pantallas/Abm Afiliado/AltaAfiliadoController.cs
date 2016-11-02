@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    public class AltaAfiliadoController : AgregarFamiliarListener
+    public class AltaAfiliadoController : AgregarFamiliarListener, ModificarFamiliarListener, OpcionesFamiliarListener
     {
         private AltaAfiliado form;
         private List<Paciente> familiaresAgregados;
@@ -37,7 +37,9 @@ namespace ClinicaFrba
             {
                 this.familiaresAgregados = new List<Paciente>();
             }
+            paciente.id = this.familiaresAgregados.Count;
             this.familiaresAgregados.Add(paciente);
+            this.form.agregarFamiliar(this.familiaresAgregados);
         }
 
         internal void agregarAfiliado(Paciente paciente)
@@ -54,6 +56,47 @@ namespace ClinicaFrba
             else
             {
                 this.form.showErrorMessage("Ocurrio un error al agregar el Afiliado");
+            }
+        }
+
+        internal void clearFamiliares()
+        {
+            this.familiaresAgregados.Clear();
+        }
+
+        public void onFamiliarModificado(Paciente paciente)
+        {
+            this.familiaresAgregados.Remove(paciente);
+            this.familiaresAgregados.Insert(Convert.ToInt32(paciente.id), paciente);
+            this.form.agregarFamiliar(this.familiaresAgregados);
+        }
+
+        public void onEliminarFamiliarSelected(Paciente paciente)
+        {
+            this.familiaresAgregados.Remove(paciente);
+            this.form.agregarFamiliar(this.familiaresAgregados);
+        }
+
+        public void onModificarFamiliarSelected(Paciente paciente)
+        {
+            ModificarFamiliar ModificarFamiliar = new ModificarFamiliar();
+            ModificarFamiliar.setModificarFamiliarListener(this);
+            ModificarFamiliar.setPacienteAModificar(paciente);
+            ModificarFamiliar.ShowDialog();
+        }
+
+        internal void onFamiliarClicked(Paciente paciente)
+        {
+            foreach (Paciente familiar in this.familiaresAgregados)
+            {
+                if (familiar.nroDoc.Equals(paciente.nroDoc))
+                {
+                    OpcionesFamiliarDialog OpcionesFamiliarDialog = new OpcionesFamiliarDialog();
+                    OpcionesFamiliarDialog.setOpcionesFamiliarListener(this);
+                    OpcionesFamiliarDialog.setPaciente(familiar);
+                    OpcionesFamiliarDialog.ShowDialog();
+                    break;
+                }
             }
         }
     }
