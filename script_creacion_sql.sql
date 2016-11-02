@@ -1019,6 +1019,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Medico_Para_Agenda
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Buscar_Turnos_Fecha_Por_Medico'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Turnos_Fecha_Por_Medico
+GO
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Validar_Documento'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Validar_Documento
 GO
@@ -1765,6 +1769,21 @@ BEGIN
 
 	EXEC sp_executesql @QUERY_FINAL, N'@nombre VARCHAR(255), @apellido VARCHAR(255),
 									   @especialidad_codigo NUMERIC(18,0)',@nombre, @apellido,@especialidad_codigo
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Turnos_Fecha_Por_Medico](@medico_id NUMERIC(18,0), @especialidad_codigo NUMERIC(18,0), @fecha DATE)
+AS
+BEGIN
+	DECLARE @medico_especialidad_id NUMERIC(18,0)
+
+	SELECT @medico_especialidad_id=me.id
+	FROM BETTER_CALL_JUAN.Medicos_Especialidades me
+	WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
+
+	SELECT tipo_doc, nro_doc, nombre, apellido, fecha_hora
+	FROM Turnos t JOIN Pacientes p ON (t.paciente_id = p.id)
+	WHERE medico_especialidad_id = @medico_especialidad_id AND DATEDIFF(day, t.fecha_hora, @fecha) = 0
 END
 GO
 
