@@ -41,6 +41,8 @@ namespace ClinicaFrba
         internal void modificarAfiliado(Paciente paciente)
         {
             PacienteManager pacienteManager = new PacienteManager();
+            paciente.id = this.pacienteAModificar.id;
+
             bool puedeModificar;
             if (paciente.tipoDoc.Equals(this.pacienteAModificar.tipoDoc) && paciente.nroDoc.Equals(this.pacienteAModificar.nroDoc))
             {
@@ -62,7 +64,7 @@ namespace ClinicaFrba
                 }
                 else
                 {
-                    bool pacienteModificado = pacienteManager.modificarAfiliado(this.pacienteAModificar.planMedicoCod, paciente);
+                    bool pacienteModificado = pacienteManager.modificarAfiliado(this.pacienteAModificar.planMedicoCod, paciente, "");
                     if (pacienteModificado)
                     {
                         this.form.showInformationMessage("El Afiliado fue modificado correctamente");

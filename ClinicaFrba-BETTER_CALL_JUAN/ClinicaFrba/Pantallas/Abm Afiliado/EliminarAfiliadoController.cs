@@ -33,6 +33,7 @@ namespace ClinicaFrba
                 if (afiliadoEliminado)
                 {
                     this.form.showInformationDialog("El Afiliado fue eliminado correctamente.");
+                    this.form.Close();
                 }
                 else
                 {
