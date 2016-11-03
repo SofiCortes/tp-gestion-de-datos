@@ -1041,6 +1041,15 @@ GO
 
 ------------------------------------------
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Rangos_Atencion_Medico] (@matricula NUMERIC(18,0))
+AS
+BEGIN
+	SELECT r.id,r.dia_semana,r.hora_desde,r.hora_hasta,r.medico_especialidad_id
+	FROM BETTER_CALL_JUAN.Rangos_Atencion r 
+	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (r.medico_especialidad_id=med_esp.id AND med_esp.medico_id=@matricula)
+END
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Afiliados_Por_Documento]
 (@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0))
 AS
@@ -2103,11 +2112,3 @@ BEGIN
 END
 GO 
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Rangos_Atencion_Medico] (@matricula NUMERIC(18,0))
-AS
-BEGIN
-	SELECT r.id,r.dia_semana,r.hora_desde,r.hora_hasta,r.medico_especialidad_id
-	FROM BETTER_CALL_JUAN.Rangos_Atencion r 
-	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (r.medico_especialidad_id=med_esp.id AND med_esp.medico_id=@matricula)
-END
-GO
