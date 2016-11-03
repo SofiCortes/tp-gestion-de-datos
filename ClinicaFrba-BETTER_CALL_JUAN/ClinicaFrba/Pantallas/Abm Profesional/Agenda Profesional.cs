@@ -15,6 +15,8 @@ namespace ClinicaFrba
         private AgendaProfesionalController controller;
         private List<CheckBox> CBLDias;
         private Dictionary<String, int> dias;
+        private List<Especialidad> especialidadesMedico;
+        private Medico medicoSeleccionado;
 
         public AgendaProfesional()
         {
@@ -34,6 +36,8 @@ namespace ClinicaFrba
 
         internal void showRegistroHorario(Medico medico, List<Especialidad> especialidades)
         {
+            especialidadesMedico = especialidades;
+            medicoSeleccionado = medico;
             this.llenarComboEspecialidades(especialidades);
             this.mostrarDiasDeLaSemana();
             this.Show();
@@ -75,11 +79,12 @@ namespace ClinicaFrba
             }
             else
             {
-
                 if (this.CBLDias.Any(cbf => cbf.Checked))
                 {
+                    Especialidad espSeleccionada = new Especialidad();
+                    espSeleccionada = especialidadesMedico.Find(x => x.descripcion.Equals(comboEspecialidad.Text));
                     HorariosAgendaProfesional hap = new HorariosAgendaProfesional();
-                    hap.mostrarHorarios(CBLDias);
+                    hap.mostrarHorarios(CBLDias, espSeleccionada);
                     this.Close();
                 }
                 else
