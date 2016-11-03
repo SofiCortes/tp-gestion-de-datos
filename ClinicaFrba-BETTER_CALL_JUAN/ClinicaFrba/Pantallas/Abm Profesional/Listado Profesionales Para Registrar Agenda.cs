@@ -90,14 +90,21 @@ namespace ClinicaFrba
             this.medicosEspecialidadParaAgendaGrid.DataSource = null;
         }
 
-        private void medicosEspecialidadParaTurnoGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void buttonSeleccionar_Click(object sender, EventArgs e)
         {
-            Medico medico = controller.obtenerMedico(medicosEspecialidadParaAgendaGrid);
-            List<Especialidad> especialidades = new List<Especialidad>();
-            especialidades = controller.obtenerEspecialidadesMedico(medico);
-            AgendaProfesional ap = new AgendaProfesional();
-            ap.showRegistroHorario(medico, especialidades);
-            this.Close();
+            if (medicosEspecialidadParaAgendaGrid.SelectedCells.Count == 0)
+            {
+                this.showErrorMessage("Debe seleccionar algun medico");
+            }
+            else
+            {
+                Medico medico = controller.obtenerMedico(medicosEspecialidadParaAgendaGrid);
+                List<Especialidad> especialidades = new List<Especialidad>();
+                especialidades = controller.obtenerEspecialidadesMedico(medico);
+                AgendaProfesional ap = new AgendaProfesional();
+                ap.showRegistroHorario(medico, especialidades);
+                this.Close();
+            }
         }
     }
 }

@@ -38,6 +38,7 @@
             this.buscarButton = new System.Windows.Forms.Button();
             this.medicosEspecialidadParaAgendaGrid = new System.Windows.Forms.DataGridView();
             this.limpiarButton = new System.Windows.Forms.Button();
+            this.buttonSeleccionar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.medicosEspecialidadParaAgendaGrid)).BeginInit();
             this.SuspendLayout();
@@ -122,11 +123,12 @@
             // medicosEspecialidadParaAgendaGrid
             // 
             this.medicosEspecialidadParaAgendaGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.medicosEspecialidadParaAgendaGrid.Location = new System.Drawing.Point(12, 204);
+            this.medicosEspecialidadParaAgendaGrid.Location = new System.Drawing.Point(12, 183);
+            this.medicosEspecialidadParaAgendaGrid.MultiSelect = false;
             this.medicosEspecialidadParaAgendaGrid.Name = "medicosEspecialidadParaAgendaGrid";
+            this.medicosEspecialidadParaAgendaGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.medicosEspecialidadParaAgendaGrid.Size = new System.Drawing.Size(504, 273);
             this.medicosEspecialidadParaAgendaGrid.TabIndex = 17;
-            this.medicosEspecialidadParaAgendaGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.medicosEspecialidadParaTurnoGrid_CellClick);
             // 
             // limpiarButton
             // 
@@ -139,11 +141,22 @@
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
+            // buttonSeleccionar
+            // 
+            this.buttonSeleccionar.Location = new System.Drawing.Point(225, 466);
+            this.buttonSeleccionar.Name = "buttonSeleccionar";
+            this.buttonSeleccionar.Size = new System.Drawing.Size(75, 23);
+            this.buttonSeleccionar.TabIndex = 20;
+            this.buttonSeleccionar.Text = "Seleccionar";
+            this.buttonSeleccionar.UseVisualStyleBackColor = true;
+            this.buttonSeleccionar.Click += new System.EventHandler(this.buttonSeleccionar_Click);
+            // 
             // ListadoProfesionalesParaRegistrarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 497);
+            this.Controls.Add(this.buttonSeleccionar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buscarButton);
             this.Controls.Add(this.medicosEspecialidadParaAgendaGrid);
@@ -169,5 +182,6 @@
         private System.Windows.Forms.Button buscarButton;
         private System.Windows.Forms.DataGridView medicosEspecialidadParaAgendaGrid;
         private System.Windows.Forms.Button limpiarButton;
+        private System.Windows.Forms.Button buttonSeleccionar;
     }
 }

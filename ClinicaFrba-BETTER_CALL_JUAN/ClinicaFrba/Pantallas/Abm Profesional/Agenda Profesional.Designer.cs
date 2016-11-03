@@ -63,26 +63,26 @@
             // 
             // diasPanel
             // 
-            this.diasPanel.AutoScroll = true;
             this.diasPanel.Location = new System.Drawing.Point(10, 57);
             this.diasPanel.Name = "diasPanel";
-            this.diasPanel.Size = new System.Drawing.Size(262, 220);
+            this.diasPanel.Size = new System.Drawing.Size(260, 171);
             this.diasPanel.TabIndex = 8;
             // 
             // buttonAceptar
             // 
-            this.buttonAceptar.Location = new System.Drawing.Point(99, 283);
+            this.buttonAceptar.Location = new System.Drawing.Point(102, 231);
             this.buttonAceptar.Name = "buttonAceptar";
             this.buttonAceptar.Size = new System.Drawing.Size(75, 23);
             this.buttonAceptar.TabIndex = 9;
             this.buttonAceptar.Text = "Aceptar";
             this.buttonAceptar.UseVisualStyleBackColor = true;
+            this.buttonAceptar.Click += new System.EventHandler(this.buttonAceptar_Click);
             // 
             // AgendaProfesional
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 314);
+            this.ClientSize = new System.Drawing.Size(281, 269);
             this.Controls.Add(this.buttonAceptar);
             this.Controls.Add(this.diasPanel);
             this.Controls.Add(this.label2);

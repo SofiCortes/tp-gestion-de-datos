@@ -74,6 +74,7 @@
             // 
             this.resultadosRolesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.resultadosRolesGrid.Location = new System.Drawing.Point(13, 134);
+            this.resultadosRolesGrid.MultiSelect = false;
             this.resultadosRolesGrid.Name = "resultadosRolesGrid";
             this.resultadosRolesGrid.Size = new System.Drawing.Size(326, 210);
             this.resultadosRolesGrid.TabIndex = 1;

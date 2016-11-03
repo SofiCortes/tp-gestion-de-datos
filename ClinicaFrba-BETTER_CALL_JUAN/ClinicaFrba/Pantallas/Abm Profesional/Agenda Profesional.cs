@@ -14,12 +14,21 @@ namespace ClinicaFrba
     {
         private AgendaProfesionalController controller;
         private List<CheckBox> CBLDias;
+        private Dictionary<String, int> dias;
 
         public AgendaProfesional()
         {
             this.controller = new AgendaProfesionalController(this);
 
             InitializeComponent();
+
+            dias = new Dictionary<String, int>();
+            dias.Add("Lunes", 1);
+            dias.Add("Martes", 2);
+            dias.Add("Miercoles", 3);
+            dias.Add("Jueves", 4);
+            dias.Add("Viernes", 5);
+            dias.Add("Sabado", 6);
 
         }
 
@@ -32,14 +41,6 @@ namespace ClinicaFrba
 
         private void mostrarDiasDeLaSemana()
         {
-            Dictionary<String,int> dias = new Dictionary<String, int>();
-            dias.Add("Lunes",1);
-            dias.Add("Martes",2);
-            dias.Add("Miercoles",3);
-            dias.Add("Jueves",4);
-            dias.Add("Viernes",5);
-            dias.Add("Sabado",6);
-
             this.CBLDias = new List<CheckBox>();
             int ycoords = 0;
          
@@ -50,7 +51,7 @@ namespace ClinicaFrba
                     cbf.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     cbf.Text = dia.Key;
                     diasPanel.Controls.Add(cbf);
-                    ycoords += 30;
+                    ycoords += 25;
                     this.CBLDias.Add(cbf);
                 };
         }
@@ -64,6 +65,35 @@ namespace ClinicaFrba
 
             this.comboEspecialidad.DataSource = especialidades;
             this.comboEspecialidad.DisplayMember = "descripcion";
+        }
+
+        private void buttonAceptar_Click(object sender, EventArgs e)
+        {
+            if (comboEspecialidad.Text == "Seleccione Especialidad")
+            {
+                this.ShowErrorDialog("Debe seleccionar una especialidad");
+            }
+            else
+            {
+
+                if (this.CBLDias.Any(cbf => cbf.Checked))
+                {
+                    HorariosAgendaProfesional hap = new HorariosAgendaProfesional();
+                    hap.mostrarHorarios(CBLDias);
+                    this.Close();
+                }
+                else
+                {
+                    this.ShowErrorDialog("Debe seleccionar al menos un día");
+                }
+
+            }
+        }
+
+        private void ShowErrorDialog(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
