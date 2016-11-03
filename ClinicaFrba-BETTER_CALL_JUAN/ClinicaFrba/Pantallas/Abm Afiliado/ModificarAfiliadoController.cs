@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    class ModificarAfiliadoController
+    class ModificarAfiliadoController : MotivoCambioPlanListener
     {
         private Paciente pacienteAModificar;
         private ModificarAfiliado form;
@@ -41,19 +41,37 @@ namespace ClinicaFrba
         internal void modificarAfiliado(Paciente paciente)
         {
             PacienteManager pacienteManager = new PacienteManager();
-            bool puedeModificar = pacienteManager.puedeGuardarseAfiliado(paciente.tipoDoc, paciente.nroDoc);
+            bool puedeModificar;
+            if (paciente.tipoDoc.Equals(this.pacienteAModificar.tipoDoc) && paciente.nroDoc.Equals(this.pacienteAModificar.nroDoc))
+            {
+                puedeModificar = true;
+            }
+            else
+            {
+                puedeModificar = pacienteManager.puedeGuardarseAfiliado(paciente.tipoDoc, paciente.nroDoc);
+            }
 
             if (puedeModificar)
             {
-                bool pacienteModificado = pacienteManager.modificarAfiliado(this.pacienteAModificar.tipoDoc, this.pacienteAModificar.nroDoc, paciente);
-                if (pacienteModificado)
+                if(!paciente.planMedicoCod.Equals(this.pacienteAModificar.planMedicoCod))
                 {
-                    this.form.showInformationMessage("El Afiliado fue modificado correctamente");
-                    this.form.Close();
+                    MotivoCambioPlanDialog form = new MotivoCambioPlanDialog();
+                    form.setMotivoCambioPlanListener(this);
+                    form.setPacienteModificado(paciente);
+                    form.ShowDialog();
                 }
                 else
                 {
-                    this.form.showErrorMessage("Ocurrio un error al modificar el Afiliado. Intentelo nuevamente");
+                    bool pacienteModificado = pacienteManager.modificarAfiliado(this.pacienteAModificar.planMedicoCod, paciente);
+                    if (pacienteModificado)
+                    {
+                        this.form.showInformationMessage("El Afiliado fue modificado correctamente");
+                        this.form.Close();
+                    }
+                    else
+                    {
+                        this.form.showErrorMessage("Ocurrio un error al modificar el Afiliado. Intentelo nuevamente");
+                    }
                 }
             }
             else
@@ -65,6 +83,21 @@ namespace ClinicaFrba
         internal Paciente getPacienteAModificar()
         {
             return this.pacienteAModificar;
+        }
+
+        public void onMotivoCambioPlanSeleccionado(string motivo, Paciente pacienteModificado)
+        {
+            PacienteManager pacienteManager = new PacienteManager();
+            bool modificado = pacienteManager.modificarAfiliado(this.pacienteAModificar.planMedicoCod, pacienteModificado, motivo);
+            if (modificado)
+            {
+                this.form.showInformationMessage("El Afiliado fue modificado correctamente");
+                this.form.Close();
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al modificar el Afiliado. Intentelo nuevamente");
+            }
         }
     }
 }

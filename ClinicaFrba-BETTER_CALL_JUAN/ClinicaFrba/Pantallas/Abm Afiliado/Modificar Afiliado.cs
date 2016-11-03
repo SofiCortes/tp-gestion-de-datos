@@ -42,8 +42,24 @@ namespace ClinicaFrba
             this.textBoxEmail.Text = paciente.mail;
             this.dateTimePickerFechaNac.Value = paciente.fechaNacimiento;
             this.comboBoxTipoDoc.SelectedIndex = tiposDocumentos.IndexOf(paciente.tipoDoc);
-            this.comboBoxEstadoCivil.SelectedIndex = estadosCiviles.IndexOf(paciente.estadoCivil);
-            this.comboBoxSexo.SelectedIndex = sexos.IndexOf(paciente.sexo.Equals('M') ? "Masculino" : "Femenino");
+
+            if (paciente.estadoCivil == null || paciente.estadoCivil.Length == 0)
+            {
+                this.comboBoxEstadoCivil.SelectedIndex = 0;
+            }
+            else
+            {
+                this.comboBoxEstadoCivil.SelectedIndex = estadosCiviles.IndexOf(paciente.estadoCivil);
+            }
+
+            if(paciente.sexo.Equals('N'))
+            {
+                this.comboBoxSexo.SelectedIndex = 0;
+            }
+            else
+            {
+                this.comboBoxSexo.SelectedIndex = sexos.IndexOf(paciente.sexo.Equals('M') ? "Masculino" : "Femenino");
+            }
 
             for (int i = 0; i < this.comboBoxPlanMedico.Items.Count; i++)
             {
@@ -110,6 +126,7 @@ namespace ClinicaFrba
             nuevoPaciente.sexo = ((string)this.comboBoxSexo.SelectedItem).ElementAt(0);
 
             nuevoPaciente.planMedico = (PlanMedico)this.comboBoxPlanMedico.SelectedItem;
+            nuevoPaciente.planMedicoCod = nuevoPaciente.planMedico.codigo;
 
             return nuevoPaciente;
         }
