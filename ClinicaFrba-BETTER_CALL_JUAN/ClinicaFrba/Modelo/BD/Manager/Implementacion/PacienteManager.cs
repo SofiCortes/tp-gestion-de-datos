@@ -262,5 +262,98 @@ namespace ClinicaFrba
 
             return puedeGuardarse;
         }
+
+        internal Paciente buscarAfiliadoPorTipoyNroDoc(string tipoDoc, decimal nroDoc)
+        {
+            Paciente paciente = new Paciente();
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("tipo_doc", SqlDbType.VarChar, tipoDoc);
+                ParametroParaSP parametro2 = new ParametroParaSP("nro_doc", SqlDbType.Decimal, nroDoc);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Por_Documento", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        paciente.id = sqlReader.GetDecimal(0);
+                        paciente.nroRaiz = !sqlReader.IsDBNull(1) ? sqlReader.GetDecimal(1) : 0;
+                        paciente.nroPersonal = sqlReader.GetDecimal(2);
+                        paciente.nombre = sqlReader.GetString(3);
+                        paciente.apellido = sqlReader.GetString(4);
+                        paciente.tipoDoc = sqlReader.GetString(5);
+                        paciente.nroDoc = sqlReader.GetDecimal(6);
+                        paciente.direccion = sqlReader.GetString(7);
+                        paciente.telefono = sqlReader.GetDecimal(8);
+                        paciente.mail = sqlReader.GetString(9);
+                        paciente.fechaNacimiento = sqlReader.GetDateTime(10);
+                        paciente.sexo = !sqlReader.IsDBNull(11) ? sqlReader.GetString(11).ElementAt(0) : 'N';
+                        paciente.estadoCivil = !sqlReader.IsDBNull(12) ? sqlReader.GetString(12) : "";
+                        paciente.cantidadFamiliares = sqlReader.GetInt32(13);
+                        paciente.planMedicoCod = sqlReader.GetDecimal(14);
+                        paciente.nroUltimaConsulta = sqlReader.GetDecimal(15);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                paciente = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return paciente;
+        }
+
+        internal bool modificarAfiliado(string tipoDoc, decimal nroDoc, Paciente paciente)
+        {
+            bool modificoAfiliado = true;
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("tipo_doc_viejo", SqlDbType.VarChar, tipoDoc);
+                ParametroParaSP parametro2 = new ParametroParaSP("nro_doc_viejo", SqlDbType.Decimal, nroDoc);
+                ParametroParaSP parametro3 = new ParametroParaSP("tipo_doc", SqlDbType.VarChar, paciente.tipoDoc);
+                ParametroParaSP parametro4 = new ParametroParaSP("nro_doc", SqlDbType.Decimal, paciente.nroDoc);
+                ParametroParaSP parametro5 = new ParametroParaSP("direccion", SqlDbType.VarChar, paciente.direccion);
+                ParametroParaSP parametro6 = new ParametroParaSP("telefono", SqlDbType.Decimal, paciente.telefono);
+                ParametroParaSP parametro7 = new ParametroParaSP("mail", SqlDbType.VarChar, paciente.mail);
+                ParametroParaSP parametro8 = new ParametroParaSP("sexo", SqlDbType.Char, paciente.sexo);
+                ParametroParaSP parametro9 = new ParametroParaSP("estado_civil", SqlDbType.VarChar, paciente.estadoCivil);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
+                parametros.Add(parametro5);
+                parametros.Add(parametro6);
+                parametros.Add(parametro7);
+                parametros.Add(parametro8);
+                parametros.Add(parametro9);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Modificar_Afiliado", parametros);
+                procedure.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                modificoAfiliado = false;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return modificoAfiliado;
+        }
     }
 }

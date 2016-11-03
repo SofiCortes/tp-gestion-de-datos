@@ -8,11 +8,63 @@ namespace ClinicaFrba
 {
     class ModificarAfiliadoController
     {
+        private Paciente pacienteAModificar;
         private ModificarAfiliado form;
 
         public ModificarAfiliadoController(ModificarAfiliado form)
         {
             this.form = form;
+        }
+
+        public void setPacienteAModificar(Paciente pacienteAModificar)
+        {
+            PacienteManager pacienteManager = new PacienteManager();
+            Paciente paciente = pacienteManager.buscarAfiliadoPorTipoyNroDoc(pacienteAModificar.tipoDoc, pacienteAModificar.nroDoc);
+            this.pacienteAModificar = paciente;
+        }
+
+        internal void buscarPlanesParaCombo()
+        {
+            PlanManager planManager = new PlanManager();
+            List<PlanMedico> planesMedicos = planManager.getPlanesMedicos();
+
+            if (planesMedicos != null)
+            {
+                this.form.llenarComboPlanesMedicos(planesMedicos);
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al obtener los Planes Medicos");
+            }
+        }
+
+        internal void modificarAfiliado(Paciente paciente)
+        {
+            PacienteManager pacienteManager = new PacienteManager();
+            bool puedeModificar = pacienteManager.puedeGuardarseAfiliado(paciente.tipoDoc, paciente.nroDoc);
+
+            if (puedeModificar)
+            {
+                bool pacienteModificado = pacienteManager.modificarAfiliado(this.pacienteAModificar.tipoDoc, this.pacienteAModificar.nroDoc, paciente);
+                if (pacienteModificado)
+                {
+                    this.form.showInformationMessage("El Afiliado fue modificado correctamente");
+                    this.form.Close();
+                }
+                else
+                {
+                    this.form.showErrorMessage("Ocurrio un error al modificar el Afiliado. Intentelo nuevamente");
+                }
+            }
+            else
+            {
+                this.form.showErrorMessage("El Afiliado no pude utilizar un Tipo y Numero de Documento ya existente.");
+            }
+        }
+
+        internal Paciente getPacienteAModificar()
+        {
+            return this.pacienteAModificar;
         }
     }
 }

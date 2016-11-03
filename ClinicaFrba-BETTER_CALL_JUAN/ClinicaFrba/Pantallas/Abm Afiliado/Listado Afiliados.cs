@@ -39,6 +39,8 @@ namespace ClinicaFrba
                 {
                     NumeroAfiliado = paciente.nroRaiz + "-" + paciente.nroPersonal,
                     NombreyApellido = paciente.apellido + ", " + paciente.nombre,
+                    TipoDoc = paciente.tipoDoc,
+                    NroDoc = Convert.ToString(paciente.nroDoc),
                     Plan = paciente.planMedicoDescripcion
                 }
             ).ToList();
@@ -81,6 +83,42 @@ namespace ClinicaFrba
             {
                 this.showErrorMessage("Complete algun filtro para poder realizar la busqueda");
             }
+        }
+
+
+        private void afiliadosGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.actionCode == ACTION_CODE_FOR_LIST_DELETE_AFILIADO)
+            {
+                this.launchDeleteAfiliado();
+                this.Close();
+            }
+            else if (this.actionCode == ACTION_CODE_FOR_LIST_MODIFY_AFILIADO)
+            {
+                this.launchModificarAfiliado();
+                this.Close();
+            }
+        }
+
+        private void launchModificarAfiliado()
+        {
+            DataGridViewSelectedCellCollection dataSelectedCell = afiliadosGrid.SelectedCells;
+            DataGridViewCell dgvc = dataSelectedCell[0];
+            DataGridViewRow row = dgvc.OwningRow;
+
+            Paciente paciente = new Paciente();
+            paciente.tipoDoc = row.Cells[2].Value.ToString();
+            paciente.nroDoc = Convert.ToDecimal(row.Cells[3].Value.ToString());
+
+            ModificarAfiliado modificarAfiliado = new ModificarAfiliado();
+            modificarAfiliado.setPacienteAModificar(paciente);
+            modificarAfiliado.Show();
+            this.Close();
+        }
+
+        private void launchDeleteAfiliado()
+        {
+            //TODO
         }
     }
 }
