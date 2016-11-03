@@ -258,8 +258,8 @@ GO
 	
 CREATE TABLE [BETTER_CALL_JUAN].[Pacientes] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
-  [nro_raiz] NUMERIC(18,0),
-  [nro_personal] NUMERIC(2,0) DEFAULT 00 NOT NULL,
+  [nro_raiz] NUMERIC(18,0) NOT NULL,
+  [nro_personal] NUMERIC(2,0) DEFAULT 01 NOT NULL,
   [nombre] VARCHAR(255) NOT NULL,
   [apellido] VARCHAR(255) NOT NULL,
   [tipo_doc] VARCHAR(100) NOT NULL,
@@ -338,12 +338,39 @@ GO
 	
 --INSERT PACIENTES
 
-INSERT INTO BETTER_CALL_JUAN.Pacientes (nombre, apellido, tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,plan_medico_cod,habilitado,nro_ultima_consulta)
+DECLARE @nombre VARCHAR(255), @apellido VARCHAR(255), @tipo_doc VARCHAR(100),@nro_doc NUMERIC(18,0),@direccion VARCHAR(255),
+@telefono NUMERIC(18,0),@mail VARCHAR(255),@fecha_nac DATETIME,@plan_medico_cod NUMERIC(18,0),@habilitado BIT,
+@nro_ultima_consulta NUMERIC(18,0), @nro_raiz_max NUMERIC(18,0) = 1
+
+DECLARE pacienteCursor CURSOR FOR 
 SELECT DISTINCT Paciente_Nombre, Paciente_Apellido, 'DNI', Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, 
 Plan_Med_Codigo, 1, (SELECT COUNT(DISTINCT cp.Bono_Consulta_Numero) FROM BETTER_CALL_JUAN.Consultas_Pacientes cp WHERE cp.Paciente_Dni = m.Paciente_Dni GROUP BY cp.Paciente_Dni) AS nroUltimaConsulta
 FROM gd_esquema.Maestra m
 GROUP BY Paciente_Nombre, Paciente_Apellido,Paciente_Dni, Paciente_Direccion, Paciente_Telefono, Paciente_Mail, Paciente_Fecha_Nac, Plan_Med_Codigo
+
+OPEN pacienteCursor
+
+FETCH pacienteCursor INTO @nombre, @apellido, @tipo_doc,@nro_doc,@direccion,@telefono ,@mail ,@fecha_nac,@plan_medico_cod,
+						  @habilitado, @nro_ultima_consulta
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+
+	INSERT INTO BETTER_CALL_JUAN.Pacientes 
+	(nro_raiz,nombre, apellido, tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,plan_medico_cod,habilitado,nro_ultima_consulta)
+	VALUES
+	(@nro_raiz_max,@nombre, @apellido, @tipo_doc,@nro_doc,@direccion,@telefono ,@mail ,@fecha_nac,@plan_medico_cod,
+	@habilitado, @nro_ultima_consulta)
+
+	SET @nro_raiz_max = @nro_raiz_max+1
+
+	FETCH pacienteCursor INTO @nombre, @apellido, @tipo_doc,@nro_doc,@direccion,@telefono ,@mail ,@fecha_nac,@plan_medico_cod,
+							  @habilitado, @nro_ultima_consulta
+END
 GO
+
+CLOSE pacienteCursor
+DEALLOCATE pacienteCursor
 	
 /* Tabla Medicos */
 INSERT INTO BETTER_CALL_JUAN.Medicos(nombre, apellido, tipo_doc, nro_doc, direccion, telefono, mail, fecha_nac)
@@ -2111,4 +2138,3 @@ BEGIN
 	RETURN @bonos_disponibles
 END
 GO 
-
