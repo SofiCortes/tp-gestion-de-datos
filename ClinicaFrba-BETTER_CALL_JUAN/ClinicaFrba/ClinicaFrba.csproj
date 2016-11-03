@@ -101,6 +101,13 @@
       <DependentUpon>Detalle de Afiliado.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Abm Afiliado\DetalleAfiliadoController.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\EliminarAfiliadoController.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\EliminarAfiliadoDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Abm Afiliado\EliminarAfiliadoDialog.Designer.cs">
+      <DependentUpon>EliminarAfiliadoDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Abm Afiliado\Listado Afiliados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +117,7 @@
     <Compile Include="Pantallas\Abm Afiliado\ListadoAfiliadosController.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Listener\AgregarFamiliarListener.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Listener\ModificarFamiliarListener.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\Listener\MotivoCambioPlanListener.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Listener\OpcionesFamiliarListener.cs" />
     <Compile Include="Pantallas\Abm Afiliado\Modificar Afiliado.cs">
       <SubType>Form</SubType>
@@ -125,6 +133,13 @@
       <DependentUpon>ModificarFamiliar.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Abm Afiliado\ModificarFamiliarController.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\MotivoCambioPlanController.cs" />
+    <Compile Include="Pantallas\Abm Afiliado\MotivoCambioPlanDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Abm Afiliado\MotivoCambioPlanDialog.Designer.cs">
+      <DependentUpon>MotivoCambioPlanDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Abm Afiliado\OpcionesFamiliarController.cs" />
     <Compile Include="Pantallas\Abm Afiliado\OpcionesFamiliarDialog.cs">
       <SubType>Form</SubType>
@@ -303,6 +318,9 @@
     <EmbeddedResource Include="Pantallas\Abm Afiliado\Alta Afiliado.resx">
       <DependentUpon>Alta Afiliado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Afiliado\EliminarAfiliadoDialog.resx">
+      <DependentUpon>EliminarAfiliadoDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Afiliado\Listado Afiliados.resx">
       <DependentUpon>Listado Afiliados.cs</DependentUpon>
     </EmbeddedResource>
@@ -311,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Afiliado\ModificarFamiliar.resx">
       <DependentUpon>ModificarFamiliar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Abm Afiliado\MotivoCambioPlanDialog.resx">
+      <DependentUpon>MotivoCambioPlanDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Abm Afiliado\OpcionesFamiliarDialog.resx">
       <DependentUpon>OpcionesFamiliarDialog.cs</DependentUpon>

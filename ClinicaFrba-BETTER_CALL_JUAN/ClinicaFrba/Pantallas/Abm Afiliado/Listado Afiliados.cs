@@ -118,7 +118,18 @@ namespace ClinicaFrba
 
         private void launchDeleteAfiliado()
         {
-            //TODO
+            DataGridViewSelectedCellCollection dataSelectedCell = afiliadosGrid.SelectedCells;
+            DataGridViewCell dgvc = dataSelectedCell[0];
+            DataGridViewRow row = dgvc.OwningRow;
+
+            Paciente paciente = new Paciente();
+            paciente.tipoDoc = row.Cells[2].Value.ToString();
+            paciente.nroDoc = Convert.ToDecimal(row.Cells[3].Value.ToString());
+
+            EliminarAfiliadoDialog eliminarAfiliado = new EliminarAfiliadoDialog();
+            eliminarAfiliado.setPacienteAEliminar(paciente);
+            eliminarAfiliado.ShowDialog();
+            this.Close();
         }
     }
 }
