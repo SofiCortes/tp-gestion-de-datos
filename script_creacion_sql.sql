@@ -1027,6 +1027,11 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Validar_Documento
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Registro_Llegada_Afiliado'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Registro_Llegada_Afiliado
+GO
+
+
 
 ------------------------------------------
 
@@ -1510,17 +1515,10 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Baja_Afiliado] (@nro_doc NUMERIC(18,0)) --agregamos el tipo de doc?
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Baja_Afiliado] (@id_paciente NUMERIC(18,0)) 
 AS
 BEGIN
-	IF (@nro_doc IS NULL OR NOT EXISTS (SELECT nro_doc FROM Pacientes WHERE nro_doc=@nro_doc)) 
-	--chequear si esta validacion va aca o como lo manda desde la app
-	BEGIN
-		RAISERROR('No existe afiliado registrado con el numero de documento ingresado.', 10,1)
-		RETURN
-	END
-
-	IF((SELECT habilitado FROM Pacientes WHERE nro_doc = @nro_doc) = 0)
+	IF((SELECT habilitado FROM Pacientes WHERE id = @id_paciente) = 0)
 	BEGIN
 		RAISERROR('El afiliado ya está dado de baja.', 10,1)
 		RETURN
@@ -1528,10 +1526,10 @@ BEGIN
 
 	UPDATE Pacientes
 	SET habilitado = 0
-	WHERE nro_doc = @nro_doc
+	WHERE id = @id_paciente
 
 	INSERT INTO Bajas_Pacientes(fecha_baja, paciente_id) 
-	VALUES (GETDATE(), (SELECT id FROM BETTER_CALL_JUAN.Pacientes WHERE nro_doc = @nro_doc))
+	VALUES (GETDATE(), @id_paciente)
 
 END
 GO
@@ -1665,7 +1663,7 @@ BEGIN
 END
 GO
   
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Consulta] (@matricula NUMERIC(18,0), @cod_especialidad NUMERIC(18,0), @fecha DATETIME)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Consulta] (@matricula NUMERIC(18,0), @cod_especialidad NUMERIC(18,0), @fecha DATETIME) --aca creo que hay que mandarle el id de usuario
 AS
 BEGIN
 	DECLARE @medico_especialidad_id NUMERIC(18,0)
@@ -1772,9 +1770,59 @@ BEGIN
 	FROM BETTER_CALL_JUAN.Medicos_Especialidades me
 	WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
 
-	SELECT tipo_doc, nro_doc, nombre, apellido, fecha_hora
+	SELECT paciente_id, tipo_doc, nro_doc, nombre, apellido, fecha_hora, numero --le mando el id del paciente para que al llamar al sp de registro_llegada ya lo tenga la app, no para mostrar
 	FROM Turnos t JOIN Pacientes p ON (t.paciente_id = p.id)
 	WHERE medico_especialidad_id = @medico_especialidad_id AND DATEDIFF(day, t.fecha_hora, @fecha) = 0
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Registro_Llegada_Afiliado](@id_paciente NUMERIC(18,0), @turno_numero NUMERIC(18,0), @hora_llegada DATETIME, @retorno INT OUT)
+AS
+BEGIN
+	DECLARE @bono_id NUMERIC(18,0),	@nro_raiz NUMERIC(18,0), @plan_id NUMERIC(18,0), @nro_nueva_consulta_paciente NUMERIC(18,0)
+	DECLARE @cant_bonos INT
+
+	SELECT @nro_raiz = nro_raiz, @plan_id = plan_medico_cod
+	FROM Pacientes
+	WHERE id = @id_paciente
+	
+	SET @cant_bonos = BETTER_CALL_JUAN.Function_Afiliado_Cantidad_Bonos_Disponibles(@nro_raiz, @plan_id)
+
+	IF(@cant_bonos > 0)
+	BEGIN 
+		BEGIN TRANSACTION
+			BEGIN TRY
+				SELECT TOP 1 @bono_id = bc.id
+				FROM Bonos_Consulta bc JOIN Pacientes p ON (bc.paciente_compra_id = p.id)
+				WHERE paciente_compra_id IN (SELECT p.id FROM Pacientes	WHERE nro_raiz = @nro_raiz) AND numero_consulta_paciente IS NULL AND plan_id = plan_medico_cod
+
+				INSERT INTO Consultas(turno_numero, fecha_hora_llegada, bono_consulta_id) VALUES (@turno_numero, @hora_llegada, @bono_id)
+				
+				SELECT @nro_nueva_consulta_paciente=nro_ultima_consulta+1
+				FROM Pacientes
+				WHERE id = @id_paciente
+
+				UPDATE Bonos_Consulta
+				SET numero_consulta_paciente = @nro_nueva_consulta_paciente, paciente_usa_id = @id_paciente
+				WHERE id = @bono_id
+
+				UPDATE Pacientes
+				SET nro_ultima_consulta = @nro_nueva_consulta_paciente
+				WHERE id = @id_paciente
+				
+				SET @retorno = @cant_bonos-1
+				COMMIT
+			END TRY
+			BEGIN CATCH
+				SET @retorno = -1 --No se pudo completar la operación
+				ROLLBACK
+			END CATCH
+	END
+	ELSE
+		BEGIN
+			SET @retorno = 0 --El afiliado no tiene bonos disponibles
+		END		
+
 END
 GO
 
@@ -1958,50 +2006,8 @@ GO
 
 /** TRIGGERS **/
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Insert_Consulta'))
-	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Insert_Consulta
-GO
-
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Trigger_Insert_Afiliado'))
 	DROP TRIGGER BETTER_CALL_JUAN.Trigger_Insert_Afiliado
-GO
-
-CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Insert_Consulta] ON [BETTER_CALL_JUAN].[Consultas] AFTER INSERT
-AS
-BEGIN
-	DECLARE @bono_consulta_id NUMERIC(18,0), @turno_numero NUMERIC(18,0), 
-	@nro_nueva_consulta_paciente NUMERIC(18,0),@paciente_id NUMERIC(18,0)
-
-	DECLARE consultaCursor CURSOR FOR
-	SELECT i.bono_consulta_id, i.turno_numero
-	FROM inserted i
-
-	OPEN consultaCursor
-
-	FETCH consultaCursor INTO @bono_consulta_id,@turno_numero
-
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-
-		SELECT @nro_nueva_consulta_paciente=p.nro_ultima_consulta+1, @paciente_id=p.id
-		FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Turnos t ON (t.paciente_id=p.id)
-		WHERE t.numero=@turno_numero
-
-		UPDATE BETTER_CALL_JUAN.Pacientes
-		SET nro_ultima_consulta=@nro_nueva_consulta_paciente
-		WHERE id=@paciente_id
-
-		UPDATE BETTER_CALL_JUAN.Bonos_Consulta
-		SET numero_consulta_paciente=@nro_nueva_consulta_paciente
-		WHERE id=@bono_consulta_id
-
-		FETCH consultaCursor INTO @bono_consulta_id,@turno_numero
-
-	END
-
-	CLOSE consultaCursor
-	DEALLOCATE consultaCursor
-END
 GO
 
 CREATE TRIGGER [BETTER_CALL_JUAN].[Trigger_Insert_Afiliado] ON [BETTER_CALL_JUAN].[Pacientes] AFTER INSERT
@@ -2042,6 +2048,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP FUNCTION BETTER_CALL_JUAN.Function_Fecha_Esta_Disponible_Para_Turno
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Function_Afiliado_Cantidad_Bonos_Disponibles'))
+	DROP FUNCTION BETTER_CALL_JUAN.Function_Afiliado_Cantidad_Bonos_Disponibles
+GO
+
 CREATE FUNCTION [BETTER_CALL_JUAN].[Function_Fecha_Esta_Disponible_Para_Turno]
 (@fecha DATE,@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
 RETURNS BIT
@@ -2069,6 +2079,15 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION [BETTER_CALL_JUAN].[Function_Afiliado_Cantidad_Bonos_Disponibles](@nro_raiz NUMERIC(18,0), @plan NUMERIC(18,0))
+RETURNS INT
+BEGIN
+	DECLARE @bonos_disponibles INT
+	
+	SELECT @bonos_disponibles = COUNT(bc.id)
+	FROM Bonos_Consulta bc JOIN Pacientes p ON (bc.paciente_compra_id = p.id)
+	WHERE paciente_compra_id IN (SELECT id FROM Pacientes WHERE nro_raiz = @nro_raiz) AND numero_consulta_paciente IS NULL AND plan_id = @plan
 
-
-
+	RETURN @bonos_disponibles
+END
+GO 
