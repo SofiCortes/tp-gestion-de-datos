@@ -1035,6 +1035,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Afiliados_Por_Documento
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Rangos_Atencion_Medico'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Rangos_Atencion_Medico
+GO
+
 ------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Afiliados_Por_Documento]
@@ -1044,7 +1048,7 @@ BEGIN
 	SELECT p.id,p.nro_raiz,p.nro_personal,p.nombre,p.apellido,p.tipo_doc,p.nro_doc,p.direccion,p.telefono,p.mail,
 	p.fecha_nac,p.sexo,p.estado_civil,p.cantidad_familiares,p.plan_medico_cod, p.nro_ultima_consulta
 	FROM BETTER_CALL_JUAN.Pacientes p
-	WHERE p.tipo_doc like @tipo_doc AND p.nro_doc = @nro_doc
+	WHERE p.nro_doc = @nro_doc AND p.tipo_doc=@tipo_doc AND p.habilitado=1
 END
 GO
 
@@ -1261,7 +1265,7 @@ BEGIN
 	DECLARE @QUERY_1 VARCHAR(500) = 'SELECT p.id,p.nro_raiz,p.nro_personal,p.nombre,p.apellido,p.tipo_doc,p.nro_doc,p.direccion,p.telefono,p.mail,
 	p.fecha_nac,p.sexo,p.estado_civil,p.cantidad_familiares,p.plan_medico_cod,pm.descripcion,p.habilitado,p.nro_ultima_consulta
 	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Planes_Medicos pm ON (p.plan_medico_cod=pm.codigo)'
-	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (p.nombre LIKE @nombre AND p.apellido LIKE @apellido)'
+	DECLARE @QUERY_2 VARCHAR(500) = ' WHERE (p.habilitado=1 AND p.nombre LIKE @nombre AND p.apellido LIKE @apellido)'
 	DECLARE @QUERY_3 VARCHAR(500) = ' '
 	DECLARE @QUERY_4 VARCHAR(500) = ' ORDER BY p.apellido,p.nombre,p.id'
 
@@ -1484,42 +1488,39 @@ BEGIN
 	SELECT id,nro_raiz,nro_personal,nombre,apellido,tipo_doc,nro_doc,direccion,telefono,mail,fecha_nac,sexo,
 	estado_civil,cantidad_familiares,plan_medico_cod, pm.descripcion,habilitado,nro_ultima_consulta,usuario_id
 	FROM BETTER_CALL_JUAN.Pacientes p JOIN BETTER_CALL_JUAN.Planes_Medicos pm ON (p.plan_medico_cod =pm.codigo)
+	WHERE p.habilitado=1
 	ORDER BY apellido,nombre,id
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Afiliado] 
-(@tipo_doc_viejo VARCHAR(100), @nro_doc_viejo NUMERIC(18,0), 
-@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @direccion VARCHAR(255), @telefono NUMERIC(18,0), @mail VARCHAR(255), @sexo CHAR(1), @estado_civil VARCHAR(100))
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Plan_Medico] (@paciente_id NUMERIC(18,0), @plan_viejo_id NUMERIC(18,0), 
+																	   @plan_nuevo_id NUMERIC(18,0), @motivo VARCHAR(500))
 AS
 BEGIN
+
+	INSERT INTO Cambios_De_Plan(paciente_id,fecha_cambio, motivo_cambio, plan_anterior_id,plan_nuevo_id)  
+	VALUES (@paciente_id,GETDATE(),@motivo,@plan_viejo_id,@plan_nuevo_id)
+	
 	UPDATE Pacientes
-	SET direccion=@direccion, telefono=@telefono, mail=@mail, sexo=@sexo, estado_civil=@estado_civil, nro_doc=@nro_doc, tipo_doc=@tipo_doc
-	WHERE tipo_doc = @tipo_doc_viejo AND nro_doc = @nro_doc_viejo
+	SET plan_medico_cod=@plan_nuevo_id
+	WHERE id=@paciente_id
 						
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Plan_Medico] (@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @nuevo_plan NUMERIC(18,0), @motivo VARCHAR(500)) -- si le puedo pasar directamente el id paciente joya me ahorro un join
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Afiliado] 
+(@paciente_id NUMERIC(18,0),@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @direccion VARCHAR(255), @telefono NUMERIC(18,0), @mail VARCHAR(255), 
+@sexo CHAR(1), @estado_civil VARCHAR(100),@plan_viejo_id NUMERIC(18,0), @plan_nuevo_id NUMERIC(18,0), @motivo VARCHAR(500))
 AS
 BEGIN
-	IF (@nro_doc IS NULL OR NOT EXISTS (SELECT nro_doc FROM Pacientes WHERE tipo_doc=@tipo_doc AND nro_doc=@nro_doc)) 
-	--chequear si esta validacion va aca o como lo manda desde la app
-	BEGIN
-		RAISERROR('No existe afiliado registrado con el numero de documento ingresado.', 10,1)
-		RETURN
-	END
-
-	INSERT INTO Cambios_De_Plan(paciente_id,fecha_cambio, motivo_cambio, plan_anterior_id)  
-	VALUES ((SELECT id FROM Pacientes WHERE tipo_doc=@tipo_doc AND nro_doc=@nro_doc), 
-			GETDATE(), 
-			@motivo,
-			(SELECT plan_medico_cod FROM Pacientes WHERE tipo_doc = @tipo_doc AND nro_doc = @nro_doc)) --esto es la villa
-	
 	UPDATE Pacientes
-	SET plan_medico_cod=@nuevo_plan
-	WHERE tipo_doc = @tipo_doc AND nro_doc = @nro_doc
-						
+	SET direccion=@direccion, telefono=@telefono, mail=@mail, sexo=@sexo, estado_civil=@estado_civil, nro_doc=@nro_doc, tipo_doc=@tipo_doc
+	WHERE id=@paciente_id
+
+	IF(@plan_viejo_id != @plan_nuevo_id)
+	BEGIN
+		EXEC BETTER_CALL_JUAN.Procedure_Modificar_Plan_Medico @paciente_id,@plan_viejo_id,@plan_nuevo_id,@motivo
+	END						
 END
 GO
 
@@ -2101,3 +2102,12 @@ BEGIN
 	RETURN @bonos_disponibles
 END
 GO 
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Rangos_Atencion_Medico] (@matricula NUMERIC(18,0))
+AS
+BEGIN
+	SELECT r.id,r.dia_semana,r.hora_desde,r.hora_hasta,r.medico_especialidad_id
+	FROM BETTER_CALL_JUAN.Rangos_Atencion r 
+	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (r.medico_especialidad_id=med_esp.id AND med_esp.medico_id=@matricula)
+END
+GO
