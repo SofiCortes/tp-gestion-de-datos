@@ -1536,9 +1536,11 @@ BEGIN
 	SET habilitado = 0
 	WHERE id = @id_paciente
 
-	INSERT INTO Bajas_Pacientes(fecha_baja, paciente_id) 
-	VALUES (GETDATE(), @id_paciente)
+	INSERT INTO Bajas_Pacientes(fecha_baja, paciente_id) VALUES (GETDATE(), @id_paciente)
 
+	UPDATE Turnos
+	SET paciente_id = NULL
+	WHERE paciente_id = @id_paciente
 END
 GO
 
