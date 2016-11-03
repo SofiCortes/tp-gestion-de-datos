@@ -313,14 +313,13 @@ namespace ClinicaFrba
             return paciente;
         }
 
-        internal bool modificarAfiliado(string tipoDoc, decimal nroDoc, Paciente paciente)
+        internal bool modificarAfiliado(decimal planMedicoCodViejo, Paciente paciente, string motivoCambioPlan)
         {
             bool modificoAfiliado = true;
 
             try
             {
-                ParametroParaSP parametro1 = new ParametroParaSP("tipo_doc_viejo", SqlDbType.VarChar, tipoDoc);
-                ParametroParaSP parametro2 = new ParametroParaSP("nro_doc_viejo", SqlDbType.Decimal, nroDoc);
+                ParametroParaSP parametro1 = new ParametroParaSP("paciente_id", SqlDbType.Decimal, paciente.id);
                 ParametroParaSP parametro3 = new ParametroParaSP("tipo_doc", SqlDbType.VarChar, paciente.tipoDoc);
                 ParametroParaSP parametro4 = new ParametroParaSP("nro_doc", SqlDbType.Decimal, paciente.nroDoc);
                 ParametroParaSP parametro5 = new ParametroParaSP("direccion", SqlDbType.VarChar, paciente.direccion);
@@ -328,9 +327,11 @@ namespace ClinicaFrba
                 ParametroParaSP parametro7 = new ParametroParaSP("mail", SqlDbType.VarChar, paciente.mail);
                 ParametroParaSP parametro8 = new ParametroParaSP("sexo", SqlDbType.Char, paciente.sexo);
                 ParametroParaSP parametro9 = new ParametroParaSP("estado_civil", SqlDbType.VarChar, paciente.estadoCivil);
+                ParametroParaSP parametro10 = new ParametroParaSP("plan_viejo_id", SqlDbType.Decimal, planMedicoCodViejo);
+                ParametroParaSP parametro11 = new ParametroParaSP("plan_nuevo_id", SqlDbType.Decimal, paciente.planMedicoCod);
+                ParametroParaSP parametro12 = new ParametroParaSP("motivo", SqlDbType.VarChar, motivoCambioPlan);
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
-                parametros.Add(parametro2);
                 parametros.Add(parametro3);
                 parametros.Add(parametro4);
                 parametros.Add(parametro5);
@@ -338,6 +339,9 @@ namespace ClinicaFrba
                 parametros.Add(parametro7);
                 parametros.Add(parametro8);
                 parametros.Add(parametro9);
+                parametros.Add(parametro10);
+                parametros.Add(parametro11);
+                parametros.Add(parametro12);
 
                 this.openDB();
 
@@ -354,6 +358,33 @@ namespace ClinicaFrba
             }
 
             return modificoAfiliado;
+        }
+
+        internal bool eliminarAfiliado(Paciente pacienteAEliminar)
+        {
+            bool eliminarAfiliado = true;
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("id_paciente", SqlDbType.Decimal, pacienteAEliminar.id);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Baja_Afiliado", parametros);
+                procedure.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                eliminarAfiliado = false;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return eliminarAfiliado;
         }
     }
 }
