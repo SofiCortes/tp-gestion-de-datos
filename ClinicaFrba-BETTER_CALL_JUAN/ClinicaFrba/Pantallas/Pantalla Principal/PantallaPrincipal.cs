@@ -334,8 +334,7 @@ namespace ClinicaFrba
 
         private void buttonRegistroResultado_Click(object sender, EventArgs e)
         {
-            ListadoAtenciones form = new ListadoAtenciones();
-            form.actionCode = ListadoAtenciones.ACTION_CODE_FOR_LIST_REGISTRAR_RESULTADO_CONSULTA;
+            RegistrarResultadoConsulta form = new RegistrarResultadoConsulta();
             form.Show();
         }
 

@@ -15,5 +15,9 @@ namespace ClinicaFrba
         public DateTime fechaHoraLlegada { get; set; }
         public DateTime fechaHoraAtencion { get; set; }
         public decimal bonoConsultaId { get; set; }
+
+        public Paciente paciente { get; set; }
+
+        public Especialidad especialidad { get; set; }
     }
 }
