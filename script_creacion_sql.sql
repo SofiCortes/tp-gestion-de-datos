@@ -1056,7 +1056,6 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Consultas_Con_Filtros]
 (@nombre_paciente VARCHAR(255), @apellido_paciente VARCHAR(255), @especialidad_codigo NUMERIC(18,0), @medico_matricula NUMERIC(18,0))
 AS
 BEGIN
-
 	DECLARE @QUERY_1 NVARCHAR(1500) = 'SELECT C.id, C.bono_consulta_id, C.enfermedades, C.fecha_hora_atencion, C.fecha_hora_llegada, C.sintomas, C.turno_numero,
 									 P.nombre, P.apellido, E.descripcion
 									 FROM BETTER_CALL_JUAN.Consultas C
@@ -1064,7 +1063,7 @@ BEGIN
 									 JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = ME.especialidad_cod
 									 JOIN BETTER_CALL_JUAN.Pacientes P ON (P.apellido like @apellido_paciente AND P.nombre like @nombre_paciente)
 									 JOIN BETTER_CALL_JUAN.Turnos T ON (T.numero = C.turno_numero AND T.paciente_id = P.id)
-									 WHERE C.fecha_hora_llegada IS NOT NULL'
+									 WHERE C.fecha_hora_llegada IS NOT NULL AND C.fecha_hora_atencion IS NULL'
 
 	SET @nombre_paciente = '%' + @nombre_paciente + '%'
 	SET @apellido_paciente = '%' + @apellido_paciente + '%'
