@@ -1052,6 +1052,9 @@ GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Afiliado_Bonos_Disponibles'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Bonos_Disponibles
 GO
 
 ------------------------------------------
@@ -1878,26 +1881,33 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Registro_Llegada_Afiliado](@id_paciente NUMERIC(18,0), @turno_numero NUMERIC(18,0), @hora_llegada DATETIME, @retorno INT OUT)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Afiliado_Bonos_Disponibles](@id_paciente NUMERIC(18,0))
 AS
 BEGIN
-	DECLARE @bono_id NUMERIC(18,0),	@nro_raiz NUMERIC(18,0), @plan_id NUMERIC(18,0), @nro_nueva_consulta_paciente NUMERIC(18,0)
+	DECLARE @nro_raiz NUMERIC(18,0), @plan NUMERIC(18,0)
+
+	SELECT @nro_raiz = nro_raiz, @plan = plan_medico_cod
+	FROM Pacientes
+	WHERE id = @id_paciente
+	
+	SELECT bc.id, fecha_compra
+	FROM Bonos_Consulta bc JOIN Pacientes p ON (bc.paciente_compra_id = p.id)
+	WHERE paciente_compra_id IN (SELECT id FROM Pacientes WHERE nro_raiz = @nro_raiz) AND numero_consulta_paciente IS NULL AND plan_id = @plan
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Registro_Llegada_Afiliado](@id_paciente NUMERIC(18,0), @turno_numero NUMERIC(18,0), @hora_llegada DATETIME, @bono_id NUMERIC(18,0), @retorno INT OUT)
+AS
+BEGIN
+	DECLARE @nro_raiz NUMERIC(18,0), @plan_id NUMERIC(18,0), @nro_nueva_consulta_paciente NUMERIC(18,0)
 	DECLARE @cant_bonos INT
 
 	SELECT @nro_raiz = nro_raiz, @plan_id = plan_medico_cod
 	FROM Pacientes
 	WHERE id = @id_paciente
 	
-	SET @cant_bonos = BETTER_CALL_JUAN.Function_Afiliado_Cantidad_Bonos_Disponibles(@nro_raiz, @plan_id)
-
-	IF(@cant_bonos > 0)
-	BEGIN 
-		BEGIN TRANSACTION
-			BEGIN TRY
-				SELECT TOP 1 @bono_id = bc.id
-				FROM Bonos_Consulta bc JOIN Pacientes p ON (bc.paciente_compra_id = p.id)
-				WHERE paciente_compra_id IN (SELECT p.id FROM Pacientes	WHERE nro_raiz = @nro_raiz) AND numero_consulta_paciente IS NULL AND plan_id = plan_medico_cod
-
+	BEGIN TRANSACTION
+		BEGIN TRY
 				INSERT INTO Consultas(turno_numero, fecha_hora_llegada, bono_consulta_id) VALUES (@turno_numero, @hora_llegada, @bono_id)
 				
 				SELECT @nro_nueva_consulta_paciente=nro_ultima_consulta+1
@@ -1912,18 +1922,13 @@ BEGIN
 				SET nro_ultima_consulta = @nro_nueva_consulta_paciente
 				WHERE id = @id_paciente
 				
-				SET @retorno = @cant_bonos-1
+				SET @retorno = 1 -- operacion ok
 				COMMIT
 			END TRY
 			BEGIN CATCH
 				SET @retorno = -1 --No se pudo completar la operación
 				ROLLBACK
 			END CATCH
-	END
-	ELSE
-		BEGIN
-			SET @retorno = 0 --El afiliado no tiene bonos disponibles
-		END		
 
 END
 GO
@@ -2150,10 +2155,6 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP FUNCTION BETTER_CALL_JUAN.Function_Fecha_Esta_Disponible_Para_Turno
 GO
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Function_Afiliado_Cantidad_Bonos_Disponibles'))
-	DROP FUNCTION BETTER_CALL_JUAN.Function_Afiliado_Cantidad_Bonos_Disponibles
-GO
-
 CREATE FUNCTION [BETTER_CALL_JUAN].[Function_Fecha_Esta_Disponible_Para_Turno]
 (@fecha DATE,@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
 RETURNS BIT
@@ -2193,4 +2194,3 @@ BEGIN
 	RETURN @bonos_disponibles
 END
 GO
-
