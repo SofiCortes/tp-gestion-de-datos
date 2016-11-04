@@ -1050,7 +1050,47 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Consultas_Con_Filtros
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico
+GO
+
 ------------------------------------------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Crear_Rango_Horario_Medico] (@dia_semana NUMERIC(1,0), @hora_desde VARCHAR(255), @hora_hasta VARCHAR(255), @medico_id NUMERIC(18,0), @especialidad_id NUMERIC(18,0))
+AS
+BEGIN
+DECLARE @hd TIME, @hh TIME, @meid NUMERIC(18,0), @hsTrabajadas NUMERIC(18,0)
+SET @hd = CONVERT(TIME, @hora_desde)
+SET @hh = CONVERT(TIME, @hora_hasta)
+
+SET @meid = (SELECT id FROM BETTER_CALL_JUAN.Medicos_Especialidades WHERE medico_id = @medico_id AND especialidad_cod = @especialidad_id)
+
+SET @hsTrabajadas = (SELECT SUM(DATEDIFF(HH,ra.hora_desde,ra.hora_hasta))
+					FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
+					WHERE me.medico_id = @medico_id) + DATEDIFF(HH,@hd,@hh)
+
+IF (@hsTrabajadas > 48)
+	BEGIN
+	RAISERROR('Las horas trabajadas semanalmente no pueden superar las 48 hs',14,1)
+	END
+
+	ELSE IF EXISTS (
+	SELECT ra.id 
+	FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
+	WHERE me.medico_id = @medico_id
+	AND dia_semana = @dia_semana 
+	AND (@hora_desde BETWEEN hora_desde AND hora_hasta
+	OR @hora_hasta BETWEEN hora_desde AND hora_hasta))
+	BEGIN
+	RAISERROR('Ya tiene un rango asignado dentro del rango seleccionado',14,1)
+	END
+
+	ELSE
+	BEGIN 
+	INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion (dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES (@dia_semana, @hd, @hh, @meid)
+	END
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Consultas_Con_Filtros]
 (@nombre_paciente VARCHAR(255), @apellido_paciente VARCHAR(255), @especialidad_codigo NUMERIC(18,0), @medico_matricula NUMERIC(18,0))
@@ -2153,3 +2193,4 @@ BEGIN
 	RETURN @bonos_disponibles
 END
 GO
+

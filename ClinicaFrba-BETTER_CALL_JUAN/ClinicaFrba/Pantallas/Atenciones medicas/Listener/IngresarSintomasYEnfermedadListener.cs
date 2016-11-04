@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    interface IngresarSintomasYEnfermedadListener
+    public interface IngresarSintomasYEnfermedadListener
     {
         void onSintomasYEnfermadadesCompletadas(string sintomas, string enfermedades);
     }

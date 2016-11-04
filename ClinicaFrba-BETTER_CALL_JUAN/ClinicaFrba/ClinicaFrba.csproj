@@ -210,6 +210,13 @@
       <DependentUpon>Modificar Rol.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\AbmRol\ModificarRolController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadDialog.Designer.cs">
+      <DependentUpon>IngresarSintomasYEnfermedadDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Atenciones medicas\Listado Atenciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +224,7 @@
       <DependentUpon>Listado Atenciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Atenciones medicas\ListadoAtencionesController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\Listener\IngresarSintomasYEnfermedadListener.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Registrar Llegada.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -369,6 +377,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\AbmRol\Modificar Rol.resx">
       <DependentUpon>Modificar Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadDialog.resx">
+      <DependentUpon>IngresarSintomasYEnfermedadDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Atenciones medicas\Registrar Resultado Consulta.resx">
       <DependentUpon>Registrar Resultado Consulta.cs</DependentUpon>

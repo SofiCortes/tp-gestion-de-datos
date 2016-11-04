@@ -22,8 +22,13 @@ namespace ClinicaFrba
             this.conexion.openDB();
         }
 
+
         public void closeDB() {
             this.conexion.closeDB();
+        }
+
+        public ConexionBD getConnection(){
+            return conexion;
         }
 
         public SqlCommand createCallableProcedure(string storeProcedureName, List<ParametroParaSP> parameters)

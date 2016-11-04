@@ -5,11 +5,14 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ClinicaFrba
 {
     class ProfesionalManager : AbstractManager
     {
+        private SqlTransaction transact;
+
         public ProfesionalManager()
             : base(new ConexionBD())
         {
@@ -293,5 +296,85 @@ namespace ClinicaFrba
             }
             return medico;
         }
+
+        internal void registrarRangoAtencion(Medico medicoSeleccionado, Especialidad especialidadSeleccionada, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horaDesde, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horaHasta)
+        {
+            {
+                String hd = horaDesde.Key.Value.ToString() + ":" + horaDesde.Value.Value.ToString();
+                String hh = horaHasta.Key.Value.ToString() + ":" + horaHasta.Value.Value.ToString();
+
+                ParametroParaSP parametro4 = new ParametroParaSP("dia_semana", SqlDbType.Decimal, Decimal.Parse(horaDesde.Key.Name));
+                ParametroParaSP parametro5 = new ParametroParaSP("hora_desde", SqlDbType.VarChar, hd);
+                ParametroParaSP parametro6 = new ParametroParaSP("hora_hasta", SqlDbType.VarChar, hh);
+                ParametroParaSP parametro7 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medicoSeleccionado.matricula);
+                ParametroParaSP parametro8 = new ParametroParaSP("especialidad_id", SqlDbType.Decimal, especialidadSeleccionada.codigo);
+
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro4);
+                parametros.Add(parametro5);
+                parametros.Add(parametro6);
+                parametros.Add(parametro7);
+                parametros.Add(parametro8);
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico", parametros);
+                procedure.ExecuteScalar();
+            }
+        }
+
+        internal void beginTransaction()
+        {
+            transact = this.getConnection().beginTransaction();
+        }
+
+        internal void commitTransaction()
+        {
+            this.getConnection().commitTransaction(transact);
+        }
+
+        internal void rollbackTransaction()
+        {
+            this.getConnection().rollbackTransaction(transact);
+        }
+
+
+        /*
+        internal void registrarRangoAtenciona(Medico medicoSeleccionado, Especialidad especialidadSeleccionada, Dictionary<KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown>, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown>> rangoAtencion)
+        {
+            try
+            {
+
+                this.beginTransaction();
+
+                foreach (KeyValuePair<KeyValuePair<NumericUpDown, NumericUpDown>, KeyValuePair<NumericUpDown, NumericUpDown>> rango in rangoAtencion)
+                {
+                    String hd = rango.Key.Key.Value.ToString() + ":" + rango.Key.Value.Value.ToString();
+                    String hh = rango.Value.Key.Value.ToString() + ":" + rango.Value.Value.Value.ToString();
+
+                    ParametroParaSP parametro4 = new ParametroParaSP("dia_semana", SqlDbType.Decimal, Decimal.Parse(horaDesde.Key.Name));
+                    ParametroParaSP parametro5 = new ParametroParaSP("hora_desde", SqlDbType.VarChar, hd);
+                    ParametroParaSP parametro6 = new ParametroParaSP("hora_hasta", SqlDbType.VarChar, hh);
+                    ParametroParaSP parametro7 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medicoSeleccionado.matricula);
+                    ParametroParaSP parametro8 = new ParametroParaSP("especialidad_id", SqlDbType.Decimal, especialidadSeleccionada.codigo);
+
+                    List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                    parametros.Add(parametro4);
+                    parametros.Add(parametro5);
+                    parametros.Add(parametro6);
+                    parametros.Add(parametro7);
+                    parametros.Add(parametro8);
+
+                    SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico", parametros);
+                    procedure.ExecuteScalar();
+
+                }
+            }
+
+            catch (Exception e)
+            {
+                this.rollbackTransaction();
+                
+            }
+
+        } */
     }
 }
