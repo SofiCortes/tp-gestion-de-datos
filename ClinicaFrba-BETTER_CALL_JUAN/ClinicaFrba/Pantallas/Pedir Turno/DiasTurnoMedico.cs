@@ -16,6 +16,7 @@ namespace ClinicaFrba
         private DiasTurnoMedicoController controller;
         private Medico medico;
         private Especialidad especialidad;
+        private decimal paciente_id;
 
         public DiasTurnoMedico()
         {
@@ -24,8 +25,9 @@ namespace ClinicaFrba
             InitializeComponent();
         }
 
-        internal void showCalendario(Medico medico, Especialidad especialidad)
+        internal void showCalendario(decimal paciente_id,Medico medico, Especialidad especialidad)
         {
+            this.paciente_id = paciente_id;
             this.medico = medico;
             this.especialidad = especialidad;
 
@@ -61,7 +63,7 @@ namespace ClinicaFrba
             HorariosTurnos horarios = new HorariosTurnos();
 
             horarios.setHorariosTurnosListener(this.controller);
-            horarios.showHorarios(medico,especialidad,fechaElegida);
+            horarios.showHorarios(paciente_id,medico,especialidad,fechaElegida);
         }
     }
 }

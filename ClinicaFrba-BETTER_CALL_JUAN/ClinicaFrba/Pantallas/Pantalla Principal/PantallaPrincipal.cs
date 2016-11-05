@@ -285,8 +285,19 @@ namespace ClinicaFrba
 
         private void buttonPedidoTurno_Click(object sender, EventArgs e)
         {
-            PedirTurnoForm form = new PedirTurnoForm();
-            form.Show();
+            Rol rolUsuario = UsuarioConfiguracion.getInstance().getRol();
+
+            if(rolUsuario.nombre=="Afiliado"){
+                Pedir_Turno_Afiliado formPedirTurnoAfiliado = new Pedir_Turno_Afiliado();
+                formPedirTurnoAfiliado.Show();
+            }
+
+            else
+            {
+                Pedir_Turno_Administrativo formPedirTurnoAdministrativo = new Pedir_Turno_Administrativo();
+                formPedirTurnoAdministrativo.Show();
+            }
+
         }
 
         private void button3_Click(object sender, EventArgs e)

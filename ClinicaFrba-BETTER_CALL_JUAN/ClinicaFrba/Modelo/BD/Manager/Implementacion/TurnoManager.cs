@@ -97,7 +97,7 @@ namespace ClinicaFrba
             return horariosDisponibles;
         }
 
-        internal bool pedirTurno(Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
+        internal bool pedirTurnoAfiliado(Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
         {
             bool turnoPedido = true;
             try
@@ -119,7 +119,42 @@ namespace ClinicaFrba
 
                 this.openDB();
 
-                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Pedir_Turno", parametros);
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Pedir_Turno_Con_Usuario_Id", parametros);
+                procedure.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                turnoPedido = false;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return turnoPedido;
+        }
+
+        internal bool pedirTurnoAdministrativo(decimal paciente_id, Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
+        {
+            bool turnoPedido = true;
+            try
+            {
+                DateTime fecha_hora_turno = DateTime.Parse(fechaElegida) + TimeSpan.Parse(horarioElegido);
+
+                ParametroParaSP parametro1 = new ParametroParaSP("paciente_id", SqlDbType.Decimal, paciente_id);
+                ParametroParaSP parametro2 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medico.matricula);
+                ParametroParaSP parametro3 = new ParametroParaSP("especialidad_codigo", SqlDbType.Decimal, especialidad.codigo);
+                ParametroParaSP parametro4 = new ParametroParaSP("fecha_hora_turno", SqlDbType.DateTime, fecha_hora_turno);
+
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Pedir_Turno_Con_Paciente_Id", parametros);
                 procedure.ExecuteNonQuery();
             }
             catch (Exception e)

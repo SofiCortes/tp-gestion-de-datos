@@ -386,5 +386,44 @@ namespace ClinicaFrba
 
             return eliminarAfiliado;
         }
+
+        internal decimal getPacienteIdSegunNroAfiliado(decimal nroAfiliado)
+        {
+            decimal paciente_id;
+
+            int lengthNroAfiliado = nroAfiliado.ToString().Length;
+
+            decimal nro_raiz = decimal.Parse(nroAfiliado.ToString().Substring(0,lengthNroAfiliado-2));
+            decimal nro_personal = decimal.Parse(nroAfiliado.ToString().Substring(lengthNroAfiliado-2,2));
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("nro_raiz", SqlDbType.Decimal, nro_raiz);
+                ParametroParaSP parametro2 = new ParametroParaSP("nro_personal", SqlDbType.Decimal, nro_personal);
+                ParametroParaSP parametro3 = new ParametroParaSP("paciente_id", SqlDbType.Decimal);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Paciente_Id_Segun_Nro_Afiliado", parametros);
+                procedure.ExecuteNonQuery();
+
+                paciente_id = Convert.ToInt64(procedure.Parameters["@paciente_id"].Value);
+                
+            }
+            catch (SqlException e)
+            {
+                paciente_id = 0;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return paciente_id;
+        }
     }
 }

@@ -318,13 +318,20 @@
     </Compile>
     <Compile Include="Pantallas\Pedir Turno\HorariosTurnosController.cs" />
     <Compile Include="Pantallas\Pedir Turno\Listener\HorariosTurnosListener.cs" />
-    <Compile Include="Pantallas\Pedir Turno\Pedir Turno.cs">
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAdministrativo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Pedir Turno\Pedir Turno.Designer.cs">
-      <DependentUpon>Pedir Turno.cs</DependentUpon>
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAdministrativo.Designer.cs">
+      <DependentUpon>PedirTurnoAdministrativo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Pedir Turno\PedirTurnoController.cs" />
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAfiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAfiliado.Designer.cs">
+      <DependentUpon>PedirTurnoAfiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAdministrativoController.cs" />
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAfiliadoController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Pantallas\Abm Afiliado\AgregarFamiliar.resx">
@@ -417,8 +424,11 @@
     <EmbeddedResource Include="Pantallas\Pedir Turno\HorariosTurnos.resx">
       <DependentUpon>HorariosTurnos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Pedir Turno\Pedir Turno.resx">
-      <DependentUpon>Pedir Turno.cs</DependentUpon>
+    <EmbeddedResource Include="Pantallas\Pedir Turno\PedirTurnoAdministrativo.resx">
+      <DependentUpon>PedirTurnoAdministrativo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Pedir Turno\PedirTurnoAfiliado.resx">
+      <DependentUpon>PedirTurnoAfiliado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

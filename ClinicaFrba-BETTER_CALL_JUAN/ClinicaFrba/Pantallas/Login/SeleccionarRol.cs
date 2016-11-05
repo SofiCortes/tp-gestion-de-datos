@@ -50,6 +50,9 @@ namespace ClinicaFrba
             {
                 Rol rol = new Rol();
                 rol.nombre = this.radioButtonRoles.Find(rb => rb.Checked).Text;
+
+                UsuarioConfiguracion.getInstance().setRol(rol);
+
                 this.controller.onRolSeleccionado(rol);
                 this.Close();
             }
