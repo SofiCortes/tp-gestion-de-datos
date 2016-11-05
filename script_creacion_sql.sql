@@ -1857,7 +1857,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Registro_Llegada_Afiliado](@id_paciente NUMERIC(18,0), @turno_numero NUMERIC(18,0), @hora_llegada DATETIME, @bono_id NUMERIC(18,0), @retorno INT OUT)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Registro_Llegada_Afiliado](@id_paciente NUMERIC(18,0), @turno_numero NUMERIC(18,0), @hora_llegada DATETIME, @bono_id NUMERIC(18,0), @retorno SMALLINT OUT)
 AS
 BEGIN
 	DECLARE @nro_raiz NUMERIC(18,0), @plan_id NUMERIC(18,0), @nro_nueva_consulta_paciente NUMERIC(18,0)
