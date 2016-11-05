@@ -1057,7 +1057,29 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Bonos_Disponibles
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Horas_Trabajadas_Medico'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Horas_Trabajadas_Medico
+GO
+
 ------------------------------------------
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horas_Trabajadas_Medico] (@medico_id NUMERIC(18,0), @horas_trabajadas NUMERIC(18,0) OUT)
+AS
+BEGIN
+IF EXISTS (SELECT ra.id
+		   FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
+		   WHERE me.medico_id = @medico_id)
+	BEGIN
+		   SET @horas_trabajadas = (SELECT SUM(DATEDIFF(HH, hora_desde, hora_hasta))
+		   FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
+		   WHERE me.medico_id = @medico_id)
+	END
+
+	ELSE
+	BEGIN
+		SET @horas_trabajadas = 0
+	END
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Crear_Rango_Horario_Medico] (@dia_semana NUMERIC(1,0), @hora_desde VARCHAR(255), @hora_hasta VARCHAR(255), @medico_id NUMERIC(18,0), @especialidad_id NUMERIC(18,0))
 AS

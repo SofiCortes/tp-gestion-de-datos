@@ -91,8 +91,15 @@ namespace ClinicaFrba
             
             if (this.validarHorarios())
             {
-                this.controller.registraAgenda(medicoSeleccionado, especialidadSeleccionada, horasDesde, horasHasta);
-                this.Close();
+                try
+                {
+                    this.controller.registraAgenda(medicoSeleccionado, especialidadSeleccionada, horasDesde, horasHasta);
+                    this.Close();
+                }
+                catch (Exception x)
+                {
+                    this.showErrorMessage(x.Message);
+                }
             }
             
         }
