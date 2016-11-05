@@ -287,11 +287,10 @@ namespace ClinicaFrba
         {
             Rol rolUsuario = UsuarioConfiguracion.getInstance().getRol();
 
-            if(rolUsuario.nombre=="Afiliado"){
+            if(rolUsuario.nombre.Equals("Afiliado")){
                 Pedir_Turno_Afiliado formPedirTurnoAfiliado = new Pedir_Turno_Afiliado();
                 formPedirTurnoAfiliado.Show();
             }
-
             else
             {
                 Pedir_Turno_Administrativo formPedirTurnoAdministrativo = new Pedir_Turno_Administrativo();
@@ -351,9 +350,17 @@ namespace ClinicaFrba
 
         private void buttonCancelarAtencion_Click(object sender, EventArgs e)
         {
-            ListadoAtenciones form = new ListadoAtenciones();
-            form.actionCode = ListadoAtenciones.ACTION_CODE_FOR_LIST_CANCELAR_ATENCION;
-            form.Show();
+            Rol rolUsuario = UsuarioConfiguracion.getInstance().getRol();
+            if (rolUsuario.nombre.Equals("Afiliado"))
+            {
+                CancelarAtencionAfiliado form = new CancelarAtencionAfiliado();
+                form.Show();
+            }
+            else
+            {
+                CancelarAtencionMedico form = new CancelarAtencionMedico();
+                form.Show();
+            }
         }
 
     }

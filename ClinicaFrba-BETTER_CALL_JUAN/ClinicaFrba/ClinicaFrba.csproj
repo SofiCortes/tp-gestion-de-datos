@@ -54,6 +54,7 @@
     <Compile Include="Modelo\BD\Manager\Implementacion\PlanManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\ProfesionalManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\RolManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\TipoCancelacionManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\TipoEspecialidadManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\TurnoManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\UsuarioManager.cs" />
@@ -210,6 +211,26 @@
       <DependentUpon>Modificar Rol.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\AbmRol\ModificarRolController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.Designer.cs">
+      <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliadoController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionMedico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionMedico.Designer.cs">
+      <DependentUpon>CancelarAtencionMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionMedicoController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\IngresarMotivoYTipoCancelacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\IngresarMotivoYTipoCancelacion.Designer.cs">
+      <DependentUpon>IngresarMotivoYTipoCancelacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadDialog.cs">
       <SubType>Form</SubType>
@@ -217,6 +238,7 @@
     <Compile Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadDialog.Designer.cs">
       <DependentUpon>IngresarSintomasYEnfermedadDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\IngresarTipoYMotivoCancelacionController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Listado Atenciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +246,7 @@
       <DependentUpon>Listado Atenciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Atenciones medicas\ListadoAtencionesController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\Listener\IngresarMotivoYTipoCancelacionListener.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Listener\IngresarSintomasYEnfermedadListener.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Registrar Llegada.cs">
       <SubType>Form</SubType>
@@ -384,6 +407,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\AbmRol\Modificar Rol.resx">
       <DependentUpon>Modificar Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.resx">
+      <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\IngresarMotivoYTipoCancelacion.resx">
+      <DependentUpon>IngresarMotivoYTipoCancelacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadDialog.resx">
       <DependentUpon>IngresarSintomasYEnfermedadDialog.cs</DependentUpon>
