@@ -431,6 +431,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Atenciones medicas\Registrar Llegada.resx">
       <DependentUpon>Registrar Llegada.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.resx">
       <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
     </EmbeddedResource>
