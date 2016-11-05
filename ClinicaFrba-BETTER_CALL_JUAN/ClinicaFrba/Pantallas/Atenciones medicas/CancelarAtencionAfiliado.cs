@@ -22,6 +22,7 @@ namespace ClinicaFrba
 
             this.Shown += (s, e1) =>
             {
+                this.controller.buscarTurnos();
                 this.controller.llenarComboMedicos();
             };
         }
@@ -110,9 +111,10 @@ namespace ClinicaFrba
             return turno;
         }
 
-        internal void showInformationMessage(string p)
+        internal void showInformationMessage(string mensaje)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(mensaje, "Informacion",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

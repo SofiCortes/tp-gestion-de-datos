@@ -43,11 +43,11 @@ namespace ClinicaFrba
             string motivoCancelacion = this.textBoxMotivo.Text.Trim();
             if (motivoCancelacion.Length == 0 || tipoCancelacion.id <= 0)
             {
-                this.controller.registrarCancelacion(motivoCancelacion, tipoCancelacion);
+                this.showErrorMessage("Complete todos los campos correctamente");
             }
             else
             {
-                this.showErrorMessage("Complete todos los campos correctamente");
+                this.controller.registrarCancelacion(motivoCancelacion, tipoCancelacion);
             }
         }
 
