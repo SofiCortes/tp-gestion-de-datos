@@ -447,7 +447,7 @@ GO
 /* Tabla Roles Funcionalidades */
 INSERT INTO BETTER_CALL_JUAN.Roles_Funcionalidades(rol_id,funcionalidad_id)
 VALUES(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),
-(2,7),(2,8),(2,14),(2,15),
+(2,7),(2,8),(2,14),(2,15),(2,16),(2,5),
 (3,1),(3,2),(3,3),(3,4),(3,5),(3,6),(3,11),(3,16),
 (4,5),(4,9),(4,16)
 GO
@@ -894,8 +894,12 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Obtener_Funcionalidades_Rol
 GO
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Pedir_Turno'))
-	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Pedir_Turno
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Pedir_Turno_Con_Usuario_Id'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Pedir_Turno_Con_Usuario_Id
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Pedir_Turno_Con_Paciente_Id'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Pedir_Turno_Con_Paciente_Id
 GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones'))
@@ -1050,11 +1054,177 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Buscar_Consultas_Con_Filtros
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Afiliado_Bonos_Disponibles'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Bonos_Disponibles
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Paciente_Id_Segun_Nro_Afiliado'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Paciente_Id_Segun_Nro_Afiliado
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Get_Horas_Trabajadas_Medico'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Get_Horas_Trabajadas_Medico
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Get_Medicos_De_Turnos_Por_Usuario'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Get_Medicos_De_Turnos_Por_Usuario
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Get_Turnos_Por_Usuario'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Get_Turnos_Por_Usuario
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Get_Turnos_Por_Usuario_Con_Filtros'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Get_Turnos_Por_Usuario_Con_Filtros
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Get_Tipo_Cancelaciones'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Get_Tipo_Cancelaciones
+GO
+
 ------------------------------------------
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Tipo_Cancelaciones]
+AS
+BEGIN
+	SELECT TC.id, TC.nombre
+	FROM BETTER_CALL_JUAN.Tipos_Cancelaciones TC
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Turnos_Por_Usuario_Con_Filtros]
+(@usuario_id NUMERIC(18,0), @fecha_turno DATETIME, @medico_matricula NUMERIC(18,0))
+AS
+BEGIN
+	DECLARE @QUERY_FINAL NVARCHAR(2000)
+	DECLARE @QUERY_1 VARCHAR(900) = 'SELECT T.numero, T.fecha_hora, T.medico_especialidad_id, T.paciente_id, M.apellido, M.nombre, E.descripcion
+									FROM BETTER_CALL_JUAN.Turnos T
+									JOIN BETTER_CALL_JUAN.Pacientes P ON P.id = T.paciente_id
+									JOIN BETTER_CALL_JUAN.Medicos_Especialidades ME ON T.medico_especialidad_id = ME.id
+									JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = ME.especialidad_cod
+									JOIN BETTER_CALL_JUAN.Medicos M ON M.matricula = ME.medico_id
+									WHERE P.usuario_id = @usuario_id'
+	DECLARE @QUERY_2 VARCHAR(800) = ''
+	DECLARE @QUERY_3 VARCHAR(800) = ''
+	DECLARE @QUERY_4 VARCHAR(800) = ' ORDER BY T.fecha_hora DESC'
+
+	IF @fecha_turno IS NOT NULL
+		BEGIN
+			SET @QUERY_2 = ' AND T.fecha_hora = @fecha_turno'
+		END
+
+	IF @medico_matricula > 0
+		BEGIN
+			SET @QUERY_3 = ' AND M.matricula = @medico_matricula'
+		END
+
+			
+	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4
+
+	EXEC sp_executesql @QUERY_FINAL, N'@usuario_id NUMERIC(18,0), @fecha_turno DATETIME, @medico_matricula NUMERIC(18,0)',
+				@usuario_id, @fecha_turno, @medico_matricula
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Turnos_Por_Usuario]
+(@usuario_id NUMERIC(18,0))
+AS
+BEGIN
+	SELECT T.numero, T.fecha_hora, T.medico_especialidad_id, T.paciente_id, M.apellido, M.nombre, E.descripcion
+	FROM BETTER_CALL_JUAN.Turnos T
+	JOIN BETTER_CALL_JUAN.Pacientes P ON P.id = T.paciente_id
+	JOIN BETTER_CALL_JUAN.Medicos_Especialidades ME ON T.medico_especialidad_id = ME.id
+	JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = ME.especialidad_cod
+	JOIN BETTER_CALL_JUAN.Medicos M ON M.matricula = ME.medico_id
+	WHERE P.usuario_id = @usuario_id
+	ORDER BY T.fecha_hora DESC
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Medicos_De_Turnos_Por_Usuario]
+(@usuario_id NUMERIC(18,0))
+AS
+BEGIN
+	SELECT m.matricula, m.nombre,m.apellido,m.tipo_doc,m.nro_doc,m.direccion,m.telefono,m.mail,m.fecha_nac,m.sexo, m.usuario_id
+	FROM BETTER_CALL_JUAN.Medicos m
+	JOIN BETTER_CALL_JUAN.Pacientes P ON P.usuario_id = @usuario_id
+	JOIN BETTER_CALL_JUAN.Turnos T ON T.paciente_id = P.id
+	JOIN BETTER_CALL_JUAN.Medicos_Especialidades ME ON ME.id = T.medico_especialidad_id
+	WHERE m.matricula = ME.medico_id
+	ORDER BY m.apellido, m.nombre, m.matricula
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horas_Trabajadas_Medico] (@medico_id NUMERIC(18,0), @horas_trabajadas NUMERIC(18,0) OUT)
+AS
+BEGIN
+IF EXISTS (SELECT ra.id
+		   FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
+		   WHERE me.medico_id = @medico_id)
+	BEGIN
+		   SET @horas_trabajadas = (SELECT SUM(DATEDIFF(HH, hora_desde, hora_hasta))
+		   FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
+		   WHERE me.medico_id = @medico_id)
+	END
+
+	ELSE
+	BEGIN
+		SET @horas_trabajadas = 0
+	END
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Paciente_Id_Segun_Nro_Afiliado] (@nro_raiz NUMERIC(18,0), @nro_personal NUMERIC(18,0), @paciente_id NUMERIC(18,0) OUT)
+AS
+BEGIN	
+	SELECT @paciente_id = id
+	FROM BETTER_CALL_JUAN.Pacientes
+	WHERE nro_raiz=@nro_raiz AND nro_personal=@nro_personal
+
+	IF @paciente_id IS NULL
+		SET @paciente_id = 0
+
+	RETURN @paciente_id
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Crear_Rango_Horario_Medico] (@dia_semana NUMERIC(1,0), @hora_desde VARCHAR(255), @hora_hasta VARCHAR(255), @medico_id NUMERIC(18,0), @especialidad_id NUMERIC(18,0))
+AS
+BEGIN
+DECLARE @hd TIME, @hh TIME, @meid NUMERIC(18,0), @hsTrabajadas NUMERIC(18,0)
+SET @hd = CONVERT(TIME, @hora_desde)
+SET @hh = CONVERT(TIME, @hora_hasta)
+
+SET @meid = (SELECT id FROM BETTER_CALL_JUAN.Medicos_Especialidades WHERE medico_id = @medico_id AND especialidad_cod = @especialidad_id)
+
+SET @hsTrabajadas = (SELECT SUM(DATEDIFF(HH,ra.hora_desde,ra.hora_hasta))
+					FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
+					WHERE me.medico_id = @medico_id) + DATEDIFF(HH,@hd,@hh)
+
+IF (@hsTrabajadas > 48)
+	BEGIN
+	RAISERROR('Las horas trabajadas semanalmente no pueden superar las 48 hs',14,1)
+	END
+
+	ELSE IF EXISTS (
+	SELECT ra.id 
+	FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
+	WHERE me.medico_id = @medico_id
+	AND dia_semana = @dia_semana 
+	AND (@hora_desde BETWEEN hora_desde AND hora_hasta
+	OR @hora_hasta BETWEEN hora_desde AND hora_hasta))
+	BEGIN
+	RAISERROR('Ya tiene un rango asignado dentro del rango seleccionado',14,1)
+	END
+
+	ELSE
+	BEGIN 
+	INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion (dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES (@dia_semana, @hd, @hh, @meid)
+	END
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Consultas_Con_Filtros]
 (@nombre_paciente VARCHAR(255), @apellido_paciente VARCHAR(255), @especialidad_codigo NUMERIC(18,0), @medico_matricula NUMERIC(18,0))
@@ -1653,23 +1823,33 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Pedir_Turno](@usuario_id_afiliado NUMERIC(18,0),@medico_id NUMERIC(18,0), 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Pedir_Turno_Con_Paciente_Id](@paciente_id NUMERIC(18,0),@medico_id NUMERIC(18,0), 
 															@especialidad_codigo NUMERIC(18,0), @fecha_hora_turno DATETIME)
 AS
 BEGIN
-	DECLARE @medico_especialidad_id NUMERIC(18,0), @paciente_id NUMERIC(18,0)
+	DECLARE @medico_especialidad_id NUMERIC(18,0)
 
 	SELECT @medico_especialidad_id=me.id
 	FROM BETTER_CALL_JUAN.Medicos_Especialidades me
 	WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
+
+	INSERT INTO BETTER_CALL_JUAN.Turnos(fecha_hora,paciente_id,medico_especialidad_id)
+	VALUES (@fecha_hora_turno,@paciente_id,@medico_especialidad_id)
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Pedir_Turno_Con_Usuario_Id](@usuario_id_afiliado NUMERIC(18,0),@medico_id NUMERIC(18,0), 
+															@especialidad_codigo NUMERIC(18,0), @fecha_hora_turno DATETIME)
+AS
+BEGIN
+	DECLARE @paciente_id NUMERIC(18,0)
 
 	SELECT @paciente_id = p.id
 	FROM BETTER_CALL_JUAN.Pacientes p 
 	JOIN BETTER_CALL_JUAN.Usuarios u 
 	ON (p.usuario_id = u.id  AND u.id=@usuario_id_afiliado)
 
-	INSERT INTO BETTER_CALL_JUAN.Turnos(fecha_hora,paciente_id,medico_especialidad_id)
-	VALUES (@fecha_hora_turno,@paciente_id,@medico_especialidad_id)
+	EXEC BETTER_CALL_JUAN.Procedure_Pedir_Turno_Con_Paciente_Id @paciente_id, @medico_id, @especialidad_codigo, @fecha_hora_turno
 END
 GO
 
@@ -1782,10 +1962,12 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turno_Afiliado] (@paciente_id NUMERIC(18,0), @turno_numero NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
--- primero se muestra una pantalla donde el afiliado elige el turno que quiere cancelar (solo se muestran los de fechas siguientes, ahi va la validacion de que no puede cancelar el mismo dia). falta este sp
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turno_Afiliado] (@usuario_id NUMERIC(18,0), @turno_numero NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
 AS
 BEGIN
+	DECLARE @paciente_id NUMERIC(18,0)
+	SELECT @paciente_id = P.id FROM BETTER_CALL_JUAN.Pacientes P where P.usuario_id = @usuario_id
+
 	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero, paciente_id) VALUES (@tipo, @motivo, @turno_numero, @paciente_id)
 	UPDATE Turnos SET paciente_id = NULL WHERE numero = @turno_numero
 END
@@ -2116,6 +2298,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP FUNCTION BETTER_CALL_JUAN.Function_Fecha_Esta_Disponible_Para_Turno
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Function_Afiliado_Cantidad_Bonos_Disponibles'))
+	DROP FUNCTION BETTER_CALL_JUAN.Function_Afiliado_Cantidad_Bonos_Disponibles
+GO
+
 CREATE FUNCTION [BETTER_CALL_JUAN].[Function_Fecha_Esta_Disponible_Para_Turno]
 (@fecha DATE,@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
 RETURNS BIT
@@ -2140,6 +2326,19 @@ BEGIN
 								ELSE 0 --la fecha no esta disponible
 							END
 	RETURN @fecha_disponible
+END
+GO
+
+CREATE FUNCTION [BETTER_CALL_JUAN].[Function_Afiliado_Cantidad_Bonos_Disponibles](@nro_raiz NUMERIC(18,0), @plan NUMERIC(18,0))
+RETURNS INT
+BEGIN
+	DECLARE @bonos_disponibles INT
+	
+	SELECT @bonos_disponibles = COUNT(bc.id)
+	FROM Bonos_Consulta bc JOIN Pacientes p ON (bc.paciente_compra_id = p.id)
+	WHERE paciente_compra_id IN (SELECT id FROM Pacientes WHERE nro_raiz = @nro_raiz) AND numero_consulta_paciente IS NULL AND plan_id = @plan
+
+	RETURN @bonos_disponibles
 END
 GO
 

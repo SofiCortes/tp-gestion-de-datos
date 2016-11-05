@@ -31,10 +31,15 @@ namespace ClinicaFrba
             }
         }
 
-        internal void pedirTurno(Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
+        internal void pedirTurno(decimal paciente_id,Medico medico, Especialidad especialidad, string fechaElegida, string horarioElegido)
         {
             TurnoManager managerTurnos = new TurnoManager();
-            bool turnoPedido = managerTurnos.pedirTurno(medico, especialidad, fechaElegida, horarioElegido);
+            bool turnoPedido;
+
+            if(paciente_id!=0)
+             turnoPedido = managerTurnos.pedirTurnoAdministrativo(paciente_id,medico, especialidad, fechaElegida, horarioElegido);
+            else
+                turnoPedido = managerTurnos.pedirTurnoAfiliado(medico, especialidad, fechaElegida, horarioElegido);
 
             if (turnoPedido)
             {

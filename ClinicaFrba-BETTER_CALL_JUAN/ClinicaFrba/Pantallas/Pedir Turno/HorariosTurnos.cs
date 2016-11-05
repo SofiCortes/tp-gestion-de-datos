@@ -16,6 +16,7 @@ namespace ClinicaFrba
         private Medico medico;
         private Especialidad especialidad;
         private string fechaElegida;
+        private decimal paciente_id;
 
         public HorariosTurnos()
         {
@@ -28,8 +29,9 @@ namespace ClinicaFrba
             this.controller.setHorariosTurnosListener(listener);
         }
 
-        internal void showHorarios(Medico medico, Especialidad especialidad, string fechaElegida)
+        internal void showHorarios(decimal paciente_id, Medico medico, Especialidad especialidad, string fechaElegida)
         {
+            this.paciente_id = paciente_id;
             this.medico = medico;
             this.especialidad = especialidad;
             this.fechaElegida = fechaElegida;
@@ -63,7 +65,7 @@ namespace ClinicaFrba
 
             string horarioElegido = row.Cells[0].Value.ToString();
 
-            this.controller.pedirTurno(medico, especialidad, fechaElegida, horarioElegido);
+            this.controller.pedirTurno(paciente_id,medico, especialidad, fechaElegida, horarioElegido);
         }
 
 

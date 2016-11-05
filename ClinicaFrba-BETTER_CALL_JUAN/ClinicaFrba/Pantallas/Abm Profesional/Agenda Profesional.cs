@@ -14,7 +14,7 @@ namespace ClinicaFrba
     {
         private AgendaProfesionalController controller;
         private List<CheckBox> CBLDias;
-        private Dictionary<String, int> dias;
+        private List<String> dias;
         private List<Especialidad> especialidadesMedico;
         private Medico medicoSeleccionado;
 
@@ -24,14 +24,13 @@ namespace ClinicaFrba
 
             InitializeComponent();
 
-            dias = new Dictionary<String, int>();
-            dias.Add("Lunes", 1);
-            dias.Add("Martes", 2);
-            dias.Add("Miercoles", 3);
-            dias.Add("Jueves", 4);
-            dias.Add("Viernes", 5);
-            dias.Add("Sabado", 6);
-
+            dias = new List<String>();
+            dias.Add("Lunes");
+            dias.Add("Martes");
+            dias.Add("Miercoles");
+            dias.Add("Jueves");
+            dias.Add("Viernes");
+            dias.Add("Sabado");
         }
 
         internal void showRegistroHorario(Medico medico, List<Especialidad> especialidades)
@@ -48,16 +47,16 @@ namespace ClinicaFrba
             this.CBLDias = new List<CheckBox>();
             int ycoords = 0;
          
-            foreach(KeyValuePair<String, int> dia in dias){
+            dias.ForEach(dia => {
                     CheckBox cbf = new CheckBox();
                     cbf.Width = diasPanel.Width;
                     cbf.Location = new Point(10, ycoords);
                     cbf.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    cbf.Text = dia.Key;
+                    cbf.Text = dia;
                     diasPanel.Controls.Add(cbf);
                     ycoords += 25;
                     this.CBLDias.Add(cbf);
-                };
+                });
         }
 
         private void llenarComboEspecialidades(List<Especialidad> especialidades)
@@ -84,7 +83,7 @@ namespace ClinicaFrba
                     Especialidad espSeleccionada = new Especialidad();
                     espSeleccionada = especialidadesMedico.Find(x => x.descripcion.Equals(comboEspecialidad.Text));
                     HorariosAgendaProfesional hap = new HorariosAgendaProfesional();
-                    hap.mostrarHorarios(CBLDias, espSeleccionada);
+                    hap.mostrarHorarios(CBLDias, medicoSeleccionado, espSeleccionada);
                     this.Close();
                 }
                 else

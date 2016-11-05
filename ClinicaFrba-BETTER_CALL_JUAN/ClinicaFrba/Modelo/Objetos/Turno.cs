@@ -14,5 +14,9 @@ namespace ClinicaFrba
         public decimal medicoEspecialidadId { get; set; }
 
         public Paciente paciente { get; set; }
+
+        public Medico medico { get; set; }
+        public Especialidad especialidad { get; set; }
+
     }
 }

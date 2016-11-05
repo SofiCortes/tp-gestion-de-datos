@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba
 {
-    public partial class PedirTurnoForm : Form
+    public partial class Pedir_Turno_Administrativo : Form
     {
-        private PedirTurnoController controller;
+        private PedirTurnoAdministrativoController controller;
 
-        public PedirTurnoForm()
+        public Pedir_Turno_Administrativo()
         {
-            this.controller = new PedirTurnoController(this);
+            this.controller = new PedirTurnoAdministrativoController(this);
 
             InitializeComponent();
 
@@ -48,12 +48,12 @@ namespace ClinicaFrba
             string queryApellido = this.textBoxApellido.Text.Trim();
             int selectedIndexOfEspecialidades = this.comboEspecialidad.SelectedIndex;
 
-            if (queryNombre.Length > 0 || queryApellido.Length > 0 || selectedIndexOfEspecialidades > 0)
+           if (queryNombre.Length > 0 || queryApellido.Length > 0 || selectedIndexOfEspecialidades > 0)
             {
                 this.buscarButton.Enabled = false;
                 this.limpiarButton.Enabled = false;
 
-                Especialidad especialidadSeleccionada = (Especialidad) this.comboEspecialidad.SelectedItem;
+                Especialidad especialidadSeleccionada = (Especialidad)this.comboEspecialidad.SelectedItem;
                 this.controller.buscarProfesionalesConFiltros(queryNombre, queryApellido, especialidadSeleccionada);
             }
             else
@@ -88,23 +88,41 @@ namespace ClinicaFrba
 
         }
 
-        private void limpiarButton_Click(object sender, EventArgs e)
+         
+        private void medicosEspecialidadParaTurnoGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (nroAfiliado.Value.ToString().Length < 3)
+                MessageBox.Show("Debe insertar un numero de afiliado valido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            else
+            {
+
+                decimal paciente_id = controller.getPacienteIdSegunNroAfiliado(nroAfiliado.Value);
+
+                if (paciente_id == 0)
+                    MessageBox.Show("El afiliado insertado no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                else
+                {
+                    Medico medico = controller.obtenerMedico(medicosEspecialidadParaTurnoGrid);
+                    Especialidad especialidad = new Especialidad();
+                    especialidad.codigo = controller.obtenerCodigoEspecialidad(medicosEspecialidadParaTurnoGrid);
+                    especialidad.descripcion = controller.obtenerDescripcionEspecialidad(medicosEspecialidadParaTurnoGrid);
+                    DiasTurnoMedico dtm = new DiasTurnoMedico();
+                    dtm.showCalendario(paciente_id, medico, especialidad);
+                    this.Close();
+                }
+
+            }
+        }
+
+        private void limpiarButton_Click_1(object sender, EventArgs e)
         {
             this.comboEspecialidad.SelectedIndex = 0;
             this.textBoxApellido.Text = "";
             this.textBoxNombre.Text = "";
+            this.nroAfiliado.Value = 0;
             this.medicosEspecialidadParaTurnoGrid.DataSource = null;
-        }
-
-        private void resultadosGrid_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            Medico medico = controller.obtenerMedico(medicosEspecialidadParaTurnoGrid);
-            Especialidad especialidad = new Especialidad();
-            especialidad.codigo = controller.obtenerCodigoEspecialidad(medicosEspecialidadParaTurnoGrid);
-            especialidad.descripcion = controller.obtenerDescripcionEspecialidad(medicosEspecialidadParaTurnoGrid);
-            DiasTurnoMedico dtm = new DiasTurnoMedico();
-            dtm.showCalendario(medico,especialidad);
-            this.Close();
         }
     }
 }

@@ -12,6 +12,7 @@ namespace ClinicaFrba
 
         private decimal userId;
         private List<string> funcionalidades;
+        private Rol rol;
 
         public static UsuarioConfiguracion getInstance()
         {
@@ -45,6 +46,16 @@ namespace ClinicaFrba
         public void setUsuarioId(decimal userId)
         {
             this.userId = userId;
+        }
+
+        internal void setRol(Rol rol)
+        {
+            this.rol = rol;
+        }
+
+        internal Rol getRol()
+        {
+            return this.rol;
         }
     }
 }

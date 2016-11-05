@@ -84,7 +84,6 @@ namespace ClinicaFrba
             ).ToList();
         }
 
-
         private void gridConsultas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             IngresarSintomasYEnfermedadDialog form = new IngresarSintomasYEnfermedadDialog();

@@ -55,6 +55,7 @@
     <Compile Include="Modelo\BD\Manager\Implementacion\PlanManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\ProfesionalManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\RolManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\TipoCancelacionManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\TipoEspecialidadManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\TurnoManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\UsuarioManager.cs" />
@@ -218,6 +219,34 @@
       <DependentUpon>Horarios Consultas.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Atenciones medicas\HorariosConsultasController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.Designer.cs">
+      <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliadoController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionMedico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionMedico.Designer.cs">
+      <DependentUpon>CancelarAtencionMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionMedicoController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\IngresarMotivoYTipoCancelacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\IngresarMotivoYTipoCancelacion.Designer.cs">
+      <DependentUpon>IngresarMotivoYTipoCancelacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadDialog.Designer.cs">
+      <DependentUpon>IngresarSintomasYEnfermedadDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\IngresarTipoYMotivoCancelacionController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Listado Atenciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +261,8 @@
       <DependentUpon>ListadoBonos.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Atenciones medicas\ListadoBonosController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\Listener\IngresarMotivoYTipoCancelacionListener.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\Listener\IngresarSintomasYEnfermedadListener.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Registrar Llegada.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -325,13 +356,20 @@
     </Compile>
     <Compile Include="Pantallas\Pedir Turno\HorariosTurnosController.cs" />
     <Compile Include="Pantallas\Pedir Turno\Listener\HorariosTurnosListener.cs" />
-    <Compile Include="Pantallas\Pedir Turno\Pedir Turno.cs">
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAdministrativo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pantallas\Pedir Turno\Pedir Turno.Designer.cs">
-      <DependentUpon>Pedir Turno.cs</DependentUpon>
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAdministrativo.Designer.cs">
+      <DependentUpon>PedirTurnoAdministrativo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pantallas\Pedir Turno\PedirTurnoController.cs" />
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAfiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAfiliado.Designer.cs">
+      <DependentUpon>PedirTurnoAfiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAdministrativoController.cs" />
+    <Compile Include="Pantallas\Pedir Turno\PedirTurnoAfiliadoController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Pantallas\Abm Afiliado\AgregarFamiliar.resx">
@@ -393,6 +431,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Atenciones medicas\Registrar Llegada.resx">
       <DependentUpon>Registrar Llegada.cs</DependentUpon>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.resx">
+      <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\IngresarMotivoYTipoCancelacion.resx">
+      <DependentUpon>IngresarMotivoYTipoCancelacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\IngresarSintomasYEnfermedadDialog.resx">
+      <DependentUpon>IngresarSintomasYEnfermedadDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Atenciones medicas\Registrar Resultado Consulta.resx">
       <DependentUpon>Registrar Resultado Consulta.cs</DependentUpon>
@@ -430,8 +476,11 @@
     <EmbeddedResource Include="Pantallas\Pedir Turno\HorariosTurnos.resx">
       <DependentUpon>HorariosTurnos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pantallas\Pedir Turno\Pedir Turno.resx">
-      <DependentUpon>Pedir Turno.cs</DependentUpon>
+    <EmbeddedResource Include="Pantallas\Pedir Turno\PedirTurnoAdministrativo.resx">
+      <DependentUpon>PedirTurnoAdministrativo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Pedir Turno\PedirTurnoAfiliado.resx">
+      <DependentUpon>PedirTurnoAfiliado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

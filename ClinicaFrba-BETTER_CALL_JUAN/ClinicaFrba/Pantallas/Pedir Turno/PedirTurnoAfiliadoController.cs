@@ -10,9 +10,9 @@ namespace ClinicaFrba
     class PedirTurnoController
     {
 
-        private PedirTurnoForm form;
+        private Pedir_Turno_Afiliado form;
 
-        public PedirTurnoController(PedirTurnoForm form)
+        public PedirTurnoController(Pedir_Turno_Afiliado form)
         {
             this.form = form;
         }

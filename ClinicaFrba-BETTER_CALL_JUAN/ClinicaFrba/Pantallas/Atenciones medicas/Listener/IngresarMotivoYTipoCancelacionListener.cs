@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ClinicaFrba
 {
-    public class TipoCancelacion
+    public interface IngresarMotivoYTipoCancelacionListener
     {
-        public decimal id { get; set; }
-        public string nombre { get; set; }
+        void onMotivoYTipoCancelacionIngresados(string motivo, TipoCancelacion tipoCancelacion);
     }
 }

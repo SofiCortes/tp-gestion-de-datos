@@ -16,6 +16,7 @@ namespace ClinicaFrba
         private Dictionary<NumericUpDown, NumericUpDown> horasDesde;
         private Dictionary<NumericUpDown, NumericUpDown> horasHasta;
         private Especialidad especialidadSeleccionada;
+        private Medico medicoSeleccionado;
 
         public HorariosAgendaProfesional()
         {
@@ -23,9 +24,10 @@ namespace ClinicaFrba
             InitializeComponent();
         }
 
-        internal void mostrarHorarios(List<CheckBox> CBLDias, Especialidad especialidad)
+        internal void mostrarHorarios(List<CheckBox> CBLDias, Medico medico, Especialidad especialidad)
         {
             especialidadSeleccionada = especialidad;
+            medicoSeleccionado = medico;
             this.horasDesde = new Dictionary<NumericUpDown, NumericUpDown>();
             this.horasHasta = new Dictionary<NumericUpDown, NumericUpDown>();
             int ycoords = 0;
@@ -86,9 +88,18 @@ namespace ClinicaFrba
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {
+            
             if (this.validarHorarios())
             {
-
+                try
+                {
+                    this.controller.registraAgenda(medicoSeleccionado, especialidadSeleccionada, horasDesde, horasHasta);
+                    this.Close();
+                }
+                catch (Exception x)
+                {
+                    this.showErrorMessage(x.Message);
+                }
             }
             
         }

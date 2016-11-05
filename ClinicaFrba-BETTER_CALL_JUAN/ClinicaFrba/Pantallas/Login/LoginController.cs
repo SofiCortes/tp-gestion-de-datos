@@ -54,6 +54,9 @@ namespace ClinicaFrba
             {
                 if (roles.Count() == 1)
                 {
+                    Rol rol = roles.ElementAt(0);
+                    UsuarioConfiguracion.getInstance().setRol(rol);
+
                     this.getFuncionalidadesParaRol(roles.ElementAt(0));
                 }
                 else
