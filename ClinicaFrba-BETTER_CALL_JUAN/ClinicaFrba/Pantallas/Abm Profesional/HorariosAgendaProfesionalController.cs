@@ -33,31 +33,35 @@ namespace ClinicaFrba
 
             Dictionary<KeyValuePair<NumericUpDown, NumericUpDown>, KeyValuePair<NumericUpDown, NumericUpDown>> rangoAtencion = this.obtenerRangoAtencion(horasDesde, horasHasta);
 
-            try
-            {
-                pm.openDB();
-                pm.beginTransaction();
+            Decimal horasTrabajadas = pm.getHorasTrabajadas(medicoSeleccionado);
+            Decimal horasAInsertar = 0;
 
+            foreach (KeyValuePair<KeyValuePair<NumericUpDown, NumericUpDown>, KeyValuePair<NumericUpDown, NumericUpDown>> rango in rangoAtencion) 
+            {
+                Decimal hd = ((rango.Key.Key.Value)*60);  
+                Decimal md = (rango.Key.Value.Value);
+                Decimal hdmd = hd + md;
+
+                Decimal hh = ((rango.Value.Key.Value)*60);
+                Decimal mh = (rango.Value.Value.Value);
+                Decimal hhmh = hh + mh;
+
+                horasAInsertar += (Decimal.Divide((hhmh - hdmd),60));
+            }
+            
+            Decimal horasTotales = horasTrabajadas + horasAInsertar;
+
+            if (horasTotales <= 48)
+            {
                 foreach (KeyValuePair<KeyValuePair<NumericUpDown, NumericUpDown>, KeyValuePair<NumericUpDown, NumericUpDown>> rango in rangoAtencion)
                 {
                     pm.registrarRangoAtencion(medicoSeleccionado, especialidadSeleccionada, rango.Key, rango.Value);
                 }
-
-                pm.commitTransaction();
             }
-
-            catch (Exception ex)
+            else
             {
-                pm.rollbackTransaction();
-                this.form.showErrorMessage(ex.Message);
+                this.form.showErrorMessage("Las horas trabajadas no pueden superar las 48 hs semanales");
             }
-
-            finally
-            {
-                pm.closeDB();
-            }
-
-
         }
 
         private Dictionary<KeyValuePair<NumericUpDown, NumericUpDown>, KeyValuePair<NumericUpDown, NumericUpDown>> obtenerRangoAtencion(Dictionary<NumericUpDown, NumericUpDown> horasDesde, Dictionary<NumericUpDown, NumericUpDown> horasHasta)

@@ -299,7 +299,6 @@ namespace ClinicaFrba
 
         internal void registrarRangoAtencion(Medico medicoSeleccionado, Especialidad especialidadSeleccionada, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horaDesde, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horaHasta)
         {
-            {
                 String hd = horaDesde.Key.Value.ToString() + ":" + horaDesde.Value.Value.ToString();
                 String hh = horaHasta.Key.Value.ToString() + ":" + horaHasta.Value.Value.ToString();
 
@@ -316,24 +315,10 @@ namespace ClinicaFrba
                 parametros.Add(parametro7);
                 parametros.Add(parametro8);
 
+                this.openDB();
                 SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico", parametros);
                 procedure.ExecuteScalar();
-            }
-        }
-
-        internal void beginTransaction()
-        {
-            transact = this.getConnection().beginTransaction();
-        }
-
-        internal void commitTransaction()
-        {
-            this.getConnection().commitTransaction(transact);
-        }
-
-        internal void rollbackTransaction()
-        {
-            this.getConnection().rollbackTransaction(transact);
+                this.closeDB();
         }
 
 
@@ -376,5 +361,24 @@ namespace ClinicaFrba
             }
 
         } */
+
+        internal Decimal getHorasTrabajadas(Medico medicoSeleccionado)
+        {
+            ParametroParaSP parametro7 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medicoSeleccionado.matricula);
+            ParametroParaSP parametro4 = new ParametroParaSP("horas_trabajadas", SqlDbType.Decimal);
+
+            List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+            parametros.Add(parametro7);
+            parametros.Add(parametro4);
+
+            this.openDB();
+            SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Get_Horas_Trabajadas_Medico", parametros);
+            procedure.ExecuteNonQuery();
+
+            Decimal hsTrabajadas = Convert.ToDecimal(procedure.Parameters["@horas_trabajadas"].Value);
+            this.closeDB();
+
+            return hsTrabajadas;
+        }
     }
 }
