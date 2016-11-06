@@ -1972,23 +1972,25 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turno_Dia_Profesional] (@fecha DATETIME, @matricula NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turno_Dia_Profesional] (@fecha DATETIME, @usuario_id NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
 AS
 BEGIN
 	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero)
 	SELECT @tipo, @motivo, numero
-	FROM Turnos t JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) JOIN Medicos m ON (me.medico_id = m.matricula)
-	WHERE matricula = @matricula AND DATEDIFF(day,fecha_hora,@fecha) = 0	
+	FROM Turnos t 
+	JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) 
+	JOIN Medicos m ON (me.medico_id = m.matricula)
+	WHERE m.usuario_id = @usuario_id AND DATEDIFF(day,fecha_hora,@fecha) = 0	
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turnos_Franja_Profesional] (@fecha_inicio DATETIME, @fecha_fin DATETIME, @matricula NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turnos_Franja_Profesional] (@fecha_inicio DATETIME, @fecha_fin DATETIME, @usuario_id NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
 AS
 BEGIN
 	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero)
 	SELECT @tipo, @motivo, numero
 	FROM Turnos t JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) JOIN Medicos m ON (me.medico_id = m.matricula)
-	WHERE matricula = @matricula AND fecha_hora BETWEEN CONVERT(date,@fecha_inicio) AND CONVERT(date, @fecha_fin)	
+	WHERE m.usuario_id = @usuario_id AND fecha_hora BETWEEN CONVERT(date,@fecha_inicio) AND CONVERT(date, @fecha_fin)	
 END
 GO
 

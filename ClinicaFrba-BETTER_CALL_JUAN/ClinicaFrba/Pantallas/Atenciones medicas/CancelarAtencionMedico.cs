@@ -55,7 +55,7 @@ namespace ClinicaFrba
                 }
                 else
                 {
-                    this.controller.cancelarRango(fechaDesde, fechaHasta);
+                    this.controller.mostrarIngresarMotivoYTipoCancelacionRango();
                 }
             }
         }
@@ -69,7 +69,7 @@ namespace ClinicaFrba
             }
             else
             {
-                this.controller.cancelarDia(fecha);
+                this.controller.mostrarIngresarMotivoYTipoCancelacionDia();
             }
         }
 
@@ -83,6 +83,21 @@ namespace ClinicaFrba
         {
             MessageBox.Show(mensaje, "Informacion",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        internal DateTime getFechaDesde()
+        {
+            return this.fechaDesde.Value;
+        }
+
+        internal DateTime getFechaHasta()
+        {
+            return this.fechaHasta.Value;
+        }
+
+        internal DateTime getFecha()
+        {
+            return this.fecha.Value;
         }
 
         private void radioButtonCancelarDia_CheckedChanged(object sender, EventArgs e)
