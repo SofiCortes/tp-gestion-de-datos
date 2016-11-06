@@ -1389,14 +1389,12 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Fechas_Disponibles_Para_Turno](@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Fechas_Disponibles_Para_Turno](@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0), @fecha_hoy DATETIME)
 AS
 BEGIN
 	CREATE TABLE #fechasTemp(fecha DATE)
 
-	DECLARE @i INT = 0, @unaFecha DATE, @fecha_hoy DATE, @estaDisponibleFecha BIT
-
-	SET @fecha_hoy = GETDATE()
+	DECLARE @i INT = 0, @unaFecha DATE, @estaDisponibleFecha BIT
 
 	WHILE @i<60
 	BEGIN
@@ -1751,12 +1749,12 @@ END
 GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Plan_Medico] (@paciente_id NUMERIC(18,0), @plan_viejo_id NUMERIC(18,0), 
-																	   @plan_nuevo_id NUMERIC(18,0), @motivo VARCHAR(500))
+																	   @plan_nuevo_id NUMERIC(18,0), @motivo VARCHAR(500), @fecha_hoy DATETIME)
 AS
 BEGIN
 
 	INSERT INTO Cambios_De_Plan(paciente_id,fecha_cambio, motivo_cambio, plan_anterior_id,plan_nuevo_id)  
-	VALUES (@paciente_id,GETDATE(),@motivo,@plan_viejo_id,@plan_nuevo_id)
+	VALUES (@paciente_id,@fecha_hoy,@motivo,@plan_viejo_id,@plan_nuevo_id)
 	
 	UPDATE Pacientes
 	SET plan_medico_cod=@plan_nuevo_id
@@ -1767,7 +1765,7 @@ GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Modificar_Afiliado] 
 (@paciente_id NUMERIC(18,0),@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0), @direccion VARCHAR(255), @telefono NUMERIC(18,0), @mail VARCHAR(255), 
-@sexo CHAR(1), @estado_civil VARCHAR(100),@plan_viejo_id NUMERIC(18,0), @plan_nuevo_id NUMERIC(18,0), @motivo VARCHAR(500))
+@sexo CHAR(1), @estado_civil VARCHAR(100),@plan_viejo_id NUMERIC(18,0), @plan_nuevo_id NUMERIC(18,0), @motivo VARCHAR(500), @fecha_hoy DATETIME)
 AS
 BEGIN
 	UPDATE Pacientes
@@ -1776,12 +1774,12 @@ BEGIN
 
 	IF(@plan_viejo_id != @plan_nuevo_id)
 	BEGIN
-		EXEC BETTER_CALL_JUAN.Procedure_Modificar_Plan_Medico @paciente_id,@plan_viejo_id,@plan_nuevo_id,@motivo
+		EXEC BETTER_CALL_JUAN.Procedure_Modificar_Plan_Medico @paciente_id,@plan_viejo_id,@plan_nuevo_id,@motivo, @fecha_hoy
 	END						
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Baja_Afiliado] (@id_paciente NUMERIC(18,0)) 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Baja_Afiliado] (@id_paciente NUMERIC(18,0),@fecha_hoy DATETIME) 
 AS
 BEGIN
 	IF((SELECT habilitado FROM Pacientes WHERE id = @id_paciente) = 0)
@@ -1794,7 +1792,7 @@ BEGIN
 	SET habilitado = 0
 	WHERE id = @id_paciente
 
-	INSERT INTO Bajas_Pacientes(fecha_baja, paciente_id) VALUES (GETDATE(), @id_paciente)
+	INSERT INTO Bajas_Pacientes(fecha_baja, paciente_id) VALUES (@fecha_hoy, @id_paciente)
 
 	UPDATE Turnos
 	SET paciente_id = NULL
@@ -1802,8 +1800,8 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Comprar_Bonos] (@id_usuario NUMERIC(18,0), @cant_bonos NUMERIC(18,0),
-															   @plan_medico_bono_id NUMERIC(18,0), @monto_a_pagar NUMERIC(18,2) OUT)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Comprar_Bonos] (@id_usuario NUMERIC(18,0), @cant_bonos NUMERIC(18,0),@plan_medico_bono_id NUMERIC(18,0), 
+																@monto_a_pagar NUMERIC(18,2) OUT, @fecha_hoy DATETIME)
 AS
 BEGIN
 	DECLARE @precio_bono NUMERIC(18,0)
@@ -1827,7 +1825,7 @@ BEGIN
 	WHILE @i< @cant_bonos
 	BEGIN
 	   INSERT INTO BETTER_CALL_JUAN.Bonos_Consulta (fecha_compra,paciente_compra_id,plan_id)
-	   VALUES (GETDATE() /*@@fecha_del_sistema*/,@id_afiliado_comprador,@plan_medico_bono_id)
+	   VALUES (@fecha_hoy,@id_afiliado_comprador,@plan_medico_bono_id)
 	   SET @i = @i + 1;
 	END;
 
