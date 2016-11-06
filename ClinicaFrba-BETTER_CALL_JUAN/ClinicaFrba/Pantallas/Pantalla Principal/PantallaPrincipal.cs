@@ -355,11 +355,26 @@ namespace ClinicaFrba
                 CancelarAtencionAfiliado form = new CancelarAtencionAfiliado();
                 form.Show();
             }
-            else
+            else if (rolUsuario.nombre.Equals("Profesional"))
             {
                 CancelarAtencionMedico form = new CancelarAtencionMedico();
                 form.Show();
             }
+            else
+            {
+                CancelarAtencionAdmin form = new CancelarAtencionAdmin();
+                form.Show();
+            }
+        }
+
+        private void buttonCerrarSesion_Click(object sender, EventArgs e)
+        {
+            UsuarioConfiguracion.getInstance().limpiarDatosDeSesion();
+
+            LoginForm form = new LoginForm();
+            form.Show();
+
+            this.Close();
         }
 
     }

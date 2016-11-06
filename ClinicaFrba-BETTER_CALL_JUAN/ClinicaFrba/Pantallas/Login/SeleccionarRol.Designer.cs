@@ -65,6 +65,7 @@
             // 
             // panelRadioButtons
             // 
+            this.panelRadioButtons.AutoScroll = true;
             this.panelRadioButtons.Location = new System.Drawing.Point(40, 37);
             this.panelRadioButtons.Name = "panelRadioButtons";
             this.panelRadioButtons.Size = new System.Drawing.Size(200, 86);

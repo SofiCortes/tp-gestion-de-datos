@@ -213,6 +213,13 @@
       <DependentUpon>Modificar Rol.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\AbmRol\ModificarRolController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAdmin.Designer.cs">
+      <DependentUpon>CancelarAtencionAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAdminController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Horarios Consultas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -423,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\AbmRol\Modificar Rol.resx">
       <DependentUpon>Modificar Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\CancelarAtencionAdmin.resx">
+      <DependentUpon>CancelarAtencionAdmin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Atenciones medicas\Horarios Consultas.resx">
       <DependentUpon>Horarios Consultas.cs</DependentUpon>

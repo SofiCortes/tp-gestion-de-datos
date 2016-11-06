@@ -57,5 +57,12 @@ namespace ClinicaFrba
         {
             return this.rol;
         }
+
+        internal void limpiarDatosDeSesion()
+        {
+            this.userId = 0;
+            this.rol = null;
+            this.funcionalidades.Clear();
+        }
     }
 }

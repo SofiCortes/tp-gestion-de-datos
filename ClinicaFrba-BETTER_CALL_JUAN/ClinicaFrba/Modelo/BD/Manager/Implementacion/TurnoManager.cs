@@ -416,5 +416,69 @@ namespace ClinicaFrba
             }
             return rangoCancelado;
         }
+
+        internal List<Turno> buscarTurnosConFiltros(DateTime fechaBuscar, string nombreMedico, string apellidoMedico, string nombrePaciente, string apellidoPaciente)
+        {
+            List<Turno> turnos = new List<Turno>();
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("fecha_a_buscar", SqlDbType.DateTime, fechaBuscar);
+                ParametroParaSP parametro2 = new ParametroParaSP("nombre_medico", SqlDbType.VarChar, nombreMedico);
+                ParametroParaSP parametro3 = new ParametroParaSP("apellido_medico", SqlDbType.VarChar, apellidoMedico);
+                ParametroParaSP parametro4 = new ParametroParaSP("nombre_paciente", SqlDbType.VarChar, nombrePaciente);
+                ParametroParaSP parametro5 = new ParametroParaSP("apellido_paciente", SqlDbType.VarChar, apellidoPaciente);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
+                parametros.Add(parametro5);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Get_Turnos_Con_Filtros", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        Turno turno = new Turno();
+                        turno.numero = sqlReader.GetDecimal(0);
+                        turno.fechaHora = sqlReader.GetDateTime(1);
+                        turno.medicoEspecialidadId = sqlReader.GetDecimal(2);
+                        turno.pacienteId = sqlReader.GetDecimal(3);
+
+                        Medico medico = new Medico();
+                        medico.apellido = sqlReader.GetString(4);
+                        medico.nombre = sqlReader.GetString(5);
+                        turno.medico = medico;
+
+                        Especialidad especialidad = new Especialidad();
+                        especialidad.descripcion = sqlReader.GetString(6);
+                        turno.especialidad = especialidad;
+
+                        Paciente paciente = new Paciente();
+                        paciente.nombre = sqlReader.GetString(7);
+                        paciente.apellido = sqlReader.GetString(8);
+                        paciente.tipoDoc = sqlReader.GetString(9);
+                        paciente.nroDoc = sqlReader.GetDecimal(10);
+                        turno.paciente = paciente;
+
+                        turnos.Add(turno);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                turnos = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return turnos;
+        }
     }
 }

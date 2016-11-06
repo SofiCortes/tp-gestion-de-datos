@@ -1128,7 +1128,36 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Anios_Top_5_Mas_Cancelaciones
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Get_Turnos_Con_Filtros'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Get_Turnos_Con_Filtros
+GO
+
 --------
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Turnos_Con_Filtros]
+(@fecha_a_buscar DATETIME, @nombre_medico VARCHAR(255), @apellido_medico VARCHAR(255), @nombre_paciente VARCHAR(255), @apellido_paciente VARCHAR(255))
+AS
+BEGIN
+	DECLARE @QUERY_1 NVARCHAR(2000) = 'SELECT T.numero, T.fecha_hora, T.medico_especialidad_id, T.paciente_id, M.apellido, M.nombre, E.descripcion, 
+									P.nombre, P.apellido, P.tipo_doc, P.nro_doc
+									FROM BETTER_CALL_JUAN.Turnos T
+									JOIN BETTER_CALL_JUAN.Pacientes P ON P.id = T.paciente_id
+									JOIN BETTER_CALL_JUAN.Medicos_Especialidades ME ON T.medico_especialidad_id = ME.id
+									JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = ME.especialidad_cod
+									JOIN BETTER_CALL_JUAN.Medicos M ON M.matricula = ME.medico_id
+									WHERE P.usuario_id = @usuario_id AND P.nombre like @nombre_paciente AND P.apellido like @apellido_paciente
+									AND M.nombre like @nombre_medico AND M.apellido like @apellido_medico
+									ORDER BY T.fecha_hora DESC'
+			
+	SET @nombre_medico = '%' + @nombre_medico + '%'
+	SET @apellido_medico = '%' + @apellido_medico + '%'
+	SET @nombre_paciente = '%' + @nombre_paciente + '%'
+	SET @apellido_paciente = '%' + @apellido_paciente + '%'
+
+	EXEC sp_executesql @QUERY_1, N'@fecha_a_buscar DATETIME, @nombre_medico VARCHAR(255), @apellido_medico VARCHAR(255), @nombre_paciente VARCHAR(255), @apellido_paciente VARCHAR(255)',
+				@fecha_a_buscar, @nombre_medico, @apellido_medico, @nombre_paciente, @apellido_paciente
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Tipo_Cancelaciones]
 AS

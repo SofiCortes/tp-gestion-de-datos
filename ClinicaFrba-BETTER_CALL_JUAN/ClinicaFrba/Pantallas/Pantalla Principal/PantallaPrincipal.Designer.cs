@@ -68,6 +68,7 @@
             this.buttonModificarRol = new System.Windows.Forms.Button();
             this.buttonEliminarRol = new System.Windows.Forms.Button();
             this.groupBoxRoles = new System.Windows.Forms.GroupBox();
+            this.buttonCerrarSesion = new System.Windows.Forms.Button();
             this.groupBoxAcciones.SuspendLayout();
             this.groupBoxAfiliados.SuspendLayout();
             this.groupBoxProfesionales.SuspendLayout();
@@ -277,9 +278,9 @@
             this.buttonListadoProfesionales.Text = "Listado de Profesionales";
             this.buttonListadoProfesionales.UseVisualStyleBackColor = true;
             this.buttonListadoProfesionales.Click += new System.EventHandler(this.buttonListadoProfesionales_Click);
-            //
+            // 
             // buttonRegistrarAgenda
-            //
+            // 
             this.buttonRegistrarAgenda.Location = new System.Drawing.Point(6, 162);
             this.buttonRegistrarAgenda.Name = "buttonRegistrarAgenda";
             this.buttonRegistrarAgenda.Size = new System.Drawing.Size(187, 35);
@@ -519,11 +520,22 @@
             this.groupBoxRoles.Text = "Roles";
             this.groupBoxRoles.Visible = false;
             // 
+            // buttonCerrarSesion
+            // 
+            this.buttonCerrarSesion.Location = new System.Drawing.Point(166, 420);
+            this.buttonCerrarSesion.Name = "buttonCerrarSesion";
+            this.buttonCerrarSesion.Size = new System.Drawing.Size(104, 23);
+            this.buttonCerrarSesion.TabIndex = 16;
+            this.buttonCerrarSesion.Text = "Cerrar sesion";
+            this.buttonCerrarSesion.UseVisualStyleBackColor = true;
+            this.buttonCerrarSesion.Click += new System.EventHandler(this.buttonCerrarSesion_Click);
+            // 
             // PantallaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 422);
+            this.ClientSize = new System.Drawing.Size(438, 455);
+            this.Controls.Add(this.buttonCerrarSesion);
             this.Controls.Add(this.groupBoxAcciones);
             this.Controls.Add(this.groupBoxAtencionMedica);
             this.Controls.Add(this.groupBoxBonos);
@@ -591,6 +603,7 @@
         private System.Windows.Forms.Button buttonModificarRol;
         private System.Windows.Forms.Button buttonEliminarRol;
         private System.Windows.Forms.GroupBox groupBoxRoles;
+        private System.Windows.Forms.Button buttonCerrarSesion;
 
     }
 }
