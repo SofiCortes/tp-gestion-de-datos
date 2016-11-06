@@ -39,12 +39,6 @@ namespace ClinicaFrba
             DataGridViewRow row = dgvc.OwningRow;
             decimal idBono = Decimal.Parse(row.Cells[0].Value.ToString());
 
-            //
-            /*DataGridViewRow row = this.form.getConsultaSeleccionada();
-
-            decimal idConsulta = Decimal.Parse(row.Cells[0].Value.ToString());*/
-            //string horarioElegido = row.Cells[0].Value.ToString();
-
             this.controller.registrarLlegadaConsulta(turno, idBono);
         }
 

@@ -23,7 +23,7 @@ namespace ClinicaFrba
             {
                 ParametroParaSP parametro1 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medico.matricula);
                 ParametroParaSP parametro2 = new ParametroParaSP("especialidad_codigo", SqlDbType.Decimal, especialidad.codigo);
-                ParametroParaSP parametro3 = new ParametroParaSP("fecha", SqlDbType.DateTime, DateTime.Parse("2015-01-01")); //cambiar esto!!
+                ParametroParaSP parametro3 = new ParametroParaSP("fecha", SqlDbType.DateTime, DateTime.Parse("2016-11-07")); //cambiarrr
                 
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
@@ -39,7 +39,7 @@ namespace ClinicaFrba
                 {
                     while (sqlReader.Read())
                     {
-                        Turno turno = new Turno(); //paciente_id, tipo_doc, nro_doc, nombre, apellido, fecha_hora, numero
+                        Turno turno = new Turno(); 
                         turno.pacienteId = sqlReader.GetDecimal(0);
                         
                         Paciente paciente = new Paciente();
@@ -79,11 +79,14 @@ namespace ClinicaFrba
                 ParametroParaSP parametro2 = new ParametroParaSP("turno_numero", SqlDbType.Decimal, turno.numero);
                 ParametroParaSP parametro3 = new ParametroParaSP("hora_llegada", SqlDbType.DateTime, horaLlegada);
                 ParametroParaSP parametro4 = new ParametroParaSP("bono_id", SqlDbType.Decimal, idBono);
+                ParametroParaSP parametro5 = new ParametroParaSP("retorno", SqlDbType.SmallInt);
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);
                 parametros.Add(parametro3);
                 parametros.Add(parametro4);
+                parametros.Add(parametro5);
+
 
                 this.openDB();
 

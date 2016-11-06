@@ -55,7 +55,6 @@ namespace ClinicaFrba
                 {
                     ListadoBonos listadoBonos = new ListadoBonos();
                     listadoBonos.showBonos(turno);
-
                 }
                 else
                 {
