@@ -72,7 +72,7 @@ namespace ClinicaFrba
             this.buscarButton.Enabled = true;
             this.limpiarButton.Enabled = true;
 
-            medicosEspecialidadParaTurnoGrid.DataSource = medicosFiltradosConEspecialidad.Select(
+            resultadosGrid.DataSource = medicosFiltradosConEspecialidad.Select(
                 medicoConEspecialidad => new
                 {
                     Matricula = medicoConEspecialidad.Key.matricula,
@@ -83,8 +83,39 @@ namespace ClinicaFrba
 
                 }
             ).ToList();
-            medicosEspecialidadParaTurnoGrid.ClearSelection();
+            resultadosGrid.ClearSelection();
 
+        }
+
+        private void resultadosGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Medico medico = controller.obtenerMedico(resultadosGrid);
+            Especialidad especialidad = new Especialidad();
+            especialidad.codigo = controller.obtenerCodigoEspecialidad(resultadosGrid);
+            especialidad.descripcion = controller.obtenerDescripcionEspecialidad(resultadosGrid);
+            HorariosConsultas hs = new HorariosConsultas();
+            hs.showConsultas(medico, especialidad);
+            this.Close();
+        }
+
+        private void buscarButton_Click_1(object sender, EventArgs e)
+        {
+            string queryNombre = this.textBoxNombre.Text.Trim();
+            string queryApellido = this.textBoxApellido.Text.Trim();
+            int selectedIndexOfEspecialidades = this.comboEspecialidad.SelectedIndex;
+
+            if (queryNombre.Length > 0 || queryApellido.Length > 0 || selectedIndexOfEspecialidades > 0)
+            {
+                this.buscarButton.Enabled = false;
+                this.limpiarButton.Enabled = false;
+
+                Especialidad especialidadSeleccionada = (Especialidad)this.comboEspecialidad.SelectedItem;
+                this.controller.buscarProfesionalesConFiltros(queryNombre, queryApellido, especialidadSeleccionada);
+            }
+            else
+            {
+                this.showErrorMessage("Seleccione algun filtro para realizar su busqueda");
+            }
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
@@ -92,18 +123,8 @@ namespace ClinicaFrba
             this.comboEspecialidad.SelectedIndex = 0;
             this.textBoxApellido.Text = "";
             this.textBoxNombre.Text = "";
-            this.medicosEspecialidadParaTurnoGrid.DataSource = null;
+            this.resultadosGrid.DataSource = null;
         }
 
-        private void resultadosGrid_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            Medico medico = controller.obtenerMedico(medicosEspecialidadParaTurnoGrid);
-            Especialidad especialidad = new Especialidad();
-            especialidad.codigo = controller.obtenerCodigoEspecialidad(medicosEspecialidadParaTurnoGrid);
-            especialidad.descripcion = controller.obtenerDescripcionEspecialidad(medicosEspecialidadParaTurnoGrid);
-            HorariosConsultas hs = new HorariosConsultas();
-            hs.showConsultas(medico, especialidad);
-            this.Close();
-        }
     }
 }

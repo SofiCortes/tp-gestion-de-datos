@@ -62,6 +62,7 @@ namespace ClinicaFrba
 
         internal void showBonos(Turno turno)
         {
+            this.turno = turno;
             this.controller.listarBonosDelPaciente(turno.pacienteId);
             this.Show();
         }

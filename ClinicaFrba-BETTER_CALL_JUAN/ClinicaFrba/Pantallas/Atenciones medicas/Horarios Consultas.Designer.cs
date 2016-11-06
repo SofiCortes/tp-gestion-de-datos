@@ -38,12 +38,12 @@
             this.gridTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridTurnos.Location = new System.Drawing.Point(12, 12);
             this.gridTurnos.Name = "gridTurnos";
-            this.gridTurnos.Size = new System.Drawing.Size(260, 292);
+            this.gridTurnos.Size = new System.Drawing.Size(484, 290);
             this.gridTurnos.TabIndex = 0;
             // 
             // TurnoSeleccionadoButton
             // 
-            this.TurnoSeleccionadoButton.Location = new System.Drawing.Point(104, 314);
+            this.TurnoSeleccionadoButton.Location = new System.Drawing.Point(208, 318);
             this.TurnoSeleccionadoButton.Name = "TurnoSeleccionadoButton";
             this.TurnoSeleccionadoButton.Size = new System.Drawing.Size(75, 23);
             this.TurnoSeleccionadoButton.TabIndex = 2;
@@ -55,7 +55,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(287, 349);
+            this.ClientSize = new System.Drawing.Size(508, 353);
             this.Controls.Add(this.TurnoSeleccionadoButton);
             this.Controls.Add(this.gridTurnos);
             this.Name = "HorariosConsultas";

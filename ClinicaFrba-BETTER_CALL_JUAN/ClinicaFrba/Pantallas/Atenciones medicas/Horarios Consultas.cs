@@ -15,11 +15,11 @@ namespace ClinicaFrba
         private HorariosConsultasController controller;
         private Medico medico;
         private Especialidad especialidad;
-        private Turno turno;
 
         public HorariosConsultas()
         {
             InitializeComponent();
+            gridTurnos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
             this.controller = new HorariosConsultasController(this);
         }
 
@@ -41,7 +41,7 @@ namespace ClinicaFrba
                 {
                     Turno = turno.numero,
                     IDPaciente = turno.pacienteId,
-                    NombreYApellido = turno.paciente.apellido + ", " + turno.paciente.nombre,
+                    Nombre = turno.paciente.apellido + ", " + turno.paciente.nombre,
                     Hora = Convert.ToString(turno.fechaHora),
                 }
             ).ToList();
@@ -56,8 +56,8 @@ namespace ClinicaFrba
        private void TurnoSeleccionadoButton_Click(object sender, EventArgs e)
        {
            Turno turno = controller.obtenerTurno(gridTurnos);
-           ListadoBonos listadoBonos = new ListadoBonos();
-           listadoBonos.showBonos(turno);
+           controller.buscarBonosAfiliado(turno);
+                            
            this.Close();     
        }
 

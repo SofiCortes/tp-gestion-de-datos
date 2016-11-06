@@ -44,5 +44,30 @@ namespace ClinicaFrba
             return turno;
         }
 
+        internal void buscarBonosAfiliado(Turno turno)
+        {
+            BonoManager bonoManager = new BonoManager();
+            int bonosDisponibles = bonoManager.getCantBonosAfiliado(turno.pacienteId);
+
+            if (bonosDisponibles > -1)
+            {
+                if(bonosDisponibles > 0)
+                {
+                    ListadoBonos listadoBonos = new ListadoBonos();
+                    listadoBonos.showBonos(turno);
+
+                }
+                else
+                {
+                   this.form.showErrorMessage("El afiliado no tiene bonos disponibles para la consulta.");
+                }
+                
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al buscar los bonos.");
+            }
+
+        }
     }
 }

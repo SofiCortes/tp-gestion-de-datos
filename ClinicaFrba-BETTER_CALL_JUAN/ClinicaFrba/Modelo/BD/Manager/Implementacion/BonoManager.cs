@@ -91,5 +91,36 @@ namespace ClinicaFrba
             return bonos;
             
         }
+
+        internal int getCantBonosAfiliado(decimal pacienteId)
+        {
+            int cantidadBonos;
+
+            try
+            {
+                ParametroParaSP parametro = new ParametroParaSP("id_paciente", SqlDbType.Decimal, pacienteId);
+
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles", parametros);
+                procedure.ExecuteNonQuery();
+
+                cantidadBonos = Convert.ToInt32(procedure.Parameters["@bonos_disponibles"].Value);
+              
+            }
+            catch (Exception e)
+            {
+                cantidadBonos = -1;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return cantidadBonos;
+        }
     }
 }

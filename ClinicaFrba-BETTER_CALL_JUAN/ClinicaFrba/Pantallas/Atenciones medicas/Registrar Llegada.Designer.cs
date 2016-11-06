@@ -37,9 +37,9 @@
             this.textBoxApellido = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.medicosEspecialidadParaTurnoGrid = new System.Windows.Forms.DataGridView();
+            this.resultadosGrid = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.medicosEspecialidadParaTurnoGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultadosGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // buscarButton
@@ -51,6 +51,7 @@
             this.buscarButton.TabIndex = 19;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // limpiarButton
             // 
@@ -61,6 +62,7 @@
             this.limpiarButton.TabIndex = 18;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // textBoxNombre
             // 
@@ -128,13 +130,14 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Nombre:";
             // 
-            // medicosEspecialidadParaTurnoGrid
+            // resultadosGrid
             // 
-            this.medicosEspecialidadParaTurnoGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.medicosEspecialidadParaTurnoGrid.Location = new System.Drawing.Point(12, 204);
-            this.medicosEspecialidadParaTurnoGrid.Name = "medicosEspecialidadParaTurnoGrid";
-            this.medicosEspecialidadParaTurnoGrid.Size = new System.Drawing.Size(504, 273);
-            this.medicosEspecialidadParaTurnoGrid.TabIndex = 17;
+            this.resultadosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.resultadosGrid.Location = new System.Drawing.Point(12, 204);
+            this.resultadosGrid.Name = "resultadosGrid";
+            this.resultadosGrid.Size = new System.Drawing.Size(504, 273);
+            this.resultadosGrid.TabIndex = 17;
+            this.resultadosGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultadosGrid_CellClick);
             // 
             // RegistrarLlegada
             // 
@@ -144,12 +147,12 @@
             this.Controls.Add(this.buscarButton);
             this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.medicosEspecialidadParaTurnoGrid);
+            this.Controls.Add(this.resultadosGrid);
             this.Name = "RegistrarLlegada";
             this.Text = "Registrar llegada";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.medicosEspecialidadParaTurnoGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultadosGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -165,6 +168,6 @@
         private System.Windows.Forms.TextBox textBoxApellido;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView medicosEspecialidadParaTurnoGrid;
+        private System.Windows.Forms.DataGridView resultadosGrid;
     }
 }

@@ -1085,6 +1085,11 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Get_Tipo_Cancelaciones
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles
+GO
+
+
 ------------------------------------------
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Tipo_Cancelaciones]
 AS
@@ -2009,6 +2014,7 @@ BEGIN
 END
 GO
 
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Turnos_Fecha_Por_Medico](@medico_id NUMERIC(18,0), @especialidad_codigo NUMERIC(18,0), @fecha DATE)
 AS
 BEGIN
@@ -2021,6 +2027,24 @@ BEGIN
 	SELECT paciente_id, tipo_doc, nro_doc, nombre, apellido, fecha_hora, numero --le mando el id del paciente para que al llamar al sp de registro_llegada ya lo tenga la app, no para mostrar
 	FROM Turnos t JOIN Pacientes p ON (t.paciente_id = p.id)
 	WHERE medico_especialidad_id = @medico_especialidad_id AND DATEDIFF(day, t.fecha_hora, @fecha) = 0
+	ORDER BY t.fecha_hora
+END
+GO
+
+--DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Afiliado_Cantidad_Bonos_Disponibles](@id_paciente NUMERIC(18,0), @bonos_disponibles INT OUT)
+AS
+BEGIN
+	DECLARE @nro_raiz NUMERIC(18,0), @plan NUMERIC(18,0)
+
+	SELECT @nro_raiz = nro_raiz, @plan = plan_medico_cod
+	FROM Pacientes
+	WHERE id = @id_paciente
+	
+	SELECT @bonos_disponibles = COUNT(bc.id)
+	FROM Bonos_Consulta bc JOIN Pacientes p ON (bc.paciente_compra_id = p.id)
+	WHERE paciente_compra_id IN (SELECT id FROM Pacientes WHERE nro_raiz = @nro_raiz) AND numero_consulta_paciente IS NULL AND plan_id = @plan
 END
 GO
 
