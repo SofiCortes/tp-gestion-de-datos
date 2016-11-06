@@ -52,15 +52,15 @@
             // 
             // diasPanel
             // 
-            this.diasPanel.Location = new System.Drawing.Point(12, 74);
+            this.diasPanel.Location = new System.Drawing.Point(12, 84);
             this.diasPanel.Name = "diasPanel";
-            this.diasPanel.Size = new System.Drawing.Size(392, 199);
+            this.diasPanel.Size = new System.Drawing.Size(392, 185);
             this.diasPanel.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(101, 59);
+            this.label1.Location = new System.Drawing.Point(101, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 0;
@@ -69,7 +69,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(172, 59);
+            this.label2.Location = new System.Drawing.Point(172, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 2;
@@ -78,7 +78,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(249, 59);
+            this.label3.Location = new System.Drawing.Point(249, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 3;
@@ -87,7 +87,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(318, 59);
+            this.label4.Location = new System.Drawing.Point(318, 69);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 4;

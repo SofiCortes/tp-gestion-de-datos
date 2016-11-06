@@ -60,7 +60,8 @@ namespace ClinicaFrba
             }
             else
             {
-                this.form.showErrorMessage("Las horas trabajadas no pueden superar las 48 hs semanales");
+                Exception ex = new Exception("Las horas trabajadas no pueden superar las 48 hs semanales");
+                throw ex;
             }
         }
 
