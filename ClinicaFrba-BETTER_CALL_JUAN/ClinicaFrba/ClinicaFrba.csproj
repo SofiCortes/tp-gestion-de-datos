@@ -97,13 +97,6 @@
       <DependentUpon>Alta Afiliado.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Abm Afiliado\AltaAfiliadoController.cs" />
-    <Compile Include="Pantallas\Abm Afiliado\Detalle de Afiliado.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pantallas\Abm Afiliado\Detalle de Afiliado.Designer.cs">
-      <DependentUpon>Detalle de Afiliado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Pantallas\Abm Afiliado\DetalleAfiliadoController.cs" />
     <Compile Include="Pantallas\Abm Afiliado\EliminarAfiliadoController.cs" />
     <Compile Include="Pantallas\Abm Afiliado\EliminarAfiliadoDialog.cs">
       <SubType>Form</SubType>

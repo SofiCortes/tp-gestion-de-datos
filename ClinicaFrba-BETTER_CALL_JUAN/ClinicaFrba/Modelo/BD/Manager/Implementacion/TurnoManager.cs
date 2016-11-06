@@ -480,5 +480,36 @@ namespace ClinicaFrba
             }
             return turnos;
         }
+
+        internal bool cancelarTurnoSinUsuarioId(Turno turno, string motivo, TipoCancelacion tipoCancelacion)
+        {
+            bool turnoCancelado = true;
+
+            try
+            {
+                ParametroParaSP parametro2 = new ParametroParaSP("turno_numero", SqlDbType.Decimal, turno.numero);
+                ParametroParaSP parametro3 = new ParametroParaSP("tipo", SqlDbType.Decimal, tipoCancelacion.id);
+                ParametroParaSP parametro4 = new ParametroParaSP("motivo", SqlDbType.VarChar, motivo);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Cancelar_Turno", parametros);
+                procedure.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                turnoCancelado = false;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return turnoCancelado;
+        }
     }
 }

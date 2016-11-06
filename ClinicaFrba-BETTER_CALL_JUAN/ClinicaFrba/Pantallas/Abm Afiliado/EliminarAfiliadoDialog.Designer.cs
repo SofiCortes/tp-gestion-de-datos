@@ -35,7 +35,7 @@
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(271, 53);
@@ -45,7 +45,7 @@
             // 
             // buttonSi
             // 
-            this.buttonSi.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.buttonSi.Location = new System.Drawing.Point(12, 79);
             this.buttonSi.Name = "buttonSi";
             this.buttonSi.Size = new System.Drawing.Size(75, 32);
@@ -56,7 +56,7 @@
             // 
             // buttonNo
             // 
-            this.buttonNo.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.buttonNo.Location = new System.Drawing.Point(189, 79);
             this.buttonNo.Name = "buttonNo";
             this.buttonNo.Size = new System.Drawing.Size(75, 32);

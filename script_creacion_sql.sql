@@ -1132,6 +1132,10 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Get_Turnos_Con_Filtros
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Cancelar_Turno'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Cancelar_Turno
+GO
+
 --------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Turnos_Con_Filtros]
@@ -1145,8 +1149,9 @@ BEGIN
 									JOIN BETTER_CALL_JUAN.Medicos_Especialidades ME ON T.medico_especialidad_id = ME.id
 									JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = ME.especialidad_cod
 									JOIN BETTER_CALL_JUAN.Medicos M ON M.matricula = ME.medico_id
-									WHERE P.usuario_id = @usuario_id AND P.nombre like @nombre_paciente AND P.apellido like @apellido_paciente
+									WHERE P.nombre like @nombre_paciente AND P.apellido like @apellido_paciente
 									AND M.nombre like @nombre_medico AND M.apellido like @apellido_medico
+									AND DATEDIFF(day, @fecha_a_buscar, T.fecha_hora) = 0
 									ORDER BY T.fecha_hora DESC'
 			
 	SET @nombre_medico = '%' + @nombre_medico + '%'
@@ -2063,6 +2068,14 @@ BEGIN
 	VALUES
 	((SELECT M.matricula FROM BETTER_CALL_JUAN.Medicos M WHERE M.usuario_id = @usuario_id),
 	@fecha_inicio, @fecha_fin)
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Cancelar_Turno] (@turno_numero NUMERIC(18,0), @tipo NUMERIC(18,0), @motivo VARCHAR(255))
+AS
+BEGIN
+	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero) VALUES (@tipo, @motivo, @turno_numero)
+	UPDATE Turnos SET paciente_id = NULL WHERE numero = @turno_numero
 END
 GO
 

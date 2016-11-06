@@ -34,6 +34,8 @@ namespace ClinicaFrba
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxApellido = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.comboPlanes = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
@@ -41,8 +43,6 @@ namespace ClinicaFrba
             this.afiliadosGrid = new System.Windows.Forms.DataGridView();
             this.buscarButton = new System.Windows.Forms.Button();
             this.limpiarButton = new System.Windows.Forms.Button();
-            this.textBoxApellido = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.afiliadosGrid)).BeginInit();
             this.SuspendLayout();
@@ -55,7 +55,7 @@ namespace ClinicaFrba
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(494, 109);
@@ -63,12 +63,28 @@ namespace ClinicaFrba
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
             // 
+            // textBoxApellido
+            // 
+            this.textBoxApellido.Location = new System.Drawing.Point(344, 26);
+            this.textBoxApellido.Name = "textBoxApellido";
+            this.textBoxApellido.Size = new System.Drawing.Size(144, 20);
+            this.textBoxApellido.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(272, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Apellido";
+            // 
             // comboPlanes
             // 
             this.comboPlanes.FormattingEnabled = true;
             this.comboPlanes.Location = new System.Drawing.Point(144, 65);
             this.comboPlanes.Name = "comboPlanes";
-            this.comboPlanes.Size = new System.Drawing.Size(167, 25);
+            this.comboPlanes.Size = new System.Drawing.Size(167, 21);
             this.comboPlanes.TabIndex = 3;
             // 
             // label2
@@ -76,7 +92,7 @@ namespace ClinicaFrba
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(7, 68);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 17);
+            this.label2.Size = new System.Drawing.Size(65, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Plan medico";
             // 
@@ -84,7 +100,7 @@ namespace ClinicaFrba
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(79, 26);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(138, 25);
+            this.textBoxNombre.Size = new System.Drawing.Size(138, 20);
             this.textBoxNombre.TabIndex = 1;
             // 
             // label1
@@ -92,7 +108,7 @@ namespace ClinicaFrba
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 17);
+            this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre";
             // 
@@ -108,7 +124,7 @@ namespace ClinicaFrba
             // 
             // buscarButton
             // 
-            this.buscarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buscarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.buscarButton.Location = new System.Drawing.Point(371, 127);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(135, 30);
@@ -119,7 +135,7 @@ namespace ClinicaFrba
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.limpiarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.limpiarButton.Location = new System.Drawing.Point(12, 127);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(116, 30);
@@ -127,22 +143,6 @@ namespace ClinicaFrba
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
-            // 
-            // textBoxApellido
-            // 
-            this.textBoxApellido.Location = new System.Drawing.Point(344, 26);
-            this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(144, 25);
-            this.textBoxApellido.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(272, 29);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 17);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Apellido";
             // 
             // ListadoAfiliados
             // 

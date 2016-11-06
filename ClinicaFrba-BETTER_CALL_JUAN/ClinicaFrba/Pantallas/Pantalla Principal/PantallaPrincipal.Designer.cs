@@ -90,7 +90,7 @@
             this.groupBoxAcciones.Controls.Add(this.buttonProfesionales);
             this.groupBoxAcciones.Controls.Add(this.buttonAfiliados);
             this.groupBoxAcciones.Controls.Add(this.buttonRoles);
-            this.groupBoxAcciones.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxAcciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxAcciones.Location = new System.Drawing.Point(13, 13);
             this.groupBoxAcciones.Name = "groupBoxAcciones";
             this.groupBoxAcciones.Size = new System.Drawing.Size(200, 392);
@@ -100,6 +100,7 @@
             // 
             // buttonPlanes
             // 
+            this.buttonPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonPlanes.Location = new System.Drawing.Point(7, 162);
             this.buttonPlanes.Name = "buttonPlanes";
             this.buttonPlanes.Size = new System.Drawing.Size(187, 35);
@@ -111,6 +112,7 @@
             // buttonListadoEstadistico
             // 
             this.buttonListadoEstadistico.AutoSize = true;
+            this.buttonListadoEstadistico.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonListadoEstadistico.Location = new System.Drawing.Point(6, 342);
             this.buttonListadoEstadistico.Name = "buttonListadoEstadistico";
             this.buttonListadoEstadistico.Size = new System.Drawing.Size(187, 35);
@@ -121,6 +123,7 @@
             // 
             // buttonAtencionMedica
             // 
+            this.buttonAtencionMedica.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonAtencionMedica.Location = new System.Drawing.Point(7, 297);
             this.buttonAtencionMedica.Name = "buttonAtencionMedica";
             this.buttonAtencionMedica.Size = new System.Drawing.Size(187, 35);
@@ -131,6 +134,7 @@
             // 
             // buttonTurnos
             // 
+            this.buttonTurnos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonTurnos.Location = new System.Drawing.Point(7, 252);
             this.buttonTurnos.Name = "buttonTurnos";
             this.buttonTurnos.Size = new System.Drawing.Size(187, 35);
@@ -141,6 +145,7 @@
             // 
             // buttonBonos
             // 
+            this.buttonBonos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonBonos.Location = new System.Drawing.Point(7, 207);
             this.buttonBonos.Name = "buttonBonos";
             this.buttonBonos.Size = new System.Drawing.Size(187, 35);
@@ -151,6 +156,7 @@
             // 
             // buttonProfesionales
             // 
+            this.buttonProfesionales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonProfesionales.Location = new System.Drawing.Point(7, 117);
             this.buttonProfesionales.Name = "buttonProfesionales";
             this.buttonProfesionales.Size = new System.Drawing.Size(187, 35);
@@ -161,6 +167,7 @@
             // 
             // buttonAfiliados
             // 
+            this.buttonAfiliados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonAfiliados.Location = new System.Drawing.Point(7, 72);
             this.buttonAfiliados.Name = "buttonAfiliados";
             this.buttonAfiliados.Size = new System.Drawing.Size(187, 35);
@@ -171,6 +178,7 @@
             // 
             // buttonRoles
             // 
+            this.buttonRoles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonRoles.Location = new System.Drawing.Point(7, 27);
             this.buttonRoles.Name = "buttonRoles";
             this.buttonRoles.Size = new System.Drawing.Size(187, 35);
@@ -181,6 +189,7 @@
             // 
             // buttonAgendaProfesionales
             // 
+            this.buttonAgendaProfesionales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonAgendaProfesionales.Location = new System.Drawing.Point(6, 117);
             this.buttonAgendaProfesionales.Name = "buttonAgendaProfesionales";
             this.buttonAgendaProfesionales.Size = new System.Drawing.Size(187, 35);
@@ -195,7 +204,7 @@
             this.groupBoxAfiliados.Controls.Add(this.buttonModificarAfiliado);
             this.groupBoxAfiliados.Controls.Add(this.buttonListadoAfiliados);
             this.groupBoxAfiliados.Controls.Add(this.buttonCrearAfiliado);
-            this.groupBoxAfiliados.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxAfiliados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxAfiliados.Location = new System.Drawing.Point(223, 13);
             this.groupBoxAfiliados.Name = "groupBoxAfiliados";
             this.groupBoxAfiliados.Size = new System.Drawing.Size(200, 392);
@@ -206,6 +215,7 @@
             // 
             // buttonEliminarAfiliado
             // 
+            this.buttonEliminarAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonEliminarAfiliado.Location = new System.Drawing.Point(7, 117);
             this.buttonEliminarAfiliado.Name = "buttonEliminarAfiliado";
             this.buttonEliminarAfiliado.Size = new System.Drawing.Size(187, 35);
@@ -216,6 +226,7 @@
             // 
             // buttonModificarAfiliado
             // 
+            this.buttonModificarAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonModificarAfiliado.Location = new System.Drawing.Point(7, 72);
             this.buttonModificarAfiliado.Name = "buttonModificarAfiliado";
             this.buttonModificarAfiliado.Size = new System.Drawing.Size(187, 35);
@@ -226,6 +237,7 @@
             // 
             // buttonListadoAfiliados
             // 
+            this.buttonListadoAfiliados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonListadoAfiliados.Location = new System.Drawing.Point(7, 162);
             this.buttonListadoAfiliados.Name = "buttonListadoAfiliados";
             this.buttonListadoAfiliados.Size = new System.Drawing.Size(187, 35);
@@ -236,6 +248,7 @@
             // 
             // buttonCrearAfiliado
             // 
+            this.buttonCrearAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonCrearAfiliado.Location = new System.Drawing.Point(7, 27);
             this.buttonCrearAfiliado.Name = "buttonCrearAfiliado";
             this.buttonCrearAfiliado.Size = new System.Drawing.Size(187, 35);
@@ -250,7 +263,7 @@
             this.groupBoxProfesionales.Controls.Add(this.buttonListadoProfesionales);
             this.groupBoxProfesionales.Controls.Add(this.buttonAgendaProfesionales);
             this.groupBoxProfesionales.Controls.Add(this.buttonRegistrarAgenda);
-            this.groupBoxProfesionales.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxProfesionales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxProfesionales.Location = new System.Drawing.Point(223, 13);
             this.groupBoxProfesionales.Name = "groupBoxProfesionales";
             this.groupBoxProfesionales.Size = new System.Drawing.Size(200, 390);
@@ -261,6 +274,7 @@
             // 
             // buttonEspecialidadesMedicas
             // 
+            this.buttonEspecialidadesMedicas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonEspecialidadesMedicas.Location = new System.Drawing.Point(6, 72);
             this.buttonEspecialidadesMedicas.Name = "buttonEspecialidadesMedicas";
             this.buttonEspecialidadesMedicas.Size = new System.Drawing.Size(187, 35);
@@ -271,6 +285,7 @@
             // 
             // buttonListadoProfesionales
             // 
+            this.buttonListadoProfesionales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonListadoProfesionales.Location = new System.Drawing.Point(6, 27);
             this.buttonListadoProfesionales.Name = "buttonListadoProfesionales";
             this.buttonListadoProfesionales.Size = new System.Drawing.Size(187, 35);
@@ -281,6 +296,7 @@
             // 
             // buttonRegistrarAgenda
             // 
+            this.buttonRegistrarAgenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonRegistrarAgenda.Location = new System.Drawing.Point(6, 162);
             this.buttonRegistrarAgenda.Name = "buttonRegistrarAgenda";
             this.buttonRegistrarAgenda.Size = new System.Drawing.Size(187, 35);
@@ -292,7 +308,7 @@
             // groupBoxPlanes
             // 
             this.groupBoxPlanes.Controls.Add(this.buttonListadoPlanes);
-            this.groupBoxPlanes.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxPlanes.Location = new System.Drawing.Point(223, 13);
             this.groupBoxPlanes.Name = "groupBoxPlanes";
             this.groupBoxPlanes.Size = new System.Drawing.Size(200, 392);
@@ -303,6 +319,7 @@
             // 
             // buttonListadoPlanes
             // 
+            this.buttonListadoPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonListadoPlanes.Location = new System.Drawing.Point(6, 27);
             this.buttonListadoPlanes.Name = "buttonListadoPlanes";
             this.buttonListadoPlanes.Size = new System.Drawing.Size(187, 35);
@@ -314,7 +331,7 @@
             // groupBoxTurnos
             // 
             this.groupBoxTurnos.Controls.Add(this.buttonPedidoTurno);
-            this.groupBoxTurnos.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxTurnos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxTurnos.Location = new System.Drawing.Point(223, 13);
             this.groupBoxTurnos.Name = "groupBoxTurnos";
             this.groupBoxTurnos.Size = new System.Drawing.Size(200, 392);
@@ -325,6 +342,7 @@
             // 
             // buttonPedidoTurno
             // 
+            this.buttonPedidoTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonPedidoTurno.Location = new System.Drawing.Point(6, 27);
             this.buttonPedidoTurno.Name = "buttonPedidoTurno";
             this.buttonPedidoTurno.Size = new System.Drawing.Size(187, 35);
@@ -336,7 +354,7 @@
             // groupBoxBonos
             // 
             this.groupBoxBonos.Controls.Add(this.buttonCompraBonos);
-            this.groupBoxBonos.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxBonos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxBonos.Location = new System.Drawing.Point(223, 13);
             this.groupBoxBonos.Name = "groupBoxBonos";
             this.groupBoxBonos.Size = new System.Drawing.Size(200, 392);
@@ -347,6 +365,7 @@
             // 
             // buttonCompraBonos
             // 
+            this.buttonCompraBonos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonCompraBonos.Location = new System.Drawing.Point(6, 27);
             this.buttonCompraBonos.Name = "buttonCompraBonos";
             this.buttonCompraBonos.Size = new System.Drawing.Size(187, 35);
@@ -360,7 +379,7 @@
             this.groupBoxAtencionMedica.Controls.Add(this.buttonCancelarAtencion);
             this.groupBoxAtencionMedica.Controls.Add(this.buttonRegistroResultado);
             this.groupBoxAtencionMedica.Controls.Add(this.buttonRegistroLlegada);
-            this.groupBoxAtencionMedica.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxAtencionMedica.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxAtencionMedica.Location = new System.Drawing.Point(223, 13);
             this.groupBoxAtencionMedica.Name = "groupBoxAtencionMedica";
             this.groupBoxAtencionMedica.Size = new System.Drawing.Size(200, 392);
@@ -371,6 +390,7 @@
             // 
             // buttonCancelarAtencion
             // 
+            this.buttonCancelarAtencion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonCancelarAtencion.Location = new System.Drawing.Point(7, 117);
             this.buttonCancelarAtencion.Name = "buttonCancelarAtencion";
             this.buttonCancelarAtencion.Size = new System.Drawing.Size(187, 35);
@@ -381,6 +401,7 @@
             // 
             // buttonRegistroResultado
             // 
+            this.buttonRegistroResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonRegistroResultado.Location = new System.Drawing.Point(6, 72);
             this.buttonRegistroResultado.Name = "buttonRegistroResultado";
             this.buttonRegistroResultado.Size = new System.Drawing.Size(187, 35);
@@ -391,6 +412,7 @@
             // 
             // buttonRegistroLlegada
             // 
+            this.buttonRegistroLlegada.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonRegistroLlegada.Location = new System.Drawing.Point(6, 27);
             this.buttonRegistroLlegada.Name = "buttonRegistroLlegada";
             this.buttonRegistroLlegada.Size = new System.Drawing.Size(187, 35);
@@ -406,7 +428,7 @@
             this.groupBoxListadoEstadistico.Controls.Add(this.buttonProfesionalesMenosHoras);
             this.groupBoxListadoEstadistico.Controls.Add(this.buttonProfesionalesMasConsultados);
             this.groupBoxListadoEstadistico.Controls.Add(this.buttonEspecialidadesCancelaciones);
-            this.groupBoxListadoEstadistico.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxListadoEstadistico.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxListadoEstadistico.Location = new System.Drawing.Point(223, 13);
             this.groupBoxListadoEstadistico.Name = "groupBoxListadoEstadistico";
             this.groupBoxListadoEstadistico.Size = new System.Drawing.Size(200, 392);
@@ -417,6 +439,7 @@
             // 
             // buttonEspecialidadesBonos
             // 
+            this.buttonEspecialidadesBonos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonEspecialidadesBonos.Location = new System.Drawing.Point(6, 291);
             this.buttonEspecialidadesBonos.Name = "buttonEspecialidadesBonos";
             this.buttonEspecialidadesBonos.Size = new System.Drawing.Size(187, 55);
@@ -427,6 +450,7 @@
             // 
             // buttonAfiliadosBonos
             // 
+            this.buttonAfiliadosBonos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonAfiliadosBonos.Location = new System.Drawing.Point(6, 226);
             this.buttonAfiliadosBonos.Name = "buttonAfiliadosBonos";
             this.buttonAfiliadosBonos.Size = new System.Drawing.Size(187, 55);
@@ -437,6 +461,7 @@
             // 
             // buttonProfesionalesMenosHoras
             // 
+            this.buttonProfesionalesMenosHoras.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonProfesionalesMenosHoras.Location = new System.Drawing.Point(6, 157);
             this.buttonProfesionalesMenosHoras.Name = "buttonProfesionalesMenosHoras";
             this.buttonProfesionalesMenosHoras.Size = new System.Drawing.Size(187, 59);
@@ -447,6 +472,7 @@
             // 
             // buttonProfesionalesMasConsultados
             // 
+            this.buttonProfesionalesMasConsultados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonProfesionalesMasConsultados.Location = new System.Drawing.Point(6, 92);
             this.buttonProfesionalesMasConsultados.Name = "buttonProfesionalesMasConsultados";
             this.buttonProfesionalesMasConsultados.Size = new System.Drawing.Size(187, 55);
@@ -457,6 +483,7 @@
             // 
             // buttonEspecialidadesCancelaciones
             // 
+            this.buttonEspecialidadesCancelaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonEspecialidadesCancelaciones.Location = new System.Drawing.Point(6, 27);
             this.buttonEspecialidadesCancelaciones.Name = "buttonEspecialidadesCancelaciones";
             this.buttonEspecialidadesCancelaciones.Size = new System.Drawing.Size(187, 55);
@@ -467,6 +494,7 @@
             // 
             // buttonCrearRol
             // 
+            this.buttonCrearRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonCrearRol.Location = new System.Drawing.Point(7, 27);
             this.buttonCrearRol.Name = "buttonCrearRol";
             this.buttonCrearRol.Size = new System.Drawing.Size(187, 35);
@@ -477,6 +505,7 @@
             // 
             // buttonListadoRoles
             // 
+            this.buttonListadoRoles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonListadoRoles.Location = new System.Drawing.Point(6, 162);
             this.buttonListadoRoles.Name = "buttonListadoRoles";
             this.buttonListadoRoles.Size = new System.Drawing.Size(187, 35);
@@ -487,6 +516,7 @@
             // 
             // buttonModificarRol
             // 
+            this.buttonModificarRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonModificarRol.Location = new System.Drawing.Point(6, 72);
             this.buttonModificarRol.Name = "buttonModificarRol";
             this.buttonModificarRol.Size = new System.Drawing.Size(187, 35);
@@ -497,6 +527,7 @@
             // 
             // buttonEliminarRol
             // 
+            this.buttonEliminarRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonEliminarRol.Location = new System.Drawing.Point(7, 119);
             this.buttonEliminarRol.Name = "buttonEliminarRol";
             this.buttonEliminarRol.Size = new System.Drawing.Size(187, 35);
@@ -511,7 +542,7 @@
             this.groupBoxRoles.Controls.Add(this.buttonModificarRol);
             this.groupBoxRoles.Controls.Add(this.buttonListadoRoles);
             this.groupBoxRoles.Controls.Add(this.buttonCrearRol);
-            this.groupBoxRoles.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxRoles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxRoles.Location = new System.Drawing.Point(223, 13);
             this.groupBoxRoles.Name = "groupBoxRoles";
             this.groupBoxRoles.Size = new System.Drawing.Size(200, 392);
@@ -522,6 +553,7 @@
             // 
             // buttonCerrarSesion
             // 
+            this.buttonCerrarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buttonCerrarSesion.Location = new System.Drawing.Point(166, 420);
             this.buttonCerrarSesion.Name = "buttonCerrarSesion";
             this.buttonCerrarSesion.Size = new System.Drawing.Size(104, 23);

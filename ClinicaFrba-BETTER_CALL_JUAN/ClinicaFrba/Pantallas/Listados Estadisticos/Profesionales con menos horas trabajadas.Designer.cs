@@ -49,13 +49,13 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 17);
+            this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Año";
             // 
             // buscarButton
             // 
-            this.buscarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buscarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.buscarButton.Location = new System.Drawing.Point(544, 139);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 30);
@@ -74,7 +74,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.limpiarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.limpiarButton.Location = new System.Drawing.Point(12, 139);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 30);
@@ -93,7 +93,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboAnio);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(607, 121);
@@ -107,7 +107,7 @@
             this.comboMes.FormattingEnabled = true;
             this.comboMes.Location = new System.Drawing.Point(480, 26);
             this.comboMes.Name = "comboMes";
-            this.comboMes.Size = new System.Drawing.Size(121, 25);
+            this.comboMes.Size = new System.Drawing.Size(121, 21);
             this.comboMes.TabIndex = 7;
             // 
             // label4
@@ -115,7 +115,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(429, 29);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 17);
+            this.label4.Size = new System.Drawing.Size(27, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "Mes";
             // 
@@ -125,7 +125,7 @@
             this.comboSemestre.FormattingEnabled = true;
             this.comboSemestre.Location = new System.Drawing.Point(264, 26);
             this.comboSemestre.Name = "comboSemestre";
-            this.comboSemestre.Size = new System.Drawing.Size(139, 25);
+            this.comboSemestre.Size = new System.Drawing.Size(139, 21);
             this.comboSemestre.TabIndex = 5;
             this.comboSemestre.SelectedIndexChanged += new System.EventHandler(this.comboSemestre_SelectedIndexChanged);
             // 
@@ -134,7 +134,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(196, 29);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 17);
+            this.label3.Size = new System.Drawing.Size(51, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Semestre";
             // 
@@ -144,7 +144,7 @@
             this.comboEspecialidad.FormattingEnabled = true;
             this.comboEspecialidad.Location = new System.Drawing.Point(94, 75);
             this.comboEspecialidad.Name = "comboEspecialidad";
-            this.comboEspecialidad.Size = new System.Drawing.Size(235, 25);
+            this.comboEspecialidad.Size = new System.Drawing.Size(235, 21);
             this.comboEspecialidad.TabIndex = 3;
             // 
             // label2
@@ -152,7 +152,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(7, 78);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 17);
+            this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Especialidad";
             // 
@@ -162,7 +162,7 @@
             this.comboAnio.FormattingEnabled = true;
             this.comboAnio.Location = new System.Drawing.Point(54, 26);
             this.comboAnio.Name = "comboAnio";
-            this.comboAnio.Size = new System.Drawing.Size(121, 25);
+            this.comboAnio.Size = new System.Drawing.Size(121, 21);
             this.comboAnio.TabIndex = 1;
             this.comboAnio.SelectedIndexChanged += new System.EventHandler(this.comboAnio_SelectedIndexChanged);
             // 

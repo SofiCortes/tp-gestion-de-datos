@@ -90,7 +90,6 @@ namespace ClinicaFrba
             ).ToList();
         }
 
-
         private void gridTurnos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             IngresarMotivoYTipoCancelacion form = new IngresarMotivoYTipoCancelacion();

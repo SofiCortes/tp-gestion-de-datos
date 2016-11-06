@@ -17,7 +17,18 @@ namespace ClinicaFrba
 
         public void onMotivoYTipoCancelacionIngresados(string motivo, TipoCancelacion tipoCancelacion)
         {
-            throw new NotImplementedException();
+            Turno turnoSeleccionado = this.form.getTurnoSeleccionado();
+            TurnoManager turnoManager = new TurnoManager();
+            bool turnoCancelado = turnoManager.cancelarTurnoSinUsuarioId(turnoSeleccionado, motivo, tipoCancelacion);
+
+            if (turnoCancelado)
+            {
+                this.form.showInformationMessage("El turno fue cancelado correctamente");
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al cancelar el turno");
+            }
         }
 
         internal void buscarTurnos(DateTime fechaBuscar, string nombreMedico, string apellidoMedico, string nombrePaciente, string apellidoPaciente)

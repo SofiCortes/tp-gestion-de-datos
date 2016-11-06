@@ -53,7 +53,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBox1.Location = new System.Drawing.Point(22, 13);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(504, 109);
@@ -67,7 +67,7 @@
             this.comboEspecialidad.FormattingEnabled = true;
             this.comboEspecialidad.Location = new System.Drawing.Point(99, 67);
             this.comboEspecialidad.Name = "comboEspecialidad";
-            this.comboEspecialidad.Size = new System.Drawing.Size(392, 25);
+            this.comboEspecialidad.Size = new System.Drawing.Size(392, 23);
             this.comboEspecialidad.TabIndex = 11;
             // 
             // label5
@@ -75,7 +75,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 70);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 17);
+            this.label5.Size = new System.Drawing.Size(91, 16);
             this.label5.TabIndex = 10;
             this.label5.Text = "Especialidad:";
             // 
@@ -83,7 +83,7 @@
             // 
             this.textBoxApellido.Location = new System.Drawing.Point(327, 24);
             this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(164, 25);
+            this.textBoxApellido.Size = new System.Drawing.Size(164, 21);
             this.textBoxApellido.TabIndex = 7;
             // 
             // label2
@@ -91,7 +91,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(262, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 17);
+            this.label2.Size = new System.Drawing.Size(61, 16);
             this.label2.TabIndex = 6;
             this.label2.Text = "Apellido:";
             // 
@@ -99,7 +99,7 @@
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(75, 24);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(169, 25);
+            this.textBoxNombre.Size = new System.Drawing.Size(169, 21);
             this.textBoxNombre.TabIndex = 5;
             // 
             // label3
@@ -107,13 +107,13 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 17);
+            this.label3.Size = new System.Drawing.Size(60, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Nombre:";
             // 
             // buscarButton
             // 
-            this.buscarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buscarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.buscarButton.Location = new System.Drawing.Point(451, 143);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 30);
@@ -133,7 +133,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.limpiarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.limpiarButton.Location = new System.Drawing.Point(349, 143);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 30);
@@ -145,15 +145,16 @@
             // labelNroAfiliado
             // 
             this.labelNroAfiliado.AutoSize = true;
-            this.labelNroAfiliado.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.labelNroAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.labelNroAfiliado.Location = new System.Drawing.Point(33, 150);
             this.labelNroAfiliado.Name = "labelNroAfiliado";
-            this.labelNroAfiliado.Size = new System.Drawing.Size(100, 17);
+            this.labelNroAfiliado.Size = new System.Drawing.Size(99, 16);
             this.labelNroAfiliado.TabIndex = 20;
             this.labelNroAfiliado.Text = "Nro de afiliado:";
             // 
             // nroAfiliado
             // 
+            this.nroAfiliado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.nroAfiliado.Location = new System.Drawing.Point(140, 150);
             this.nroAfiliado.Maximum = new decimal(new int[] {
             1241513983,
@@ -161,7 +162,7 @@
             542101,
             0});
             this.nroAfiliado.Name = "nroAfiliado";
-            this.nroAfiliado.Size = new System.Drawing.Size(147, 20);
+            this.nroAfiliado.Size = new System.Drawing.Size(147, 21);
             this.nroAfiliado.TabIndex = 21;
             // 
             // Pedir_Turno_Administrativo

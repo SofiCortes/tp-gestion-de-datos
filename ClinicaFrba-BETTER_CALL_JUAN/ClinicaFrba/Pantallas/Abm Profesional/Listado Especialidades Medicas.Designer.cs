@@ -46,7 +46,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(398, 106);
@@ -60,7 +60,7 @@
             this.comboTipoEspecialidad.FormattingEnabled = true;
             this.comboTipoEspecialidad.Location = new System.Drawing.Point(124, 65);
             this.comboTipoEspecialidad.Name = "comboTipoEspecialidad";
-            this.comboTipoEspecialidad.Size = new System.Drawing.Size(242, 25);
+            this.comboTipoEspecialidad.Size = new System.Drawing.Size(242, 21);
             this.comboTipoEspecialidad.TabIndex = 3;
             // 
             // label2
@@ -68,7 +68,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(7, 68);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 17);
+            this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Tipo especialidad";
             // 
@@ -76,7 +76,7 @@
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(90, 26);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(166, 25);
+            this.textBoxNombre.Size = new System.Drawing.Size(166, 20);
             this.textBoxNombre.TabIndex = 1;
             // 
             // label1
@@ -84,13 +84,13 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 17);
+            this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre";
             // 
             // buscarButton
             // 
-            this.buscarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buscarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.buscarButton.Location = new System.Drawing.Point(335, 124);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 30);
@@ -109,7 +109,7 @@
             // 
             // limpiarButton
             // 
-            this.limpiarButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.limpiarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.limpiarButton.Location = new System.Drawing.Point(12, 124);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 30);
