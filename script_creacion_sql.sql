@@ -1237,12 +1237,13 @@ IF (@hsTrabajadas > 48)
 	FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
 	WHERE me.medico_id = @medico_id
 	AND dia_semana = @dia_semana 
-	AND ((@hora_desde BETWEEN hora_desde AND hora_hasta)
-	OR (@hora_hasta BETWEEN hora_desde AND hora_hasta)
-	OR (hora_desde BETWEEN @hora_desde AND @hora_hasta)
-	OR (hora_hasta BETWEEN @hora_desde AND @hora_hasta))
+	AND ((@hora_desde > hora_desde AND  @hora_desde <hora_hasta)
+	OR (@hora_hasta > hora_desde AND @hora_hasta < hora_hasta)
+	OR (hora_desde > @hora_desde AND hora_desde < @hora_hasta)
+	OR (hora_hasta > @hora_desde AND hora_hasta < @hora_hasta) 
+	OR (@hora_desde = hora_desde AND @hora_hasta = hora_hasta))
 	AND ((@fecha_desde between fecha_desde and fecha_hasta)
-	OR (@fecha_desde between fecha_desde and fecha_hasta) 
+	OR (@fecha_hasta between fecha_desde and fecha_hasta) 
 	OR (fecha_desde between @fecha_desde and @fecha_hasta) 
 	OR (fecha_hasta between @fecha_desde and @fecha_hasta)))
 	BEGIN
