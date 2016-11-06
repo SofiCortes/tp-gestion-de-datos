@@ -23,6 +23,7 @@ namespace ClinicaFrba
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
+               
             string username = this.textBoxUsername.Text;
             string password = this.textBoxPassword.Text;
 

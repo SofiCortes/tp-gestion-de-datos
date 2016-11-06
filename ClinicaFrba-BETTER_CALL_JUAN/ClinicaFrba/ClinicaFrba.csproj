@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArchivoConfig.cs" />
     <Compile Include="Modelo\BD\Manager\AbstractManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\ConsultaManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\EspecialidadMedicaManager.cs" />

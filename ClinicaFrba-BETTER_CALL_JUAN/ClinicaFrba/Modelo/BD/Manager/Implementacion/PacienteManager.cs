@@ -330,6 +330,7 @@ namespace ClinicaFrba
                 ParametroParaSP parametro10 = new ParametroParaSP("plan_viejo_id", SqlDbType.Decimal, planMedicoCodViejo);
                 ParametroParaSP parametro11 = new ParametroParaSP("plan_nuevo_id", SqlDbType.Decimal, paciente.planMedicoCod);
                 ParametroParaSP parametro12 = new ParametroParaSP("motivo", SqlDbType.VarChar, motivoCambioPlan);
+                ParametroParaSP parametro13 = new ParametroParaSP("fecha_hoy", SqlDbType.DateTime, ArchivoConfig.getFechaDeHoy());
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro3);
@@ -342,6 +343,7 @@ namespace ClinicaFrba
                 parametros.Add(parametro10);
                 parametros.Add(parametro11);
                 parametros.Add(parametro12);
+                parametros.Add(parametro13);
 
                 this.openDB();
 
@@ -367,8 +369,10 @@ namespace ClinicaFrba
             try
             {
                 ParametroParaSP parametro1 = new ParametroParaSP("id_paciente", SqlDbType.Decimal, pacienteAEliminar.id);
+                ParametroParaSP parametro2 = new ParametroParaSP("fecha_hoy", SqlDbType.DateTime, ArchivoConfig.getFechaDeHoy());
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
+                parametros.Add(parametro2);
 
                 this.openDB();
 
