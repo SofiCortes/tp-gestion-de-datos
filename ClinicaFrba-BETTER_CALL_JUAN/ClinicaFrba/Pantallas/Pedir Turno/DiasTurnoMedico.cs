@@ -61,7 +61,7 @@ namespace ClinicaFrba
             string fechaElegida=row.Cells[0].Value.ToString();
 
             HorariosTurnos horarios = new HorariosTurnos();
-
+            horarios.TopMost = true;
             horarios.setHorariosTurnosListener(this.controller);
             horarios.showHorarios(paciente_id,medico,especialidad,fechaElegida);
         }

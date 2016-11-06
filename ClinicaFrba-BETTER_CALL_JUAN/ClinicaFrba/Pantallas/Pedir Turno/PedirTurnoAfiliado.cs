@@ -103,6 +103,7 @@ namespace ClinicaFrba
             especialidad.codigo = controller.obtenerCodigoEspecialidad(medicosEspecialidadParaTurnoGrid);
             especialidad.descripcion = controller.obtenerDescripcionEspecialidad(medicosEspecialidadParaTurnoGrid);
             DiasTurnoMedico dtm = new DiasTurnoMedico();
+            dtm.TopMost = true;
             dtm.showCalendario(0,medico,especialidad);
             this.Close();
         }
