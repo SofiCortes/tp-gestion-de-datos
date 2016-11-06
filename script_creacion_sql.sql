@@ -1163,16 +1163,28 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horas_Trabajadas_Medico] (@medico_id NUMERIC(18,0), @horas_trabajadas NUMERIC(18,0) OUT)
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Get_Horas_Trabajadas_Medico] (@medico_id NUMERIC(18,0), @fd DATETIME, @fh DATETIME, @horas_trabajadas NUMERIC(18,0) OUT)
 AS
 BEGIN
+DECLARE @fecha_desde DATE, @fecha_hasta DATE
+SET @fecha_desde = CONVERT(DATE, @fd)
+SET @fecha_hasta = CONVERT(DATE, @fh)
 IF EXISTS (SELECT ra.id
 		   FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
-		   WHERE me.medico_id = @medico_id)
+		   WHERE me.medico_id = @medico_id
+		   AND (@fecha_desde between fecha_desde and fecha_hasta)
+		   OR (@fecha_desde between fecha_desde and fecha_hasta) 
+		   OR (fecha_desde between @fecha_desde and @fecha_hasta) 
+		   OR (fecha_hasta between @fecha_desde and @fecha_hasta)
+		   )
 	BEGIN
 		   SET @horas_trabajadas = (SELECT SUM(DATEDIFF(HH, hora_desde, hora_hasta))
 		   FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
-		   WHERE me.medico_id = @medico_id)
+		   WHERE me.medico_id = @medico_id
+		   AND (@fecha_desde between fecha_desde and fecha_hasta)
+		   OR (@fecha_desde between fecha_desde and fecha_hasta) 
+		   OR (fecha_desde between @fecha_desde and @fecha_hasta) 
+		   OR (fecha_hasta between @fecha_desde and @fecha_hasta))
 	END
 
 	ELSE
@@ -1209,7 +1221,11 @@ SET @meid = (SELECT id FROM BETTER_CALL_JUAN.Medicos_Especialidades WHERE medico
 
 SET @hsTrabajadas = (SELECT SUM(DATEDIFF(HH,ra.hora_desde,ra.hora_hasta))
 					FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
-					WHERE me.medico_id = @medico_id) + DATEDIFF(HH,@hd,@hh)
+					WHERE me.medico_id = @medico_id
+					AND (@fecha_desde between fecha_desde and fecha_hasta)
+					OR (@fecha_desde between fecha_desde and fecha_hasta) 
+					OR (fecha_desde between @fecha_desde and @fecha_hasta) 
+					OR (fecha_hasta between @fecha_desde and @fecha_hasta)) + DATEDIFF(HH,@hd,@hh)
 
 IF (@hsTrabajadas > 48)
 	BEGIN

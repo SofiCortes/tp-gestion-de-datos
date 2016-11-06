@@ -33,7 +33,7 @@ namespace ClinicaFrba
 
             Dictionary<KeyValuePair<NumericUpDown, NumericUpDown>, KeyValuePair<NumericUpDown, NumericUpDown>> rangoAtencion = this.obtenerRangoAtencion(horasDesde, horasHasta);
 
-            Decimal horasTrabajadas = pm.getHorasTrabajadas(medicoSeleccionado);
+            Decimal horasTrabajadas = pm.getHorasTrabajadas(medicoSeleccionado, fechaDesde, fechaHasta);
             Decimal horasAInsertar = 0;
 
             foreach (KeyValuePair<KeyValuePair<NumericUpDown, NumericUpDown>, KeyValuePair<NumericUpDown, NumericUpDown>> rango in rangoAtencion) 

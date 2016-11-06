@@ -325,54 +325,17 @@ namespace ClinicaFrba
                 this.closeDB();
         }
 
-
-        /*
-        internal void registrarRangoAtenciona(Medico medicoSeleccionado, Especialidad especialidadSeleccionada, Dictionary<KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown>, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown>> rangoAtencion)
-        {
-            try
-            {
-
-                this.beginTransaction();
-
-                foreach (KeyValuePair<KeyValuePair<NumericUpDown, NumericUpDown>, KeyValuePair<NumericUpDown, NumericUpDown>> rango in rangoAtencion)
-                {
-                    String hd = rango.Key.Key.Value.ToString() + ":" + rango.Key.Value.Value.ToString();
-                    String hh = rango.Value.Key.Value.ToString() + ":" + rango.Value.Value.Value.ToString();
-
-                    ParametroParaSP parametro4 = new ParametroParaSP("dia_semana", SqlDbType.Decimal, Decimal.Parse(horaDesde.Key.Name));
-                    ParametroParaSP parametro5 = new ParametroParaSP("hora_desde", SqlDbType.VarChar, hd);
-                    ParametroParaSP parametro6 = new ParametroParaSP("hora_hasta", SqlDbType.VarChar, hh);
-                    ParametroParaSP parametro7 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medicoSeleccionado.matricula);
-                    ParametroParaSP parametro8 = new ParametroParaSP("especialidad_id", SqlDbType.Decimal, especialidadSeleccionada.codigo);
-
-                    List<ParametroParaSP> parametros = new List<ParametroParaSP>();
-                    parametros.Add(parametro4);
-                    parametros.Add(parametro5);
-                    parametros.Add(parametro6);
-                    parametros.Add(parametro7);
-                    parametros.Add(parametro8);
-
-                    SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico", parametros);
-                    procedure.ExecuteScalar();
-
-                }
-            }
-
-            catch (Exception e)
-            {
-                this.rollbackTransaction();
-                
-            }
-
-        } */
-
-        internal Decimal getHorasTrabajadas(Medico medicoSeleccionado)
+        internal Decimal getHorasTrabajadas(Medico medicoSeleccionado, String fechaDesde, String fechaHasta)
         {
             ParametroParaSP parametro7 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medicoSeleccionado.matricula);
+            ParametroParaSP parametro8 = new ParametroParaSP("fd", SqlDbType.DateTime, DateTime.Parse(fechaDesde));
+            ParametroParaSP parametro9 = new ParametroParaSP("fh", SqlDbType.DateTime, DateTime.Parse(fechaDesde));
             ParametroParaSP parametro4 = new ParametroParaSP("horas_trabajadas", SqlDbType.Decimal);
 
             List<ParametroParaSP> parametros = new List<ParametroParaSP>();
             parametros.Add(parametro7);
+            parametros.Add(parametro8);
+            parametros.Add(parametro9);
             parametros.Add(parametro4);
 
             this.openDB();
