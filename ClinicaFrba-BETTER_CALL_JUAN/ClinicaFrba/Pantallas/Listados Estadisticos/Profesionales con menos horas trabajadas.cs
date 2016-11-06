@@ -26,6 +26,7 @@ namespace ClinicaFrba
 
             this.Shown += (s, e1) =>
             {
+                this.controller.buscarAnios();
                 this.llenarCombos();
                 this.controller.buscarEspecialidades();
             };
@@ -33,7 +34,6 @@ namespace ClinicaFrba
 
         private void llenarCombos()
         {
-            this.comboAnio.DataSource = new List<string> { "Seleccione año", "2015", "2016" };
             this.comboSemestre.Enabled = false;
             this.comboMes.Enabled = false;
         }
@@ -150,6 +150,18 @@ namespace ClinicaFrba
                     Horas = medico.cantHorasTrabajadas
                 }
             ).ToList();
+        }
+
+        internal void showInformationMessage(string mensaje)
+        {
+            MessageBox.Show(mensaje, "Informacion",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        internal void llenarComboAnios(List<string> anios)
+        {
+            anios.Insert(0, "Seleccione anio");
+            this.comboAnio.DataSource = anios;
         }
         
     }

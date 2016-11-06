@@ -47,5 +47,30 @@ namespace ClinicaFrba
                 this.form.showErrorMessage("No se encontro ningun Profesional para la busqueda realizada.");
             }
         }
+
+        internal void buscarAnios()
+        {
+            EstadisticasManager manager = new EstadisticasManager();
+            List<int> anios = manager.getAniosProfesionalesMasConsultados();
+
+            if (anios != null)
+            {
+                if (anios.Count > 0)
+                {
+                    List<string> aniosString = anios.ConvertAll<string>(delegate(int i) { return i.ToString(); });
+                    this.form.llenarComboAnios(aniosString);
+                }
+                else
+                {
+                    this.form.showInformationMessage("No se pudieron encontrar anios para consultar.");
+                    this.form.Close();
+                }
+            }
+            else
+            {
+                this.form.showErrorMessage("Ocurrio un error al obtener las fechas posibles de consulta");
+                this.form.Close();
+            }
+        }
     }
 }
