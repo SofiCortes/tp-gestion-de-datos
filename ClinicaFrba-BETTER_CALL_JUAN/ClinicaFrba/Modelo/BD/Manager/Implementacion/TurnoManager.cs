@@ -348,23 +348,27 @@ namespace ClinicaFrba
             return turnoCancelado;
         }
 
-        internal bool cancelarRango(DateTime fechaDesde, DateTime fechaHasta, decimal usuarioId)
+        internal bool cancelarRango(DateTime fechaDesde, DateTime fechaHasta, decimal usuarioId, string motivo, TipoCancelacion tipoCancelacion)
         {
             bool rangoCancelado = true;
 
             try
             {
-                ParametroParaSP parametro1 = new ParametroParaSP("usuario_id", SqlDbType.Decimal, usuarioId);
-                ParametroParaSP parametro2 = new ParametroParaSP("fecha_desde", SqlDbType.DateTime, fechaDesde);
-                ParametroParaSP parametro3 = new ParametroParaSP("fecha_hasta", SqlDbType.Decimal, fechaHasta);
+                ParametroParaSP parametro1 = new ParametroParaSP("fecha_inicio", SqlDbType.DateTime, fechaDesde);
+                ParametroParaSP parametro2 = new ParametroParaSP("fecha_fin", SqlDbType.DateTime, fechaHasta);
+                ParametroParaSP parametro3 = new ParametroParaSP("usuario_id", SqlDbType.Decimal, usuarioId);
+                ParametroParaSP parametro4 = new ParametroParaSP("tipo", SqlDbType.Decimal, tipoCancelacion.id);
+                ParametroParaSP parametro5 = new ParametroParaSP("motivo", SqlDbType.VarChar, motivo);
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);
                 parametros.Add(parametro3);
+                parametros.Add(parametro4);
+                parametros.Add(parametro5);
 
                 this.openDB();
 
-                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Cancelar_Rango_Atencion", parametros);
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Cancelar_Turnos_Franja_Profesional", parametros);
                 procedure.ExecuteNonQuery();
             }
             catch (Exception e)
@@ -378,21 +382,25 @@ namespace ClinicaFrba
             return rangoCancelado;
         }
 
-        internal bool cancelarFecha(DateTime fecha, decimal usuarioId)
+        internal bool cancelarFecha(DateTime fecha, decimal usuarioId, string motivo, TipoCancelacion tipoCancelacion)
         {
             bool rangoCancelado = true;
 
             try
             {
-                ParametroParaSP parametro1 = new ParametroParaSP("usuario_id", SqlDbType.Decimal, usuarioId);
-                ParametroParaSP parametro2 = new ParametroParaSP("fecha", SqlDbType.DateTime, fecha);
+                ParametroParaSP parametro1 = new ParametroParaSP("fecha", SqlDbType.DateTime, fecha);
+                ParametroParaSP parametro2 = new ParametroParaSP("usuario_id", SqlDbType.Decimal, usuarioId);
+                ParametroParaSP parametro3 = new ParametroParaSP("tipo", SqlDbType.Decimal, tipoCancelacion.id);
+                ParametroParaSP parametro4 = new ParametroParaSP("motivo", SqlDbType.VarChar, motivo);
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);
+                parametros.Add(parametro3);
+                parametros.Add(parametro4);
 
                 this.openDB();
 
-                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Cancelar_Dia_Atencion", parametros);
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Cancelar_Turno_Dia_Profesional", parametros);
                 procedure.ExecuteNonQuery();
             }
             catch (Exception e)
