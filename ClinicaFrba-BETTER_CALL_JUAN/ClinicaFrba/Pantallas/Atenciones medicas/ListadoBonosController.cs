@@ -17,10 +17,6 @@ namespace ClinicaFrba
 
         public void registrarLlegadaConsulta(Turno turno, decimal bonoId)
         {
-            /*DataGridViewRow row = this.form.getConsultaSeleccionada();
-
-            decimal idConsulta = Decimal.Parse(row.Cells[0].Value.ToString());*/
-
             ConsultaManager consultaManager = new ConsultaManager();
             int registroConsulta = consultaManager.registrarLlegada(turno, DateTime.Now, bonoId);
             

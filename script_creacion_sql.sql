@@ -186,11 +186,11 @@ GO
 	
 CREATE TABLE [BETTER_CALL_JUAN].[Consultas] (
   [id] INT IDENTITY(1,1),
-  [sintomas] VARCHAR(255) NOT NULL,
-  [enfermedades] VARCHAR(255) NOT NULL,
+  [sintomas] VARCHAR(255),
+  [enfermedades] VARCHAR(255),
   [turno_numero] NUMERIC(18,0) NOT NULL,
   [fecha_hora_llegada] DATETIME NOT NULL,
-  [fecha_hora_atencion] DATETIME NOT NULL,
+  [fecha_hora_atencion] DATETIME,
   [bono_consulta_id] NUMERIC(18,0) NOT NULL,
   PRIMARY KEY ([id])
 );
@@ -1091,8 +1091,6 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles
 GO
-
-------------------------------------------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Tipo_Cancelaciones]
 AS
@@ -2041,8 +2039,6 @@ BEGIN
 	ORDER BY t.fecha_hora
 END
 GO
-
---DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Afiliado_Cantidad_Bonos_Disponibles](@id_paciente NUMERIC(18,0), @bonos_disponibles INT OUT)
 AS

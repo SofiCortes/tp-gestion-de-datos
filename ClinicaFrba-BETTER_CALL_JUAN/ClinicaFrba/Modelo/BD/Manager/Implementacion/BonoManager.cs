@@ -94,14 +94,16 @@ namespace ClinicaFrba
 
         internal int getCantBonosAfiliado(decimal pacienteId)
         {
-            int cantidadBonos;
+            int cantidadBonos = 0;
 
             try
             {
-                ParametroParaSP parametro = new ParametroParaSP("id_paciente", SqlDbType.Decimal, pacienteId);
+                ParametroParaSP parametro1 = new ParametroParaSP("id_paciente", SqlDbType.Decimal, pacienteId);
+                ParametroParaSP parametro2 = new ParametroParaSP("bonos_disponibles", SqlDbType.Int);
 
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
-                parametros.Add(parametro);
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
 
                 this.openDB();
 
