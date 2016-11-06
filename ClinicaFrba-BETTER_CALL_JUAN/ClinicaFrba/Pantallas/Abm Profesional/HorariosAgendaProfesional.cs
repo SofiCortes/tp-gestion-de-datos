@@ -47,6 +47,8 @@ namespace ClinicaFrba
 
                     NumericUpDown horaDesde = new NumericUpDown();
                     horaDesde.Name = dia.Text;
+                    horaDesde.Maximum = 23;
+                    horaDesde.Minimum = 0;
                     horaDesde.Width = 40;
                     horaDesde.Location = new Point(xcoords, ycoords);
                     horaDesde.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -55,6 +57,8 @@ namespace ClinicaFrba
 
                     NumericUpDown minutosDesde = new NumericUpDown();
                     minutosDesde.Name = dia.Text;
+                    minutosDesde.Maximum = 59;
+                    minutosDesde.Minimum = 0;
                     minutosDesde.Width = 40;
                     minutosDesde.Location = new Point(xcoords, ycoords);
                     minutosDesde.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -63,6 +67,8 @@ namespace ClinicaFrba
 
                     NumericUpDown horaHasta = new NumericUpDown();
                     horaHasta.Name = dia.Text;
+                    horaHasta.Maximum = 23;
+                    horaHasta.Minimum = 0;
                     horaHasta.Width = 40;
                     horaHasta.Location = new Point(xcoords, ycoords);
                     horaHasta.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -71,6 +77,8 @@ namespace ClinicaFrba
 
                     NumericUpDown minutosHasta = new NumericUpDown();
                     minutosHasta.Name = dia.Text;
+                    minutosHasta.Maximum = 59;
+                    minutosHasta.Minimum = 0;
                     minutosHasta.Width = 40;
                     minutosHasta.Location = new Point(xcoords, ycoords);
                     minutosHasta.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
