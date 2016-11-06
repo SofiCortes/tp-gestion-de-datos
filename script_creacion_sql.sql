@@ -17,6 +17,10 @@ GO
 
 /** VALIDACION DE TABLAS **/
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Ausencias_Medicos'))
+    DROP TABLE BETTER_CALL_JUAN.Ausencias_Medicos
+GO
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Bajas_Pacientes'))
     DROP TABLE BETTER_CALL_JUAN.Bajas_Pacientes
 GO
@@ -299,6 +303,15 @@ CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
   [medico_especialidad_id] NUMERIC(18,0),
   [fecha_desde] DATE NOT NULL,
   [fecha_hasta] DATE NOT NULL,
+  PRIMARY KEY ([id])
+);
+GO
+
+CREATE TABLE [BETTER_CALL_JUAN].[Ausencias_Medicos] (
+  [id] NUMERIC(18,0) IDENTITY(1,1),
+  [medico_id] NUMERIC(18,0) NOT NULL,
+  [fecha_desde] DATETIME NOT NULL,
+  [fecha_hasta] DATETIME NOT NULL,
   PRIMARY KEY ([id])
 );
 GO
@@ -813,6 +826,9 @@ ALTER TABLE [BETTER_CALL_JUAN].[Roles_Funcionalidades] ADD CONSTRAINT funcionali
 
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT medico_id_medicos_especialidades FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
 ALTER TABLE [BETTER_CALL_JUAN].[Medicos_Especialidades] ADD CONSTRAINT especialidad_cod_medicos_especialidades FOREIGN KEY (especialidad_cod) REFERENCES [BETTER_CALL_JUAN].[Especialidades](codigo)
+
+ALTER TABLE [BETTER_CALL_JUAN].[Ausencias_Medicos] ADD CONSTRAINT medico_id_ausencias_medicos FOREIGN KEY (medico_id) REFERENCES [BETTER_CALL_JUAN].[Medicos](matricula)
+
 GO
 	
 
@@ -1091,6 +1107,28 @@ GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles
 GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Anios_Top_5_Especialidades_Mas_Bonos'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Anios_Top_5_Especialidades_Mas_Bonos
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Anios_Top_5_Afiliados_Mas_Bonos'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Anios_Top_5_Afiliados_Mas_Bonos
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Anios_Top_5_Profesionales_Menos_Horas'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Anios_Top_5_Profesionales_Menos_Horas
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Anios_Top_5_Profesionales_Mas_Consultados'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Anios_Top_5_Profesionales_Mas_Consultados
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Anios_Top_5_Mas_Cancelaciones'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Anios_Top_5_Mas_Cancelaciones
+GO
+
+--------
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Tipo_Cancelaciones]
 AS
@@ -1993,6 +2031,11 @@ BEGIN
 	SELECT @tipo, @motivo, numero
 	FROM Turnos t JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) JOIN Medicos m ON (me.medico_id = m.matricula)
 	WHERE m.usuario_id = @usuario_id AND fecha_hora BETWEEN CONVERT(date,@fecha_inicio) AND CONVERT(date, @fecha_fin)	
+
+	INSERT INTO Ausencias_Medicos(medico_id, fecha_desde, fecha_hasta)
+	VALUES
+	((SELECT M.matricula FROM BETTER_CALL_JUAN.Medicos M WHERE M.usuario_id = @usuario_id),
+	@fecha_inicio, @fecha_fin)
 END
 GO
 
@@ -2128,6 +2171,14 @@ END
 GO
 
 /** TOP 5 **/
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Anios_Top_5_Mas_Cancelaciones]
+AS
+BEGIN
+	SELECT DISTINCT YEAR(T.fecha_hora) AS anio
+	FROM BETTER_CALL_JUAN.Turnos T
+	JOIN BETTER_CALL_JUAN.Cancelaciones C ON (C.turno_numero = T.numero)
+END
+GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Especialidades_Con_Mas_Cancelaciones]
 (@autor_cancelacion CHAR(1), @semestre INT, @anio INT, @mes INT)
@@ -2177,6 +2228,15 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Anios_Top_5_Profesionales_Mas_Consultados]
+AS
+BEGIN
+	SELECT DISTINCT YEAR(T.fecha_hora) AS anio
+	FROM BETTER_CALL_JUAN.Turnos T
+	JOIN BETTER_CALL_JUAN.Consultas cons ON (cons.turno_numero=T.numero)
+END
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Mas_Consultados_Por_Plan]
 (@plan_medico_id NUMERIC(18,0), @anio INT, @mes INT, @semestre INT)
 AS 
@@ -2214,6 +2274,15 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Anios_Top_5_Profesionales_Menos_Horas]
+AS
+BEGIN
+	SELECT DISTINCT YEAR(T.fecha_hora) AS anio
+	FROM BETTER_CALL_JUAN.Turnos T
+	JOIN BETTER_CALL_JUAN.Consultas c ON (c.turno_numero = T.numero)
+END
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Con_Menos_Horas_Trabajadas_Segun_Especialidad]
 (@especialidad_cod NUMERIC(18,0), @anio INT, @mes INT, @semestre INT)
 AS
@@ -2246,6 +2315,14 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Anios_Top_5_Afiliados_Mas_Bonos]
+AS
+BEGIN
+	SELECT DISTINCT YEAR(B.fecha_compra) AS anio
+	FROM BETTER_CALL_JUAN.Bonos_Consulta B
+END
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Afiliados_Con_Mayor_Cantidad_Bonos_Comprados]
 (@semestre INT, @anio INT, @mes INT)
 AS
@@ -2269,6 +2346,15 @@ BEGIN
 
 	SET @QUERY_FINAL = @QUERY_1 + @QUERY_2 + @QUERY_3 + @QUERY_4 + @QUERY_5
 	EXEC sp_executesql @QUERY_FINAL, N'@semestre INT, @anio INT, @mes INT', @semestre, @anio, @mes
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Anios_Top_5_Especialidades_Mas_Bonos]
+AS
+BEGIN
+	SELECT DISTINCT YEAR(T.fecha_hora) AS anio
+	FROM BETTER_CALL_JUAN.Turnos T
+	JOIN BETTER_CALL_JUAN.Consultas cons ON (cons.turno_numero=T.numero)
 END
 GO
 

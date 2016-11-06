@@ -87,17 +87,17 @@ namespace ClinicaFrba
 
         internal DateTime getFechaDesde()
         {
-            return this.fechaDesde.Value;
+            return this.fechaDesde.Value.Date;
         }
 
         internal DateTime getFechaHasta()
         {
-            return this.fechaHasta.Value;
+            return this.fechaHasta.Value.Date;
         }
 
         internal DateTime getFecha()
         {
-            return this.fecha.Value;
+            return this.fecha.Value.Date;
         }
 
         private void radioButtonCancelarDia_CheckedChanged(object sender, EventArgs e)

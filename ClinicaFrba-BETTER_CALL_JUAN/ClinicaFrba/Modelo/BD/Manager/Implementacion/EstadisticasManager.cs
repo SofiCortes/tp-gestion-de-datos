@@ -15,7 +15,6 @@ namespace ClinicaFrba
         {
         }
 
-
         internal List<MedicoDAO> getProfesionalesConMenosHoras(string semestreSeleccionado, string anioSeleccionado, string mesSeleccionado, decimal especialidadCod)
         {
             List<MedicoDAO> medicos = new List<MedicoDAO>();
@@ -272,6 +271,161 @@ namespace ClinicaFrba
                 this.closeDB();
             }
             return especialidades;
+        }
+
+        internal List<int> getAniosProfesionalesConMenosHoras()
+        {
+            List<int> anios = new List<int>();
+
+            try
+            {
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Anios_Top_5_Profesionales_Menos_Horas", null);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        anios.Add(sqlReader.GetInt32(0));
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                anios = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return anios;
+        }
+
+        internal List<int> getAniosProfesionalesMasConsultados()
+        {
+            List<int> anios = new List<int>();
+
+            try
+            {
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Anios_Top_5_Profesionales_Mas_Consultados", null);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        anios.Add(sqlReader.GetInt32(0));
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                anios = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return anios;
+        }
+
+        internal List<int> getAniosEspecialidadesConMasCancelaciones()
+        {
+            List<int> anios = new List<int>();
+
+            try
+            {
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Anios_Top_5_Mas_Cancelaciones", null);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        anios.Add(sqlReader.GetInt32(0));
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                anios = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return anios;
+        }
+
+        internal List<int> getAniosAfiliadosConMasBonos()
+        {
+            List<int> anios = new List<int>();
+
+            try
+            {
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Anios_Top_5_Afiliados_Mas_Bonos", null);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        anios.Add(sqlReader.GetInt32(0));
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                anios = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return anios;
+        }
+
+        internal List<int> getAniosEspecialidadesConMasConsultas()
+        {
+            List<int> anios = new List<int>();
+
+            try
+            {
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Anios_Top_5_Especialidades_Mas_Bonos", null);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        anios.Add(sqlReader.GetInt32(0));
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                anios = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return anios;
         }
     }
 }
