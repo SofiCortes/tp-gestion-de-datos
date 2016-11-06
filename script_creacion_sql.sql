@@ -1085,7 +1085,31 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Get_Tipo_Cancelaciones
 GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelar_Rango_Atencion'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Cancelar_Rango_Atencion
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelar_Dia_Atencion'))
+	DROP PROCEDURE BETTER_CALL_JUAN.Cancelar_Dia_Atencion
+GO
+
 ------------------------------------------
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Cancelar_Dia_Atencion]
+(@usuario_id NUMERIC(18,0), @fecha DATETIME)
+AS
+BEGIN
+s
+END
+GO
+
+CREATE PROCEDURE [BETTER_CALL_JUAN].Cancelar_Rango_Atencion
+(@usuario_id NUMERIC(18,0), @fecha_desde DATETIME, @fecha_hasta DATETIME)
+AS
+BEGIN
+
+END
+GO
+
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Tipo_Cancelaciones]
 AS
 BEGIN
@@ -1112,7 +1136,7 @@ BEGIN
 
 	IF @fecha_turno IS NOT NULL
 		BEGIN
-			SET @QUERY_2 = ' AND T.fecha_hora = @fecha_turno'
+			SET @QUERY_2 = ' AND DATEDIFF(day, @fecha_turno, T.fecha_hora) = 0'
 		END
 
 	IF @medico_matricula > 0
@@ -1147,7 +1171,7 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Medicos_De_Turnos_Por_Usuario]
 (@usuario_id NUMERIC(18,0))
 AS
 BEGIN
-	SELECT m.matricula, m.nombre,m.apellido,m.tipo_doc,m.nro_doc,m.direccion,m.telefono,m.mail,m.fecha_nac,m.sexo, m.usuario_id
+	SELECT DISTINCT m.matricula, m.nombre,m.apellido,m.tipo_doc,m.nro_doc,m.direccion,m.telefono,m.mail,m.fecha_nac,m.sexo, m.usuario_id
 	FROM BETTER_CALL_JUAN.Medicos m
 	JOIN BETTER_CALL_JUAN.Pacientes P ON P.usuario_id = @usuario_id
 	JOIN BETTER_CALL_JUAN.Turnos T ON T.paciente_id = P.id

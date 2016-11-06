@@ -20,5 +20,12 @@ namespace ClinicaFrba
         public char sexo { get; set; }
         public decimal usuarioId { get; set; }
 
+        public string fullName 
+        {
+            get
+            {
+                return apellido + " " + nombre;
+            }
+        }
     }
 }

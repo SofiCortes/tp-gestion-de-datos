@@ -347,5 +347,63 @@ namespace ClinicaFrba
 
             return turnoCancelado;
         }
+
+        internal bool cancelarRango(DateTime fechaDesde, DateTime fechaHasta, decimal usuarioId)
+        {
+            bool rangoCancelado = true;
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("usuario_id", SqlDbType.Decimal, usuarioId);
+                ParametroParaSP parametro2 = new ParametroParaSP("fecha_desde", SqlDbType.DateTime, fechaDesde);
+                ParametroParaSP parametro3 = new ParametroParaSP("fecha_hasta", SqlDbType.Decimal, fechaHasta);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+                parametros.Add(parametro3);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Cancelar_Rango_Atencion", parametros);
+                procedure.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                rangoCancelado = false;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return rangoCancelado;
+        }
+
+        internal bool cancelarFecha(DateTime fecha, decimal usuarioId)
+        {
+            bool rangoCancelado = true;
+
+            try
+            {
+                ParametroParaSP parametro1 = new ParametroParaSP("usuario_id", SqlDbType.Decimal, usuarioId);
+                ParametroParaSP parametro2 = new ParametroParaSP("fecha", SqlDbType.DateTime, fecha);
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Cancelar_Dia_Atencion", parametros);
+                procedure.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                rangoCancelado = false;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+            return rangoCancelado;
+        }
     }
 }

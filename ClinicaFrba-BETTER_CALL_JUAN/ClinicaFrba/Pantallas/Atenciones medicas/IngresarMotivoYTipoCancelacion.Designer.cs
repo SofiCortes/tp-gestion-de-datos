@@ -47,6 +47,7 @@
             // 
             // comboBoxTipoCancelacion
             // 
+            this.comboBoxTipoCancelacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipoCancelacion.FormattingEnabled = true;
             this.comboBoxTipoCancelacion.Location = new System.Drawing.Point(16, 33);
             this.comboBoxTipoCancelacion.Name = "comboBoxTipoCancelacion";

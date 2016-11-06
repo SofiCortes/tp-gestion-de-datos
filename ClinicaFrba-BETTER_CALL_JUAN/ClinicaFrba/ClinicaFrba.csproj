@@ -411,6 +411,9 @@
     <EmbeddedResource Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.resx">
       <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\CancelarAtencionMedico.resx">
+      <DependentUpon>CancelarAtencionMedico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Atenciones medicas\IngresarMotivoYTipoCancelacion.resx">
       <DependentUpon>IngresarMotivoYTipoCancelacion.cs</DependentUpon>
     </EmbeddedResource>

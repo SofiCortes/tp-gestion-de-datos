@@ -22,7 +22,6 @@ namespace ClinicaFrba
 
             this.Shown += (s, e1) =>
             {
-                this.controller.buscarTurnos();
                 this.controller.llenarComboMedicos();
             };
         }
@@ -66,7 +65,7 @@ namespace ClinicaFrba
             medicosParaAfiliado.Insert(1, medicoTodos);
 
             this.comboBoxMedicos.DataSource = medicosParaAfiliado;
-            this.comboBoxMedicos.DisplayMember = "apellido + ', ' + nombre";
+            this.comboBoxMedicos.DisplayMember = "fullName";
         }
 
         internal void showErrorMessage(string mensaje)
