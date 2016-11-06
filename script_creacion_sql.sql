@@ -2441,26 +2441,39 @@ CREATE FUNCTION [BETTER_CALL_JUAN].[Function_Fecha_Esta_Disponible_Para_Turno]
 (@fecha DATE,@medico_id NUMERIC(18,0),@especialidad_codigo NUMERIC(18,0))
 RETURNS BIT
 BEGIN
-	DECLARE @medico_especialidad_id NUMERIC(18,0), @cantTurnosDisponibles INT, @cantTurnosOcupados INT, @cantTurnosTotales INT, @fecha_disponible BIT
+	DECLARE @fecha_disponible BIT
 
-	SELECT @medico_especialidad_id=me.id
-	FROM BETTER_CALL_JUAN.Medicos_Especialidades me
-	WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
+	IF EXISTS (SELECT am.id FROM BETTER_CALL_JUAN.Ausencias_Medicos am 
+				WHERE medico_id=@medico_id AND @fecha BETWEEN am.fecha_desde AND am.fecha_hasta)
+	BEGIN
+		SET @fecha_disponible = 0
+	END
 
-	SELECT @cantTurnosTotales = SUM(DATEDIFF(mi,r.hora_desde,r.hora_hasta))/30
-	FROM BETTER_CALL_JUAN.Rangos_Atencion r	
-	WHERE r.medico_especialidad_id=@medico_especialidad_id AND r.dia_semana=DATEPART(dw,@fecha)
-			AND (@fecha BETWEEN r.fecha_desde AND r.fecha_hasta)
+	ELSE
+	BEGIN
+		DECLARE @medico_especialidad_id NUMERIC(18,0), @cantTurnosDisponibles INT, @cantTurnosOcupados INT, 
+				@cantTurnosTotales INT
+
+		SELECT @medico_especialidad_id=me.id
+		FROM BETTER_CALL_JUAN.Medicos_Especialidades me
+		WHERE me.medico_id=@medico_id AND me.especialidad_cod=@especialidad_codigo
+
+		SELECT @cantTurnosTotales = SUM(DATEDIFF(mi,r.hora_desde,r.hora_hasta))/30
+		FROM BETTER_CALL_JUAN.Rangos_Atencion r	
+		WHERE r.medico_especialidad_id=@medico_especialidad_id AND r.dia_semana=DATEPART(dw,@fecha)
+				AND (@fecha BETWEEN r.fecha_desde AND r.fecha_hasta)
 	
-	SELECT @cantTurnosOcupados= COUNT(DISTINCT t.numero)
-	FROM BETTER_CALL_JUAN.Turnos t
-	WHERE paciente_id IS NOT NULL AND convert(date,t.fecha_hora)=@fecha AND t.medico_especialidad_id=@medico_especialidad_id
+		SELECT @cantTurnosOcupados= COUNT(DISTINCT t.numero)
+		FROM BETTER_CALL_JUAN.Turnos t
+		WHERE paciente_id IS NOT NULL AND convert(date,t.fecha_hora)=@fecha AND t.medico_especialidad_id=@medico_especialidad_id
 
-	SET @cantTurnosDisponibles=@cantTurnosTotales-@cantTurnosOcupados
+		SET @cantTurnosDisponibles=@cantTurnosTotales-@cantTurnosOcupados
 
-	SET @fecha_disponible = CASE WHEN @cantTurnosDisponibles > 0 THEN 1 --la fecha esta disponible
-								ELSE 0 --la fecha no esta disponible
-							END
+		SET @fecha_disponible = CASE WHEN @cantTurnosDisponibles > 0 THEN 1 --la fecha esta disponible
+									ELSE 0 --la fecha no esta disponible
+								END
+	END
+
 	RETURN @fecha_disponible
 END
 GO
