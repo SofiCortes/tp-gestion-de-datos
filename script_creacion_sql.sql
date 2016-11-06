@@ -555,7 +555,7 @@ WHERE (Medicos.tipo_doc + CONVERT(VARCHAR(255),Medicos.nro_doc)) = u.username
 GO
 	
 /* Tabla Rangos Horarios */
-
+/*
 CREATE TABLE #MedicosEspecialidadesTemp (
 medico_dni numeric(18,0),
 esp_codigo numeric(18,0),
@@ -763,7 +763,7 @@ GO
 	
 DROP TABLE #MedicosEspecialidadesTemp
 GO
-	
+*/	
 
 /* Tabla Tipos Cancelaciones */
 
@@ -1330,6 +1330,7 @@ BEGIN
 	FROM BETTER_CALL_JUAN.Rangos_Atencion r 
 	JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (r.medico_especialidad_id = med_esp.id)
 	WHERE med_esp.medico_id=@medico_id AND med_esp.especialidad_cod=@especialidad_codigo AND r.dia_semana=@diaSemana
+			AND (@fecha BETWEEN r.fecha_desde AND r.fecha_hasta)
 
 	DECLARE rangoCursor CURSOR FOR
 	SELECT hora_desde,hora_hasta 
@@ -2346,6 +2347,7 @@ BEGIN
 	SELECT @cantTurnosTotales = SUM(DATEDIFF(mi,r.hora_desde,r.hora_hasta))/30
 	FROM BETTER_CALL_JUAN.Rangos_Atencion r	
 	WHERE r.medico_especialidad_id=@medico_especialidad_id AND r.dia_semana=DATEPART(dw,@fecha)
+			AND (@fecha BETWEEN r.fecha_desde AND r.fecha_hasta)
 	
 	SELECT @cantTurnosOcupados= COUNT(DISTINCT t.numero)
 	FROM BETTER_CALL_JUAN.Turnos t
