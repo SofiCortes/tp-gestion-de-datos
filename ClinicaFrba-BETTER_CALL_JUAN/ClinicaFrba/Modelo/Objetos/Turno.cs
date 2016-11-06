@@ -12,9 +12,11 @@ namespace ClinicaFrba
         public DateTime fechaHora { get; set; }
         public decimal pacienteId { get; set; }
         public decimal medicoEspecialidadId { get; set; }
-        public decimal cancelacionId { get; set; }
+
+        public Paciente paciente { get; set; }
 
         public Medico medico { get; set; }
         public Especialidad especialidad { get; set; }
+
     }
 }

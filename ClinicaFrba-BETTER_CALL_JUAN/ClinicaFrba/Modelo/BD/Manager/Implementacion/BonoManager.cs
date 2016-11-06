@@ -48,5 +48,79 @@ namespace ClinicaFrba
             }
             return montoAPagar;
         }
+
+        internal List<BonoConsulta> getBonosDisponibles(decimal pacienteId)
+        {
+            List<BonoConsulta> bonos = new List<BonoConsulta>();
+
+            try
+            {
+                ParametroParaSP parametro = new ParametroParaSP("id_paciente", SqlDbType.Decimal, pacienteId);
+
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro);
+         
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Afiliado_Bonos_Disponibles", parametros);
+                SqlDataReader sqlReader = procedure.ExecuteReader();
+
+                if (sqlReader.HasRows)
+                {
+                    while (sqlReader.Read())
+                    {
+                        BonoConsulta bono = new BonoConsulta();
+                        
+                        bono.id = sqlReader.GetDecimal(0);
+                        bono.fechaCompra = sqlReader.GetDateTime(1);
+                        
+                        bonos.Add(bono);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                bonos = null;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return bonos;
+            
+        }
+
+        internal int getCantBonosAfiliado(decimal pacienteId)
+        {
+            int cantidadBonos;
+
+            try
+            {
+                ParametroParaSP parametro = new ParametroParaSP("id_paciente", SqlDbType.Decimal, pacienteId);
+
+                List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+                parametros.Add(parametro);
+
+                this.openDB();
+
+                SqlCommand procedure = this.createCallableProcedure("BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles", parametros);
+                procedure.ExecuteNonQuery();
+
+                cantidadBonos = Convert.ToInt32(procedure.Parameters["@bonos_disponibles"].Value);
+              
+            }
+            catch (Exception e)
+            {
+                cantidadBonos = -1;
+            }
+            finally
+            {
+                this.closeDB();
+            }
+
+            return cantidadBonos;
+        }
     }
 }

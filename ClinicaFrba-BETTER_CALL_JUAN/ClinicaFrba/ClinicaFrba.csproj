@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modelo\BD\Manager\AbstractManager.cs" />
+    <Compile Include="Modelo\BD\Manager\Implementacion\ConsultaManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\EspecialidadMedicaManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\PacienteManager.cs" />
     <Compile Include="Modelo\BD\Manager\Implementacion\AtencionMedicaManager.cs" />
@@ -211,6 +212,13 @@
       <DependentUpon>Modificar Rol.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\AbmRol\ModificarRolController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\Horarios Consultas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\Horarios Consultas.Designer.cs">
+      <DependentUpon>Horarios Consultas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\HorariosConsultasController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,6 +254,13 @@
       <DependentUpon>Listado Atenciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Atenciones medicas\ListadoAtencionesController.cs" />
+    <Compile Include="Pantallas\Atenciones medicas\ListadoBonos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\ListadoBonos.Designer.cs">
+      <DependentUpon>ListadoBonos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantallas\Atenciones medicas\ListadoBonosController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Listener\IngresarMotivoYTipoCancelacionListener.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Listener\IngresarSintomasYEnfermedadListener.cs" />
     <Compile Include="Pantallas\Atenciones medicas\Registrar Llegada.cs">
@@ -407,6 +422,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\AbmRol\Modificar Rol.resx">
       <DependentUpon>Modificar Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\Horarios Consultas.resx">
+      <DependentUpon>Horarios Consultas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\ListadoBonos.resx">
+      <DependentUpon>ListadoBonos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantallas\Atenciones medicas\Registrar Llegada.resx">
+      <DependentUpon>Registrar Llegada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantallas\Atenciones medicas\CancelarAtencionAfiliado.resx">
       <DependentUpon>CancelarAtencionAfiliado.cs</DependentUpon>
