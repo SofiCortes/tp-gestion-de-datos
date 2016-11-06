@@ -26,7 +26,7 @@ namespace ClinicaFrba
             dias.Add("Sabado", 6);
         }
 
-        internal void registraAgenda(Medico medicoSeleccionado, Especialidad especialidadSeleccionada, Dictionary<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horasDesde, Dictionary<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horasHasta)
+        internal void registraAgenda(Medico medicoSeleccionado, Especialidad especialidadSeleccionada, Dictionary<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horasDesde, Dictionary<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horasHasta, String fechaDesde, String fechaHasta)
         {
             this.obtenerDiasSeleccionados(horasDesde);
             ProfesionalManager pm = new ProfesionalManager();
@@ -55,7 +55,7 @@ namespace ClinicaFrba
             {
                 foreach (KeyValuePair<KeyValuePair<NumericUpDown, NumericUpDown>, KeyValuePair<NumericUpDown, NumericUpDown>> rango in rangoAtencion)
                 {
-                    pm.registrarRangoAtencion(medicoSeleccionado, especialidadSeleccionada, rango.Key, rango.Value);
+                    pm.registrarRangoAtencion(medicoSeleccionado, especialidadSeleccionada, rango.Key, rango.Value, fechaDesde, fechaHasta);
                 }
             }
             else

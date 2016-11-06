@@ -88,12 +88,14 @@ namespace ClinicaFrba
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
         {
-            
+            String fecha_desde = fechaDesde.Value.ToShortDateString();
+            String fecha_hasta = fechaHasta.Value.ToShortDateString();
+
             if (this.validarHorarios())
             {
                 try
                 {
-                    this.controller.registraAgenda(medicoSeleccionado, especialidadSeleccionada, horasDesde, horasHasta);
+                    this.controller.registraAgenda(medicoSeleccionado, especialidadSeleccionada, horasDesde, horasHasta, fecha_desde, fecha_hasta);
                     this.Close();
                 }
                 catch (Exception x)

@@ -34,11 +34,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.fechaDesde = new System.Windows.Forms.DateTimePicker();
+            this.fechaHasta = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonConfirmar
             // 
-            this.buttonConfirmar.Location = new System.Drawing.Point(172, 230);
+            this.buttonConfirmar.Location = new System.Drawing.Point(171, 275);
             this.buttonConfirmar.Name = "buttonConfirmar";
             this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
             this.buttonConfirmar.TabIndex = 0;
@@ -48,7 +52,7 @@
             // 
             // diasPanel
             // 
-            this.diasPanel.Location = new System.Drawing.Point(12, 25);
+            this.diasPanel.Location = new System.Drawing.Point(12, 74);
             this.diasPanel.Name = "diasPanel";
             this.diasPanel.Size = new System.Drawing.Size(392, 199);
             this.diasPanel.TabIndex = 1;
@@ -56,7 +60,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(101, 9);
+            this.label1.Location = new System.Drawing.Point(101, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 0;
@@ -65,7 +69,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(172, 9);
+            this.label2.Location = new System.Drawing.Point(172, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 2;
@@ -74,7 +78,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(249, 9);
+            this.label3.Location = new System.Drawing.Point(249, 59);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 3;
@@ -83,17 +87,53 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(318, 9);
+            this.label4.Location = new System.Drawing.Point(318, 59);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 4;
             this.label4.Text = "Minuto hasta";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Fecha desde:";
+            // 
+            // fechaDesde
+            // 
+            this.fechaDesde.Location = new System.Drawing.Point(90, 6);
+            this.fechaDesde.Name = "fechaDesde";
+            this.fechaDesde.Size = new System.Drawing.Size(218, 20);
+            this.fechaDesde.TabIndex = 6;
+            // 
+            // fechaHasta
+            // 
+            this.fechaHasta.Location = new System.Drawing.Point(90, 32);
+            this.fechaHasta.Name = "fechaHasta";
+            this.fechaHasta.Size = new System.Drawing.Size(218, 20);
+            this.fechaHasta.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 35);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Fecha hasta:";
+            // 
             // HorariosAgendaProfesional
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 262);
+            this.ClientSize = new System.Drawing.Size(416, 302);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.fechaHasta);
+            this.Controls.Add(this.fechaDesde);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -115,5 +155,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker fechaDesde;
+        private System.Windows.Forms.DateTimePicker fechaHasta;
+        private System.Windows.Forms.Label label6;
     }
 }

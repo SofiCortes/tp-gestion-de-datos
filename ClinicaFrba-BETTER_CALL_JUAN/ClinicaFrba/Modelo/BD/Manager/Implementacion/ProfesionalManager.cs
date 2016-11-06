@@ -297,14 +297,16 @@ namespace ClinicaFrba
             return medico;
         }
 
-        internal void registrarRangoAtencion(Medico medicoSeleccionado, Especialidad especialidadSeleccionada, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horaDesde, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horaHasta)
+        internal void registrarRangoAtencion(Medico medicoSeleccionado, Especialidad especialidadSeleccionada, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horaDesde, KeyValuePair<System.Windows.Forms.NumericUpDown, System.Windows.Forms.NumericUpDown> horaHasta, String fechaDesde, String fechaHasta)
         {
                 String hd = horaDesde.Key.Value.ToString() + ":" + horaDesde.Value.Value.ToString();
                 String hh = horaHasta.Key.Value.ToString() + ":" + horaHasta.Value.Value.ToString();
 
                 ParametroParaSP parametro4 = new ParametroParaSP("dia_semana", SqlDbType.Decimal, Decimal.Parse(horaDesde.Key.Name));
-                ParametroParaSP parametro5 = new ParametroParaSP("hora_desde", SqlDbType.VarChar, hd);
-                ParametroParaSP parametro6 = new ParametroParaSP("hora_hasta", SqlDbType.VarChar, hh);
+                ParametroParaSP parametro5 = new ParametroParaSP("hd", SqlDbType.DateTime, DateTime.Parse(hd));
+                ParametroParaSP parametro6 = new ParametroParaSP("hh", SqlDbType.DateTime, DateTime.Parse(hh));
+                ParametroParaSP parametro1 = new ParametroParaSP("fd", SqlDbType.DateTime, DateTime.Parse(fechaDesde));
+                ParametroParaSP parametro2 = new ParametroParaSP("fh", SqlDbType.DateTime, DateTime.Parse(fechaHasta));
                 ParametroParaSP parametro7 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medicoSeleccionado.matricula);
                 ParametroParaSP parametro8 = new ParametroParaSP("especialidad_id", SqlDbType.Decimal, especialidadSeleccionada.codigo);
 
@@ -312,6 +314,8 @@ namespace ClinicaFrba
                 parametros.Add(parametro4);
                 parametros.Add(parametro5);
                 parametros.Add(parametro6);
+                parametros.Add(parametro1);
+                parametros.Add(parametro2);
                 parametros.Add(parametro7);
                 parametros.Add(parametro8);
 

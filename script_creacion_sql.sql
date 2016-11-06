@@ -297,6 +297,8 @@ CREATE TABLE [BETTER_CALL_JUAN].[Rangos_Atencion] (
   [hora_desde] TIME NOT NULL,
   [hora_hasta] TIME NOT NULL,
   [medico_especialidad_id] NUMERIC(18,0),
+  [fecha_desde] DATE NOT NULL,
+  [fecha_hasta] DATE NOT NULL,
   PRIMARY KEY ([id])
 );
 GO
@@ -1056,6 +1058,7 @@ GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Crear_Rango_Horario_Medico
+GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Afiliado_Bonos_Disponibles'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Bonos_Disponibles
@@ -1085,37 +1088,11 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_J
 	DROP PROCEDURE BETTER_CALL_JUAN.Get_Tipo_Cancelaciones
 GO
 
-<<<<<<< HEAD
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelar_Rango_Atencion'))
-	DROP PROCEDURE BETTER_CALL_JUAN.Cancelar_Rango_Atencion
-GO
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Cancelar_Dia_Atencion'))
-	DROP PROCEDURE BETTER_CALL_JUAN.Cancelar_Dia_Atencion
-GO
-=======
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles'))
 	DROP PROCEDURE BETTER_CALL_JUAN.Procedure_Afiliado_Cantidad_Bonos_Disponibles
 GO
 
->>>>>>> 1e1bd8c952d2cdddf636061c3f94c2f03ec5896f
-
 ------------------------------------------
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Cancelar_Dia_Atencion]
-(@usuario_id NUMERIC(18,0), @fecha DATETIME)
-AS
-BEGIN
-s
-END
-GO
-
-CREATE PROCEDURE [BETTER_CALL_JUAN].Cancelar_Rango_Atencion
-(@usuario_id NUMERIC(18,0), @fecha_desde DATETIME, @fecha_hasta DATETIME)
-AS
-BEGIN
-
-END
-GO
 
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Tipo_Cancelaciones]
 AS
@@ -1221,12 +1198,14 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Crear_Rango_Horario_Medico] (@dia_semana NUMERIC(1,0), @hora_desde VARCHAR(255), @hora_hasta VARCHAR(255), @medico_id NUMERIC(18,0), @especialidad_id NUMERIC(18,0))
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Crear_Rango_Horario_Medico] (@dia_semana NUMERIC(1,0), @hd DATETIME, @hh DATETIME, @fd DATETIME, @fh DATETIME, @medico_id NUMERIC(18,0), @especialidad_id NUMERIC(18,0))
 AS
 BEGIN
-DECLARE @hd TIME, @hh TIME, @meid NUMERIC(18,0), @hsTrabajadas NUMERIC(18,0)
-SET @hd = CONVERT(TIME, @hora_desde)
-SET @hh = CONVERT(TIME, @hora_hasta)
+DECLARE @hora_desde TIME, @hora_hasta TIME, @meid NUMERIC(18,0), @hsTrabajadas NUMERIC(18,0), @fecha_desde DATE, @fecha_hasta DATE
+SET @hora_desde = CONVERT(TIME, @hd)
+SET @hora_hasta = CONVERT(TIME, @hh)
+SET @fecha_desde = CONVERT(DATE, @fd)
+SET @fecha_hasta = CONVERT(DATE, @fh)
 
 SET @meid = (SELECT id FROM BETTER_CALL_JUAN.Medicos_Especialidades WHERE medico_id = @medico_id AND especialidad_cod = @especialidad_id)
 
@@ -1244,15 +1223,21 @@ IF (@hsTrabajadas > 48)
 	FROM BETTER_CALL_JUAN.Rangos_Atencion ra JOIN BETTER_CALL_JUAN.Medicos_Especialidades me ON (ra.medico_especialidad_id = me.id)
 	WHERE me.medico_id = @medico_id
 	AND dia_semana = @dia_semana 
-	AND (@hora_desde BETWEEN hora_desde AND hora_hasta
-	OR @hora_hasta BETWEEN hora_desde AND hora_hasta))
+	AND ((@hora_desde BETWEEN hora_desde AND hora_hasta)
+	OR (@hora_hasta BETWEEN hora_desde AND hora_hasta)
+	OR (hora_desde BETWEEN @hora_desde AND @hora_hasta)
+	OR (hora_hasta BETWEEN @hora_desde AND @hora_hasta))
+	AND ((@fecha_desde between fecha_desde and fecha_hasta)
+	OR (@fecha_desde between fecha_desde and fecha_hasta) 
+	OR (fecha_desde between @fecha_desde and @fecha_hasta) 
+	OR (fecha_hasta between @fecha_desde and @fecha_hasta)))
 	BEGIN
 	RAISERROR('Ya tiene un rango asignado dentro del rango seleccionado',14,1)
 	END
 
 	ELSE
 	BEGIN 
-	INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion (dia_semana, hora_desde, hora_hasta, medico_especialidad_id) VALUES (@dia_semana, @hd, @hh, @meid)
+	INSERT INTO BETTER_CALL_JUAN.Rangos_Atencion (dia_semana, hora_desde, hora_hasta, medico_especialidad_id, fecha_desde, fecha_hasta) VALUES (@dia_semana, @hd, @hh, @meid, @fd, @fh)
 	END
 END
 GO
@@ -2391,4 +2376,3 @@ BEGIN
 	RETURN @bonos_disponibles
 END
 GO
-
