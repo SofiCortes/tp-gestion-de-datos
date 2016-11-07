@@ -32,7 +32,10 @@ namespace ClinicaFrba
             this.horasHasta = new Dictionary<NumericUpDown, NumericUpDown>();
             int ycoords = 0;
             int xcoords = 3;
-            
+
+            this.fechaDesde.Value = ArchivoConfig.getFechaDeHoy();
+            this.fechaHasta.Value = ArchivoConfig.getFechaDeHoy();
+                        
             CBLDias.ForEach(cbdia =>
             {
                 if (cbdia.Checked)
@@ -98,8 +101,10 @@ namespace ClinicaFrba
         {
             String fecha_desde = fechaDesde.Value.ToShortDateString();
             String fecha_hasta = fechaHasta.Value.ToShortDateString();
+            
+            DateTime hoy = ArchivoConfig.getFechaDeHoy();
 
-            if (DateTime.Parse(fecha_desde) >= DateTime.Today)
+            if (DateTime.Parse(fecha_desde) >= hoy)
             {
                 if (DateTime.Parse(fecha_desde) <= DateTime.Parse(fecha_hasta))
                 {
