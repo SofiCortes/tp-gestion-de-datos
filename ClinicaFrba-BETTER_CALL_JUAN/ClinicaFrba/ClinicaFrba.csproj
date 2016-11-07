@@ -248,13 +248,6 @@
       <DependentUpon>IngresarSintomasYEnfermedadDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Atenciones medicas\IngresarTipoYMotivoCancelacionController.cs" />
-    <Compile Include="Pantallas\Atenciones medicas\Listado Atenciones.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pantallas\Atenciones medicas\Listado Atenciones.Designer.cs">
-      <DependentUpon>Listado Atenciones.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Pantallas\Atenciones medicas\ListadoAtencionesController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\ListadoBonos.cs">
       <SubType>Form</SubType>
     </Compile>
