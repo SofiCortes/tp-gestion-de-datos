@@ -413,7 +413,7 @@ GO
 INSERT INTO BETTER_CALL_JUAN.Roles(nombre,habilitado)
 VALUES 
 --1
-('Administrador',1),
+('Administrador General',1),
 --2
 ('Afiliado',1),
 --3
