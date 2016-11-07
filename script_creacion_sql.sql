@@ -1206,21 +1206,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Turnos_Por_Usuario]
-(@usuario_id NUMERIC(18,0))
-AS
-BEGIN
-	SELECT T.numero, T.fecha_hora, T.medico_especialidad_id, T.paciente_id, M.apellido, M.nombre, E.descripcion
-	FROM BETTER_CALL_JUAN.Turnos T
-	JOIN BETTER_CALL_JUAN.Pacientes P ON P.id = T.paciente_id
-	JOIN BETTER_CALL_JUAN.Medicos_Especialidades ME ON T.medico_especialidad_id = ME.id
-	JOIN BETTER_CALL_JUAN.Especialidades E ON E.codigo = ME.especialidad_cod
-	JOIN BETTER_CALL_JUAN.Medicos M ON M.matricula = ME.medico_id
-	WHERE P.usuario_id = @usuario_id
-	ORDER BY T.fecha_hora DESC
-END
-GO
-
 CREATE PROCEDURE [BETTER_CALL_JUAN].[Get_Medicos_De_Turnos_Por_Usuario]
 (@usuario_id NUMERIC(18,0))
 AS
@@ -1510,7 +1495,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Medicos_Filtros] 
+CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Buscar_Medicos_Filtros]
 (@matricula NUMERIC(18,0),@tipo_doc VARCHAR(100), @nro_doc NUMERIC(18,0),@nombre VARCHAR(255), @apellido VARCHAR(255),@especialidad_codigo NUMERIC(18,0))
 AS
 BEGIN
@@ -2053,6 +2038,11 @@ BEGIN
 	JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) 
 	JOIN Medicos m ON (me.medico_id = m.matricula)
 	WHERE m.usuario_id = @usuario_id AND DATEDIFF(day,fecha_hora,@fecha) = 0	
+
+	INSERT INTO Ausencias_Medicos(medico_id, fecha_desde, fecha_hasta)
+	VALUES
+	((SELECT M.matricula FROM BETTER_CALL_JUAN.Medicos M WHERE M.usuario_id = @usuario_id),
+	@fecha, @fecha)
 END
 GO
 
@@ -2062,7 +2052,7 @@ BEGIN
 	INSERT INTO Cancelaciones(tipo_cancelacion_id, motivo, turno_numero)
 	SELECT @tipo, @motivo, numero
 	FROM Turnos t JOIN Medicos_Especialidades me ON (t.medico_especialidad_id = me.id) JOIN Medicos m ON (me.medico_id = m.matricula)
-	WHERE m.usuario_id = @usuario_id AND fecha_hora BETWEEN CONVERT(date,@fecha_inicio) AND CONVERT(date, @fecha_fin)	
+	WHERE m.usuario_id = @usuario_id AND fecha_hora BETWEEN CONVERT(date,@fecha_inicio) AND CONVERT(date, @fecha_fin)
 
 	INSERT INTO Ausencias_Medicos(medico_id, fecha_desde, fecha_hasta)
 	VALUES
