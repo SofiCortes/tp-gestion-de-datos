@@ -55,10 +55,17 @@ namespace ClinicaFrba
 
        private void TurnoSeleccionadoButton_Click(object sender, EventArgs e)
        {
-           Turno turno = controller.obtenerTurno(gridTurnos);
-           controller.buscarBonosAfiliado(turno);
-                            
-           this.Close();     
+           if (gridTurnos.SelectedCells.Count == 0)
+           {
+               this.showErrorMessage("Debe seleccionar un turno.");
+           }
+           else
+           {
+               Turno turno = controller.obtenerTurno(gridTurnos);
+               controller.buscarBonosAfiliado(turno);
+
+               this.Close();
+           }
        }
 
         

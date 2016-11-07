@@ -32,7 +32,10 @@ namespace ClinicaFrba
             this.horasHasta = new Dictionary<NumericUpDown, NumericUpDown>();
             int ycoords = 0;
             int xcoords = 3;
-            
+
+            this.fechaDesde.Value = ArchivoConfig.getFechaDeHoy();
+            this.fechaHasta.Value = ArchivoConfig.getFechaDeHoy();
+                        
             CBLDias.ForEach(cbdia =>
             {
                 if (cbdia.Checked)
@@ -98,26 +101,35 @@ namespace ClinicaFrba
         {
             String fecha_desde = fechaDesde.Value.ToShortDateString();
             String fecha_hasta = fechaHasta.Value.ToShortDateString();
+            
+            DateTime hoy = ArchivoConfig.getFechaDeHoy();
 
-            if (DateTime.Parse(fecha_desde) <= DateTime.Parse(fecha_hasta))
+            if (DateTime.Parse(fecha_desde) >= hoy)
             {
-
-                if (this.validarHorarios())
+                if (DateTime.Parse(fecha_desde) <= DateTime.Parse(fecha_hasta))
                 {
-                    try
+
+                    if (this.validarHorarios())
                     {
-                        this.controller.registraAgenda(medicoSeleccionado, especialidadSeleccionada, horasDesde, horasHasta, fecha_desde, fecha_hasta);
-                        this.Close();
+                        try
+                        {
+                            this.controller.registraAgenda(medicoSeleccionado, especialidadSeleccionada, horasDesde, horasHasta, fecha_desde, fecha_hasta);
+                            this.Close();
+                        }
+                        catch (Exception x)
+                        {
+                            this.showErrorMessage(x.Message);
+                        }
                     }
-                    catch (Exception x)
-                    {
-                        this.showErrorMessage(x.Message);
-                    }
+                }
+                else
+                {
+                    this.showErrorMessage("La Fecha Hasta debe ser posterior a la Fecha Desde");
                 }
             }
             else
             {
-                this.showErrorMessage("La Fecha Hasta debe ser posterior a la Fecha Desde");
+                this.showErrorMessage("La Fecha Desde no puede ser menor a la fecha de hoy");
             }
             
         }
