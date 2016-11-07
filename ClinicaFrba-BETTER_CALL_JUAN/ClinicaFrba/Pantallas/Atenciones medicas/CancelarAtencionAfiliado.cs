@@ -28,14 +28,14 @@ namespace ClinicaFrba
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
         {
-            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            DateTime hoy = ConfiguracionApp.getInstance().fechaActual;
             this.dateTimePicker.Value = hoy;
             this.comboBoxMedicos.SelectedIndex = 0;
         }
 
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
-            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            DateTime hoy = ConfiguracionApp.getInstance().fechaActual;
             DateTime fechaBuscar = this.dateTimePicker.Value;
             Medico medico = (Medico)this.comboBoxMedicos.SelectedValue;
 
