@@ -37,8 +37,8 @@ namespace ClinicaFrba
             this.afiliadosGrid.DataSource = pacientes.Select(
                 paciente => new
                 {
-                    NumeroAfiliado = paciente.nroRaiz + "-" + paciente.nroPersonal,
-                    NombreyApellido = paciente.apellido + ", " + paciente.nombre,
+                    NumeroAfiliado = Convert.ToString(paciente.nroRaiz) + "-" + (paciente.nroPersonal < 10 ? ("0" + Convert.ToString(paciente.nroPersonal)) : Convert.ToString(paciente.nroPersonal)),
+                    NombreyApellido = paciente.apellido + ", " + Convert.ToString(paciente.nombre),
                     TipoDoc = paciente.tipoDoc,
                     NroDoc = Convert.ToString(paciente.nroDoc),
                     Plan = paciente.planMedicoDescripcion
