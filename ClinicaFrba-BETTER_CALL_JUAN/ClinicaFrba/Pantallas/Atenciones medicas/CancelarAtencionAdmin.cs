@@ -23,7 +23,8 @@ namespace ClinicaFrba
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
         {
-            this.dateTimeTurno.Value = DateTime.Now;
+            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            this.dateTimeTurno.Value = hoy;
             this.textBoxApellidoMedico.Text = "";
             this.textBoxApellidoPaciente.Text = "";
             this.textBoxNombreMedico.Text = "";
@@ -32,9 +33,10 @@ namespace ClinicaFrba
 
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
+            DateTime hoy = ArchivoConfig.getFechaDeHoy();
             DateTime fechaBuscar = this.dateTimeTurno.Value;
 
-            if ((fechaBuscar - DateTime.Now).TotalDays < 1)
+            if ((fechaBuscar - hoy).TotalDays < 1)
             {
                 this.showErrorMessage("La fecha de un turno debe ser posterior a 1 dia a partir de hoy para poder cancelarlo.");
             }

@@ -122,7 +122,8 @@ namespace ClinicaFrba
             else
             {
                 DateTime fechaNacimientoSeleccionada = this.dateTimePickerFechaNac.Value;
-                if(fechaNacimientoSeleccionada.CompareTo(DateTime.Now) > 0) {
+                DateTime hoy = ArchivoConfig.getFechaDeHoy();
+                if(fechaNacimientoSeleccionada.CompareTo(hoy) > 0) {
                    stringErrorBuilder.Append("La Fecha de Nacimiento debe ser anterior al dia actual.\n");
                 }
             }
