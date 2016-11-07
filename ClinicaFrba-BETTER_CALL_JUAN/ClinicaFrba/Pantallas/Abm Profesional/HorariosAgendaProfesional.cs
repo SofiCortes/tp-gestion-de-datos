@@ -33,8 +33,8 @@ namespace ClinicaFrba
             int ycoords = 0;
             int xcoords = 3;
 
-            this.fechaDesde.Value = ArchivoConfig.getFechaDeHoy();
-            this.fechaHasta.Value = ArchivoConfig.getFechaDeHoy();
+            this.fechaDesde.Value = ConfiguracionApp.getInstance().fechaActual;
+            this.fechaHasta.Value = ConfiguracionApp.getInstance().fechaActual;
                         
             CBLDias.ForEach(cbdia =>
             {
@@ -102,7 +102,7 @@ namespace ClinicaFrba
             String fecha_desde = fechaDesde.Value.ToShortDateString();
             String fecha_hasta = fechaHasta.Value.ToShortDateString();
             
-            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            DateTime hoy = ConfiguracionApp.getInstance().fechaActual;
 
             if (DateTime.Parse(fecha_desde) >= hoy)
             {

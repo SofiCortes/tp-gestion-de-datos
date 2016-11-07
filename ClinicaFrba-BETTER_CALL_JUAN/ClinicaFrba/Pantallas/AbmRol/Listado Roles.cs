@@ -30,6 +30,7 @@ namespace ClinicaFrba
         {
             if (this.actionCode == ACTION_CODE_FOR_LIST_DELETE_ROL)
             {
+                this.Text = "Eliminar rol";
                 this.controller.llenarListadoRolesHabilitados();
             }
             else

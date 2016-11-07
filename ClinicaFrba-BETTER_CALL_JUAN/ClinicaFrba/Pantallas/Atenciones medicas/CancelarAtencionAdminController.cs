@@ -27,7 +27,7 @@ namespace ClinicaFrba
             }
             else
             {
-                this.form.showErrorMessage("Ocurrio un error al cancelar el turno");
+                this.form.showErrorMessage("Ocurrió un error al cancelar el turno");
             }
         }
 
@@ -42,7 +42,7 @@ namespace ClinicaFrba
             }
             else
             {
-                this.form.showErrorMessage("Ocurrio un error al buscar los turnos");
+                this.form.showErrorMessage("Ocurrió un error al buscar los turnos");
             }
         }
     }

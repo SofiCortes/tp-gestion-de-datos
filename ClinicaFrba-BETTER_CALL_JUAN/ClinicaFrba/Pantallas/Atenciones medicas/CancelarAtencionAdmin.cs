@@ -23,7 +23,7 @@ namespace ClinicaFrba
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
         {
-            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            DateTime hoy = ConfiguracionApp.getInstance().fechaActual;
             this.dateTimeTurno.Value = hoy;
             this.textBoxApellidoMedico.Text = "";
             this.textBoxApellidoPaciente.Text = "";
@@ -33,7 +33,7 @@ namespace ClinicaFrba
 
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
-            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            DateTime hoy = ConfiguracionApp.getInstance().fechaActual;
             DateTime fechaBuscar = this.dateTimeTurno.Value;
 
             if ((fechaBuscar - hoy).TotalDays < 1)

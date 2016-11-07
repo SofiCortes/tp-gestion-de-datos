@@ -83,6 +83,7 @@
             // textBoxPlan
             // 
             this.textBoxPlan.Location = new System.Drawing.Point(99, 26);
+            this.textBoxPlan.MaxLength = 255;
             this.textBoxPlan.Name = "textBoxPlan";
             this.textBoxPlan.Size = new System.Drawing.Size(100, 20);
             this.textBoxPlan.TabIndex = 1;
