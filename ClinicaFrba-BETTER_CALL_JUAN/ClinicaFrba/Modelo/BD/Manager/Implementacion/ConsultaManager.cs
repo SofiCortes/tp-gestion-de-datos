@@ -19,11 +19,13 @@ namespace ClinicaFrba
         {
             List<Turno> turnos = new List<Turno>();
 
+
             try
             {
+
                 ParametroParaSP parametro1 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medico.matricula);
                 ParametroParaSP parametro2 = new ParametroParaSP("especialidad_codigo", SqlDbType.Decimal, especialidad.codigo);
-                ParametroParaSP parametro3 = new ParametroParaSP("fecha", SqlDbType.DateTime, DateTime.Parse("2016-11-07")); //cambiarrr
+                ParametroParaSP parametro3 = new ParametroParaSP("fecha", SqlDbType.DateTime, ArchivoConfig.getFechaDeHoy()); 
                 
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
