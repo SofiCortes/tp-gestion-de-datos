@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using ClinicaFrba.Modelo.BD.Manager.Implementacion;
+using System.Windows.Forms;
 
 namespace ClinicaFrba
 {
@@ -113,7 +114,8 @@ namespace ClinicaFrba
             }
             catch (Exception e)
             {
-                //Algo
+                MessageBox.Show(e.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -175,7 +177,8 @@ namespace ClinicaFrba
             }
             catch (Exception e)
             {
-                //Algo
+                MessageBox.Show(e.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -230,7 +233,8 @@ namespace ClinicaFrba
             }
             catch (Exception e)
             {
-                //Algo
+                MessageBox.Show(e.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -254,7 +258,8 @@ namespace ClinicaFrba
             }
             catch (Exception e)
             {
-                //Algo
+                MessageBox.Show(e.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
