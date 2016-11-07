@@ -48,7 +48,7 @@ namespace ClinicaFrba
                 }
                 else
                 {
-                    this.form.showInformationMessage("No se pudieron encontrar anios para consultar.");
+                    this.form.showInformationMessage("No se pudieron encontrar años para consultar.");
                     this.form.Close();
                 }
             }
