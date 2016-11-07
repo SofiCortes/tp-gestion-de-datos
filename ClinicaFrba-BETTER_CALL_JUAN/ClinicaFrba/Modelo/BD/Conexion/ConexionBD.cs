@@ -11,11 +11,6 @@ namespace ClinicaFrba
 
     class ConexionBD
     {
-        private const string BD_SERVER = "localhost\\SQLSERVER2012";
-        private const string BD_NAME = "GD2C2016";
-        private const string BD_USER = "gd";
-        private const string BD_USER_PASSWORD = "gd2016";
-
         private SqlConnection connection;
 
         public void openDB()
@@ -57,11 +52,16 @@ namespace ClinicaFrba
 
         public void configureConnection()
         {
+            string bdServer = ConfiguracionApp.getInstance().bdServer;
+            string bdName = ConfiguracionApp.getInstance().bdName;
+            string bdUser = ConfiguracionApp.getInstance().bdUser;
+            string bdUserPassword = ConfiguracionApp.getInstance().bdUserPassword;
+
             connection = new SqlConnection();
-            connection.ConnectionString = "Server=" + BD_SERVER + ";" +
-            "Database=" + BD_NAME + ";" +
-            "User Id=" + BD_USER + ";" +
-            "Password=" + BD_USER_PASSWORD + ";";
+            connection.ConnectionString = "Server=" + bdServer + ";" +
+            "Database=" + bdName + ";" +
+            "User Id=" + bdUser + ";" +
+            "Password=" + bdUserPassword + ";";
         }
 
         internal SqlCommand getStoreProcedureCall(string storeProcedureName)

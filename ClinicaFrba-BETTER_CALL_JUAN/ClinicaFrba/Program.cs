@@ -16,9 +16,19 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            LoginForm loginForm = new LoginForm();
-            loginForm.Show();
-            Application.Run();
+
+            try
+            {
+                ConfiguracionApp.getInstance();
+
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
+                Application.Run();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("El archivo de configuracion es incorrecto. Por favor, complete correctamente todos los campos necesarios (Fecha y parametros de Base de Datos).", "Error");
+            }
         }
     }
 }

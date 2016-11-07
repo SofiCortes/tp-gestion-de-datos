@@ -25,7 +25,7 @@ namespace ClinicaFrba
                 ParametroParaSP parametro2 = new ParametroParaSP("cant_bonos", SqlDbType.Decimal, cantBonos);
                 ParametroParaSP parametro3 = new ParametroParaSP("plan_medico_bono_id", SqlDbType.Decimal, planCodigo);
                 ParametroParaSP parametro4 = new ParametroParaSP("monto_a_pagar", SqlDbType.Decimal);
-                ParametroParaSP parametro5 = new ParametroParaSP("fecha_hoy", SqlDbType.DateTime, ArchivoConfig.getFechaDeHoy());
+                ParametroParaSP parametro5 = new ParametroParaSP("fecha_hoy", SqlDbType.DateTime, ConfiguracionApp.getInstance().fechaActual);
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
                 parametros.Add(parametro2);

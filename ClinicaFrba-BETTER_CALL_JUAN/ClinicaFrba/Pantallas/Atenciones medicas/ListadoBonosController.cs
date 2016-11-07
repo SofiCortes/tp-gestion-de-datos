@@ -18,7 +18,7 @@ namespace ClinicaFrba
         public void registrarLlegadaConsulta(Turno turno, decimal bonoId)
         {
             ConsultaManager consultaManager = new ConsultaManager();
-            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            DateTime hoy = ConfiguracionApp.getInstance().fechaActual;
             int registroConsulta = consultaManager.registrarLlegada(turno, hoy, bonoId);
             
             if (registroConsulta > 0)

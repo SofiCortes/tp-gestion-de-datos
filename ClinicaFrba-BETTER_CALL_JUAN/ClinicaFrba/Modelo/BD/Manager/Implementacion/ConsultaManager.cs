@@ -25,7 +25,7 @@ namespace ClinicaFrba
 
                 ParametroParaSP parametro1 = new ParametroParaSP("medico_id", SqlDbType.Decimal, medico.matricula);
                 ParametroParaSP parametro2 = new ParametroParaSP("especialidad_codigo", SqlDbType.Decimal, especialidad.codigo);
-                ParametroParaSP parametro3 = new ParametroParaSP("fecha", SqlDbType.DateTime, ArchivoConfig.getFechaDeHoy()); 
+                ParametroParaSP parametro3 = new ParametroParaSP("fecha", SqlDbType.DateTime, ConfiguracionApp.getInstance().fechaActual); 
                 
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
                 parametros.Add(parametro1);
