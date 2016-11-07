@@ -2071,6 +2071,12 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Top_5_Profesionales_Mas_Consultad
 (@plan_medico_id NUMERIC(18,0), @anio INT, @mes INT, @semestre INT)
 AS 
 BEGIN
+	IF @plan_medico_id!=0 AND NOT EXISTS(SELECT codigo FROM BETTER_CALL_JUAN.Planes_Medicos WHERE codigo=@plan_medico_id)
+	BEGIN
+		RAISERROR('Ingrese un plan medico valido',10,1)
+		RETURN
+	END
+
 	DECLARE @QUERY_FINAL NVARCHAR(2000)
 	DECLARE @QUERY_0 VARCHAR(300) = 'SELECT TOP 5 med.matricula, med.nombre, med.apellido,esp.codigo,esp.descripcion, COUNT(DISTINCT cons.id) cantConsultas FROM BETTER_CALL_JUAN.Medicos med '
 	DECLARE @QUERY_1 VARCHAR(300) = ' JOIN BETTER_CALL_JUAN.Medicos_Especialidades med_esp ON (med.matricula = med_esp.medico_id)'
@@ -2321,4 +2327,24 @@ BEGIN
 
 	RETURN @bonos_disponibles
 END
+GO
+
+/** INDICES **/
+
+IF EXISTS (SELECT * FROM sys.indexes WHERE name='indexTurnosMedEspId')
+	DROP INDEX indexTurnosMedEspId ON BETTER_CALL_JUAN.Turnos
+GO
+
+IF EXISTS (SELECT * FROM sys.indexes WHERE name='indexConsultasTurnoNumero')
+	DROP INDEX indexConsultasTurnoNumero ON BETTER_CALL_JUAN.Consultas
+GO
+
+CREATE NONCLUSTERED INDEX indexTurnosMedEspId
+ON [BETTER_CALL_JUAN].[Turnos] ([medico_especialidad_id])
+INCLUDE ([numero],[fecha_hora])
+GO
+
+CREATE NONCLUSTERED INDEX indexConsultasTurnoNumero
+ON [BETTER_CALL_JUAN].[Consultas] ([turno_numero])
+INCLUDE ([id])
 GO
