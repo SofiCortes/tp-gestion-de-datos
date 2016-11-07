@@ -26,7 +26,7 @@ namespace ClinicaFrba
             }
             else
             {
-                this.form.showErrorMessage("Ocurrio un error al buscar medicos asociados a sus turnos.");
+                this.form.showErrorMessage("Ocurrió un error al buscar medicos asociados a sus turnos.");
             }
         }
 
@@ -41,7 +41,7 @@ namespace ClinicaFrba
             }
             else
             {
-                this.form.showErrorMessage("Ocurrio un error al buscar sus turnos.");
+                this.form.showErrorMessage("Ocurrió un error al buscar sus turnos.");
             }
         }
 
@@ -58,7 +58,7 @@ namespace ClinicaFrba
             }
             else
             {
-                this.form.showErrorMessage("Ocurrio un error al buscar sus turnos.");
+                this.form.showErrorMessage("Ocurrió un error al buscar sus turnos.");
             }
         }
 
@@ -77,7 +77,7 @@ namespace ClinicaFrba
             }
             else
             {
-                this.form.showErrorMessage("Ocurrio un error al cancelar turno");
+                this.form.showErrorMessage("Ocurrió un error al cancelar turno");
             }
         }
     }

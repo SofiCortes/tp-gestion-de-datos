@@ -34,12 +34,20 @@ namespace ClinicaFrba
 
         private void BonoSeleccionadoButton_Click(object sender, EventArgs e)
         {
-            DataGridViewSelectedCellCollection dataSelectedCell = gridBonos.SelectedCells;
-            DataGridViewCell dgvc = dataSelectedCell[0];
-            DataGridViewRow row = dgvc.OwningRow;
-            decimal idBono = Decimal.Parse(row.Cells[0].Value.ToString());
+            if (gridBonos.SelectedCells.Count == 0)
+            {
+                this.showErrorMessage("Debe seleccionar un bono.");
+            }
+            else
+            {
+                DataGridViewSelectedCellCollection dataSelectedCell = gridBonos.SelectedCells;
+                DataGridViewCell dgvc = dataSelectedCell[0];
+                DataGridViewRow row = dgvc.OwningRow;
+                decimal idBono = Decimal.Parse(row.Cells[0].Value.ToString());
 
-            this.controller.registrarLlegadaConsulta(turno, idBono);
+                this.controller.registrarLlegadaConsulta(turno, idBono);
+            }
+
         }
 
         internal void showErrorMessage(string mensaje)

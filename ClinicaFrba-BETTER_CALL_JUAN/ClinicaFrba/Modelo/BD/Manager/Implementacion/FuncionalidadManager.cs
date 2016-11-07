@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
 {
@@ -55,6 +56,8 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
                 RolManager rm = new RolManager();
                 rol.id = rm.obtenerRolID(rol.nombre);
                 List<ParametroParaSP> parametros = new List<ParametroParaSP>();
+
+                this.openDB();
                 SqlCommand procedure;
 
                 funcionalidadesAsignadas.ForEach(func =>
@@ -74,7 +77,8 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
             }
             catch (Exception e)
             {
-                //Algo
+                MessageBox.Show(e.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -152,7 +156,8 @@ namespace ClinicaFrba.Modelo.BD.Manager.Implementacion
             }
             catch (Exception e)
             {
-                //Algo
+                MessageBox.Show(e.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

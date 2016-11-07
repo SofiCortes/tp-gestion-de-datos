@@ -32,7 +32,7 @@ namespace ClinicaFrba
             }
             else
             {
-                this.form.showInformationMessage("No se pudieron cancelar turnos en el rango de fecha");
+                this.form.showInformationMessage("No se pudieron cancelar turnos en el rango de fecha.");
             }
         }
 
@@ -47,12 +47,12 @@ namespace ClinicaFrba
 
             if (rangoCancelado)
             {
-                this.form.showInformationMessage("Los turnos del dia seleccionado fueron cancelados correctamente.");
+                this.form.showInformationMessage("Los turnos del día seleccionado fueron cancelados correctamente.");
                 this.form.Close();
             }
             else
             {
-                this.form.showInformationMessage("No se pudieron cancelar turnos en el rango de fecha");
+                this.form.showInformationMessage("No se pudieron cancelar turnos en el rango de fecha.");
             }
         }
 

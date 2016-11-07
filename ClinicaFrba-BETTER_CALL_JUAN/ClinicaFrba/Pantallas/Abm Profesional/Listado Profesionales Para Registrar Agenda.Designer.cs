@@ -80,6 +80,7 @@
             // textBoxApellido
             // 
             this.textBoxApellido.Location = new System.Drawing.Point(327, 24);
+            this.textBoxApellido.MaxLength = 255;
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(164, 20);
             this.textBoxApellido.TabIndex = 7;
@@ -96,6 +97,7 @@
             // textBoxNombre
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(75, 24);
+            this.textBoxNombre.MaxLength = 255;
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(169, 20);
             this.textBoxNombre.TabIndex = 5;

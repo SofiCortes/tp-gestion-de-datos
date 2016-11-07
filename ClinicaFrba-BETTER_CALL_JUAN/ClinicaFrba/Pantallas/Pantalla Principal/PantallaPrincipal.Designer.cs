@@ -37,7 +37,6 @@
             this.buttonProfesionales = new System.Windows.Forms.Button();
             this.buttonAfiliados = new System.Windows.Forms.Button();
             this.buttonRoles = new System.Windows.Forms.Button();
-            this.buttonAgendaProfesionales = new System.Windows.Forms.Button();
             this.groupBoxAfiliados = new System.Windows.Forms.GroupBox();
             this.buttonEliminarAfiliado = new System.Windows.Forms.Button();
             this.buttonModificarAfiliado = new System.Windows.Forms.Button();
@@ -187,16 +186,16 @@
             this.buttonRoles.UseVisualStyleBackColor = true;
             this.buttonRoles.Click += new System.EventHandler(this.buttonRoles_Click);
             // 
-            // buttonAgendaProfesionales
+            // buttonRegistrarAgenda
             // 
-            this.buttonAgendaProfesionales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.buttonAgendaProfesionales.Location = new System.Drawing.Point(6, 117);
-            this.buttonAgendaProfesionales.Name = "buttonAgendaProfesionales";
-            this.buttonAgendaProfesionales.Size = new System.Drawing.Size(187, 35);
-            this.buttonAgendaProfesionales.TabIndex = 3;
-            this.buttonAgendaProfesionales.Text = "Agenda de Profesionales";
-            this.buttonAgendaProfesionales.UseVisualStyleBackColor = true;
-            this.buttonAgendaProfesionales.Click += new System.EventHandler(this.buttonAgendaProfesionales_Click);
+            this.buttonRegistrarAgenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.buttonRegistrarAgenda.Location = new System.Drawing.Point(6, 117);
+            this.buttonRegistrarAgenda.Name = "buttonRegistrarAgenda";
+            this.buttonRegistrarAgenda.Size = new System.Drawing.Size(187, 35);
+            this.buttonRegistrarAgenda.TabIndex = 3;
+            this.buttonRegistrarAgenda.Text = "Registrar agenda";
+            this.buttonRegistrarAgenda.UseVisualStyleBackColor = true;
+            this.buttonRegistrarAgenda.Click += new System.EventHandler(this.buttonRegistrarAgenda_Click);
             // 
             // groupBoxAfiliados
             // 
@@ -261,7 +260,6 @@
             // 
             this.groupBoxProfesionales.Controls.Add(this.buttonEspecialidadesMedicas);
             this.groupBoxProfesionales.Controls.Add(this.buttonListadoProfesionales);
-            this.groupBoxProfesionales.Controls.Add(this.buttonAgendaProfesionales);
             this.groupBoxProfesionales.Controls.Add(this.buttonRegistrarAgenda);
             this.groupBoxProfesionales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.groupBoxProfesionales.Location = new System.Drawing.Point(223, 13);
@@ -293,17 +291,6 @@
             this.buttonListadoProfesionales.Text = "Listado de Profesionales";
             this.buttonListadoProfesionales.UseVisualStyleBackColor = true;
             this.buttonListadoProfesionales.Click += new System.EventHandler(this.buttonListadoProfesionales_Click);
-            // 
-            // buttonRegistrarAgenda
-            // 
-            this.buttonRegistrarAgenda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.buttonRegistrarAgenda.Location = new System.Drawing.Point(6, 162);
-            this.buttonRegistrarAgenda.Name = "buttonRegistrarAgenda";
-            this.buttonRegistrarAgenda.Size = new System.Drawing.Size(187, 35);
-            this.buttonRegistrarAgenda.TabIndex = 2;
-            this.buttonRegistrarAgenda.Text = "Registrar Agenda";
-            this.buttonRegistrarAgenda.UseVisualStyleBackColor = true;
-            this.buttonRegistrarAgenda.Click += new System.EventHandler(this.buttonRegistrarAgenda_Click);
             // 
             // groupBoxPlanes
             // 
@@ -600,7 +587,6 @@
         private System.Windows.Forms.Button buttonAtencionMedica;
         private System.Windows.Forms.Button buttonTurnos;
         private System.Windows.Forms.Button buttonBonos;
-        private System.Windows.Forms.Button buttonAgendaProfesionales;
         private System.Windows.Forms.Button buttonProfesionales;
         private System.Windows.Forms.Button buttonAfiliados;
         private System.Windows.Forms.Button buttonRoles;

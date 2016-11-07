@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxMedicos = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
             this.buttonLimpiar = new System.Windows.Forms.Button();
             this.buttonBuscar = new System.Windows.Forms.Button();
             this.gridTurnos = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxMedicos = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridTurnos)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +52,39 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de busqueda";
+            // 
+            // comboBoxMedicos
+            // 
+            this.comboBoxMedicos.FormattingEnabled = true;
+            this.comboBoxMedicos.Location = new System.Drawing.Point(57, 54);
+            this.comboBoxMedicos.Name = "comboBoxMedicos";
+            this.comboBoxMedicos.Size = new System.Drawing.Size(162, 21);
+            this.comboBoxMedicos.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Médico";
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Location = new System.Drawing.Point(91, 19);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Fecha de turno";
             // 
             // buttonLimpiar
             // 
@@ -81,39 +114,6 @@
             this.gridTurnos.Size = new System.Drawing.Size(413, 150);
             this.gridTurnos.TabIndex = 3;
             this.gridTurnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridTurnos_CellClick);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Fecha de turno";
-            // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Location = new System.Drawing.Point(91, 19);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker.TabIndex = 5;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 57);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Medico";
-            // 
-            // comboBoxMedicos
-            // 
-            this.comboBoxMedicos.FormattingEnabled = true;
-            this.comboBoxMedicos.Location = new System.Drawing.Point(57, 54);
-            this.comboBoxMedicos.Name = "comboBoxMedicos";
-            this.comboBoxMedicos.Size = new System.Drawing.Size(162, 21);
-            this.comboBoxMedicos.TabIndex = 7;
             // 
             // CancelarAtencionAfiliado
             // 

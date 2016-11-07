@@ -62,6 +62,7 @@
     <Compile Include="Modelo\BD\Manager\Implementacion\UsuarioManager.cs" />
     <Compile Include="Modelo\BD\Utiles\StoredProcedureHelper.cs" />
     <Compile Include="Modelo\BD\Utiles\ParametroParaSP.cs" />
+    <Compile Include="Modelo\ConfiguracionApp.cs" />
     <Compile Include="Modelo\Objetos\DAO\EspecialidadDAO.cs" />
     <Compile Include="Modelo\Objetos\DAO\MedicoDAO.cs" />
     <Compile Include="Modelo\Objetos\DAO\PacienteDAO.cs" />
@@ -248,13 +249,6 @@
       <DependentUpon>IngresarSintomasYEnfermedadDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantallas\Atenciones medicas\IngresarTipoYMotivoCancelacionController.cs" />
-    <Compile Include="Pantallas\Atenciones medicas\Listado Atenciones.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pantallas\Atenciones medicas\Listado Atenciones.Designer.cs">
-      <DependentUpon>Listado Atenciones.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Pantallas\Atenciones medicas\ListadoAtencionesController.cs" />
     <Compile Include="Pantallas\Atenciones medicas\ListadoBonos.cs">
       <SubType>Form</SubType>
     </Compile>

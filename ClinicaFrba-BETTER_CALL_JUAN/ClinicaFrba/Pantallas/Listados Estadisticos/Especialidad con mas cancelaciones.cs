@@ -142,7 +142,7 @@ namespace ClinicaFrba
 
         internal void llenarComboAnios(List<string> anios)
         {
-            anios.Insert(0, "Seleccione anio");
+            anios.Insert(0, "Seleccione año");
             this.comboAnio.DataSource = anios;
         }
     }

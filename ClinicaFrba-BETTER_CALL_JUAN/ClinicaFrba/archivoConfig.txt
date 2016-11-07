@@ -1,1 +1,5 @@
 fecha_hoy=2016/11/01
+bd_server=localhost\SQLSERVER2012
+bd_name=GD2C2016
+bd_user=gd
+bd_user_password=gd2016

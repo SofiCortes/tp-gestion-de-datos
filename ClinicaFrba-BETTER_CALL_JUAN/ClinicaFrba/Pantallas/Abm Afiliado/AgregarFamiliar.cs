@@ -127,7 +127,7 @@ namespace ClinicaFrba
             }
             else
             {
-                DateTime hoy = ArchivoConfig.getFechaDeHoy();
+                DateTime hoy = ConfiguracionApp.getInstance().fechaActual;
                 DateTime fechaNacimientoSeleccionada = this.dateTimePickerFechaNac.Value;
                 if (fechaNacimientoSeleccionada.CompareTo(hoy) > 0)
                 {

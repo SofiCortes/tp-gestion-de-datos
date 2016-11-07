@@ -23,7 +23,17 @@ namespace ClinicaFrba
 
             if (turnos != null)
             {
-                this.form.llenarTablaConTurnos(turnos);
+                if (turnos.Count == 0)
+                {
+                    this.form.showErrorMessage("No se encontraron turnos para la fecha.");
+                    this.form.Close();
+                }
+                else
+                {
+                    this.form.llenarTablaConTurnos(turnos);
+                    this.form.Show();
+                }
+
             }
             else
             {

@@ -40,7 +40,7 @@ namespace ClinicaFrba
 
         private void validarCancelarRango()
         {
-            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            DateTime hoy = ConfiguracionApp.getInstance().fechaActual;
 
             DateTime fechaDesde = this.fechaDesde.Value;
             DateTime fechaHasta = this.fechaHasta.Value;
@@ -64,7 +64,7 @@ namespace ClinicaFrba
 
         private void validarCancelarDia()
         {
-            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            DateTime hoy = ConfiguracionApp.getInstance().fechaActual;
             DateTime fecha = this.fecha.Value;
             if ((fecha - hoy).TotalDays < 1)
             {

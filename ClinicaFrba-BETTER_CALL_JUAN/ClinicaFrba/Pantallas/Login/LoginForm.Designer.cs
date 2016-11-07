@@ -63,6 +63,7 @@ namespace ClinicaFrba
             // 
             this.textBoxUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.textBoxUsername.Location = new System.Drawing.Point(33, 79);
+            this.textBoxUsername.MaxLength = 255;
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(277, 21);
             this.textBoxUsername.TabIndex = 2;
@@ -71,6 +72,7 @@ namespace ClinicaFrba
             // 
             this.textBoxPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.textBoxPassword.Location = new System.Drawing.Point(33, 145);
+            this.textBoxPassword.MaxLength = 255;
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(277, 21);
