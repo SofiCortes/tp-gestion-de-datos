@@ -28,16 +28,18 @@ namespace ClinicaFrba
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
         {
-            this.dateTimePicker.Value = DateTime.Now;
+            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+            this.dateTimePicker.Value = hoy;
             this.comboBoxMedicos.SelectedIndex = 0;
         }
 
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
+            DateTime hoy = ArchivoConfig.getFechaDeHoy();
             DateTime fechaBuscar = this.dateTimePicker.Value;
             Medico medico = (Medico)this.comboBoxMedicos.SelectedValue;
 
-            if ((fechaBuscar - DateTime.Now).TotalDays < 1)
+            if ((fechaBuscar - hoy).TotalDays < 1)
             {
                 this.showErrorMessage("La fecha de un turno debe ser posterior a 1 dia a partir de hoy para poder cancelarlo.");
             }

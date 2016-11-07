@@ -40,6 +40,8 @@ namespace ClinicaFrba
 
         private void validarCancelarRango()
         {
+            DateTime hoy = ArchivoConfig.getFechaDeHoy();
+
             DateTime fechaDesde = this.fechaDesde.Value;
             DateTime fechaHasta = this.fechaHasta.Value;
 
@@ -49,7 +51,7 @@ namespace ClinicaFrba
             }
             else
             {
-                if ((fechaDesde - DateTime.Now).TotalDays < 1)
+                if ((fechaDesde - hoy).TotalDays < 1)
                 {
                     this.showErrorMessage("La fecha de cancelacion debe ser posterior a 1 dia a partir de hoy para poder cancelarlo.");
                 }
@@ -62,8 +64,9 @@ namespace ClinicaFrba
 
         private void validarCancelarDia()
         {
+            DateTime hoy = ArchivoConfig.getFechaDeHoy();
             DateTime fecha = this.fecha.Value;
-            if ((fecha - DateTime.Now).TotalDays < 1)
+            if ((fecha - hoy).TotalDays < 1)
             {
                 this.showErrorMessage("La fecha de cancelacion debe ser posterior a 1 dia a partir de hoy para poder cancelarlo.");
             }

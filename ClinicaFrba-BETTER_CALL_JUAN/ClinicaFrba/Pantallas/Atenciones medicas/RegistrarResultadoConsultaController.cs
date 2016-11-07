@@ -66,9 +66,10 @@ namespace ClinicaFrba
             DataGridViewRow row = this.form.getConsultaSeleccionada();
 
             decimal idConsulta = Decimal.Parse(row.Cells[0].Value.ToString());
+            DateTime hoy = ArchivoConfig.getFechaDeHoy();
 
             AtencionMedicaManager atencionMedicaManager = new AtencionMedicaManager();
-            bool registroConsulta = atencionMedicaManager.registrarConsulta(idConsulta, DateTime.Now, sintomas, enfermedades);
+            bool registroConsulta = atencionMedicaManager.registrarConsulta(idConsulta, hoy, sintomas, enfermedades);
 
             if (registroConsulta)
             {
