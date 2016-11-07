@@ -78,9 +78,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(244, 86);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 13);
+            this.label4.Size = new System.Drawing.Size(82, 13);
             this.label4.TabIndex = 12;
-            this.label4.Text = "Apellido medico";
+            this.label4.Text = "Apellido Médico";
             // 
             // textBoxNombreMedico
             // 
@@ -95,9 +95,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 86);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 13);
+            this.label5.Size = new System.Drawing.Size(82, 13);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Nombre medico";
+            this.label5.Text = "Nombre Médico";
             // 
             // textBoxApellidoPaciente
             // 
@@ -112,9 +112,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(244, 53);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 13);
+            this.label3.Size = new System.Drawing.Size(89, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Apellido paciente";
+            this.label3.Text = "Apellido Paciente";
             // 
             // textBoxNombrePaciente
             // 
@@ -129,9 +129,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(9, 53);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 13);
+            this.label2.Size = new System.Drawing.Size(89, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Nombre paciente";
+            this.label2.Text = "Nombre Paciente";
             // 
             // dateTimeTurno
             // 

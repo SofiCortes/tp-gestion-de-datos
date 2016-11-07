@@ -66,6 +66,7 @@ namespace ClinicaFrba
             // textBoxApellido
             // 
             this.textBoxApellido.Location = new System.Drawing.Point(344, 26);
+            this.textBoxApellido.MaxLength = 255;
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(144, 20);
             this.textBoxApellido.TabIndex = 5;
@@ -99,6 +100,7 @@ namespace ClinicaFrba
             // textBoxNombre
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(79, 26);
+            this.textBoxNombre.MaxLength = 255;
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(138, 20);
             this.textBoxNombre.TabIndex = 1;

@@ -111,6 +111,7 @@
             // textBoxDocumento
             // 
             this.textBoxDocumento.Location = new System.Drawing.Point(413, 63);
+            this.textBoxDocumento.MaxLength = 18;
             this.textBoxDocumento.Name = "textBoxDocumento";
             this.textBoxDocumento.Size = new System.Drawing.Size(140, 20);
             this.textBoxDocumento.TabIndex = 9;
@@ -128,6 +129,7 @@
             // textBoxApellido
             // 
             this.textBoxApellido.Location = new System.Drawing.Point(349, 105);
+            this.textBoxApellido.MaxLength = 255;
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(140, 20);
             this.textBoxApellido.TabIndex = 7;
@@ -144,6 +146,7 @@
             // textBoxNombre
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(90, 105);
+            this.textBoxNombre.MaxLength = 255;
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(140, 20);
             this.textBoxNombre.TabIndex = 5;
@@ -161,6 +164,7 @@
             // 
             this.textBoxMatricula.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.textBoxMatricula.Location = new System.Drawing.Point(90, 26);
+            this.textBoxMatricula.MaxLength = 18;
             this.textBoxMatricula.Name = "textBoxMatricula";
             this.textBoxMatricula.Size = new System.Drawing.Size(140, 20);
             this.textBoxMatricula.TabIndex = 1;

@@ -95,6 +95,7 @@
             // textBoxNombreNuevoRol
             // 
             this.textBoxNombreNuevoRol.Location = new System.Drawing.Point(95, 29);
+            this.textBoxNombreNuevoRol.MaxLength = 255;
             this.textBoxNombreNuevoRol.Name = "textBoxNombreNuevoRol";
             this.textBoxNombreNuevoRol.Size = new System.Drawing.Size(182, 20);
             this.textBoxNombreNuevoRol.TabIndex = 10;

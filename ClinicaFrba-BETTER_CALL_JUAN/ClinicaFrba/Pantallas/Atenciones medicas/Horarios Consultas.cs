@@ -28,9 +28,7 @@ namespace ClinicaFrba
             this.medico = medico;
             this.especialidad = especialidad;
 
-            this.controller.buscarTurnosParaFechaActual(medico, especialidad);
-
-            this.Show();
+            this.controller.buscarTurnosParaFechaActual(medico, especialidad);           
 
         }
         
