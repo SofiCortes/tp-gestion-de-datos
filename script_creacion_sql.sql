@@ -1522,7 +1522,7 @@ CREATE PROCEDURE [BETTER_CALL_JUAN].[Procedure_Alta_Usuario_Afiliado](@tipo_doc 
 AS
 BEGIN
 	INSERT INTO BETTER_CALL_JUAN.Usuarios (username,password) 
-	VALUES (@tipo_doc+cast(@nro_doc as varchar),'afiliadofrba')
+	VALUES (@tipo_doc+cast(@nro_doc as varchar),HASHBYTES('SHA2_256','afiliadofrba'))
 
 	SELECT @id=MAX(id)
 	FROM BETTER_CALL_JUAN.Usuarios
