@@ -10,7 +10,7 @@ namespace ClinicaFrba
     class ArchivoConfig
     {
         public static void cargarParametros(ConfiguracionApp configuracion) {
-            string[] lineas = File.ReadAllLines("../../archivoConfig.txt");
+            string[] lineas = File.ReadAllLines("../../../../archivoConfig.txt");
 
             if (lineas != null && lineas.Count() > 0)
             {
