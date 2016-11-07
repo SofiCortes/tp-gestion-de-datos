@@ -99,25 +99,32 @@ namespace ClinicaFrba
             String fecha_desde = fechaDesde.Value.ToShortDateString();
             String fecha_hasta = fechaHasta.Value.ToShortDateString();
 
-            if (DateTime.Parse(fecha_desde) <= DateTime.Parse(fecha_hasta))
+            if (DateTime.Parse(fecha_desde) >= DateTime.Today)
             {
-
-                if (this.validarHorarios())
+                if (DateTime.Parse(fecha_desde) <= DateTime.Parse(fecha_hasta))
                 {
-                    try
+
+                    if (this.validarHorarios())
                     {
-                        this.controller.registraAgenda(medicoSeleccionado, especialidadSeleccionada, horasDesde, horasHasta, fecha_desde, fecha_hasta);
-                        this.Close();
+                        try
+                        {
+                            this.controller.registraAgenda(medicoSeleccionado, especialidadSeleccionada, horasDesde, horasHasta, fecha_desde, fecha_hasta);
+                            this.Close();
+                        }
+                        catch (Exception x)
+                        {
+                            this.showErrorMessage(x.Message);
+                        }
                     }
-                    catch (Exception x)
-                    {
-                        this.showErrorMessage(x.Message);
-                    }
+                }
+                else
+                {
+                    this.showErrorMessage("La Fecha Hasta debe ser posterior a la Fecha Desde");
                 }
             }
             else
             {
-                this.showErrorMessage("La Fecha Hasta debe ser posterior a la Fecha Desde");
+                this.showErrorMessage("La Fecha Desde no puede ser menor a la fecha de hoy");
             }
             
         }
