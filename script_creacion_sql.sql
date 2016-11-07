@@ -115,7 +115,7 @@ GO
 CREATE TABLE [BETTER_CALL_JUAN].[Usuarios] (
   [id] NUMERIC(18,0) IDENTITY(1,1),
   [username] VARCHAR(255) UNIQUE NOT NULL,
-  [password] VARCHAR(255) NOT NULL,
+  [password] BINARY(32) NOT NULL,
   [intentos_fallidos] SMALLINT DEFAULT 0 NOT NULL,
   PRIMARY KEY ([id])
 );
